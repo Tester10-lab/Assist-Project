@@ -2,7 +2,7 @@ import React from 'react';
 import { useWebsite } from '../WebsiteContext';
 import { NAV_LINKS } from '../data';
 import type { PageId } from '../types';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export const Navbar: React.FC = () => {
   const { currentPage, setCurrentPage, isMobileMenuOpen, setMobileMenuOpen } = useWebsite();
@@ -64,43 +64,40 @@ export const Navbar: React.FC = () => {
       </header>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div 
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
-            className="fixed inset-0 z-40 bg-white pt-24 pb-8 px-6 flex flex-col md:hidden overflow-y-auto"
-          >
-            <nav className="flex flex-col gap-6 mt-8">
-              {NAV_LINKS.map(link => (
-                <button
-                  key={link.id}
-                  onClick={() => {
-                    setCurrentPage(link.id);
-                    setMobileMenuOpen(false);
-                  }}
-                  className={`text-2xl font-black text-left border-b border-slate-100 pb-4 ${
-                    currentPage === link.id ? 'text-brand-600' : 'text-slate-900'
-                  }`}
-                >
-                  {link.label}
-                </button>
-              ))}
-              <button 
+      {isMobileMenuOpen && (
+        <motion.div 
+          initial={{ opacity: 0, x: '100%' }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
+          className="fixed inset-0 z-40 bg-white pt-24 pb-8 px-6 flex flex-col md:hidden overflow-y-auto"
+        >
+          <nav className="flex flex-col gap-6 mt-8">
+            {NAV_LINKS.map(link => (
+              <button
+                key={link.id}
                 onClick={() => {
-                  setCurrentPage('contact');
+                  setCurrentPage(link.id);
                   setMobileMenuOpen(false);
                 }}
-                className="bg-accent-500 text-white px-6 py-4 rounded-xl font-bold text-lg mt-4 text-center active:scale-95 transition-transform"
+                className={`text-2xl font-black text-left border-b border-slate-100 pb-4 ${
+                  currentPage === link.id ? 'text-brand-600' : 'text-slate-900'
+                }`}
               >
-                Get a Quote
+                {link.label}
               </button>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            ))}
+            <button 
+              onClick={() => {
+                setCurrentPage('contact');
+                setMobileMenuOpen(false);
+              }}
+              className="bg-accent-500 text-white px-6 py-4 rounded-xl font-bold text-lg mt-4 text-center active:scale-95 transition-transform"
+            >
+              Get a Quote
+            </button>
+          </nav>
+        </motion.div>
+      )}
     </>
   );
 };
