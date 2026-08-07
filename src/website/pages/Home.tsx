@@ -2,6 +2,7 @@ import React from 'react';
 import { HeroImage3D } from '../components/HeroImage3D';
 import { SERVICES } from '../data';
 import { useWebsite } from '../WebsiteContext';
+import { FadeIn } from '../components/FadeIn';
 
 export const Home: React.FC = () => {
   const { setCurrentPage } = useWebsite();
@@ -13,7 +14,7 @@ export const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             
-            <div className="max-w-2xl">
+            <FadeIn delay={0.1} direction="up" className="max-w-2xl">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 border border-brand-100 text-brand-700 font-semibold text-sm mb-6 shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
                 Melbourne's Premium Roofing Contractor
@@ -56,12 +57,12 @@ export const Home: React.FC = () => {
                   <div className="text-sm font-semibold text-slate-600">Over 500+ happy clients</div>
                 </div>
               </div>
-            </div>
+            </FadeIn>
 
             {/* Realistic 3D Interactive Hero Image */}
-            <div className="h-[600px] w-full relative perspective-1000">
+            <FadeIn delay={0.3} direction="left" className="h-[600px] w-full relative perspective-1000">
               <HeroImage3D className="w-full h-full" />
-            </div>
+            </FadeIn>
 
           </div>
         </div>
@@ -71,22 +72,22 @@ export const Home: React.FC = () => {
       <section className="bg-brand-900 py-16 text-white border-y border-brand-800 shadow-inner">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-brand-700/50">
-            <div className="text-center px-4">
+            <FadeIn delay={0.1} direction="up" className="text-center px-4">
               <div className="text-4xl md:text-5xl font-black mb-2 text-white">15+</div>
               <div className="text-brand-200 font-semibold uppercase tracking-wider text-sm">Years Experience</div>
-            </div>
-            <div className="text-center px-4">
+            </FadeIn>
+            <FadeIn delay={0.2} direction="up" className="text-center px-4">
               <div className="text-4xl md:text-5xl font-black mb-2 text-white">2.5k</div>
               <div className="text-brand-200 font-semibold uppercase tracking-wider text-sm">Roofs Completed</div>
-            </div>
-            <div className="text-center px-4">
+            </FadeIn>
+            <FadeIn delay={0.3} direction="up" className="text-center px-4">
               <div className="text-4xl md:text-5xl font-black mb-2 text-white">100%</div>
               <div className="text-brand-200 font-semibold uppercase tracking-wider text-sm">Satisfaction Rate</div>
-            </div>
-            <div className="text-center px-4">
+            </FadeIn>
+            <FadeIn delay={0.4} direction="up" className="text-center px-4">
               <div className="text-4xl md:text-5xl font-black mb-2 text-white">10yr</div>
               <div className="text-brand-200 font-semibold uppercase tracking-wider text-sm">Guarantee</div>
-            </div>
+            </FadeIn>
           </div>
         </div>
       </section>
@@ -103,18 +104,20 @@ export const Home: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {SERVICES.slice(0, 3).map((service, i) => (
-              <div key={i} className="bg-slate-50 border border-slate-200 p-8 rounded-2xl hover:shadow-xl transition-all duration-300 group cursor-pointer" onClick={() => setCurrentPage('services')}>
-                <div className="w-16 h-16 rounded-xl bg-brand-100 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-brand-600 transition-all duration-300">
-                  <span className="material-symbols-outlined text-brand-600 text-3xl group-hover:text-white transition-colors">{service.icon}</span>
+              <FadeIn delay={i * 0.15} direction="up" key={i}>
+                <div className="h-full bg-slate-50 border border-slate-200 p-8 rounded-2xl hover:shadow-xl transition-all duration-300 group cursor-pointer" onClick={() => setCurrentPage('services')}>
+                  <div className="w-16 h-16 rounded-xl bg-brand-100 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-brand-600 transition-all duration-300">
+                    <span className="material-symbols-outlined text-brand-600 text-3xl group-hover:text-white transition-colors">{service.icon}</span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3">{service.title}</h3>
+                  <p className="text-slate-600 leading-relaxed mb-6">
+                    {service.description}
+                  </p>
+                  <div className="text-brand-600 font-bold uppercase tracking-wider text-sm flex items-center gap-2 group-hover:gap-4 transition-all mt-auto">
+                    Learn More <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                  </div>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">{service.title}</h3>
-                <p className="text-slate-600 leading-relaxed mb-6">
-                  {service.description}
-                </p>
-                <div className="text-brand-600 font-bold uppercase tracking-wider text-sm flex items-center gap-2 group-hover:gap-4 transition-all">
-                  Learn More <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                </div>
-              </div>
+              </FadeIn>
             ))}
           </div>
           
