@@ -23,12 +23,7 @@ export const SERVICES: ServiceItem[] = [
     description: 'Breathe new life into your aging roof with comprehensive cleaning, repairing, repointing and recoating services.',
     features: ['High-pressure cleaning', 'Re-pointing & bedding', 'Flexible coating system', 'Colour consultation'],
   },
-  {
-    icon: '💧',
-    title: 'Guttering & Fascia',
-    description: 'Expert installation and repair of gutters and fascia boards to protect your home from water damage.',
-    features: ['Colorbond gutters', 'Leaf guard systems', 'Downpipe extensions', 'Custom profiles'],
-  },
+
   {
     icon: '🛠️',
     title: 'Roof Repairs',
@@ -133,14 +128,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     description: 'Marine-grade Colorbond Ultra installation for coastal property with high-salinity corrosion protection.',
     imageUrl: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&auto=format&fit=crop',
   },
-  {
-    id: 'proj-6',
-    title: 'Guttering & Leaf Guard',
-    category: 'Guttering & Fascia',
-    location: 'Camberwell, VIC',
-    description: 'Full Colorbond gutter replacement with premium leaf guard system and custom downpipe routing.',
-    imageUrl: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&auto=format&fit=crop',
-  },
+
 ];
 
 export const TEAM_MEMBERS: TeamMember[] = [

@@ -4,7 +4,7 @@ export const Calculator: React.FC = () => {
   const [area, setArea] = useState(150);
   const [pitch, setPitch] = useState(25);
   const [material, setMaterial] = useState('colorbond');
-  const [extras, setExtras] = useState({ skylight: false, insulation: true, guttering: false });
+  const [extras, setExtras] = useState({ skylight: false, insulation: true });
 
   // Complex pricing logic estimation
   const baseRates: Record<string, number> = {
@@ -24,7 +24,6 @@ export const Calculator: React.FC = () => {
     // Extras
     if (extras.skylight) total += 1200;
     if (extras.insulation) total += (area * 15);
-    if (extras.guttering) total += (Math.sqrt(area) * 4 * 45); // rough perimeter calc
 
     return Math.round(total);
   };
@@ -120,18 +119,6 @@ export const Calculator: React.FC = () => {
                   <div>
                     <div className="font-bold text-slate-900">Roof Insulation (Sarking/Foil)</div>
                     <div className="text-sm text-slate-500">Improves thermal efficiency</div>
-                  </div>
-                </label>
-                <label className="flex items-center gap-4 p-4 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition-colors">
-                  <input 
-                    type="checkbox" 
-                    checked={extras.guttering} 
-                    onChange={e => setExtras({...extras, guttering: e.target.checked})}
-                    className="w-6 h-6 rounded border-slate-300 text-brand-600 focus:ring-brand-500"
-                  />
-                  <div>
-                    <div className="font-bold text-slate-900">Replace Guttering & Fascia</div>
-                    <div className="text-sm text-slate-500">Full perimeter replacement</div>
                   </div>
                 </label>
                 <label className="flex items-center gap-4 p-4 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition-colors">

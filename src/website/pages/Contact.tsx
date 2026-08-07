@@ -58,7 +58,6 @@ export const Contact: React.FC = () => {
                   <option value="replacement">Roof Replacement</option>
                   <option value="restoration">Roof Restoration</option>
                   <option value="repair">Roof Repair</option>
-                  <option value="guttering">Guttering & Fascia</option>
                   <option value="inspection">Free Inspection</option>
                 </select>
               </div>
