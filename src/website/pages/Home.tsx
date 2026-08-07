@@ -20,7 +20,7 @@ export const Home: React.FC = () => {
                 Melbourne's Premium Roofing Contractor
               </div>
               
-              <h1 className="text-5xl md:text-7xl font-black text-slate-900 mb-6 tracking-tight leading-[1.1] font-headline">
+              <h1 className="text-4xl md:text-5xl lg:text-7xl font-black text-slate-900 mb-6 tracking-tight leading-[1.1] font-headline">
                 Protect Your Most <br/>
                 <span className="text-brand-600">Valuable Asset.</span>
               </h1>
@@ -60,7 +60,7 @@ export const Home: React.FC = () => {
             </FadeIn>
 
             {/* Realistic 3D Interactive Hero Image */}
-            <FadeIn delay={0.3} direction="left" className="h-[600px] w-full relative perspective-1000">
+            <FadeIn delay={0.3} direction="left" className="h-[350px] md:h-[500px] lg:h-[600px] w-full relative perspective-1000">
               <HeroImage3D className="w-full h-full" />
             </FadeIn>
 
@@ -71,22 +71,22 @@ export const Home: React.FC = () => {
       {/* Stats Section */}
       <section className="bg-brand-900 py-16 text-white border-y border-brand-800 shadow-inner">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-brand-700/50">
-            <FadeIn delay={0.1} direction="up" className="text-center px-4">
-              <div className="text-4xl md:text-5xl font-black mb-2 text-white">15+</div>
-              <div className="text-brand-200 font-semibold uppercase tracking-wider text-sm">Years Experience</div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 divide-x divide-brand-700/50">
+            <FadeIn delay={0.1} direction="up" className="text-center px-2 md:px-4">
+              <div className="text-3xl md:text-4xl lg:text-5xl font-black mb-2 text-white">15+</div>
+              <div className="text-brand-200 font-semibold uppercase tracking-wider text-xs md:text-sm">Years Experience</div>
             </FadeIn>
-            <FadeIn delay={0.2} direction="up" className="text-center px-4">
-              <div className="text-4xl md:text-5xl font-black mb-2 text-white">2.5k</div>
-              <div className="text-brand-200 font-semibold uppercase tracking-wider text-sm">Roofs Completed</div>
+            <FadeIn delay={0.2} direction="up" className="text-center px-2 md:px-4">
+              <div className="text-3xl md:text-4xl lg:text-5xl font-black mb-2 text-white">2.5k</div>
+              <div className="text-brand-200 font-semibold uppercase tracking-wider text-xs md:text-sm">Roofs Completed</div>
             </FadeIn>
-            <FadeIn delay={0.3} direction="up" className="text-center px-4">
-              <div className="text-4xl md:text-5xl font-black mb-2 text-white">100%</div>
-              <div className="text-brand-200 font-semibold uppercase tracking-wider text-sm">Satisfaction Rate</div>
+            <FadeIn delay={0.3} direction="up" className="text-center px-2 md:px-4">
+              <div className="text-3xl md:text-4xl lg:text-5xl font-black mb-2 text-white">100%</div>
+              <div className="text-brand-200 font-semibold uppercase tracking-wider text-xs md:text-sm">Satisfaction Rate</div>
             </FadeIn>
-            <FadeIn delay={0.4} direction="up" className="text-center px-4">
-              <div className="text-4xl md:text-5xl font-black mb-2 text-white">10yr</div>
-              <div className="text-brand-200 font-semibold uppercase tracking-wider text-sm">Guarantee</div>
+            <FadeIn delay={0.4} direction="up" className="text-center px-2 md:px-4">
+              <div className="text-3xl md:text-4xl lg:text-5xl font-black mb-2 text-white">10yr</div>
+              <div className="text-brand-200 font-semibold uppercase tracking-wider text-xs md:text-sm">Guarantee</div>
             </FadeIn>
           </div>
         </div>

@@ -23,12 +23,12 @@ export const Gallery: React.FC = () => {
         </div>
 
         {/* Filters */}
-        <div className="flex flex-wrap justify-center gap-3 mb-16">
+        <div className="flex overflow-x-auto md:flex-wrap justify-start md:justify-center gap-3 mb-16 pb-4 scrollbar-hide -mx-6 px-6 md:mx-0 md:px-0">
           {categories.map(cat => (
             <button
               key={cat}
               onClick={() => setFilter(cat)}
-              className={`px-6 py-2.5 rounded-full text-sm font-bold transition-all shadow-sm ${
+              className={`whitespace-nowrap flex-shrink-0 px-6 py-2.5 rounded-full text-sm font-bold transition-all shadow-sm ${
                 filter === cat 
                   ? 'bg-brand-600 text-white border border-brand-600' 
                   : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'

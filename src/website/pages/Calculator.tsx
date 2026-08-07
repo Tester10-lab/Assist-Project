@@ -83,7 +83,7 @@ export const Calculator: React.FC = () => {
             {/* Material */}
             <div>
               <label className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4 block">Material Selection</label>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                 {[
                   { id: 'colorbond', name: 'Colorbond' },
                   { id: 'concrete', name: 'Concrete Tiles' },
