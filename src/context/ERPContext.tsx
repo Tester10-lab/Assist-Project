@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { 
   PerspectiveMode, 
   Lead, 
@@ -14,7 +14,9 @@ import {
   StageId,
   KanbanColumnId,
   TimeEntry,
-  ExpenseItem
+  ExpenseItem,
+  AuthUser,
+  ModuleKey
 } from '../types/erp';
 
 const initialLeads: Lead[] = [
@@ -200,8 +202,10 @@ const initialExpenses: ExpenseItem[] = [
 interface ERPContextType {
   mode: PerspectiveMode;
   setMode: (mode: PerspectiveMode) => void;
-  activeModule: string;
-  setActiveModule: (module: string) => void;
+  activeModule: ModuleKey;
+  setActiveModule: (module: ModuleKey) => void;
+  authUser: AuthUser | null;
+  logout: () => void;
   leads: Lead[];
   inventory: InventoryItem[];
   suppliers: Supplier[];
@@ -232,7 +236,38 @@ const ERPContext = createContext<ERPContextType | undefined>(undefined);
 
 export const ERPProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [mode, setMode] = useState<PerspectiveMode>('nepal');
-  const [activeModule, setActiveModule] = useState<string>('dashboard');
+  const [activeModule, setActiveModule] = useState<ModuleKey>('dashboard');
+  const [authUser, setAuthUser] = useState<AuthUser | null>(() => {
+    const token = localStorage.getItem('authToken');
+    const role = localStorage.getItem('userRole') as any;
+    if (token && role) {
+      return { id: '1', name: localStorage.getItem('userName') || 'System Admin', role: role, email: 'admin@assist.com' };
+    }
+    return null;
+  });
+
+  useEffect(() => {
+    const handleAuthChange = () => {
+      const token = localStorage.getItem('authToken');
+      const role = localStorage.getItem('userRole') as any;
+      if (token && role) {
+        setAuthUser({ id: '1', name: localStorage.getItem('userName') || 'System Admin', role: role, email: 'admin@assist.com' });
+      } else {
+        setAuthUser(null);
+      }
+    };
+    window.addEventListener('auth-change', handleAuthChange);
+    return () => window.removeEventListener('auth-change', handleAuthChange);
+  }, []);
+
+  const logout = () => {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('userName');
+    setAuthUser(null);
+    setActiveModule('dashboard');
+    window.dispatchEvent(new Event('auth-change'));
+  };
   const [leads, setLeads] = useState<Lead[]>(initialLeads);
   const [inventory, setInventory] = useState<InventoryItem[]>(initialInventory);
   const [suppliers] = useState<Supplier[]>(initialSuppliers);
@@ -477,6 +512,8 @@ export const ERPProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setMode,
       activeModule,
       setActiveModule,
+      authUser,
+      logout,
       leads,
       inventory,
       suppliers,

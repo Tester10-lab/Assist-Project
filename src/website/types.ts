@@ -5,7 +5,8 @@ export type PageId =
   | 'calculator' 
   | 'gallery' 
   | 'testimonials' 
-  | 'contact';
+  | 'contact'
+  | 'login';
 
 export interface NavLink {
   id: PageId;

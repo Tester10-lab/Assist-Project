@@ -22,10 +22,12 @@ import {
   PieChart
 } from 'lucide-react';
 
+import { ModuleKey } from '../../types/erp';
+
 interface NavGroup {
   category: string;
   items: {
-    id: string;
+    id: ModuleKey;
     label: string;
     icon: React.ElementType;
     badge?: string;

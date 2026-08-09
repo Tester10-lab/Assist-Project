@@ -45,6 +45,13 @@ export const Navbar: React.FC = () => {
               <div className="text-lg font-black text-brand-900">1800 ASSIST</div>
             </div>
             <button 
+              onClick={() => setCurrentPage('login')}
+              className="text-slate-600 hover:text-brand-900 font-bold text-sm uppercase tracking-wider px-2 transition-colors flex items-center gap-2"
+            >
+              <span className="material-symbols-outlined text-lg">login</span>
+              Log In
+            </button>
+            <button 
               onClick={() => setCurrentPage('contact')}
               className="bg-accent-500 text-white px-6 py-3 rounded-md font-bold text-sm hover:bg-accent-600 transition-all active:scale-95 shadow-md shadow-accent-500/20"
             >
@@ -86,6 +93,16 @@ export const Navbar: React.FC = () => {
                 {link.label}
               </button>
             ))}
+            <button 
+              onClick={() => {
+                setCurrentPage('login');
+                setMobileMenuOpen(false);
+              }}
+              className="text-2xl font-black text-left border-b border-slate-100 pb-4 text-slate-900 flex items-center gap-3"
+            >
+              <span className="material-symbols-outlined">login</span>
+              Log In
+            </button>
             <button 
               onClick={() => {
                 setCurrentPage('contact');

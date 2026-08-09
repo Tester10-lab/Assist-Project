@@ -11,7 +11,8 @@ import {
   PlusCircle,
   X,
   CreditCard,
-  MessageSquare
+  MessageSquare,
+  LogOut
 } from 'lucide-react';
 
 export const Header: React.FC = () => {
@@ -21,7 +22,9 @@ export const Header: React.FC = () => {
     notifications, 
     markNotificationRead, 
     clearAllNotifications,
-    addLead
+    addLead,
+    authUser,
+    logout
   } = useERP();
 
   const [showNotifications, setShowNotifications] = useState(false);
@@ -164,19 +167,28 @@ export const Header: React.FC = () => {
         </div>
 
         {/* User Context Card */}
-        <div className="flex items-center space-x-2.5 pl-2 border-l border-slate-200">
-          <div className="w-8 h-8 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-800 font-black text-xs">
-            ADM
+        <div className="flex items-center space-x-2.5 pl-4 border-l border-slate-200">
+          <div className="w-8 h-8 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-800 font-black text-xs uppercase">
+            {authUser?.name.substring(0, 3) || 'ADM'}
           </div>
           <div className="hidden lg:block text-left">
             <div className="text-xs font-bold text-slate-900 leading-tight">
-              System Admin
+              {authUser?.name || 'System Admin'}
             </div>
-            <div className="text-[10px] text-emerald-600 font-semibold flex items-center gap-1">
-              <CheckCircle2 className="w-3 h-3 inline" /> Active
+            <div className="text-[10px] text-emerald-600 font-semibold flex items-center gap-1 capitalize">
+              <CheckCircle2 className="w-3 h-3 inline" /> {authUser?.role || 'Admin'}
             </div>
           </div>
         </div>
+
+        {/* Logout Button */}
+        <button
+          onClick={logout}
+          className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors ml-2"
+          title="Log Out"
+        >
+          <LogOut className="w-4 h-4" />
+        </button>
       </div>
 
       {/* New Lead Modal */}

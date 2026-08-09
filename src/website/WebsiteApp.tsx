@@ -9,7 +9,7 @@ import { Calculator } from './pages/Calculator';
 import { Gallery } from './pages/Gallery';
 import { Testimonials } from './pages/Testimonials';
 import { Contact } from './pages/Contact';
-
+import { Login } from './pages/Login';
 const PageContent: React.FC = () => {
   const { currentPage } = useWebsite();
 
@@ -30,6 +30,7 @@ const PageContent: React.FC = () => {
           case 'gallery': return <Gallery />;
           case 'testimonials': return <Testimonials />;
           case 'contact': return <Contact />;
+          case 'login': return <Login />;
           default: return <Home />;
         }
       })()}

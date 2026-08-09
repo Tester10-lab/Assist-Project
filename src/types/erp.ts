@@ -280,3 +280,12 @@ export interface AuditLog {
   details: string;
   ipAddress: string;
 }
+
+export interface AuthUser {
+  id: string;
+  name: string;
+  role: 'admin' | 'sales' | 'technician';
+  email: string;
+}
+
+export type ModuleKey = 'dashboard' | 'analytics' | 'crm_pipeline' | 'kanban' | 'inspections' | 'quote_builder' | 'instaquote_portal' | 'contracts' | 'payments_feedback' | 'business_calculators' | 'employee_hub' | 'job_costing' | 'crew_management' | 'inventory' | 'warranties' | 'maintenance' | 'notifications' | 'audit_logs' | 'settings';
