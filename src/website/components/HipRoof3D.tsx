@@ -200,7 +200,7 @@ export const HipRoof3D: React.FC<{ className?: string }> = ({ className = '' }) 
       ior: 1.5,
     });
 
-    const V = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z);
+    const V = (x = 0, y = 0, z = 0) => new THREE.Vector3(x, y, z);
     const eps = 0.001;
 
     function beam(s: [number, number, number], e: [number, number, number], w = 0.05, d = 0.16, mat = mW) {
@@ -221,7 +221,14 @@ export const HipRoof3D: React.FC<{ className?: string }> = ({ className = '' }) 
     function quadSrf(a: [number, number, number], b: [number, number, number], c: [number, number, number], d: [number, number, number], mat: THREE.Material, dy = 0) {
       const va = V(...a), vb = V(...b), vc = V(...c), vd = V(...d);
       va.y += dy; vb.y += dy; vc.y += dy; vd.y += dy;
-      const pos = new Float32Array([...va.toArray(), ...vb.toArray(), ...vc.toArray(), ...va.toArray(), ...vc.toArray(), ...vd.toArray()]);
+      const pos = new Float32Array([
+        va.x, va.y, va.z, 
+        vb.x, vb.y, vb.z, 
+        vc.x, vc.y, vc.z, 
+        va.x, va.y, va.z, 
+        vc.x, vc.y, vc.z, 
+        vd.x, vd.y, vd.z
+      ]);
       const g = new THREE.BufferGeometry();
       g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
       g.computeVertexNormals();

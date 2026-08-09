@@ -18,6 +18,7 @@ export interface ServiceItem {
   title: string;
   description: string;
   features: string[];
+  imageUrl?: string;
 }
 
 export interface TestimonialItem {
@@ -27,6 +28,7 @@ export interface TestimonialItem {
   comment: string;
   project: string;
   avatar: string;
+  imageUrl?: string;
 }
 
 export interface GalleryProject {
