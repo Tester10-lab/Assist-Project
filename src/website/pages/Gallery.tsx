@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { GALLERY_PROJECTS } from '../data';
 import { useWebsite } from '../WebsiteContext';
+import { FadeIn } from '../components/FadeIn';
 
 export const Gallery: React.FC = () => {
   const [filter, setFilter] = useState('All');
@@ -13,70 +14,141 @@ export const Gallery: React.FC = () => {
     : GALLERY_PROJECTS.filter(p => p.category === filter);
 
   return (
-    <div className="flex-1 w-full pt-32 pb-24 bg-slate-50 min-h-screen">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight font-headline">Our Recent Work</h1>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Browse our portfolio of completed roofing projects across Melbourne. Seeing is believing when it comes to quality craftsmanship.
-          </p>
-        </div>
-
-        {/* Filters */}
-        <div className="flex overflow-x-auto md:flex-wrap justify-start md:justify-center gap-3 mb-16 pb-4 scrollbar-hide -mx-6 px-6 md:mx-0 md:px-0">
-          {categories.map(cat => (
-            <button
-              key={cat}
-              onClick={() => setFilter(cat)}
-              className={`whitespace-nowrap flex-shrink-0 px-6 py-2.5 rounded-full text-sm font-bold transition-all shadow-sm ${
-                filter === cat 
-                  ? 'bg-brand-600 text-white border border-brand-600' 
-                  : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
-              }`}
+    <div className="flex-1 w-full bg-paper-white min-h-screen">
+      {/* Header */}
+      <section className="py-16">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-10">
+          <FadeIn direction="up">
+            <h1 
+              className="mb-4"
+              style={{
+                fontFamily: 'var(--font-athletics)',
+                fontSize: 'clamp(36px, 4vw, 56px)',
+                fontWeight: 500,
+                lineHeight: 1.05,
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+                color: '#000000',
+              }}
             >
-              {cat}
-            </button>
-          ))}
+              OUR REAL WORK GALLERY ({GALLERY_PROJECTS.length} PROJECTS)
+            </h1>
+            <p 
+              className="max-w-2xl text-slate-600"
+              style={{
+                fontFamily: 'var(--font-manrope)',
+                fontSize: '16px',
+                lineHeight: 1.5,
+                letterSpacing: '0.01em',
+              }}
+            >
+              Browse our full portfolio of authentic roof replacements, restorations, and repairs completed across Melbourne.
+            </p>
+          </FadeIn>
         </div>
+      </section>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map(project => (
-            <div key={project.id} className="group rounded-3xl overflow-hidden bg-white border border-slate-200 flex flex-col h-full shadow-sm hover:shadow-xl transition-all duration-300">
-              <div className="aspect-[4/3] overflow-hidden relative">
-                <img 
-                  src={project.imageUrl} 
-                  alt={project.title} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-brand-700 text-xs font-bold px-4 py-1.5 rounded-full border border-slate-200 shadow-sm">
-                  {project.category}
-                </div>
-              </div>
-              <div className="p-8 flex-1 flex flex-col">
-                <div className="flex items-center gap-2 text-slate-500 text-xs font-bold mb-3 tracking-wider uppercase">
-                  <span className="material-symbols-outlined text-sm">location_on</span> {project.location}
-                </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">{project.title}</h3>
-                <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-1">
-                  {project.description}
-                </p>
-              </div>
-            </div>
-          ))}
+      {/* Category Filter Pills */}
+      <section className="pb-8">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-10">
+          <div className="flex flex-wrap gap-2.5">
+            {categories.map(cat => (
+              <button
+                key={cat}
+                onClick={() => setFilter(cat)}
+                className={filter === cat ? 'btn-pill text-xs py-2 px-5' : 'btn-pill-ghost text-xs py-2 px-5'}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </div>
+      </section>
 
-        {/* CTA */}
-        <div className="mt-20 text-center bg-brand-50 p-12 rounded-3xl border border-brand-100">
-          <p className="text-brand-900 mb-6 font-bold text-xl font-headline">Like what you see? Let's discuss your roofing project.</p>
+      {/* Gallery Grid — Featuring All 19 Real Images */}
+      <section className="pb-20">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredProjects.map((project, i) => (
+              <FadeIn delay={(i % 6) * 0.08} direction="up" key={project.id}>
+                <div 
+                  className="flex flex-col h-full overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                  style={{ borderRadius: '8px', backgroundColor: '#ffffff', border: '1px solid #e2e8f0' }}
+                >
+                  {/* Real Photo Header */}
+                  <div className="w-full h-56 overflow-hidden relative">
+                    <img 
+                      src={project.imageUrl} 
+                      alt={project.title} 
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    />
+                    <div 
+                      className="absolute top-3 left-3 px-3 py-1 bg-black/80 text-white rounded text-[11px] uppercase font-bold tracking-wider"
+                      style={{ fontFamily: 'var(--font-athletics)' }}
+                    >
+                      {project.category}
+                    </div>
+                  </div>
+
+                  {/* Card Info */}
+                  <div className="p-5 flex-1 flex flex-col justify-between">
+                    <div>
+                      <div className="text-xs text-slate-500 font-medium mb-1">
+                        {project.location}
+                      </div>
+                      <h3 
+                        className="mb-2 font-semibold"
+                        style={{
+                          fontFamily: 'var(--font-manrope)',
+                          fontSize: '17px',
+                          color: '#000000',
+                          lineHeight: 1.3,
+                        }}
+                      >
+                        {project.title}
+                      </h3>
+                      <p 
+                        className="mb-4 text-slate-600 text-sm"
+                        style={{
+                          fontFamily: 'var(--font-manrope)',
+                          lineHeight: 1.4,
+                        }}
+                      >
+                        {project.description}
+                      </p>
+                    </div>
+
+                    <button 
+                      onClick={() => setCurrentPage('contact')}
+                      className="btn-pill-ghost text-xs py-2 px-4 self-start"
+                    >
+                      Inquire About This Roof
+                    </button>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Bottom CTA */}
+      <section className="py-16 bg-slate-50 border-t border-slate-200">
+        <div className="max-w-[1280px] mx-auto px-6 text-center">
+          <p 
+            className="mb-6 font-medium text-xl"
+            style={{ fontFamily: 'var(--font-manrope)' }}
+          >
+            Want a roof transformation like these for your home?
+          </p>
           <button 
             onClick={() => setCurrentPage('contact')}
-            className="bg-brand-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-brand-700 transition-all active:scale-95 shadow-md shadow-brand-600/20"
+            className="btn-pill py-3.5 px-8"
           >
-            Request a Quote
+            Get an Instant Quote
           </button>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

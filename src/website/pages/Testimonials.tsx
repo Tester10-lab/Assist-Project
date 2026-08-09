@@ -1,67 +1,150 @@
 import React from 'react';
 import { TESTIMONIALS } from '../data';
 import { useWebsite } from '../WebsiteContext';
+import { FadeIn } from '../components/FadeIn';
 
 export const Testimonials: React.FC = () => {
   const { setCurrentPage } = useWebsite();
 
   return (
-    <div className="flex-1 w-full pt-32 pb-24 bg-slate-50 min-h-screen relative overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand-100/50 via-slate-50 to-slate-50 pointer-events-none" />
-      
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight font-headline">Client Testimonials</h1>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Don't just take our word for it. Read what our satisfied customers across Melbourne have to say about their experience with ASSIST Roofing.
+    <div className="flex-1 w-full bg-paper-white min-h-screen">
+      {/* Header */}
+      <section className="py-16">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-10">
+          <FadeIn direction="up">
+            <h1 
+              className="mb-4"
+              style={{
+                fontFamily: 'var(--font-athletics)',
+                fontSize: 'clamp(36px, 4vw, 56px)',
+                fontWeight: 500,
+                lineHeight: 1.05,
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+                color: '#000000',
+              }}
+            >
+              CLIENT TESTIMONIALS & REVIEWS
+            </h1>
+            <p 
+              className="max-w-2xl text-slate-600"
+              style={{
+                fontFamily: 'var(--font-manrope)',
+                fontSize: '16px',
+                lineHeight: 1.5,
+                letterSpacing: '0.01em',
+              }}
+            >
+              Read what homeowners across Melbourne say about our high quality roof replacements and restorations.
+            </p>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* Testimonials Grid */}
+      <section className="pb-16">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {TESTIMONIALS.map((review, i) => (
+              <FadeIn delay={i * 0.1} direction="up" key={i}>
+                <div 
+                  className="p-6 flex flex-col justify-between h-full bg-white border border-slate-200 rounded-lg shadow-sm"
+                >
+                  <div>
+                    {/* Stars */}
+                    <div className="flex gap-1 mb-4">
+                      {[...Array(5)].map((_, j) => (
+                        <span 
+                          key={j} 
+                          style={{ 
+                            fontSize: '18px', 
+                            color: j < review.rating ? '#ff6a51' : '#eaf9f2' 
+                          }}
+                        >
+                          ★
+                        </span>
+                      ))}
+                    </div>
+
+                    <p 
+                      className="mb-6 text-slate-700 italic text-sm leading-relaxed"
+                      style={{ fontFamily: 'var(--font-manrope)' }}
+                    >
+                      "{review.comment}"
+                    </p>
+                  </div>
+
+                  <div>
+                    {/* Real roof thumbnail context */}
+                    {review.imageUrl && (
+                      <div className="w-full h-28 rounded overflow-hidden mb-4 border border-slate-100">
+                        <img src={review.imageUrl} alt={review.project} className="w-full h-full object-cover" />
+                      </div>
+                    )}
+
+                    <div className="flex items-center gap-3">
+                      <div 
+                        className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
+                        style={{ backgroundColor: '#4c92e9' }}
+                      >
+                        <span 
+                          className="text-white text-xs font-bold"
+                          style={{ fontFamily: 'var(--font-athletics)' }}
+                        >
+                          {review.avatar}
+                        </span>
+                      </div>
+                      <div>
+                        <div className="text-sm font-semibold text-black" style={{ fontFamily: 'var(--font-manrope)' }}>
+                          {review.name}
+                        </div>
+                        <div className="text-xs text-slate-500">
+                          {review.location}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 pt-3 border-t border-slate-100 text-xs font-medium text-cooperative-green uppercase tracking-wider">
+                      {review.project}
+                    </div>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section 
+        className="py-16"
+        style={{ backgroundColor: '#44d991' }}
+      >
+        <div className="max-w-[1280px] mx-auto px-6 text-center">
+          <div 
+            className="mb-3"
+            style={{
+              fontFamily: 'var(--font-athletics)',
+              fontSize: '42px',
+              fontWeight: 500,
+              letterSpacing: '0.04em',
+              lineHeight: 1,
+              color: '#000000',
+            }}
+          >
+            5.0 <span style={{ color: '#ff6a51' }}>★★★★★</span>
+          </div>
+          <p className="mb-6 max-w-lg mx-auto text-black/80 text-sm font-medium">
+            Based on over 500+ verified roof replacements and restorations across Melbourne.
           </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {TESTIMONIALS.map((review, i) => (
-            <div key={i} className="bg-white p-8 rounded-3xl border border-slate-200 relative group hover:shadow-xl transition-all duration-300">
-              <div className="absolute -top-5 -right-2 text-8xl text-brand-500/10 font-serif group-hover:text-brand-500/20 transition-colors leading-none">"</div>
-              
-              <div className="flex gap-1 mb-6">
-                {[...Array(5)].map((_, j) => (
-                  <span key={j} className={`text-xl ${j < review.rating ? 'text-accent-500' : 'text-slate-200'}`}>
-                    ★
-                  </span>
-                ))}
-              </div>
-              
-              <p className="text-slate-600 mb-8 leading-relaxed italic relative z-10">
-                "{review.comment}"
-              </p>
-              
-              <div className="flex items-center gap-4 mt-auto">
-                <div className="w-12 h-12 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center font-bold border border-brand-100">
-                  {review.avatar}
-                </div>
-                <div>
-                  <div className="text-slate-900 font-bold">{review.name}</div>
-                  <div className="text-slate-500 text-xs font-bold uppercase tracking-wider">{review.location}</div>
-                </div>
-              </div>
-              <div className="mt-6 pt-4 border-t border-slate-100 text-xs font-bold text-brand-600">
-                Project: {review.project}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-20 text-center bg-white p-12 rounded-3xl border border-slate-200 shadow-sm relative overflow-hidden">
-          <div className="text-4xl font-black text-slate-900 mb-4 font-headline">5.0 <span className="text-accent-500 text-3xl">★★★★★</span></div>
-          <p className="text-slate-600 mb-8 max-w-lg mx-auto">Based on over 150 verified reviews from Melbourne homeowners.</p>
           <button 
             onClick={() => setCurrentPage('contact')}
-            className="bg-brand-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-brand-700 transition-all active:scale-95 shadow-md shadow-brand-600/20"
+            className="btn-pill py-3.5 px-8"
           >
             Experience the Difference
           </button>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Lock, Mail, ArrowRight, ShieldCheck } from 'lucide-react';
 import { useWebsite } from '../WebsiteContext';
 
 export const Login: React.FC = () => {
@@ -8,7 +7,6 @@ export const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -22,7 +20,6 @@ export const Login: React.FC = () => {
 
     setIsSubmitting(true);
 
-    // Simulate login API call
     setTimeout(() => {
       try {
         setIsSubmitting(false);
@@ -41,124 +38,226 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6 mt-24">
-      <div className="max-w-5xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row border border-slate-100">
+    <div className="min-h-screen bg-paper-white flex items-center justify-center p-6">
+      <div 
+        className="max-w-5xl w-full overflow-hidden flex flex-col md:flex-row shadow-xl border border-slate-200"
+        style={{ borderRadius: '8px' }}
+      >
         
-        {/* Left Side - Image & Brand */}
-        <div className="md:w-5/12 bg-brand-900 text-white p-12 flex flex-col relative overflow-hidden">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-900/90 to-brand-900/40"></div>
-          
-          <div className="relative z-10 flex flex-col h-full">
-            <div className="flex items-center gap-3 mb-12 cursor-pointer" onClick={() => setCurrentPage('home')}>
-              <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-lg">
-                <span className="material-symbols-outlined text-brand-900 text-xl font-bold">roofing</span>
-              </div>
-              <div>
-                <div className="text-2xl font-black text-white tracking-tight font-headline">ASSIST</div>
-                <div className="text-[10px] font-bold text-accent-400 tracking-[0.2em] uppercase">Roofing</div>
-              </div>
+        {/* Left Side — Solid Cooperative Green panel */}
+        <div 
+          className="md:w-5/12 p-10 flex flex-col justify-between relative"
+          style={{ backgroundColor: '#44d991', minHeight: '480px' }}
+        >
+          {/* Logo */}
+          <div 
+            className="flex items-center gap-3 cursor-pointer"
+            onClick={() => setCurrentPage('home')}
+          >
+            <div 
+              className="w-10 h-10 bg-ink-black flex items-center justify-center rounded"
+            >
+              <span className="material-symbols-outlined text-paper-white text-xl font-bold">roofing</span>
             </div>
-
-            <div className="mt-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                <h2 className="text-3xl font-black mb-4">Welcome Back.</h2>
-                <p className="text-brand-100 text-sm leading-relaxed mb-8">
-                  Access your customer portal to view quotes, track project progress, and manage your invoices securely.
-                </p>
-                <div className="flex items-center gap-3 text-sm font-bold text-accent-400">
-                  <ShieldCheck className="w-5 h-5" />
-                  <span>Secure 256-bit Encryption</span>
-                </div>
-              </motion.div>
+            <div 
+              style={{
+                fontFamily: 'var(--font-athletics)',
+                fontSize: '20px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.04em',
+                color: '#000000',
+              }}
+            >
+              ASSIST
             </div>
           </div>
+
+          {/* Real Roof Image card in left panel */}
+          <div className="my-6 rounded overflow-hidden border border-black/10 shadow-sm h-40">
+            <img src="/images/roofs/roof4.jpg" alt="ASSIST Roof" className="w-full h-full object-cover" />
+          </div>
+
+          {/* Welcome text */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            <h2 
+              className="mb-2"
+              style={{
+                fontFamily: 'var(--font-athletics)',
+                fontSize: '32px',
+                fontWeight: 500,
+                lineHeight: 1.1,
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+                color: '#000000',
+              }}
+            >
+              WELCOME BACK.
+            </h2>
+            <p 
+              className="mb-4 text-xs text-black/80"
+              style={{
+                fontFamily: 'var(--font-manrope)',
+                lineHeight: 1.4,
+              }}
+            >
+              Access your client portal to track project milestones, view quotes, and manage your roof warranty details.
+            </p>
+            <div className="flex items-center gap-2">
+              <span className="material-symbols-outlined text-ink-black text-base">verified_user</span>
+              <span 
+                style={{
+                  fontFamily: 'var(--font-athletics)',
+                  fontSize: '11px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.04em',
+                  color: '#000000',
+                }}
+              >
+                Secure 256-bit Encryption
+              </span>
+            </div>
+          </motion.div>
         </div>
 
-        {/* Right Side - Form */}
-        <div className="md:w-7/12 p-12 lg:p-16 flex items-center justify-center">
+        {/* Right Side — Form on white */}
+        <div 
+          className="md:w-7/12 p-10 lg:p-14 flex items-center justify-center bg-white"
+        >
           <div className="w-full max-w-md">
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1 }}
             >
-              <h1 className="text-3xl font-black text-slate-900 mb-2">Sign In</h1>
-              <p className="text-slate-500 mb-8 font-medium">Enter your credentials to access your account.</p>
+              <h1 
+                className="mb-2"
+                style={{
+                  fontFamily: 'var(--font-athletics)',
+                  fontSize: '22px',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.04em',
+                  lineHeight: 1,
+                  color: '#000000',
+                }}
+              >
+                PORTAL SIGN IN
+              </h1>
+              <p 
+                className="mb-6 text-sm text-slate-500"
+                style={{
+                  fontFamily: 'var(--font-manrope)',
+                }}
+              >
+                Enter your credentials to access your account.
+              </p>
 
               {error && (
-                <div className="mb-6 p-4 bg-rose-50 text-rose-600 rounded-lg text-sm font-bold border border-rose-100">
+                <div 
+                  className="mb-5 p-3 text-xs font-medium"
+                  style={{
+                    backgroundColor: '#fff5f3',
+                    border: '1px solid #ff6a51',
+                    borderRadius: '4px',
+                    color: '#ff6a51',
+                  }}
+                >
                   {error}
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">Email Address</label>
-                  <div className="relative group">
-                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-brand-500 transition-colors">
-                      <Mail className="h-5 w-5" />
-                    </div>
-                    <input
-                      type="email"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="block w-full pl-11 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:ring-0 focus:border-brand-500 outline-none transition-all text-slate-900 font-medium"
-                      placeholder="you@example.com"
-                    />
-                  </div>
+                  <label 
+                    className="block mb-1.5"
+                    style={{
+                      fontFamily: 'var(--font-athletics)',
+                      fontSize: '11px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.04em',
+                      color: '#000000',
+                    }}
+                  >
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="block w-full px-4 py-3 outline-none border border-black rounded"
+                    style={{
+                      fontFamily: 'var(--font-manrope)',
+                      fontSize: '14px',
+                      color: '#000000',
+                    }}
+                    placeholder="you@example.com"
+                  />
                 </div>
 
                 <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <label className="block text-sm font-bold text-slate-700">Password</label>
-                    <a href="#" className="text-sm font-bold text-brand-600 hover:text-brand-800 transition-colors">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label 
+                      style={{
+                        fontFamily: 'var(--font-athletics)',
+                        fontSize: '11px',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.04em',
+                        color: '#000000',
+                      }}
+                    >
+                      Password
+                    </label>
+                    <a 
+                      href="#" 
+                      className="text-xs text-cooperative-green hover:underline font-medium"
+                    >
                       Forgot Password?
                     </a>
                   </div>
-                  <div className="relative group">
-                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-brand-500 transition-colors">
-                      <Lock className="h-5 w-5" />
-                    </div>
-                    <input
-                      type="password"
-                      required
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="block w-full pl-11 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:ring-0 focus:border-brand-500 outline-none transition-all text-slate-900 font-medium"
-                      placeholder="••••••••"
-                    />
-                  </div>
+                  <input
+                    type="password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="block w-full px-4 py-3 outline-none border border-black rounded"
+                    style={{
+                      fontFamily: 'var(--font-manrope)',
+                      fontSize: '14px',
+                      color: '#000000',
+                    }}
+                    placeholder="••••••••"
+                  />
                 </div>
 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full flex items-center justify-center gap-2 bg-brand-900 text-white py-4 rounded-xl font-bold text-lg hover:bg-brand-800 transition-all active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed group shadow-lg shadow-brand-900/20"
+                  className="btn-pill w-full py-3.5 text-sm mt-2 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
-                    <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-5 h-5 border-2 border-paper-white border-t-transparent rounded-full animate-spin"></div>
                   ) : (
-                    <>
-                      Sign In
-                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </>
+                    'Sign In'
                   )}
                 </button>
               </form>
 
-              <div className="mt-8 text-center text-sm font-medium text-slate-500">
+              <div 
+                className="mt-6 text-center text-xs text-slate-500"
+                style={{
+                  fontFamily: 'var(--font-manrope)',
+                }}
+              >
                 Don't have an account?{' '}
                 <button 
                   onClick={() => setCurrentPage('contact')}
-                  className="font-bold text-brand-600 hover:text-brand-800 transition-colors"
+                  className="text-black font-semibold underline"
                 >
-                  Request Access
+                  Request Portal Access
                 </button>
               </div>
             </motion.div>

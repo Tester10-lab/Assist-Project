@@ -1,61 +1,158 @@
 @import "tailwindcss";
 
 @theme {
-  --font-headline: "Outfit", sans-serif;
-  --font-body: "Inter", sans-serif;
+  /* ── CQCM Colors ── */
+  --color-cooperative-green: #44d991;
+  --color-civic-blue: #4c92e9;
+  --color-sunset-coral: #ff6a51;
+  --color-mint-whisper: #eaf9f2;
+  --color-ink-black: #000000;
+  --color-paper-white: #ffffff;
+  --color-steel-gray: #666666;
 
-  --color-brand-50: #f8fafc;
-  --color-brand-100: #f1f5f9;
-  --color-brand-500: #3b82f6;
-  --color-brand-600: #2563eb;
-  --color-brand-700: #1d4ed8;
-  --color-brand-800: #1e40af;
-  --color-brand-900: #1e3a8a;
+  /* ── ERP-compatible brand tokens (mapped to CQCM equivalents) ── */
+  --color-brand-50: #eaf9f2;
+  --color-brand-100: #eaf9f2;
+  --color-brand-500: #44d991;
+  --color-brand-600: #38c27e;
+  --color-brand-700: #2da96b;
+  --color-brand-800: #1a1a1a;
+  --color-brand-900: #000000;
 
-  --color-accent-50: #fff7ed;
-  --color-accent-100: #ffedd5;
-  --color-accent-500: #f97316;
-  --color-accent-600: #ea580c;
-  --color-accent-700: #c2410c;
+  --color-accent-50: #fff5f3;
+  --color-accent-100: #ffe8e3;
+  --color-accent-500: #ff6a51;
+  --color-accent-600: #e55a43;
+  --color-accent-700: #cc4d38;
+
+  /* ── Typography — Font Families ── */
+  --font-athletics: 'Archivo Black', 'Anton', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-manrope: 'Manrope', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-headline: 'Archivo Black', 'Anton', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+
+  /* ── Spacing ── */
+  --spacing-8: 8px;
+  --spacing-20: 20px;
+  --spacing-40: 40px;
+  --spacing-60: 60px;
+  --spacing-80: 80px;
+  --spacing-100: 100px;
+  --spacing-120: 120px;
+  --spacing-200: 200px;
+
+  /* ── Border Radius ── */
+  --radius-cards: 8px;
+  --radius-badges: 4px;
+  --radius-images: 4px;
+  --radius-buttons: 100px;
+
+  /* ── Shadows ── */
+  --shadow-nav: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
 }
 
-@layer base {
-  body {
-    @apply bg-slate-50 text-slate-800 font-sans antialiased selection:bg-emerald-600 selection:text-white;
-  }
+body {
+  background-color: #ffffff;
+  color: #000000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: var(--font-manrope);
+  letter-spacing: 0.01em;
 }
 
-/* Custom scrollbars */
+::selection {
+  background: rgba(68, 217, 145, 0.3);
+  color: #000000;
+}
+
+/* ── Custom scrollbars ── */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #eaf9f2;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #44d991;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #38c27e;
 }
 
-/* Glassmorphism / Clean Card helpers */
-.glass-panel {
+/* ── CQCM Pill Button ── */
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #000000;
+  color: #ffffff;
+  font-family: var(--font-manrope);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  border-radius: 100px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+.btn-pill:hover {
+  opacity: 0.85;
+}
+
+.btn-pill:active {
+  transform: scale(0.97);
+}
+
+.btn-pill-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   background: #ffffff;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+  color: #000000;
+  font-family: var(--font-manrope);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  border-radius: 100px;
+  padding: 10px 20px;
+  border: 1px solid #000000;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
 }
 
-.glass-panel-hover {
-  transition: all 0.2s ease-in-out;
+.btn-pill-ghost:hover {
+  background: #f5f5f5;
 }
 
-.glass-panel-hover:hover {
-  border-color: #cbd5e1;
-  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08);
+.btn-pill-ghost:active {
+  transform: scale(0.97);
+}
+
+/* ── Athletics Display Type ── */
+.text-athletics {
+  font-family: var(--font-athletics);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+/* ── Dot Pattern Overlay ── */
+.dot-pattern {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, #44d991 6px, transparent 6px);
+  background-size: 30px 30px;
+  opacity: 0.6;
 }

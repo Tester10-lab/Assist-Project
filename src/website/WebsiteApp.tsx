@@ -41,7 +41,7 @@ const PageContent: React.FC = () => {
 export const WebsiteApp: React.FC = () => {
   return (
     <WebsiteProvider>
-      <div className="min-h-screen bg-slate-50 flex flex-col font-body text-slate-900 selection:bg-brand-500/30 selection:text-brand-900">
+      <div className="min-h-screen bg-paper-white flex flex-col text-ink-black" style={{ fontFamily: 'var(--font-manrope)' }}>
         <Navbar />
         <main className="flex-1 flex flex-col">
           <PageContent />

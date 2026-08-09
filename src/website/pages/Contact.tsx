@@ -1,127 +1,277 @@
 import React from 'react';
+import { FadeIn } from '../components/FadeIn';
 
 export const Contact: React.FC = () => {
   return (
-    <div className="flex-1 w-full pt-32 pb-0 bg-slate-50 min-h-screen">
-      <div className="max-w-7xl mx-auto px-6 mb-24">
-        <div className="grid lg:grid-cols-2 gap-16">
-          {/* Contact Form */}
-          <div>
-            <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight font-headline">Get in Touch</h1>
-            <p className="text-lg text-slate-600 mb-10">
-              Ready to secure your home? Fill out the form below and one of our roofing experts will get back to you within 24 hours.
-            </p>
-            
-            <form className="space-y-6" onSubmit={e => e.preventDefault()}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wider">First Name</label>
-                  <input 
-                    type="text" 
-                    className="w-full bg-white border border-slate-300 rounded-xl px-4 py-4 text-slate-900 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all shadow-sm" 
-                    placeholder="John"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wider">Last Name</label>
-                  <input 
-                    type="text" 
-                    className="w-full bg-white border border-slate-300 rounded-xl px-4 py-4 text-slate-900 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all shadow-sm" 
-                    placeholder="Doe"
-                  />
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wider">Email Address</label>
-                  <input 
-                    type="email" 
-                    className="w-full bg-white border border-slate-300 rounded-xl px-4 py-4 text-slate-900 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all shadow-sm" 
-                    placeholder="john@example.com"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wider">Phone Number</label>
-                  <input 
-                    type="tel" 
-                    className="w-full bg-white border border-slate-300 rounded-xl px-4 py-4 text-slate-900 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all shadow-sm" 
-                    placeholder="0400 000 000"
-                  />
-                </div>
-              </div>
+    <div className="flex-1 w-full bg-paper-white min-h-screen">
+      <section className="py-16">
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-10">
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Contact Form */}
+            <FadeIn direction="up">
+              <div>
+                <h1 
+                  className="mb-4"
+                  style={{
+                    fontFamily: 'var(--font-athletics)',
+                    fontSize: 'clamp(36px, 4vw, 56px)',
+                    fontWeight: 500,
+                    lineHeight: 1.05,
+                    letterSpacing: '0.04em',
+                    textTransform: 'uppercase',
+                    color: '#000000',
+                  }}
+                >
+                  GET IN TOUCH
+                </h1>
+                <p 
+                  className="mb-8 text-slate-600"
+                  style={{
+                    fontFamily: 'var(--font-manrope)',
+                    fontSize: '16px',
+                    lineHeight: 1.5,
+                  }}
+                >
+                  Ready to upgrade or repair your roof? Contact our Melbourne team for a free assessment and formal quote.
+                </p>
+                
+                <form className="space-y-5" onSubmit={e => e.preventDefault()}>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label 
+                        className="block mb-1.5"
+                        style={{
+                          fontFamily: 'var(--font-athletics)',
+                          fontSize: '11px',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.04em',
+                          color: '#000000',
+                        }}
+                      >
+                        First Name
+                      </label>
+                      <input 
+                        type="text" 
+                        className="w-full px-4 py-3 outline-none border border-black rounded focus:ring-1 focus:ring-black"
+                        style={{
+                          fontFamily: 'var(--font-manrope)',
+                          fontSize: '14px',
+                          color: '#000000',
+                        }}
+                        placeholder="John"
+                      />
+                    </div>
+                    <div>
+                      <label 
+                        className="block mb-1.5"
+                        style={{
+                          fontFamily: 'var(--font-athletics)',
+                          fontSize: '11px',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.04em',
+                          color: '#000000',
+                        }}
+                      >
+                        Last Name
+                      </label>
+                      <input 
+                        type="text" 
+                        className="w-full px-4 py-3 outline-none border border-black rounded focus:ring-1 focus:ring-black"
+                        style={{
+                          fontFamily: 'var(--font-manrope)',
+                          fontSize: '14px',
+                          color: '#000000',
+                        }}
+                        placeholder="Doe"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label 
+                        className="block mb-1.5"
+                        style={{
+                          fontFamily: 'var(--font-athletics)',
+                          fontSize: '11px',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.04em',
+                          color: '#000000',
+                        }}
+                      >
+                        Email Address
+                      </label>
+                      <input 
+                        type="email" 
+                        className="w-full px-4 py-3 outline-none border border-black rounded focus:ring-1 focus:ring-black"
+                        style={{
+                          fontFamily: 'var(--font-manrope)',
+                          fontSize: '14px',
+                          color: '#000000',
+                        }}
+                        placeholder="john@example.com"
+                      />
+                    </div>
+                    <div>
+                      <label 
+                        className="block mb-1.5"
+                        style={{
+                          fontFamily: 'var(--font-athletics)',
+                          fontSize: '11px',
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.04em',
+                          color: '#000000',
+                        }}
+                      >
+                        Phone Number
+                      </label>
+                      <input 
+                        type="tel" 
+                        className="w-full px-4 py-3 outline-none border border-black rounded focus:ring-1 focus:ring-black"
+                        style={{
+                          fontFamily: 'var(--font-manrope)',
+                          fontSize: '14px',
+                          color: '#000000',
+                        }}
+                        placeholder="0400 000 000"
+                      />
+                    </div>
+                  </div>
 
-              <div>
-                <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wider">Service Required</label>
-                <select className="w-full bg-white border border-slate-300 rounded-xl px-4 py-4 text-slate-900 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all appearance-none shadow-sm">
-                  <option value="">Select a service...</option>
-                  <option value="replacement">Roof Replacement</option>
-                  <option value="restoration">Roof Restoration</option>
-                  <option value="repair">Roof Repair</option>
-                  <option value="inspection">Free Inspection</option>
-                </select>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wider">Message Details</label>
-                <textarea 
-                  rows={5}
-                  className="w-full bg-white border border-slate-300 rounded-xl px-4 py-4 text-slate-900 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all resize-none shadow-sm" 
-                  placeholder="Tell us about your roof..."
-                ></textarea>
-              </div>
-              
-              <button 
-                type="submit"
-                className="w-full bg-brand-600 text-white font-bold py-5 rounded-xl hover:bg-brand-700 transition-all text-lg shadow-lg shadow-brand-600/20"
-              >
-                Send Message
-              </button>
-            </form>
-          </div>
-          
-          {/* Map / Info */}
-          <div className="flex flex-col h-full">
-            <div className="bg-brand-900 p-10 rounded-3xl border border-brand-800 mb-8 shadow-xl">
-              <h3 className="text-2xl font-bold text-white mb-8 font-headline">Melbourne Head Office</h3>
-              <div className="space-y-6">
-                <div className="flex items-start">
-                  <span className="material-symbols-outlined text-accent-500 text-2xl mr-4">location_on</span>
                   <div>
-                    <div className="text-white font-bold mb-1">Visit Us</div>
-                    <p className="text-brand-100">123 Industrial Blvd<br/>Melbourne, VIC 3000</p>
+                    <label 
+                      className="block mb-1.5"
+                      style={{
+                        fontFamily: 'var(--font-athletics)',
+                        fontSize: '11px',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.04em',
+                        color: '#000000',
+                      }}
+                    >
+                      Service Required
+                    </label>
+                    <select 
+                      className="w-full px-4 py-3 outline-none border border-black rounded appearance-none bg-white cursor-pointer"
+                      style={{
+                        fontFamily: 'var(--font-manrope)',
+                        fontSize: '14px',
+                        color: '#000000',
+                      }}
+                    >
+                      <option value="">Select a service...</option>
+                      <option value="replacement">Roof Replacement</option>
+                      <option value="restoration">Roof Restoration</option>
+                      <option value="repair">Roof Repair</option>
+                      <option value="inspection">Free Inspection</option>
+                    </select>
                   </div>
-                </div>
-                <div className="flex items-start">
-                  <span className="material-symbols-outlined text-accent-500 text-2xl mr-4">call</span>
+                  
                   <div>
-                    <div className="text-white font-bold mb-1">Call Us</div>
-                    <p className="text-brand-100">1800 ASSIST (1800 277 478)<br/><span className="text-sm text-brand-300">Mon-Fri: 7am - 5pm</span></p>
+                    <label 
+                      className="block mb-1.5"
+                      style={{
+                        fontFamily: 'var(--font-athletics)',
+                        fontSize: '11px',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.04em',
+                        color: '#000000',
+                      }}
+                    >
+                      Message Details
+                    </label>
+                    <textarea 
+                      rows={4}
+                      className="w-full px-4 py-3 outline-none border border-black rounded resize-none"
+                      style={{
+                        fontFamily: 'var(--font-manrope)',
+                        fontSize: '14px',
+                        color: '#000000',
+                      }}
+                      placeholder="Tell us about your roof..."
+                    ></textarea>
                   </div>
-                </div>
-                <div className="flex items-start">
-                  <span className="material-symbols-outlined text-accent-500 text-2xl mr-4">mail</span>
-                  <div>
-                    <div className="text-white font-bold mb-1">Email Us</div>
-                    <p className="text-brand-100">info@assistroofing.com.au</p>
-                  </div>
-                </div>
+                  
+                  <button 
+                    type="submit"
+                    className="btn-pill w-full py-4 text-sm font-semibold"
+                  >
+                    Send Message
+                  </button>
+                </form>
               </div>
-            </div>
+            </FadeIn>
             
-            <div className="flex-1 min-h-[300px] rounded-3xl overflow-hidden border border-slate-200 relative bg-slate-200 shadow-inner">
-              <img 
-                 src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&auto=format&fit=crop" 
-                 alt="Melbourne Map" 
-                 className="w-full h-full object-cover opacity-80 mix-blend-multiply"
-               />
-               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-brand-600/20 rounded-full flex items-center justify-center">
-                  <div className="w-4 h-4 bg-brand-600 rounded-full shadow-[0_0_15px_rgba(37,99,235,0.8)]"></div>
-               </div>
-            </div>
+            {/* Info Panel & Featured Image */}
+            <FadeIn delay={0.2} direction="left">
+              <div className="flex flex-col gap-6">
+                <div 
+                  className="p-8 shadow-sm"
+                  style={{ backgroundColor: '#44d991', borderRadius: '8px' }}
+                >
+                  <h3 
+                    className="mb-6"
+                    style={{
+                      fontFamily: 'var(--font-athletics)',
+                      fontSize: '20px',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.04em',
+                      lineHeight: 1,
+                      color: '#000000',
+                    }}
+                  >
+                    MELBOURNE HEAD OFFICE
+                  </h3>
+                  <div className="space-y-5" style={{ fontFamily: 'var(--font-manrope)', fontSize: '14px', color: '#000000' }}>
+                    <div className="flex items-start gap-3">
+                      <span className="material-symbols-outlined text-xl mt-0.5">location_on</span>
+                      <div>
+                        <div className="font-semibold">Visit Us</div>
+                        <p className="opacity-80">123 Industrial Blvd, Melbourne VIC 3000</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="material-symbols-outlined text-xl mt-0.5">call</span>
+                      <div>
+                        <div className="font-semibold">Call Us</div>
+                        <p>
+                          <span style={{ fontFamily: 'var(--font-athletics)', fontSize: '18px', letterSpacing: '0.04em' }}>1800 277 478</span>
+                          <br/>
+                          <span className="opacity-70 text-xs">Mon-Fri: 7am - 5pm</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="material-symbols-outlined text-xl mt-0.5">mail</span>
+                      <div>
+                        <div className="font-semibold">Email Us</div>
+                        <p className="opacity-80">info@assistroofing.com.au</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Real Roof Photo Banner */}
+                <div 
+                  className="h-64 rounded-lg overflow-hidden border border-slate-200 relative shadow-sm"
+                >
+                  <img 
+                    src="/images/roofs/roof3.jpg" 
+                    alt="ASSIST Roofing Melbourne HQ" 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/40 p-6 flex flex-col justify-end text-white">
+                    <div className="text-xs uppercase font-bold text-cooperative-green" style={{ fontFamily: 'var(--font-athletics)' }}>
+                      Local Melbourne Team
+                    </div>
+                    <div className="text-sm font-medium">Ready to serve all Eastern, Western & Southern Melbourne Suburbs</div>
+                  </div>
+                </div>
+              </div>
+            </FadeIn>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

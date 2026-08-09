@@ -1,70 +1,43 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 
-export const HeroImage3D: React.FC<{ className?: string }> = ({ className = '' }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [rotation, setRotation] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!containerRef.current) return;
-    const { left, top, width, height } = containerRef.current.getBoundingClientRect();
-    const x = (e.clientX - left) / width - 0.5;
-    const y = (e.clientY - top) / height - 0.5;
-    
-    // Calculate rotation (max 10 degrees)
-    setRotation({
-      x: y * -10,
-      y: x * 10
-    });
-  };
-
-  const handleMouseLeave = () => {
-    setRotation({ x: 0, y: 0 });
-  };
-
+/**
+ * Professional CQCM Hero Image Panel
+ * Real roof photo with 12 to 16 static green dots overlay (not animated matrix).
+ */
+export const HeroImage3D: React.FC<{ className?: string; imageUrl?: string }> = ({ 
+  className = '',
+  imageUrl = '/images/roofs/roof1.jpg'
+}) => {
   return (
-    <div 
-      ref={containerRef}
-      className={`relative perspective-1000 ${className}`}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ perspective: '1000px' }}
-    >
-      <div 
-        className="w-full h-full relative preserve-3d transition-transform duration-200 ease-out rounded-2xl overflow-hidden shadow-2xl"
-        style={{
-          transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
-          transformStyle: 'preserve-3d'
-        }}
-      >
-        {/* Main realistic image */}
-        <img 
-          src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&auto=format&fit=crop" 
-          alt="Premium House Roof" 
-          className="w-full h-full object-cover"
-        />
-        
-        {/* Glare effect */}
-        <div 
-          className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/20 to-white/0 pointer-events-none"
-          style={{
-            transform: `translateX(${rotation.y * 2}%) translateY(${rotation.x * 2}%)`,
-          }}
-        />
+    <div className={`relative overflow-hidden rounded-2xl border border-slate-900/10 shadow-2xl ${className}`}>
+      {/* Real roof photo provided by user */}
+      <img 
+        src={imageUrl} 
+        alt="ASSIST Roofing Melbourne Project" 
+        className="w-full h-full object-cover"
+      />
+      
+      {/* 10 to 20 static green dots (4x4 static dot grid overlay on top-left corner) */}
+      <div className="absolute top-6 left-6 grid grid-cols-4 gap-3 pointer-events-none z-10 bg-black/20 backdrop-blur-xs p-3 rounded-xl">
+        {Array.from({ length: 16 }).map((_, i) => (
+          <div 
+            key={i} 
+            className="w-3.5 h-3.5 rounded-full" 
+            style={{ backgroundColor: '#44d991' }} 
+          />
+        ))}
+      </div>
 
-        {/* Floating badge for depth */}
-        <div 
-          className="absolute bottom-8 right-8 bg-white/90 backdrop-blur shadow-lg rounded-xl p-4 border border-white/50"
-          style={{ transform: 'translateZ(50px)' }}
-        >
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-brand-50 flex items-center justify-center text-brand-600">
-              <span className="material-symbols-outlined text-2xl">verified</span>
-            </div>
-            <div>
-              <div className="text-slate-900 font-bold">10-Year Guarantee</div>
-              <div className="text-slate-500 text-sm">On all roof replacements</div>
-            </div>
+      {/* Floating quality badge */}
+      <div className="absolute bottom-6 right-6 bg-white/95 text-ink-black p-4 rounded-xl shadow-lg border border-black/10 flex items-center gap-3 max-w-xs z-10">
+        <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style={{ backgroundColor: '#44d991' }}>
+          <span className="material-symbols-outlined text-ink-black font-bold text-xl">verified</span>
+        </div>
+        <div>
+          <div className="text-xs uppercase font-bold tracking-wider" style={{ fontFamily: 'var(--font-athletics)' }}>
+            VBA Licensed Roofing
           </div>
+          <div className="text-xs text-slate-600 font-medium">10-Year Workmanship Guarantee</div>
         </div>
       </div>
     </div>
