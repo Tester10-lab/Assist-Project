@@ -256,7 +256,7 @@ export const Contact: React.FC = () => {
                   className="h-64 rounded-lg overflow-hidden border border-slate-200 relative shadow-sm"
                 >
                   <img 
-                    src="/images/roofs/roof3.jpg" 
+                    src="./images/roofs/roof3.jpg" 
                     alt="ASSIST Roofing Melbourne HQ" 
                     className="w-full h-full object-cover"
                   />

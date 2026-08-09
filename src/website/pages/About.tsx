@@ -65,7 +65,7 @@ export const About: React.FC = () => {
                   }}
                 >
                   <img 
-                    src="/images/roofs/roof1.jpg" 
+                    src="./images/roofs/roof1.jpg" 
                     alt="ASSIST Roofing Melbourne Crew" 
                     className="w-full h-full object-cover"
                   />

@@ -6,7 +6,7 @@ import React from 'react';
  */
 export const HeroImage3D: React.FC<{ className?: string; imageUrl?: string }> = ({ 
   className = '',
-  imageUrl = '/images/roofs/roof1.jpg'
+  imageUrl = './images/roofs/roof1.jpg'
 }) => {
   return (
     <div className={`relative overflow-hidden rounded-2xl border border-slate-900/10 shadow-2xl ${className}`}>

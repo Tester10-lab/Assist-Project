@@ -16,35 +16,35 @@ export const SERVICES: ServiceItem[] = [
     title: 'Roof Replacement',
     description: 'Complete roof replacement using premium Colorbond and tile materials for maximum durability and aesthetic appeal.',
     features: ['Full tear-off & disposal', 'Premium materials', 'Up to 25-year warranty', 'AS 4349.1 compliant'],
-    imageUrl: '/images/roofs/roof1.jpg',
+    imageUrl: './images/roofs/roof1.jpg',
   },
   {
     icon: 'build',
     title: 'Roof Restoration',
     description: 'Breathe new life into your aging roof with comprehensive cleaning, repairing, repointing and recoating services.',
     features: ['High-pressure cleaning', 'Re-pointing & bedding', 'Flexible coating system', 'Colour consultation'],
-    imageUrl: '/images/roofs/roof2.jpg',
+    imageUrl: './images/roofs/roof2.jpg',
   },
   {
     icon: 'home_repair_service',
     title: 'Roof Repairs',
     description: 'Fast, reliable emergency and scheduled roof repairs to stop leaks and restore structural integrity.',
     features: ['Storm damage repair', 'Leak detection', 'Flashing replacement', 'Same-day service'],
-    imageUrl: '/images/roofs/roof3.jpg',
+    imageUrl: './images/roofs/roof3.jpg',
   },
   {
     icon: 'precision_manufacturing',
     title: 'Metal Roofing',
     description: 'Premium standing seam and corrugated metal roofing solutions with marine-grade corrosion protection.',
     features: ['Colorbond range', 'Standing seam profiles', 'Coastal-grade options', 'Energy efficient'],
-    imageUrl: '/images/roofs/roof4.jpg',
+    imageUrl: './images/roofs/roof4.jpg',
   },
   {
     icon: 'grid_view',
     title: 'Tile Roofing',
     description: 'Traditional and modern concrete & terracotta tile installation, repairs and full restorations.',
     features: ['Concrete & terracotta', 'Valley replacement', 'Ridge capping', 'Sarking upgrades'],
-    imageUrl: '/images/roofs/roof5.jpg',
+    imageUrl: './images/roofs/roof5.jpg',
   },
 ];
 
@@ -56,7 +56,7 @@ export const TESTIMONIALS: TestimonialItem[] = [
     comment: 'ASSIST completely transformed our roof after storm damage. The team was lightning fast and had us watertight within 3 days. Exceptional quality and communication throughout.',
     project: 'Full Colorbond Roof Replacement',
     avatar: 'MV',
-    imageUrl: '/images/roofs/roof6.jpg',
+    imageUrl: './images/roofs/roof6.jpg',
   },
   {
     name: 'Sarah Jenkins',
@@ -65,7 +65,7 @@ export const TESTIMONIALS: TestimonialItem[] = [
     comment: 'From the initial inspection to the final sign-off, everything was handled with incredible professionalism. The tile restoration looks absolutely stunning. Highly recommend!',
     project: 'Terracotta Tile Restoration',
     avatar: 'SJ',
-    imageUrl: '/images/roofs/roof7.jpg',
+    imageUrl: './images/roofs/roof7.jpg',
   },
   {
     name: 'David Miller',
@@ -74,7 +74,7 @@ export const TESTIMONIALS: TestimonialItem[] = [
     comment: 'Best roofing experience I\'ve ever had. Clear quoting system, and the crew was respectful and tidy. The 10-year workmanship warranty gives real peace of mind.',
     project: 'Metal Roof & Guttering',
     avatar: 'DM',
-    imageUrl: '/images/roofs/roof8.jpg',
+    imageUrl: './images/roofs/roof8.jpg',
   },
   {
     name: 'Emily Chen',
@@ -83,7 +83,7 @@ export const TESTIMONIALS: TestimonialItem[] = [
     comment: 'We chose the premium metal option and it\'s absolutely breathtaking. ASSIST\'s attention to detail is second to none. Our neighbors keep asking who did our roof!',
     project: 'Architectural Standing Seam',
     avatar: 'EC',
-    imageUrl: '/images/roofs/roof9.jpg',
+    imageUrl: './images/roofs/roof9.jpg',
   },
   {
     name: 'Robert Williams',
@@ -92,7 +92,7 @@ export const TESTIMONIALS: TestimonialItem[] = [
     comment: 'Very professional team. The instant quote calculator on their website was impressively accurate. Final cost came in exactly as estimated. Would definitely use again.',
     project: 'Roof Replacement + Insulation',
     avatar: 'RW',
-    imageUrl: '/images/roofs/roof10.jpg',
+    imageUrl: './images/roofs/roof10.jpg',
   },
 ];
 
@@ -103,7 +103,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     category: 'Roof Replacement',
     location: 'South Yarra, VIC',
     description: 'Full roof replacement with Colorbond Custom Orb. Included insulation and heavy-duty sarking.',
-    imageUrl: '/images/roofs/roof1.jpg',
+    imageUrl: './images/roofs/roof1.jpg',
   },
   {
     id: 'proj-2',
@@ -111,7 +111,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     category: 'Roof Restoration',
     location: 'Brighton, VIC',
     description: 'Complete tile restoration including repointing, ridge capping, and flexible membrane coating.',
-    imageUrl: '/images/roofs/roof2.jpg',
+    imageUrl: './images/roofs/roof2.jpg',
   },
   {
     id: 'proj-3',
@@ -119,7 +119,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     category: 'Metal Roofing',
     location: 'Toorak, VIC',
     description: 'Premium standing seam profile with concealed fasteners and architectural finish.',
-    imageUrl: '/images/roofs/roof3.jpg',
+    imageUrl: './images/roofs/roof3.jpg',
   },
   {
     id: 'proj-4',
@@ -127,7 +127,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     category: 'Roof Repairs',
     location: 'Hawthorn, VIC',
     description: 'Emergency storm damage repair completed within 24 hours. Replaced damaged sheets and flashing.',
-    imageUrl: '/images/roofs/roof4.jpg',
+    imageUrl: './images/roofs/roof4.jpg',
   },
   {
     id: 'proj-5',
@@ -135,7 +135,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     category: 'Metal Roofing',
     location: 'St Kilda, VIC',
     description: 'Marine-grade Colorbond Ultra installation for coastal property with high-salinity corrosion protection.',
-    imageUrl: '/images/roofs/roof5.jpg',
+    imageUrl: './images/roofs/roof5.jpg',
   },
   {
     id: 'proj-6',
@@ -143,7 +143,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     category: 'Tile Roofing',
     location: 'Malvern, VIC',
     description: 'Full re-bedding and re-pointing of terracotta roof tiles with high-durability flexible pointing mortar.',
-    imageUrl: '/images/roofs/roof6.jpg',
+    imageUrl: './images/roofs/roof6.jpg',
   },
   {
     id: 'proj-7',
@@ -151,7 +151,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     category: 'Roof Replacement',
     location: 'Camberwell, VIC',
     description: 'Complete commercial metal roof replacement with high capacity box gutters and insulation.',
-    imageUrl: '/images/roofs/roof7.jpg',
+    imageUrl: './images/roofs/roof7.jpg',
   },
   {
     id: 'proj-8',
@@ -159,7 +159,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     category: 'Roof Restoration',
     location: 'Kew, VIC',
     description: 'Multi-stage high pressure wash, sealant application, and triple-coat protective thermal paint.',
-    imageUrl: '/images/roofs/roof8.jpg',
+    imageUrl: './images/roofs/roof8.jpg',
   },
   {
     id: 'proj-9',
@@ -167,7 +167,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     category: 'Metal Roofing',
     location: 'Armadale, VIC',
     description: 'Custom folded Colorbond flashing and sheet installation on contemporary modern residence.',
-    imageUrl: '/images/roofs/roof9.jpg',
+    imageUrl: './images/roofs/roof9.jpg',
   },
   {
     id: 'proj-10',
@@ -175,7 +175,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     category: 'Roof Repairs',
     location: 'Prahran, VIC',
     description: 'Replaced rusted iron valleys with colorbond valley trays and upgraded underlying sarking.',
-    imageUrl: '/images/roofs/roof10.jpg',
+    imageUrl: './images/roofs/roof10.jpg',
   },
   {
     id: 'proj-11',
@@ -183,7 +183,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     category: 'Tile Roofing',
     location: 'Glen Iris, VIC',
     description: 'Sourced matching antique terracotta tiles to repair damaged sections seamlessly.',
-    imageUrl: '/images/roofs/roof11.jpg',
+    imageUrl: './images/roofs/roof11.jpg',
   },
   {
     id: 'proj-12',
@@ -191,7 +191,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     category: 'Roof Replacement',
     location: 'Canterbury, VIC',
     description: 'Transformation of traditional home roof to sleek charcoal Colorbond finish.',
-    imageUrl: '/images/roofs/roof12.jpg',
+    imageUrl: './images/roofs/roof12.jpg',
   },
   {
     id: 'proj-13',
@@ -199,7 +199,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     category: 'Roof Restoration',
     location: 'Balwyn, VIC',
     description: 'Safe scaffolding installation and complete restoration of steep-pitch Victorian roof.',
-    imageUrl: '/images/roofs/roof13.jpg',
+    imageUrl: './images/roofs/roof13.jpg',
   },
   {
     id: 'proj-14',
@@ -207,7 +207,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     category: 'Metal Roofing',
     location: 'Richmond, VIC',
     description: 'Installation of high-performance double glazed skylights into new standing seam roof.',
-    imageUrl: '/images/roofs/roof14.jpg',
+    imageUrl: './images/roofs/roof14.jpg',
   },
   {
     id: 'proj-15',
@@ -215,7 +215,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     category: 'Roof Repairs',
     location: 'Windsor, VIC',
     description: 'Custom apron and lead flashing replacement around brick chimneys for 100% leak seal.',
-    imageUrl: '/images/roofs/roof15.jpg',
+    imageUrl: './images/roofs/roof15.jpg',
   },
   {
     id: 'proj-16',
@@ -223,7 +223,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     category: 'Roof Replacement',
     location: 'Elsternwick, VIC',
     description: 'Complete roof replacement with custom Colorbond sheets and insulated foil underlayment.',
-    imageUrl: '/images/roofs/roof16.jpg',
+    imageUrl: './images/roofs/roof16.jpg',
   },
   {
     id: 'proj-17',
@@ -231,7 +231,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     category: 'Roof Restoration',
     location: 'Surrey Hills, VIC',
     description: 'High-pressure wash and application of heat-reflective protective seal on terracotta tiles.',
-    imageUrl: '/images/roofs/roof17.jpg',
+    imageUrl: './images/roofs/roof17.jpg',
   },
   {
     id: 'proj-18',
@@ -239,7 +239,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     category: 'Metal Roofing',
     location: 'Middle Park, VIC',
     description: 'Continuous metal standing seam wrapping from pitched roof down to architectural side wall.',
-    imageUrl: '/images/roofs/roof18.jpg',
+    imageUrl: './images/roofs/roof18.jpg',
   },
   {
     id: 'proj-19',
@@ -247,7 +247,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     category: 'Roof Repairs',
     location: 'Albert Park, VIC',
     description: 'Rapid deployment repair following extreme hail damage, full ridge capping re-bedding.',
-    imageUrl: '/images/roofs/roof19.jpg',
+    imageUrl: './images/roofs/roof19.jpg',
   },
 ];
 
@@ -256,19 +256,19 @@ export const TEAM_MEMBERS: TeamMember[] = [
     name: 'Batshal',
     role: 'Founder & Lead Inspector',
     bio: 'With over 15 years in the Australian roofing industry, Batshal leads every major project with hands-on expertise and an unwavering commitment to quality.',
-    imageUrl: '/images/roofs/roof1.jpg',
+    imageUrl: './images/roofs/roof1.jpg',
   },
   {
     name: 'Peter',
     role: 'Sales & Estimations Director',
     bio: 'Peter brings 10+ years of construction estimation experience, ensuring every quote is accurate, transparent, and competitively priced.',
-    imageUrl: '/images/roofs/roof2.jpg',
+    imageUrl: './images/roofs/roof2.jpg',
   },
   {
     name: 'Team ASSIST',
     role: 'Licensed Roofing Crew',
     bio: 'Our 12-person crew holds all relevant VBA and OHS certifications. Every team member is trained in height safety and quality workmanship standards.',
-    imageUrl: '/images/roofs/roof3.jpg',
+    imageUrl: './images/roofs/roof3.jpg',
   },
 ];
 

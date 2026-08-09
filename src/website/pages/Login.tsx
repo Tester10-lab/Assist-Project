@@ -74,7 +74,7 @@ export const Login: React.FC = () => {
 
           {/* Real Roof Image card in left panel */}
           <div className="my-6 rounded overflow-hidden border border-black/10 shadow-sm h-40">
-            <img src="/images/roofs/roof4.jpg" alt="ASSIST Roof" className="w-full h-full object-cover" />
+            <img src="./images/roofs/roof4.jpg" alt="ASSIST Roof" className="w-full h-full object-cover" />
           </div>
 
           {/* Welcome text */}
