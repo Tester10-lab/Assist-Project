@@ -1,115 +1,117 @@
 @import "tailwindcss";
 
 @theme {
-  /* ── CQCM Colors ── */
-  --color-cooperative-green: #44d991;
-  --color-civic-blue: #4c92e9;
-  --color-sunset-coral: #ff6a51;
-  --color-mint-whisper: #eaf9f2;
-  --color-ink-black: #000000;
-  --color-paper-white: #ffffff;
-  --color-steel-gray: #666666;
+  /* ── DESIGN (1).md Tokens — Dala Dark Void Aesthetic ── */
+  --color-void: #000000;
+  --color-bone-white: #ffffff;
+  --color-ash-gray: #9a9a9a;
+  --color-silver-mist: #bdbdbd;
+  --color-electric-iris: #8052ff;
+  --color-saffron-spark: #ffb829;
+  --color-deep-verdant: #15846e;
 
-  /* ── ERP-compatible brand tokens (mapped to CQCM equivalents) ── */
-  --color-brand-50: #eaf9f2;
-  --color-brand-100: #eaf9f2;
-  --color-brand-500: #44d991;
-  --color-brand-600: #38c27e;
-  --color-brand-700: #2da96b;
-  --color-brand-800: #1a1a1a;
+  /* ── ERP-compatible brand tokens ── */
+  --color-brand-50: #1a1a2e;
+  --color-brand-100: #2d2b55;
+  --color-brand-500: #8052ff;
+  --color-brand-600: #6c3ce9;
+  --color-brand-700: #582ad3;
+  --color-brand-800: #12121e;
   --color-brand-900: #000000;
 
-  --color-accent-50: #fff5f3;
-  --color-accent-100: #ffe8e3;
-  --color-accent-500: #ff6a51;
-  --color-accent-600: #e55a43;
-  --color-accent-700: #cc4d38;
+  --color-accent-50: #fffdf0;
+  --color-accent-100: #fff7cc;
+  --color-accent-500: #ffb829;
+  --color-accent-600: #e6a014;
+  --color-accent-700: #cc8b00;
 
-  /* ── Typography — Font Families ── */
-  --font-athletics: 'Archivo Black', 'Anton', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-manrope: 'Manrope', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-headline: 'Archivo Black', 'Anton', ui-sans-serif, system-ui, sans-serif;
-  --font-body: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  /* ── Typography — Single Typeface (Inter) ── */
+  --font-ppneuemontreal: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-headline: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
 
-  /* ── Spacing ── */
-  --spacing-8: 8px;
-  --spacing-20: 20px;
-  --spacing-40: 40px;
+  /* ── Spacing Scale ── */
+  --spacing-6: 6px;
+  --spacing-12: 12px;
+  --spacing-18: 18px;
+  --spacing-24: 24px;
+  --spacing-30: 30px;
+  --spacing-36: 36px;
   --spacing-60: 60px;
-  --spacing-80: 80px;
-  --spacing-100: 100px;
+  --spacing-96: 96px;
   --spacing-120: 120px;
-  --spacing-200: 200px;
 
   /* ── Border Radius ── */
-  --radius-cards: 8px;
-  --radius-badges: 4px;
-  --radius-images: 4px;
-  --radius-buttons: 100px;
+  --radius-nav: 24px;
+  --radius-tags: 9999px;
+  --radius-cards: 24px;
+  --radius-buttons: 9999px;
 
   /* ── Shadows ── */
-  --shadow-nav: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+  --shadow-nav: 0px 4px 30px rgba(0, 0, 0, 0.5);
 }
 
 body {
   background-color: #ffffff;
-  color: #000000;
+  color: #1e2e4f;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: var(--font-manrope);
-  letter-spacing: 0.01em;
+  font-family: 'Sora', sans-serif;
+  letter-spacing: -0.01em;
 }
 
 ::selection {
-  background: rgba(68, 217, 145, 0.3);
-  color: #000000;
+  background: rgba(128, 82, 255, 0.4);
+  color: #ffffff;
 }
 
-/* ── Custom scrollbars ── */
+/* ── Custom Scrollbars ── */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #eaf9f2;
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #44d991;
+  background: #8052ff;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #38c27e;
+  background: #6c3ce9;
 }
 
-/* ── CQCM Pill Button ── */
+/* ── Dala Signature Primary Action Button (Electric Iris Violet Pill) ── */
 .btn-pill {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #000000;
+  background: #8052ff;
   color: #ffffff;
-  font-family: var(--font-manrope);
+  font-family: var(--font-body);
   font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0.01em;
+  font-weight: 600;
+  letter-spacing: 0.025em;
   text-transform: uppercase;
-  border-radius: 100px;
-  padding: 10px 20px;
+  border-radius: 9999px;
+  padding: 14px 24px;
   border: none;
   cursor: pointer;
-  transition: opacity 0.2s ease, transform 0.1s ease;
+  transition: all 0.2s ease;
 }
 
 .btn-pill:hover {
-  opacity: 0.85;
+  background: #6c3ce9;
+  transform: translateY(-1px);
+  box-shadow: 0 0 20px rgba(128, 82, 255, 0.4);
 }
 
 .btn-pill:active {
-  transform: scale(0.97);
+  transform: scale(0.98);
 }
 
 .btn-pill-ghost {
@@ -117,42 +119,34 @@ body {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #ffffff;
-  color: #000000;
-  font-family: var(--font-manrope);
+  background: transparent;
+  color: #ffffff;
+  font-family: var(--font-body);
   font-size: 14px;
   font-weight: 400;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.025em;
   text-transform: uppercase;
-  border-radius: 100px;
-  padding: 10px 20px;
-  border: 1px solid #000000;
+  border-radius: 9999px;
+  padding: 14px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.1s ease;
+  transition: all 0.2s ease;
 }
 
 .btn-pill-ghost:hover {
-  background: #f5f5f5;
+  border-color: #ffffff;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .btn-pill-ghost:active {
-  transform: scale(0.97);
+  transform: scale(0.98);
 }
 
-/* ── Athletics Display Type ── */
-.text-athletics {
-  font-family: var(--font-athletics);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  line-height: 1;
-}
-
-/* ── Dot Pattern Overlay ── */
-.dot-pattern {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: radial-gradient(circle, #44d991 6px, transparent 6px);
-  background-size: 30px 30px;
-  opacity: 0.6;
+/* ── Display Headlines (78px - 113px with negative tracking) ── */
+.text-display {
+  font-family: var(--font-headline);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
 }

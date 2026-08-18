@@ -2,7 +2,6 @@ export type PageId =
   | 'home' 
   | 'about' 
   | 'services' 
-  | 'calculator' 
   | 'gallery' 
   | 'testimonials' 
   | 'contact'

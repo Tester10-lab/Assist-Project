@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { GALLERY_PROJECTS } from '../data';
 import { useWebsite } from '../WebsiteContext';
-import { FadeIn } from '../components/FadeIn';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const Gallery: React.FC = () => {
   const [filter, setFilter] = useState('All');
@@ -14,141 +14,129 @@ export const Gallery: React.FC = () => {
     : GALLERY_PROJECTS.filter(p => p.category === filter);
 
   return (
-    <div className="flex-1 w-full bg-paper-white min-h-screen">
-      {/* Header */}
-      <section className="py-16">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-10">
-          <FadeIn direction="up">
-            <h1 
-              className="mb-4"
-              style={{
-                fontFamily: 'var(--font-athletics)',
-                fontSize: 'clamp(36px, 4vw, 56px)',
-                fontWeight: 500,
-                lineHeight: 1.05,
-                letterSpacing: '0.04em',
-                textTransform: 'uppercase',
-                color: '#000000',
-              }}
-            >
-              OUR REAL WORK GALLERY ({GALLERY_PROJECTS.length} PROJECTS)
-            </h1>
-            <p 
-              className="max-w-2xl text-slate-600"
-              style={{
-                fontFamily: 'var(--font-manrope)',
-                fontSize: '16px',
-                lineHeight: 1.5,
-                letterSpacing: '0.01em',
-              }}
-            >
-              Browse our full portfolio of authentic roof replacements, restorations, and repairs completed across Melbourne.
-            </p>
-          </FadeIn>
-        </div>
-      </section>
+    <div className="w-full bg-white text-[#1e2e4f] font-['Sora',sans-serif]">
+      {/* ── Sub Banner ── */}
+      <section className="relative bg-[#1e2e4f] text-white py-16 lg:py-20 overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-20 pointer-events-none"
+          style={{ backgroundImage: `url('/roofora-assets/images/sub-banner-bg-img.jpg')` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1e2e4f] via-[#1e2e4f]/90 to-[#1e2e4f]/70 pointer-events-none" />
 
-      {/* Category Filter Pills */}
-      <section className="pb-8">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-10">
-          <div className="flex flex-wrap gap-2.5">
-            {categories.map(cat => (
-              <button
-                key={cat}
-                onClick={() => setFilter(cat)}
-                className={filter === cat ? 'btn-pill text-xs py-2 px-5' : 'btn-pill-ghost text-xs py-2 px-5'}
-              >
-                {cat}
-              </button>
-            ))}
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-8 relative z-10 text-center">
+          <h1 className="text-4xl sm:text-6xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-white mb-4">
+            Our Projects
+          </h1>
+          <p className="text-base sm:text-lg text-[#b7c1d5] max-w-2xl mx-auto mb-6 font-light">
+            Explore authentic completed roof replacements, architectural standing seam metal installations, and restorations across Melbourne.
+          </p>
+
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-semibold">
+            <button onClick={() => setCurrentPage('home')} className="text-[#b7c1d5] hover:text-white transition-colors">Home</button>
+            <span className="text-[#f19e1f] font-bold">/</span>
+            <span className="text-white">Projects</span>
           </div>
         </div>
       </section>
 
-      {/* Gallery Grid — Featuring All 19 Real Images */}
-      <section className="pb-20">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProjects.map((project, i) => (
-              <FadeIn delay={(i % 6) * 0.08} direction="up" key={project.id}>
-                <div 
-                  className="flex flex-col h-full overflow-hidden shadow-sm hover:shadow-md transition-shadow"
-                  style={{ borderRadius: '8px', backgroundColor: '#ffffff', border: '1px solid #e2e8f0' }}
+      {/* ── Filter Tabs & Projects Grid ── */}
+      <section className="py-20 bg-[#f4f8ff]">
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-8">
+          
+          {/* Category Tabs */}
+          <div className="flex flex-wrap justify-center gap-3 mb-16">
+            {categories.map((cat) => {
+              const isSelected = filter === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setFilter(cat)}
+                  className={`text-xs uppercase font-bold tracking-wider px-6 py-3 rounded-full transition-all duration-200 ${
+                    isSelected
+                      ? 'bg-[#f19e1f] text-white shadow-md'
+                      : 'bg-white text-[#1e2e4f] hover:bg-gray-100 border border-[#e6ebf6]'
+                  }`}
                 >
-                  {/* Real Photo Header */}
-                  <div className="w-full h-56 overflow-hidden relative">
+                  {cat}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Grid */}
+          <motion.div 
+            layout
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            <AnimatePresence>
+              {filteredProjects.map((project) => (
+                <motion.div
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.3 }}
+                  key={project.id}
+                  className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-[#e6ebf6] flex flex-col group"
+                >
+                  <div className="h-64 overflow-hidden relative">
                     <img 
                       src={project.imageUrl} 
                       alt={project.title} 
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
                     />
-                    <div 
-                      className="absolute top-3 left-3 px-3 py-1 bg-black/80 text-white rounded text-[11px] uppercase font-bold tracking-wider"
-                      style={{ fontFamily: 'var(--font-athletics)' }}
-                    >
+                    <div className="absolute top-4 right-4 bg-[#1e2e4f] text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow">
                       {project.category}
                     </div>
                   </div>
 
-                  {/* Card Info */}
-                  <div className="p-5 flex-1 flex flex-col justify-between">
+                  <div className="p-6 flex-1 flex flex-col justify-between">
                     <div>
-                      <div className="text-xs text-slate-500 font-medium mb-1">
-                        {project.location}
+                      <div className="flex items-center gap-2 text-xs text-[#f19e1f] font-semibold mb-2">
+                        <i className="fa-solid fa-location-dot"></i>
+                        <span>{project.location}</span>
                       </div>
-                      <h3 
-                        className="mb-2 font-semibold"
-                        style={{
-                          fontFamily: 'var(--font-manrope)',
-                          fontSize: '17px',
-                          color: '#000000',
-                          lineHeight: 1.3,
-                        }}
-                      >
+                      <h3 className="text-xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-3 group-hover:text-[#f19e1f] transition-colors">
                         {project.title}
                       </h3>
-                      <p 
-                        className="mb-4 text-slate-600 text-sm"
-                        style={{
-                          fontFamily: 'var(--font-manrope)',
-                          lineHeight: 1.4,
-                        }}
-                      >
+                      <p className="text-xs text-[#616a7e] leading-relaxed mb-6 font-light">
                         {project.description}
                       </p>
                     </div>
 
-                    <button 
+                    <button
                       onClick={() => setCurrentPage('contact')}
-                      className="btn-pill-ghost text-xs py-2 px-4 self-start"
+                      className="w-full bg-[#f4f8ff] group-hover:bg-[#1e2e4f] text-[#1e2e4f] group-hover:text-white font-bold text-xs uppercase tracking-wider py-3 rounded-full transition-all flex items-center justify-center gap-2"
                     >
-                      Inquire About This Roof
+                      <span>Inquire About This Roof</span>
+                      <i className="fa-solid fa-arrow-right text-xs"></i>
                     </button>
                   </div>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section className="py-16 bg-slate-50 border-t border-slate-200">
-        <div className="max-w-[1280px] mx-auto px-6 text-center">
-          <p 
-            className="mb-6 font-medium text-xl"
-            style={{ fontFamily: 'var(--font-manrope)' }}
-          >
-            Want a roof transformation like these for your home?
+      {/* ── Call To Action ── */}
+      <section className="py-16 bg-white border-t border-gray-100">
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-8 text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-4">
+            Have a Specific Architectural Design in Mind?
+          </h2>
+          <p className="text-base text-[#616a7e] max-w-xl mx-auto mb-8">
+            Our master sheet metal fabricators specialize in custom standing seam, box gutters, and intricate tile roof restorations.
           </p>
-          <button 
+          <button
             onClick={() => setCurrentPage('contact')}
-            className="btn-pill py-3.5 px-8"
+            className="bg-[#f19e1f] hover:bg-[#d88713] text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-full shadow-lg transition-all"
           >
-            Get an Instant Quote
+            Schedule On-Site Consultation
           </button>
         </div>
       </section>
     </div>
   );
 };
+

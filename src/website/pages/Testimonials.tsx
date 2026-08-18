@@ -1,150 +1,119 @@
 import React from 'react';
 import { TESTIMONIALS } from '../data';
 import { useWebsite } from '../WebsiteContext';
-import { FadeIn } from '../components/FadeIn';
+import { motion } from 'framer-motion';
 
 export const Testimonials: React.FC = () => {
   const { setCurrentPage } = useWebsite();
 
   return (
-    <div className="flex-1 w-full bg-paper-white min-h-screen">
-      {/* Header */}
-      <section className="py-16">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-10">
-          <FadeIn direction="up">
-            <h1 
-              className="mb-4"
-              style={{
-                fontFamily: 'var(--font-athletics)',
-                fontSize: 'clamp(36px, 4vw, 56px)',
-                fontWeight: 500,
-                lineHeight: 1.05,
-                letterSpacing: '0.04em',
-                textTransform: 'uppercase',
-                color: '#000000',
-              }}
-            >
-              CLIENT TESTIMONIALS & REVIEWS
-            </h1>
-            <p 
-              className="max-w-2xl text-slate-600"
-              style={{
-                fontFamily: 'var(--font-manrope)',
-                fontSize: '16px',
-                lineHeight: 1.5,
-                letterSpacing: '0.01em',
-              }}
-            >
-              Read what homeowners across Melbourne say about our high quality roof replacements and restorations.
-            </p>
-          </FadeIn>
+    <div className="w-full bg-white text-[#1e2e4f] font-['Sora',sans-serif]">
+      {/* ── Sub Banner ── */}
+      <section className="relative bg-[#1e2e4f] text-white py-16 lg:py-20 overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-cover bg-center opacity-20 pointer-events-none"
+          style={{ backgroundImage: `url('/roofora-assets/images/sub-banner-bg-img.jpg')` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1e2e4f] via-[#1e2e4f]/90 to-[#1e2e4f]/70 pointer-events-none" />
+
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-8 relative z-10 text-center">
+          <h1 className="text-4xl sm:text-6xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-white mb-4">
+            Testimonials
+          </h1>
+          <p className="text-base sm:text-lg text-[#b7c1d5] max-w-2xl mx-auto mb-6 font-light">
+            Read what Melbourne homeowners and commercial property managers say about our honest communication and pristine workmanship.
+          </p>
+
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-semibold">
+            <button onClick={() => setCurrentPage('home')} className="text-[#b7c1d5] hover:text-white transition-colors">Home</button>
+            <span className="text-[#f19e1f] font-bold">/</span>
+            <span className="text-white">Testimonials</span>
+          </div>
         </div>
       </section>
 
-      {/* Testimonials Grid */}
-      <section className="pb-16">
-        <div className="max-w-[1280px] mx-auto px-6 lg:px-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {TESTIMONIALS.map((review, i) => (
-              <FadeIn delay={i * 0.1} direction="up" key={i}>
-                <div 
-                  className="p-6 flex flex-col justify-between h-full bg-white border border-slate-200 rounded-lg shadow-sm"
-                >
-                  <div>
-                    {/* Stars */}
-                    <div className="flex gap-1 mb-4">
-                      {[...Array(5)].map((_, j) => (
-                        <span 
-                          key={j} 
-                          style={{ 
-                            fontSize: '18px', 
-                            color: j < review.rating ? '#ff6a51' : '#eaf9f2' 
-                          }}
-                        >
-                          ★
-                        </span>
-                      ))}
-                    </div>
+      {/* ── Reviews Grid ── */}
+      <section className="py-20 bg-[#f4f8ff]">
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-8">
+          
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border border-[#e6ebf6] mb-4">
+              <img src="/roofora-assets/images/google-icon.png" alt="Google" className="w-5 h-5 object-contain" />
+              <span className="font-['Oswald',sans-serif] text-[#f19e1f] font-bold text-base">4.9 / 5.0</span>
+              <span className="text-xs text-[#616a7e]">Based on 500+ Verified Roof Projects</span>
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-4">
+              Verified Client Stories
+            </h2>
+            <p className="text-base text-[#616a7e]">
+              Every review reflects our ironclad Clean Jobsite Promise and 10-year warranty standard.
+            </p>
+          </div>
 
-                    <p 
-                      className="mb-6 text-slate-700 italic text-sm leading-relaxed"
-                      style={{ fontFamily: 'var(--font-manrope)' }}
-                    >
-                      "{review.comment}"
-                    </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {TESTIMONIALS.map((review, idx) => (
+              <motion.div
+                key={idx}
+                whileHover={{ y: -6 }}
+                className="bg-white rounded-3xl p-8 shadow-md hover:shadow-xl transition-all border border-[#e6ebf6] flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex justify-between items-center mb-6">
+                    <div className="flex text-[#f19e1f] text-lg">
+                      {'★★★★★'}
+                    </div>
+                    <span className="text-xs bg-[#f4f8ff] text-[#1e2e4f] font-bold px-3 py-1 rounded-full border border-[#cfd8e8]">
+                      Verified Homeowner
+                    </span>
                   </div>
 
+                  <p className="text-base text-[#616a7e] italic leading-relaxed mb-8">
+                    "{review.comment}"
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-4 pt-6 border-t border-gray-100">
+                  <img 
+                    src={review.imageUrl} 
+                    alt={review.name} 
+                    className="w-14 h-14 rounded-full object-cover border-2 border-[#f19e1f]"
+                  />
                   <div>
-                    {/* Real roof thumbnail context */}
-                    {review.imageUrl && (
-                      <div className="w-full h-28 rounded overflow-hidden mb-4 border border-slate-100">
-                        <img src={review.imageUrl} alt={review.project} className="w-full h-full object-cover" />
-                      </div>
-                    )}
-
-                    <div className="flex items-center gap-3">
-                      <div 
-                        className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
-                        style={{ backgroundColor: '#4c92e9' }}
-                      >
-                        <span 
-                          className="text-white text-xs font-bold"
-                          style={{ fontFamily: 'var(--font-athletics)' }}
-                        >
-                          {review.avatar}
-                        </span>
-                      </div>
-                      <div>
-                        <div className="text-sm font-semibold text-black" style={{ fontFamily: 'var(--font-manrope)' }}>
-                          {review.name}
-                        </div>
-                        <div className="text-xs text-slate-500">
-                          {review.location}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="mt-4 pt-3 border-t border-slate-100 text-xs font-medium text-cooperative-green uppercase tracking-wider">
+                    <h4 className="text-lg font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f]">
+                      {review.name}
+                    </h4>
+                    <span className="text-xs text-[#616a7e] block">
+                      {review.location}
+                    </span>
+                    <span className="text-xs font-semibold text-[#f19e1f] block mt-0.5">
                       {review.project}
-                    </div>
+                    </span>
                   </div>
                 </div>
-              </FadeIn>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section 
-        className="py-16"
-        style={{ backgroundColor: '#44d991' }}
-      >
-        <div className="max-w-[1280px] mx-auto px-6 text-center">
-          <div 
-            className="mb-3"
-            style={{
-              fontFamily: 'var(--font-athletics)',
-              fontSize: '42px',
-              fontWeight: 500,
-              letterSpacing: '0.04em',
-              lineHeight: 1,
-              color: '#000000',
-            }}
-          >
-            5.0 <span style={{ color: '#ff6a51' }}>★★★★★</span>
-          </div>
-          <p className="mb-6 max-w-lg mx-auto text-black/80 text-sm font-medium">
-            Based on over 500+ verified roof replacements and restorations across Melbourne.
+      {/* ── Call To Action ── */}
+      <section className="py-16 bg-[#1e2e4f] text-white">
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-8 text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-white mb-4">
+            Ready for a 5-Star Roofing Experience?
+          </h2>
+          <p className="text-base text-[#b7c1d5] max-w-xl mx-auto mb-8 font-light">
+            Get the same pristine craftsmanship and peace of mind for your home today.
           </p>
-          <button 
+          <button
             onClick={() => setCurrentPage('contact')}
-            className="btn-pill py-3.5 px-8"
+            className="bg-[#f19e1f] hover:bg-[#d88713] text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-full shadow-lg transition-all"
           >
-            Experience the Difference
+            Get a Free Inspection & Quote
           </button>
         </div>
       </section>
     </div>
   );
 };
+
