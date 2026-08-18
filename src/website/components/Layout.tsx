@@ -86,7 +86,14 @@ export const Navbar: React.FC = () => {
         {/* Right CTA Actions */}
         <div className="hidden sm:flex items-center gap-4">
           <button
-            onClick={() => setCurrentPage('login')}
+            onClick={() => {
+              if (localStorage.getItem('authToken')) {
+                window.location.hash = '#erp';
+                window.dispatchEvent(new CustomEvent('switch-view', { detail: 'erp' }));
+              } else {
+                setCurrentPage('login');
+              }
+            }}
             className="flex items-center gap-2 text-xs uppercase tracking-wider font-bold text-[#1e2e4f] hover:text-[#f19e1f] px-3 py-2 transition-colors"
           >
             <i className="fa-solid fa-arrow-right-to-bracket text-sm"></i>

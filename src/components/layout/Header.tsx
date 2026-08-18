@@ -77,6 +77,19 @@ export const Header: React.FC = () => {
           <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
           <span className="text-xs font-black text-slate-900 tracking-wide uppercase">Admin</span>
         </div>
+
+        {/* View Public Website Switcher */}
+        <button
+          onClick={() => {
+            window.location.hash = '#website';
+            window.dispatchEvent(new CustomEvent('switch-view', { detail: 'website' }));
+          }}
+          className="flex items-center space-x-2 bg-[#1e2e4f] hover:bg-[#293a5b] text-white text-xs font-bold px-3.5 py-1.5 rounded-xl shadow-xs transition-colors"
+          title="Return to Public Website"
+        >
+          <Globe className="w-3.5 h-3.5 text-[#f19e1f]" />
+          <span>View Public Website</span>
+        </button>
       </div>
 
       {/* Right Controls */}
