@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useWebsite } from '../WebsiteContext';
 import { FAQS } from '../data';
+import { AnimatedCounter } from '../components/AnimatedCounter';
 
 export const Home: React.FC = () => {
   const { setCurrentPage, openQuoteModal, openLightbox } = useWebsite();
@@ -133,7 +134,7 @@ export const Home: React.FC = () => {
                 <div className="navy-box position-absolute bg-blue br-20 text-center shadow-lg">
                   <figure><img src="/roofora-assets/images/quote.png" alt="quote" className="img-fluid" /></figure>
                   <p className="text-white">"If I wouldn't put it on my own home, I won't put it on yours."</p>
-                  <span className="position-relative text-white font-weight-bold">Peter Morales</span>
+                  <span className="position-relative text-white font-weight-bold">Peter & Batshal • Assist Founders</span>
                 </div>
                 <figure className="mb-0">
                   <img src="/roofora-assets/images/about-img.jpg" alt="About ASSIST Roofing" className="img-fluid br-40 shadow-md" />
@@ -155,7 +156,7 @@ export const Home: React.FC = () => {
                     See in Every Detail
                   </h2>
                   <p className="text-size-16">
-                    With over 18+ years on ladders across Melbourne, our certified team handles your initial drone inspection, structural timber check, and complete installation—start to finish.
+                    With over 18+ years on ladders across Melbourne, our certified Assist team handles your initial drone inspection, structural timber check, and complete installation—start to finish.
                   </p>
                   <p className="last-text text-size-16">
                     We maintain full Victorian Building Authority (VBA) plumbing registrations, carry $20M Public Liability insurance, and strictly adhere to AS 1562.1 metal and tile roofing standards.
@@ -172,28 +173,32 @@ export const Home: React.FC = () => {
                     <div className="about-bottom-img-con br-40 shadow-sm">
                       <figure><img src="/roofora-assets/images/about-icon.png" alt="experience" className="img-fluid" /></figure>
                       <div>
-                        <span className="oswald-font d-inline-block text-white counter">18</span>
-                        <span className="d-inline-block text-accent alphabet">+</span>
+                        <span className="oswald-font d-inline-block text-white">
+                          <AnimatedCounter end={18} suffix="+" />
+                        </span>
                       </div>
                       <p className="mb-0">Years Master <br /> Experience</p>
                     </div>
                   </div>
 
-                  {/* Counter Boxes */}
+                  {/* Counter Boxes with Animated Counting */}
                   <div className="users-details-con mt-5">
                     <div className="user-detrail-box pl-0">
-                      <span className="d-inline-block counter">500</span>
-                      <span className="d-inline-block alphabet">+</span>
+                      <span className="d-inline-block counter">
+                        <AnimatedCounter end={500} suffix="+" />
+                      </span>
                       <p className="mb-0 text-black font-weight-600">Jobs Completed</p>
                     </div>
                     <div className="user-detrail-box">
-                      <span className="d-inline-block counter">25</span>
-                      <span className="d-inline-block alphabet">+</span>
+                      <span className="d-inline-block counter">
+                        <AnimatedCounter end={25} suffix="+" />
+                      </span>
                       <p className="mb-0 text-black font-weight-600">Expert Crew</p>
                     </div>
                     <div className="user-detrail-box border-right-0">
-                      <span className="d-inline-block counter">100</span>
-                      <span className="d-inline-block alphabet">%</span>
+                      <span className="d-inline-block counter">
+                        <AnimatedCounter end={100} suffix="%" />
+                      </span>
                       <p className="mb-0 text-black font-weight-600">Client Satisfaction</p>
                     </div>
                   </div>

@@ -37,7 +37,7 @@ export const Navbar: React.FC = () => {
                 onClick={() => setCurrentPage('home')}
               >
                 <figure className="mb-0">
-                  <img src="/roofora-assets/images/logo.png" alt="Roofora Logo" className="img-fluid" />
+                  <img src="/roofora-assets/images/logo.png" alt="Assist Roofing Logo" className="img-fluid" />
                 </figure>
               </a>
 
@@ -90,25 +90,25 @@ export const Navbar: React.FC = () => {
                       <div className="dropdown-menu show position-absolute animate__animated animate__fadeIn animate__faster">
                         <a 
                           className="dropdown-item cursor-pointer" 
-                          onClick={() => { setCurrentPage('services'); setActiveDropdown(null); }}
+                          onClick={() => { setCurrentPage('services'); setActiveDropdown(null); setMobileMenuOpen(false); }}
                         >
                           All Roofing Services
                         </a>
                         <a 
                           className="dropdown-item cursor-pointer" 
-                          onClick={() => { setCurrentPage('services'); setActiveDropdown(null); }}
+                          onClick={() => { setCurrentPage('services'); setActiveDropdown(null); setMobileMenuOpen(false); }}
                         >
                           Residential Roofing
                         </a>
                         <a 
                           className="dropdown-item cursor-pointer" 
-                          onClick={() => { setCurrentPage('services'); setActiveDropdown(null); }}
+                          onClick={() => { setCurrentPage('services'); setActiveDropdown(null); setMobileMenuOpen(false); }}
                         >
                           Roof Repairs & Leak Fix
                         </a>
                         <a 
                           className="dropdown-item cursor-pointer" 
-                          onClick={() => { setCurrentPage('services'); setActiveDropdown(null); }}
+                          onClick={() => { setCurrentPage('services'); setActiveDropdown(null); setMobileMenuOpen(false); }}
                         >
                           Full Re-Roofing
                         </a>
@@ -132,19 +132,19 @@ export const Navbar: React.FC = () => {
                       <div className="dropdown-menu show position-absolute animate__animated animate__fadeIn animate__faster">
                         <a 
                           className="dropdown-item cursor-pointer" 
-                          onClick={() => { setCurrentPage('gallery'); setActiveDropdown(null); }}
+                          onClick={() => { setCurrentPage('gallery'); setActiveDropdown(null); setMobileMenuOpen(false); }}
                         >
                           Completed Projects
                         </a>
                         <a 
                           className="dropdown-item cursor-pointer" 
-                          onClick={() => { setCurrentPage('gallery'); setActiveDropdown(null); }}
+                          onClick={() => { setCurrentPage('gallery'); setActiveDropdown(null); setMobileMenuOpen(false); }}
                         >
                           Colorbond Metal Gallery
                         </a>
                         <a 
                           className="dropdown-item cursor-pointer" 
-                          onClick={() => { setCurrentPage('gallery'); setActiveDropdown(null); }}
+                          onClick={() => { setCurrentPage('gallery'); setActiveDropdown(null); setMobileMenuOpen(false); }}
                         >
                           Tile Restoration Gallery
                         </a>
@@ -170,9 +170,41 @@ export const Navbar: React.FC = () => {
                     </a>
                   </li>
                 </ul>
+
+                {/* Mobile Drawer Action Buttons (Visible only on mobile) */}
+                <div className="mobile-action-buttons d-lg-none mt-3 pt-3 border-top">
+                  <button 
+                    onClick={() => { openQuoteModal(); setMobileMenuOpen(false); }}
+                    className="btn w-100 py-2.5 rounded-pill font-weight-700 text-white shadow-sm mb-2"
+                    style={{ backgroundColor: '#f19e1f' }}
+                  >
+                    <i className="fa-solid fa-calendar-check mr-2"></i> Book Free Inspection
+                  </button>
+                  <a 
+                    href="tel:1800277478"
+                    className="btn w-100 py-2.5 rounded-pill font-weight-700 text-white mb-2 text-decoration-none"
+                    style={{ backgroundColor: '#1e2e4f' }}
+                  >
+                    <i className="fa-solid fa-phone mr-2"></i> 1800 277 478
+                  </a>
+                  <button 
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      if (localStorage.getItem('authToken')) {
+                        window.location.hash = '#erp';
+                        window.dispatchEvent(new CustomEvent('switch-view', { detail: 'erp' }));
+                      } else {
+                        setCurrentPage('login');
+                      }
+                    }}
+                    className="btn w-100 py-2 rounded-pill font-weight-600 text-muted border"
+                  >
+                    <i className="fa-solid fa-lock mr-2"></i> ERP Portal Login
+                  </button>
+                </div>
               </div>
 
-              {/* Right Action Buttons */}
+              {/* Right Action Buttons (Desktop only) */}
               <div className="header-contact d-none d-lg-block">
                 <ul className="list-unstyled mb-0 d-flex align-items-center">
                   <li className="d-inline-block">

@@ -4,7 +4,7 @@ import { useWebsite } from '../WebsiteContext';
 import { motion } from 'framer-motion';
 
 export const Testimonials: React.FC = () => {
-  const { setCurrentPage } = useWebsite();
+  const { setCurrentPage, openQuoteModal } = useWebsite();
 
   return (
     <div className="w-full bg-white text-[#1e2e4f] font-['Sora',sans-serif]">
@@ -21,7 +21,7 @@ export const Testimonials: React.FC = () => {
             Testimonials
           </h1>
           <p className="text-base sm:text-lg text-[#b7c1d5] max-w-2xl mx-auto mb-6 font-light">
-            Read what Melbourne homeowners and commercial property managers say about our honest communication and pristine workmanship.
+            Read what Melbourne homeowners and commercial property managers say about ASSIST's honest communication and pristine workmanship.
           </p>
 
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-semibold">
@@ -40,7 +40,7 @@ export const Testimonials: React.FC = () => {
             <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border border-[#e6ebf6] mb-4">
               <img src="/roofora-assets/images/google-icon.png" alt="Google" className="w-5 h-5 object-contain" />
               <span className="font-['Oswald',sans-serif] text-[#f19e1f] font-bold text-base">4.9 / 5.0</span>
-              <span className="text-xs text-[#616a7e]">Based on 500+ Verified Roof Projects</span>
+              <span className="text-xs text-[#616a7e]">Based on 500+ Verified Assist Roof Projects</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-4">
               Verified Client Stories
@@ -106,7 +106,7 @@ export const Testimonials: React.FC = () => {
             Get the same pristine craftsmanship and peace of mind for your home today.
           </p>
           <button
-            onClick={() => setCurrentPage('contact')}
+            onClick={openQuoteModal}
             className="bg-[#f19e1f] hover:bg-[#d88713] text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-full shadow-lg transition-all"
           >
             Get a Free Inspection & Quote

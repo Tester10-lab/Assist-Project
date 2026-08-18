@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export const Gallery: React.FC = () => {
   const [filter, setFilter] = useState('All');
-  const { setCurrentPage } = useWebsite();
+  const { setCurrentPage, openLightbox, openQuoteModal } = useWebsite();
 
   const categories = ['All', ...Array.from(new Set(GALLERY_PROJECTS.map(p => p.category)))];
   
@@ -28,7 +28,7 @@ export const Gallery: React.FC = () => {
             Our Projects
           </h1>
           <p className="text-base sm:text-lg text-[#b7c1d5] max-w-2xl mx-auto mb-6 font-light">
-            Explore authentic completed roof replacements, architectural standing seam metal installations, and restorations across Melbourne.
+            Explore authentic completed roof replacements, architectural standing seam metal installations, and restorations across Melbourne by ASSIST.
           </p>
 
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-semibold">
@@ -79,7 +79,10 @@ export const Gallery: React.FC = () => {
                   key={project.id}
                   className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-[#e6ebf6] flex flex-col group"
                 >
-                  <div className="h-64 overflow-hidden relative">
+                  <div 
+                    className="h-64 overflow-hidden relative cursor-pointer"
+                    onClick={() => openLightbox({ src: project.imageUrl, title: project.title, subtitle: `${project.location} • ${project.category}` })}
+                  >
                     <img 
                       src={project.imageUrl} 
                       alt={project.title} 
@@ -105,7 +108,7 @@ export const Gallery: React.FC = () => {
                     </div>
 
                     <button
-                      onClick={() => setCurrentPage('contact')}
+                      onClick={openQuoteModal}
                       className="w-full bg-[#f4f8ff] group-hover:bg-[#1e2e4f] text-[#1e2e4f] group-hover:text-white font-bold text-xs uppercase tracking-wider py-3 rounded-full transition-all flex items-center justify-center gap-2"
                     >
                       <span>Inquire About This Roof</span>
