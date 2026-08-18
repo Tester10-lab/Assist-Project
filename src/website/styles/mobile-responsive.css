@@ -12,10 +12,31 @@ html, body {
   box-sizing: border-box;
 }
 
-/* Ensure smooth image scaling */
+/* Ensure smooth image scaling on ALL devices */
 img {
   max-width: 100%;
   height: auto;
+  display: block;
+  -webkit-transform: translateZ(0); /* Force GPU rendering on iOS */
+  transform: translateZ(0);
+}
+
+/* Fix images not loading on mobile — force visibility */
+img[src] {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Fix CSS background images on mobile Safari / Chrome */
+.banner-con,
+.footer-con,
+.cta-con,
+.sub-banner-con,
+[style*="background-image"] {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 /* Header & Mobile Navigation Pill */
@@ -139,6 +160,9 @@ img {
     padding: 40px 20px 45px !important;
     background-position: center center !important;
     background-size: cover !important;
+    -webkit-background-size: cover !important;
+    background-attachment: scroll !important; /* iOS Safari doesn't support 'fixed' */
+    background-repeat: no-repeat !important;
   }
 
   .banner-con::before {
@@ -487,5 +511,54 @@ img {
 
   .footer-links li a {
     font-size: 13px !important;
+  }
+
+  /* Footer logo on dark background needs contrast */
+  .footer-con .footer-logo figure {
+    background: #ffffff;
+    padding: 8px 12px;
+    border-radius: 12px;
+    display: inline-block;
+  }
+
+  .footer-con .footer-logo figure img {
+    max-height: 36px !important;
+    width: auto !important;
+    object-fit: contain !important;
+  }
+
+  /* Header logo mobile sizing */
+  .header-con .navbar-brand figure img {
+    max-height: 38px !important;
+    width: auto !important;
+    object-fit: contain !important;
+  }
+}
+
+/* ==========================================================================
+   ALL IMAGES — EXTRA MOBILE FIXES
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+  /* Force all images in portfolio/about/services to be visible */
+  .about-img-con figure img,
+  .portfolio-box figure img,
+  .services-con .custom-card img,
+  .blog-image img,
+  .case-study-img img {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+    min-height: 180px;
+  }
+
+  /* CTA and testimonial background sections */
+  .cta-con,
+  .testimonials-con,
+  .newsletter-con {
+    background-size: cover !important;
+    -webkit-background-size: cover !important;
+    background-attachment: scroll !important;
+    background-repeat: no-repeat !important;
   }
 }
