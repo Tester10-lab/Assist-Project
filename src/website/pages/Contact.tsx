@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useWebsite } from '../WebsiteContext';
 import { motion } from 'framer-motion';
+import { asset } from '../utils/asset';
 
 export const Contact: React.FC = () => {
   const { setCurrentPage } = useWebsite();
@@ -26,7 +27,7 @@ export const Contact: React.FC = () => {
       <section className="relative bg-[#1e2e4f] text-white py-16 lg:py-20 overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-20 pointer-events-none"
-          style={{ backgroundImage: `url('/roofora-assets/images/sub-banner-bg-img.jpg')` }}
+          style={{ backgroundImage: `url('${asset('/roofora-assets/images/sub-banner-bg-img.jpg')}')` }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#1e2e4f] via-[#1e2e4f]/90 to-[#1e2e4f]/70 pointer-events-none" />
 
@@ -287,7 +288,7 @@ export const Contact: React.FC = () => {
               {/* Real Project Visual */}
               <div className="rounded-3xl overflow-hidden shadow-md border border-[#e6ebf6] relative h-64">
                 <img 
-                  src="/roofora-assets/images/portfolio-img1.jpg" 
+                  src={asset('/roofora-assets/images/portfolio-img1.jpg')} 
                   alt="Melbourne Roofing Project" 
                   className="w-full h-full object-cover"
                 />

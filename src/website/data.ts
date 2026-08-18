@@ -1,4 +1,5 @@
-import { NavLink, ServiceItem, TestimonialItem, GalleryProject, TeamMember } from './types';
+﻿import { NavLink, ServiceItem, TestimonialItem, GalleryProject, TeamMember } from './types';
+import { asset } from './utils/asset';
 
 export const NAV_LINKS: NavLink[] = [
   { id: 'home', label: 'Home' },

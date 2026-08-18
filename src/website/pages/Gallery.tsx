@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { GALLERY_PROJECTS } from '../data';
 import { useWebsite } from '../WebsiteContext';
 import { motion, AnimatePresence } from 'framer-motion';
+import { asset } from '../utils/asset';
 
 export const Gallery: React.FC = () => {
   const [filter, setFilter] = useState('All');
@@ -19,7 +20,7 @@ export const Gallery: React.FC = () => {
       <section className="relative bg-[#1e2e4f] text-white py-16 lg:py-20 overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-20 pointer-events-none"
-          style={{ backgroundImage: `url('/roofora-assets/images/sub-banner-bg-img.jpg')` }}
+          style={{ backgroundImage: `url('${asset('/roofora-assets/images/sub-banner-bg-img.jpg')}')` }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#1e2e4f] via-[#1e2e4f]/90 to-[#1e2e4f]/70 pointer-events-none" />
 

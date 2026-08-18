@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useWebsite } from '../WebsiteContext';
 import { QuoteModal } from './QuoteModal';
 import { LightboxModal } from './LightboxModal';
 import { BackToTop } from './BackToTop';
+import { asset } from '../utils/asset';
 
 export const Navbar: React.FC = () => {
   const { currentPage, setCurrentPage, isMobileMenuOpen, setMobileMenuOpen, openQuoteModal } = useWebsite();
@@ -38,7 +39,7 @@ export const Navbar: React.FC = () => {
               >
                 <figure className="mb-0">
                   <img 
-                    src="/roofora-assets/images/logo.png" 
+                    src={asset('/roofora-assets/images/logo.png')} 
                     alt="ASSIST Roofing & Home Solution Logo" 
                     className="img-fluid" 
                     style={{ maxHeight: '54px', width: 'auto', objectFit: 'contain' }}
@@ -217,7 +218,7 @@ export const Navbar: React.FC = () => {
                       onClick={openQuoteModal} 
                       className="contact-btn d-inline-block cursor-pointer text-decoration-none"
                     >
-                      Book Inspection <figure><img src="/roofora-assets/images/arrow.png" alt="arrow" /></figure>
+                      Book Inspection <figure><img src={asset('/roofora-assets/images/arrow.png')} alt="arrow" /></figure>
                     </a>
                   </li>
                   <li className="d-flex align-items-center position-relative">
@@ -237,7 +238,7 @@ export const Navbar: React.FC = () => {
                       </a>
                     </div>
                     <figure className="header-phone mb-0">
-                      <img src="/roofora-assets/images/arrow.png" alt="arrow" />
+                      <img src={asset('/roofora-assets/images/arrow.png')} alt="arrow" />
                     </figure>
                   </li>
                 </ul>
@@ -269,7 +270,7 @@ export const Footer: React.FC = () => {
                 <a onClick={() => setCurrentPage('home')} className="footer-logo cursor-pointer">
                   <figure className="mb-0 bg-white p-2 rounded-2xl shadow-sm d-inline-block">
                     <img 
-                      src="/roofora-assets/images/footer-logo.png" 
+                      src={asset('/roofora-assets/images/footer-logo.png')} 
                       alt="ASSIST Roofing & Home Solution" 
                       className="img-fluid"
                       style={{ maxHeight: '48px', width: 'auto', objectFit: 'contain' }}

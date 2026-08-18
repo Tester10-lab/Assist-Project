@@ -1,7 +1,8 @@
-import React from 'react';
+﻿import React from 'react';
 import { TESTIMONIALS } from '../data';
 import { useWebsite } from '../WebsiteContext';
 import { motion } from 'framer-motion';
+import { asset } from '../utils/asset';
 
 export const Testimonials: React.FC = () => {
   const { setCurrentPage, openQuoteModal } = useWebsite();
@@ -12,7 +13,7 @@ export const Testimonials: React.FC = () => {
       <section className="relative bg-[#1e2e4f] text-white py-16 lg:py-20 overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-20 pointer-events-none"
-          style={{ backgroundImage: `url('/roofora-assets/images/sub-banner-bg-img.jpg')` }}
+          style={{ backgroundImage: `url('${asset('/roofora-assets/images/sub-banner-bg-img.jpg')}')` }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#1e2e4f] via-[#1e2e4f]/90 to-[#1e2e4f]/70 pointer-events-none" />
 
@@ -38,7 +39,7 @@ export const Testimonials: React.FC = () => {
           
           <div className="text-center max-w-2xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border border-[#e6ebf6] mb-4">
-              <img src="/roofora-assets/images/google-icon.png" alt="Google" className="w-5 h-5 object-contain" />
+              <img src={asset('/roofora-assets/images/google-icon.png')} alt="Google" className="w-5 h-5 object-contain" />
               <span className="font-['Oswald',sans-serif] text-[#f19e1f] font-bold text-base">4.9 / 5.0</span>
               <span className="text-xs text-[#616a7e]">Based on 500+ Verified Assist Roof Projects</span>
             </div>

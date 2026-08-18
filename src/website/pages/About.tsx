@@ -1,7 +1,8 @@
-import React from 'react';
+﻿import React from 'react';
 import { TEAM_MEMBERS, STATS } from '../data';
 import { useWebsite } from '../WebsiteContext';
 import { motion } from 'framer-motion';
+import { asset } from '../utils/asset';
 
 export const About: React.FC = () => {
   const { setCurrentPage } = useWebsite();
@@ -12,7 +13,7 @@ export const About: React.FC = () => {
       <section className="relative bg-[#1e2e4f] text-white py-16 lg:py-20 overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center opacity-20 pointer-events-none"
-          style={{ backgroundImage: `url('/roofora-assets/images/sub-banner-bg-img.jpg')` }}
+          style={{ backgroundImage: `url('${asset('/roofora-assets/images/sub-banner-bg-img.jpg')}')` }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#1e2e4f] via-[#1e2e4f]/90 to-[#1e2e4f]/70 pointer-events-none" />
 
@@ -41,12 +42,12 @@ export const About: React.FC = () => {
             <div className="lg:col-span-6 relative">
               <div className="grid grid-cols-2 gap-4">
                 <img 
-                  src="/roofora-assets/images/about-img1.jpg" 
+                  src={asset('/roofora-assets/images/about-img1.jpg')} 
                   alt="Roofing Crew" 
                   className="rounded-3xl shadow-lg w-full h-[320px] object-cover"
                 />
                 <img 
-                  src="/roofora-assets/images/about-img2.jpg" 
+                  src={asset('/roofora-assets/images/about-img2.jpg')} 
                   alt="Precision Workmanship" 
                   className="rounded-3xl shadow-lg w-full h-[320px] object-cover mt-8"
                 />

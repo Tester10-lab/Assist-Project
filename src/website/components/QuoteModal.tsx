@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useWebsite } from '../WebsiteContext';
+import { asset } from '../utils/asset';
 
 export const QuoteModal: React.FC = () => {
   const { isQuoteModalOpen, closeQuoteModal } = useWebsite();
@@ -86,7 +87,7 @@ export const QuoteModal: React.FC = () => {
                 onClick={handleClose}
                 className="secondary_btn border-0 text-decoration-none"
               >
-                Done <span><img src="/roofora-assets/images/arrow.png" alt="arrow" className="img-fluid d-inline-block" /></span>
+                Done <span><img src={asset('/roofora-assets/images/arrow.png')} alt="arrow" className="img-fluid d-inline-block" /></span>
               </button>
             </div>
           ) : (
@@ -191,7 +192,7 @@ export const QuoteModal: React.FC = () => {
                 type="submit"
                 className="secondary_btn w-100 border-0 text-decoration-none font-weight-700"
               >
-                Submit Inspection Booking <span><img src="/roofora-assets/images/arrow.png" alt="arrow" className="img-fluid d-inline-block" /></span>
+                Submit Inspection Booking <span><img src={asset('/roofora-assets/images/arrow.png')} alt="arrow" className="img-fluid d-inline-block" /></span>
               </button>
             </form>
           )}

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useWebsite } from '../WebsiteContext';
+import { asset } from '../utils/asset';
 
 export const Login: React.FC = () => {
   const { setCurrentPage } = useWebsite();
@@ -45,7 +46,7 @@ export const Login: React.FC = () => {
         <div className="md:w-5/12 bg-[#1e2e4f] text-white p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden">
           <div 
             className="absolute inset-0 bg-cover bg-center opacity-15 pointer-events-none"
-            style={{ backgroundImage: `url('/roofora-assets/images/banner-bg-img.jpg')` }}
+            style={{ backgroundImage: `url('${asset('/roofora-assets/images/banner-bg-img.jpg')}')` }}
           />
 
           <div className="relative z-10">
@@ -56,7 +57,7 @@ export const Login: React.FC = () => {
             >
               <div className="bg-white p-2 rounded-2xl shadow-sm">
                 <img 
-                  src="/roofora-assets/images/logo.png" 
+                  src={asset('/roofora-assets/images/logo.png')} 
                   alt="ASSIST Roofing & Home Solution" 
                   className="h-10 w-auto object-contain"
                 />
