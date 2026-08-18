@@ -1,694 +1,669 @@
 import React, { useState } from 'react';
 import { useWebsite } from '../WebsiteContext';
-import { SERVICES, PRICING_PLANS, GALLERY_PROJECTS, TESTIMONIALS, FAQS, STATS } from '../data';
-import { motion, AnimatePresence } from 'framer-motion';
+import { FAQS } from '../data';
 
 export const Home: React.FC = () => {
   const { setCurrentPage } = useWebsite();
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
-  const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [quoteForm, setQuoteForm] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    service: 'Emergency Roof Repair',
-    address: '',
-    message: '',
-  });
-  const [submitted, setSubmitted] = useState(false);
+  const [activeTestimonial, setActiveTestimonial] = useState(1);
+  const [activeServiceHover, setActiveServiceHover] = useState<number | null>(null);
 
-  const handleQuoteSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
+  const testimonialsList = [
+    {
+      name: 'Jennifer Troyer',
+      role: 'Satisfied Customer',
+      img: '/roofora-assets/images/client-img1.jpg',
+      comment: 'Outstanding roofing service from start to finish. The team was punctual, highly skilled, and ensured everything was done safely and professionally. My roof looks brand new and the quality of work exceeded expectations.'
+    },
+    {
+      name: 'Mark Reynolds',
+      role: 'Homeowner, Hawthorn',
+      img: '/roofora-assets/images/client-img2.jpg',
+      comment: 'ASSIST was honest, professional, and hands-on from the first drone inspection to the final repair. They clearly explained the issue, provided a fair transparent quote, and completed the work exactly as promised. Our Colorbond roof looks spectacular!'
+    },
+    {
+      name: 'Lucy Smith',
+      role: 'Property Manager, Brighton',
+      img: '/roofora-assets/images/client-img3.jpg',
+      comment: 'Highly impressed with their construction expertise. They handled everything from roof repairs to structural flashing improvements with precision. The project was completed on time and within budget, with excellent communication throughout.'
+    },
+    {
+      name: 'David Campbell',
+      role: 'Verified Customer, Kew',
+      img: '/roofora-assets/images/client-img4.jpg',
+      comment: 'Reliable and professional roofing contractors. They quickly identified the leak issue during a severe Melbourne storm, installed temporary tarping, and fixed the tile bedding permanently. Highly recommended.'
+    }
+  ];
 
   return (
-    <div className="w-full bg-[#f4f8ff] text-[#1e2e4f] font-['Sora',sans-serif]">
-      {/* ── 1. HERO BANNER SECTION ── */}
-      <section className="relative bg-[#1e2e4f] text-white overflow-hidden py-16 lg:py-24">
-        {/* Background Image Overlay */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-25 mix-blend-luminosity pointer-events-none"
-          style={{ backgroundImage: `url('/roofora-assets/images/banner-bg-img.jpg')` }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1e2e4f] via-[#1e2e4f]/90 to-[#1e2e4f]/60 pointer-events-none" />
-
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <div className="w-100 float-left">
+      
+      {/* ── BANNER SECTION ── */}
+      <div className="padding-rl float-left w-100">
+        <div className="home-outer-wrapper float-left w-100 position-relative main-box">
+          <section className="float-left w-100 position-relative banner-con br-50 main-box">
             
-            {/* Left Column: Hero Content */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="lg:col-span-7 flex flex-col"
-            >
-              {/* Trust Badge */}
-              <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 w-fit mb-6">
-                <img src="/roofora-assets/images/google-icon.png" alt="Google" className="w-5 h-5 object-contain" />
-                <span className="font-['Oswald',sans-serif] text-[#f19e1f] font-bold text-base tracking-wide">4.9/5.0</span>
-                <span className="text-xs text-white/90 font-medium">Over 500+ Verified Roof Projects</span>
-                <div className="flex text-[#f19e1f] text-xs">
-                  {'★★★★★'}
-                </div>
-              </div>
+            {/* Floating Badges */}
+            <div className="banner-white-box bg-fff position-absolute var1 d-none d-md-flex">
+              <img src="/roofora-assets/images/baner-white-icon1.png" alt="Clean Jobsite" className="img-fluid" />
+              <p className="mb-0">Clean Jobsite Promise</p>
+            </div>
+            <div className="banner-white-box bg-fff position-absolute var2 d-none d-md-flex">
+              <img src="/roofora-assets/images/baner-white-icon2.png" alt="Same Week" className="img-fluid" />
+              <p className="mb-0">Same-Week Service</p>
+            </div>
+            <div className="banner-white-box bg-fff position-absolute var3 d-none d-md-flex">
+              <img src="/roofora-assets/images/baner-white-icon3.png" alt="Insured" className="img-fluid" />
+              <p className="mb-0">Fully Insured & VBA</p>
+            </div>
 
-              {/* Display Headline */}
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-white leading-[1.08] mb-6">
-                Roofing <span className="text-[#f19e1f]">Solutions</span> <br />
-                For Every Home.
-              </h1>
-
-              {/* Subtitle */}
-              <p className="text-lg text-[#b7c1d5] max-w-xl mb-8 leading-relaxed font-light">
-                Fast leak fixes, emergency storm repairs, and honest re-roofs. You'll deal with certified master roofers from initial drone inspection to final spotless cleanup.
-              </p>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-wrap items-center gap-4 mb-10">
-                <button
-                  onClick={() => setCurrentPage('contact')}
-                  className="bg-[#f19e1f] hover:bg-[#d88713] text-white font-bold text-base px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all flex items-center gap-3 transform hover:-translate-y-0.5"
-                >
-                  <span>Get a Free Quote</span>
-                  <i className="fa-solid fa-arrow-right"></i>
-                </button>
-                <a
-                  href="tel:1800277478"
-                  className="bg-white/10 hover:bg-white/20 text-white border border-white/30 font-bold text-base px-8 py-4 rounded-full transition-all flex items-center gap-3 backdrop-blur-sm"
-                >
-                  <i className="fa-solid fa-phone text-[#f19e1f]"></i>
-                  <span>1800 277 478</span>
-                </a>
-              </div>
-
-              {/* Floating Feature Badges */}
-              <div className="grid grid-cols-3 gap-3 pt-6 border-t border-white/15">
-                <div className="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/10">
-                  <img src="/roofora-assets/images/baner-white-icon1.png" alt="Clean" className="w-8 h-8 object-contain" />
-                  <span className="text-xs font-semibold text-white/90">Clean Jobsite Promise</span>
-                </div>
-                <div className="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/10">
-                  <img src="/roofora-assets/images/baner-white-icon2.png" alt="Fast" className="w-8 h-8 object-contain" />
-                  <span className="text-xs font-semibold text-white/90">Same-Week Service</span>
-                </div>
-                <div className="flex items-center gap-3 bg-white/5 p-3 rounded-xl border border-white/10">
-                  <img src="/roofora-assets/images/baner-white-icon3.png" alt="Insured" className="w-8 h-8 object-contain" />
-                  <span className="text-xs font-semibold text-white/90">Fully Insured & VBA</span>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Right Column: Hero Visual Card */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="lg:col-span-5 relative"
-            >
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white/10 bg-[#1e2e4f]">
-                <img 
-                  src="/roofora-assets/images/services-bg-img.jpg" 
-                  alt="Modern Roofing" 
-                  className="w-full h-[420px] object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1e2e4f] via-transparent to-transparent"></div>
-                
-                {/* Floating highlight card */}
-                <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-5 rounded-2xl shadow-xl text-[#1e2e4f]">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <span className="text-xs font-bold uppercase tracking-wider text-[#f19e1f]">10-Year Guarantee</span>
-                      <h4 className="text-lg font-bold font-['Oswald',sans-serif] uppercase">Workmanship Warranty</h4>
+            <div className="wrapper1605">
+              <div className="row">
+                <div className="col-lg-8 col-12">
+                  <div className="banner-content-con">
+                    
+                    {/* Rating Header */}
+                    <div className="d-flex align-items-center rating-con">
+                      <figure className="mb-0">
+                        <img src="/roofora-assets/images/google-icon.png" alt="Google" className="google-icon" />
+                      </figure>
+                      <span className="d-inline-block rating-text text-white font-weight-600 oswald-font">4.9</span>
+                      <div>
+                        <span className="d-block text-size-14 text-white">4.9/5 Reviews</span>
+                        <img src="/roofora-assets/images/stars.png" alt="stars" className="img-fluid" />
+                      </div>
                     </div>
-                    <div className="w-12 h-12 bg-[#1e2e4f] rounded-full flex items-center justify-center text-[#f19e1f] text-xl font-bold">
-                      <i className="fa-solid fa-award"></i>
+
+                    {/* Big Heading */}
+                    <h1 className="text-size-90 text-white font-weight-700">
+                      Roofing <br />
+                      Solutions for <br />
+                      Every Home.
+                    </h1>
+
+                    {/* Subtitle */}
+                    <p className="text-white text-size-18">
+                      Fast leak fixes, emergency storm repairs, and honest re-roofs. You'll deal with certified master roofers from initial drone inspection to final spotless cleanup.
+                    </p>
+
+                    {/* Action Buttons */}
+                    <div className="d-flex flex-wrap align-items-center gap-3">
+                      <button 
+                        onClick={() => setCurrentPage('contact')} 
+                        className="font-weight-bold secondary_btn d-inline-block text-decoration-none border-0"
+                      >
+                        Get a Quote <span className=""><img src="/roofora-assets/images/arrow.png" alt="arrow" className="img-fluid d-inline-block" /></span>
+                      </button>
+
+                      <a 
+                        href="tel:1800277478" 
+                        className="font-weight-bold elementary_btn d-inline-block text-decoration-none"
+                      >
+                        1800 277 478 <span className=""><img src="/roofora-assets/images/arrow.png" alt="arrow" className="img-fluid d-inline-block" /></span>
+                      </a>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Scroll Down */}
+            <div className="position-absolute scrol-outer d-none d-lg-block">
+              <span className="d-block text-white text-size-14 font-weight-bold">Scroll Down</span>
+              <a href="#about-section" className="scroll-down-arrow">
+                <figure className="mb-0">
+                  <img src="/roofora-assets/images/arrow-down.png" alt="arrow" className="img-fluid" />
+                </figure>
+              </a>
+            </div>
+
+          </section>
+        </div>
+      </div>
+
+      {/* ── ABOUT SECTION ── */}
+      <section className="float-left w-100 position-relative about-con padding-top padding-bottom main-box overflow-hidden" id="about-section">
+        <div className="main-container">
+          <div className="row align-items-center">
+            
+            {/* Left Image & Overlay Quote */}
+            <div className="col-lg-5 col-md-12 mb-4 mb-lg-0">
+              <div className="about-img-con position-relative">
+                <div className="navy-box position-absolute bg-blue br-20 text-center shadow-lg">
+                  <figure><img src="/roofora-assets/images/quote.png" alt="quote" className="img-fluid" /></figure>
+                  <p className="text-white">"If I wouldn't put it on my own home, I won't put it on yours."</p>
+                  <span className="position-relative text-white font-weight-bold">Peter Morales</span>
+                </div>
+                <figure className="mb-0">
+                  <img src="/roofora-assets/images/about-img.jpg" alt="About ASSIST Roofing" className="img-fluid br-40 shadow-md" />
+                </figure>
+                <figure className="position-absolute z-1 about-vector">
+                  <img src="/roofora-assets/images/about-vector.png" alt="vector" className="img-fluid" />
+                </figure>
+              </div>
+            </div>
+
+            {/* Right Story & Metrics */}
+            <div className="col-lg-7 col-md-12">
+              <div className="about-content-con">
+                <div className="heading-title-con mb-0">
+                  <span className="special-text d-block">About ASSIST</span>
+                  <h2 className="text-size-56 font-weight-700">
+                    Proven Roofing <br />
+                    Experience You Can <br />
+                    See in Every Detail
+                  </h2>
+                  <p className="text-size-16">
+                    With over 18+ years on ladders across Melbourne, our certified team handles your initial drone inspection, structural timber check, and complete installation—start to finish.
+                  </p>
+                  <p className="last-text text-size-16">
+                    We maintain full Victorian Building Authority (VBA) plumbing registrations, carry $20M Public Liability insurance, and strictly adhere to AS 1562.1 metal and tile roofing standards.
+                  </p>
+
+                  <div className="d-flex flex-wrap align-items-center justify-content-between gap-4 mt-4">
+                    <button
+                      onClick={() => setCurrentPage('services')}
+                      className="text-decoration-none secondary_btn d-inline-block border-0"
+                    >
+                      Our Services & Standards <span><img src="/roofora-assets/images/arrow.png" alt="arrow" className="img-fluid d-inline-block" /></span>
+                    </button>
+
+                    <div className="about-bottom-img-con br-40 shadow-sm">
+                      <figure><img src="/roofora-assets/images/about-icon.png" alt="experience" className="img-fluid" /></figure>
+                      <div>
+                        <span className="oswald-font d-inline-block text-white counter">18</span>
+                        <span className="d-inline-block text-accent alphabet">+</span>
+                      </div>
+                      <p className="mb-0">Years Master <br /> Experience</p>
                     </div>
                   </div>
-                  <p className="text-xs text-[#616a7e] mt-2 font-normal">
-                    Every repair and re-roof is certified and backed by our written guarantee.
-                  </p>
+
+                  {/* Counter Boxes */}
+                  <div className="users-details-con mt-5">
+                    <div className="user-detrail-box pl-0">
+                      <span className="d-inline-block counter">500</span>
+                      <span className="d-inline-block alphabet">+</span>
+                      <p className="mb-0 text-black font-weight-600">Jobs Completed</p>
+                    </div>
+                    <div className="user-detrail-box">
+                      <span className="d-inline-block counter">25</span>
+                      <span className="d-inline-block alphabet">+</span>
+                      <p className="mb-0 text-black font-weight-600">Expert Crew</p>
+                    </div>
+                    <div className="user-detrail-box border-right-0">
+                      <span className="d-inline-block counter">100</span>
+                      <span className="d-inline-block alphabet">%</span>
+                      <p className="mb-0 text-black font-weight-600">Client Satisfaction</p>
+                    </div>
+                  </div>
+
                 </div>
               </div>
-            </motion.div>
+            </div>
 
           </div>
         </div>
       </section>
 
-      {/* ── 2. ABOUT US PREVIEW ── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      {/* ── SERVICES SECTION (Interactive Expanding Cards) ── */}
+      <div className="padding-rl float-left w-100">
+        <section className="float-left w-100 position-relative services-con padding-top padding-bottom main-box br-50">
+          <div className="main-container">
             
-            {/* Images Column */}
-            <div className="lg:col-span-6 relative">
-              <div className="grid grid-cols-2 gap-4">
-                <img 
-                  src="/roofora-assets/images/about-img1.jpg" 
-                  alt="Roofing Crew" 
-                  className="rounded-2xl shadow-md w-full h-[280px] object-cover"
-                />
-                <img 
-                  src="/roofora-assets/images/about-img2.jpg" 
-                  alt="Quality Materials" 
-                  className="rounded-2xl shadow-md w-full h-[280px] object-cover mt-8"
-                />
+            <div className="row align-items-center mb-5">
+              <div className="col-lg-5 col-md-12">
+                <div className="heading-title-con mb-0">
+                  <span className="d-block text-white special-text text-accent">Services</span>
+                  <h2 className="text-size-56 text-white font-weight-700">
+                    Roofing Services <br />
+                    You Can Trust
+                  </h2>
+                </div>
               </div>
+              <div className="col-lg-7 col-md-12">
+                <div className="heading-title-con mb-0">
+                  <p className="mb-0 sora-font text-white text-size-18">
+                    At ASSIST Roofing, we handle every Melbourne project personally from start to finish. With over 18 years of hands-on experience, we inspect, quote, and complete your roof ourselves—no middlemen, no confusion.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Accordion Flex Cards Wrapper */}
+            <div className="cards-wrapper mb-0">
               
-              {/* Floating Experience Badge */}
-              <div className="absolute -bottom-6 left-8 bg-[#f19e1f] text-white p-4 rounded-2xl shadow-xl flex items-center gap-4">
-                <span className="text-4xl font-extrabold font-['Oswald',sans-serif]">15+</span>
-                <span className="text-xs font-bold uppercase tracking-wider leading-tight">
-                  Years of <br /> Excellence
+              {/* Card 1 */}
+              <div 
+                className="custom-card"
+                onMouseEnter={() => setActiveServiceHover(1)}
+                onMouseLeave={() => setActiveServiceHover(null)}
+                onClick={() => setCurrentPage('services')}
+              >
+                <img src="/roofora-assets/images/services-img1.jpg" alt="Residential Roofing" className="img-fluid" />
+                <div className="overlay">
+                  <figure><img src="/roofora-assets/images/service-icon1.png" alt="Residential icon" className="img-fluid" /></figure>
+                  <h3>Residential Roofing</h3>
+                  <p className="mb-0">Keep your home safe and beautiful with our premium re-roofing, Colorbond metal upgrades, and leak diagnoses.</p>
+                </div>
+                <span className="secondary_btn d-inline-block">
+                  Explore <span className=""><img src="/roofora-assets/images/arrow.png" alt="arrow" className="img-fluid d-inline-block" /></span>
                 </span>
               </div>
-            </div>
 
-            {/* Content Column */}
-            <div className="lg:col-span-6 flex flex-col">
-              <span className="text-sm font-bold uppercase tracking-wider text-[#f19e1f] mb-2">
-                About ASSIST Roofing
-              </span>
-              <h2 className="text-3xl sm:text-5xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-6 leading-tight">
-                Craftsmanship You Can Trust, Service You Can Count On.
-              </h2>
-              <p className="text-base text-[#616a7e] mb-6 leading-relaxed">
-                Founded with a mission to deliver honest, transparent, and durable roofing across Melbourne, ASSIST Roofing brings over 15 years of industry-leading experience to every residential and commercial project.
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#f4f8ff] text-[#f19e1f] flex items-center justify-center font-bold">
-                    <i className="fa-solid fa-check"></i>
-                  </div>
-                  <span className="text-sm font-semibold text-[#1e2e4f]">Licensed & Insured Trades</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#f4f8ff] text-[#f19e1f] flex items-center justify-center font-bold">
-                    <i className="fa-solid fa-check"></i>
-                  </div>
-                  <span className="text-sm font-semibold text-[#1e2e4f]">100% Upfront Pricing</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#f4f8ff] text-[#f19e1f] flex items-center justify-center font-bold">
-                    <i className="fa-solid fa-check"></i>
-                  </div>
-                  <span className="text-sm font-semibold text-[#1e2e4f]">Clean Jobsite Guarantee</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#f4f8ff] text-[#f19e1f] flex items-center justify-center font-bold">
-                    <i className="fa-solid fa-check"></i>
-                  </div>
-                  <span className="text-sm font-semibold text-[#1e2e4f]">10-Yr Workmanship Warranty</span>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-6">
-                <button
-                  onClick={() => setCurrentPage('about')}
-                  className="bg-[#1e2e4f] hover:bg-[#293a5b] text-white font-bold text-sm px-7 py-3.5 rounded-full transition-colors flex items-center gap-2"
-                >
-                  <span>Learn More About Us</span>
-                  <i className="fa-solid fa-arrow-right text-xs"></i>
-                </button>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#f19e1f]/10 text-[#f19e1f] flex items-center justify-center font-bold">
-                    <i className="fa-solid fa-phone"></i>
-                  </div>
-                  <div>
-                    <span className="text-[11px] text-[#616a7e] block uppercase font-bold">Call Anytime</span>
-                    <span className="text-sm font-bold text-[#1e2e4f]">1800 277 478</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ── 3. SERVICES SECTION ── */}
-      <section className="py-20 bg-[#f4f8ff]">
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-sm font-bold uppercase tracking-wider text-[#f19e1f] mb-2 block">
-              What We Do
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-4">
-              Comprehensive Roofing Solutions
-            </h2>
-            <p className="text-base text-[#616a7e]">
-              From quick leak repairs to complete structural re-roofing, our certified specialists have you covered.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {SERVICES.map((srv, idx) => (
-              <motion.div
-                key={idx}
-                whileHover={{ y: -8 }}
-                className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col border border-[#e6ebf6] group"
+              {/* Card 2 */}
+              <div 
+                className="custom-card"
+                onMouseEnter={() => setActiveServiceHover(2)}
+                onMouseLeave={() => setActiveServiceHover(null)}
+                onClick={() => setCurrentPage('services')}
               >
-                <div className="h-48 overflow-hidden relative">
-                  <img 
-                    src={srv.imageUrl} 
-                    alt={srv.title} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                  />
-                  <div className="absolute top-4 left-4 w-12 h-12 bg-white rounded-2xl shadow flex items-center justify-center p-2">
-                    <img src={srv.icon} alt="Icon" className="w-7 h-7 object-contain" />
-                  </div>
+                <img src="/roofora-assets/images/services-img2.jpg" alt="Roof Repairs" className="img-fluid" />
+                <div className="overlay">
+                  <figure><img src="/roofora-assets/images/service-icon2.png" alt="Repairs icon" className="img-fluid" /></figure>
+                  <h3>Roof Repairs & Maintenance</h3>
+                  <p className="mb-0">Fast storm leak repairs, ridge capping re-pointing, broken tile replacements, and gutter flashing restorations.</p>
                 </div>
+                <span className="secondary_btn d-inline-block">
+                  Explore <span className=""><img src="/roofora-assets/images/arrow.png" alt="arrow" className="img-fluid d-inline-block" /></span>
+                </span>
+              </div>
 
-                <div className="p-6 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h3 className="text-xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-3">
-                      {srv.title}
-                    </h3>
-                    <p className="text-sm text-[#616a7e] mb-4 leading-relaxed font-light">
-                      {srv.description}
-                    </p>
-                    <ul className="space-y-2 mb-6">
-                      {srv.features.map((feat, fidx) => (
-                        <li key={fidx} className="flex items-center gap-2 text-xs text-[#1e2e4f] font-medium">
-                          <i className="fa-solid fa-circle-check text-[#f19e1f]"></i>
-                          <span>{feat}</span>
-                        </li>
-                      ))}
-                    </ul>
+              {/* Card 3 */}
+              <div 
+                className="custom-card"
+                onMouseEnter={() => setActiveServiceHover(3)}
+                onMouseLeave={() => setActiveServiceHover(null)}
+                onClick={() => setCurrentPage('services')}
+              >
+                <img src="/roofora-assets/images/services-img3.jpg" alt="Commercial Roofing" className="img-fluid" />
+                <div className="overlay">
+                  <figure><img src="/roofora-assets/images/service-icon3.png" alt="Commercial icon" className="img-fluid" /></figure>
+                  <h3>Commercial Roofing</h3>
+                  <p className="mb-0">Large-span industrial roof installations, box gutter replacement, Klip-Lok systems, and scheduled facility maintenance.</p>
+                </div>
+                <span className="secondary_btn d-inline-block">
+                  Explore <span className=""><img src="/roofora-assets/images/arrow.png" alt="arrow" className="img-fluid d-inline-block" /></span>
+                </span>
+              </div>
+
+              {/* Card 4 */}
+              <div 
+                className="custom-card"
+                onMouseEnter={() => setActiveServiceHover(4)}
+                onMouseLeave={() => setActiveServiceHover(null)}
+                onClick={() => setCurrentPage('services')}
+              >
+                <img src="/roofora-assets/images/services-img4.jpg" alt="Roof Replacement" className="img-fluid" />
+                <div className="overlay">
+                  <figure><img src="/roofora-assets/images/service-icon4.png" alt="Replacement icon" className="img-fluid" /></figure>
+                  <h3>Full Re-Roofing</h3>
+                  <p className="mb-0">Complete tile-to-Colorbond conversions, sarking insulation, batten repairs, and full 10-year workmanship warranties.</p>
+                </div>
+                <span className="secondary_btn d-inline-block">
+                  Explore <span className=""><img src="/roofora-assets/images/arrow.png" alt="arrow" className="img-fluid d-inline-block" /></span>
+                </span>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+      </div>
+
+      <div className="spacer"></div>
+
+      {/* ── PRICING SECTION ── */}
+      <div className="padding-rl float-left w-100">
+        <section className="float-left w-100 pricing-con position-relative padding-top padding-bottom main-box bg-sky br-50">
+          <div className="main-container">
+            
+            <div className="heading-title-con text-center mb-5">
+              <span className="special-text d-block">Transparent Pricing</span>
+              <h2 className="text-size-56 font-weight-700">
+                Professional Roofing & <br />
+                Upfront Fixed Pricing
+              </h2>
+              <p className="text-size-18">
+                Every Melbourne property is unique, but here is where our transparent packages start. No surprise add-ons.
+              </p>
+            </div>
+
+            <div className="row">
+              {/* Plan 1 */}
+              <div className="col-lg-3 col-md-6 d-flex mb-4 mb-lg-0">
+                <div className="pricing-box w-100 d-flex flex-column shadow-sm">
+                  <figure className="price-icon"><img src="/roofora-assets/images/price-icon1.png" alt="Inspection" className="img-fluid" /></figure>
+                  <h3 className="text-size-22 font-weight-700">Leak Diagnosis</h3>
+                  <p>Comprehensive drone & roof inspection with high-res photo report.</p>
+                  <span className="starting-at d-inline-block">Starting at:</span>
+                  <div className="price-content">
+                    <span className="dollar">$</span>99<span className="text-size-16">/site</span>
                   </div>
-
-                  <button
-                    onClick={() => setCurrentPage('contact')}
-                    className="w-full bg-[#f4f8ff] group-hover:bg-[#f19e1f] text-[#1e2e4f] group-hover:text-white font-bold text-xs uppercase tracking-wider py-3 rounded-full transition-all duration-300 flex items-center justify-center gap-2"
-                  >
-                    <span>Book Service</span>
-                    <i className="fa-solid fa-arrow-right text-xs"></i>
+                  <ul className="list-unstyled p-0 flex-grow-1">
+                    <li className="position-relative"><i className="fa-solid fa-check"></i> High-resolution drone survey</li>
+                    <li className="position-relative"><i className="fa-solid fa-check"></i> Identifies leaks & tile rot</li>
+                    <li className="position-relative"><i className="fa-solid fa-check"></i> 100% credited toward repair</li>
+                  </ul>
+                  <button onClick={() => setCurrentPage('contact')} className="secondary_btn d-inline-block mt-auto border-0 text-decoration-none">
+                    Book Inspection <span><img src="/roofora-assets/images/arrow.png" alt="arrow" className="img-fluid d-inline-block" /></span>
                   </button>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <button
-              onClick={() => setCurrentPage('services')}
-              className="bg-[#1e2e4f] hover:bg-[#293a5b] text-white font-bold text-sm px-8 py-4 rounded-full transition-colors inline-flex items-center gap-2"
-            >
-              <span>Explore All Roofing Services</span>
-              <i className="fa-solid fa-arrow-right text-xs"></i>
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 4. CALL TO ACTION BANNER ── */}
-      <section className="py-16 bg-[#1e2e4f] text-white relative overflow-hidden">
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-8 relative z-10 flex flex-col lg:flex-row justify-between items-center gap-8 text-center lg:text-left">
-          <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-[#f19e1f] block mb-2">
-              Ready to Upgrade?
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-white mb-2">
-              Get an Honest, Itemized Quote in 24 Hours
-            </h2>
-            <p className="text-[#b7c1d5] text-base max-w-xl font-light">
-              No hidden fees, no hard sell. Just an honest assessment from experienced roofing professionals.
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center gap-4 shrink-0">
-            <button
-              onClick={() => setCurrentPage('contact')}
-              className="bg-[#f19e1f] hover:bg-[#d88713] text-white font-bold text-sm px-8 py-4 rounded-full shadow-lg transition-all"
-            >
-              Request Inspection
-            </button>
-            <a
-              href="tel:1800277478"
-              className="bg-white/10 hover:bg-white/20 text-white font-bold text-sm px-8 py-4 rounded-full border border-white/30 transition-all flex items-center gap-2"
-            >
-              <i className="fa-solid fa-phone text-[#f19e1f]"></i>
-              <span>1800 277 478</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 5. TRANSPARENT PRICING ── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-sm font-bold uppercase tracking-wider text-[#f19e1f] mb-2 block">
-              Transparent Pricing
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-4">
-              Clear & Upfront Estimates
-            </h2>
-            <p className="text-base text-[#616a7e]">
-              Every home is unique, but here is where our standard repairs start. No surprise add-ons.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {PRICING_PLANS.map((plan) => (
-              <div
-                key={plan.id}
-                className={`rounded-3xl p-8 flex flex-col justify-between transition-all duration-300 relative border ${
-                  plan.popular 
-                    ? 'bg-[#1e2e4f] text-white shadow-2xl scale-105 border-[#f19e1f]' 
-                    : 'bg-[#f4f8ff] text-[#1e2e4f] shadow-md hover:shadow-lg border-[#e6ebf6]'
-                }`}
-              >
-                {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-[#f19e1f] text-white font-bold text-xs uppercase tracking-wider py-1 px-4 rounded-full shadow">
-                    Most Popular
-                  </div>
-                )}
-
-                <div>
-                  <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center p-3 mb-6">
-                    <img src={plan.icon} alt={plan.title} className="w-full h-full object-contain" />
-                  </div>
-                  <h3 className={`text-2xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight mb-2 ${plan.popular ? 'text-white' : 'text-[#1e2e4f]'}`}>
-                    {plan.title}
-                  </h3>
-                  <p className={`text-xs mb-6 ${plan.popular ? 'text-[#b7c1d5]' : 'text-[#616a7e]'}`}>
-                    {plan.subtitle}
-                  </p>
-                  
-                  <div className="flex items-baseline gap-1 mb-6">
-                    <span className="text-2xl font-bold text-[#f19e1f]">$</span>
-                    <span className="text-5xl font-extrabold font-['Oswald',sans-serif]">{plan.price}</span>
-                    <span className={`text-xs ml-2 ${plan.popular ? 'text-[#b7c1d5]' : 'text-[#616a7e]'}`}>/ {plan.period}</span>
-                  </div>
-
-                  <ul className="space-y-3 mb-8 border-t border-b py-6 border-gray-200/20">
-                    {plan.features.map((feat, idx) => (
-                      <li key={idx} className="flex items-center gap-3 text-xs font-medium">
-                        <i className="fa-solid fa-circle-check text-[#f19e1f]"></i>
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <button
-                  onClick={() => setCurrentPage('contact')}
-                  className={`w-full py-4 rounded-full font-bold text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 ${
-                    plan.popular
-                      ? 'bg-[#f19e1f] hover:bg-[#d88713] text-white shadow-lg'
-                      : 'bg-[#1e2e4f] hover:bg-[#293a5b] text-white'
-                  }`}
-                >
-                  <span>Book This Service</span>
-                  <i className="fa-solid fa-arrow-right text-xs"></i>
-                </button>
               </div>
-            ))}
+
+              {/* Plan 2 */}
+              <div className="col-lg-3 col-md-6 d-flex mb-4 mb-lg-0">
+                <div className="pricing-box w-100 d-flex flex-column shadow-sm">
+                  <figure className="price-icon"><img src="/roofora-assets/images/price-icon2.png" alt="Repair" className="img-fluid" /></figure>
+                  <h3 className="text-size-22 font-weight-700">Standard Repair</h3>
+                  <p>Shingle, broken tile, pipe boots, or basic flashing fixes.</p>
+                  <span className="starting-at d-inline-block">Starting at:</span>
+                  <div className="price-content">
+                    <span className="dollar">$</span>249<span className="text-size-16">/fix</span>
+                  </div>
+                  <ul className="list-unstyled p-0 flex-grow-1">
+                    <li className="position-relative"><i className="fa-solid fa-check"></i> Replaces broken/cracked tiles</li>
+                    <li className="position-relative"><i className="fa-solid fa-check"></i> Quick, same-day repairs</li>
+                    <li className="position-relative"><i className="fa-solid fa-check"></i> Premium sealants included</li>
+                  </ul>
+                  <button onClick={() => setCurrentPage('contact')} className="secondary_btn d-inline-block mt-auto border-0 text-decoration-none">
+                    Book Repair <span><img src="/roofora-assets/images/arrow.png" alt="arrow" className="img-fluid d-inline-block" /></span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Plan 3 */}
+              <div className="col-lg-3 col-md-6 d-flex mb-4 mb-lg-0">
+                <div className="pricing-box w-100 d-flex flex-column shadow-sm">
+                  <figure className="price-icon"><img src="/roofora-assets/images/price-icon3.png" alt="Flashing" className="img-fluid" /></figure>
+                  <h3 className="text-size-22 font-weight-700">Chimney Re-Flash</h3>
+                  <p>Typical brick chimney counter-flashing and box gutter sealing.</p>
+                  <span className="starting-at d-inline-block">Starting at:</span>
+                  <div className="price-content">
+                    <span className="dollar">$</span>550<span className="text-size-16">/job</span>
+                  </div>
+                  <ul className="list-unstyled p-0 flex-grow-1">
+                    <li className="position-relative"><i className="fa-solid fa-check"></i> Custom lead/Colorbond flashing</li>
+                    <li className="position-relative"><i className="fa-solid fa-check"></i> Prevents chimney water ingress</li>
+                    <li className="position-relative"><i className="fa-solid fa-check"></i> Built to endure heavy rain</li>
+                  </ul>
+                  <button onClick={() => setCurrentPage('contact')} className="secondary_btn d-inline-block mt-auto border-0 text-decoration-none">
+                    Book Re-Flash <span><img src="/roofora-assets/images/arrow.png" alt="arrow" className="img-fluid d-inline-block" /></span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Plan 4 */}
+              <div className="col-lg-3 col-md-6 d-flex">
+                <div className="pricing-box w-100 d-flex flex-column shadow-sm">
+                  <figure className="price-icon"><img src="/roofora-assets/images/price-icon4.png" alt="Tarp" className="img-fluid" /></figure>
+                  <h3 className="text-size-22 font-weight-700">Emergency Tarp</h3>
+                  <p>Heavy duty weather-proof tarping to stop active water intrusion.</p>
+                  <span className="starting-at d-inline-block">Starting at:</span>
+                  <div className="price-content">
+                    <span className="dollar">$</span>189<span className="text-size-16">/tarp</span>
+                  </div>
+                  <ul className="list-unstyled p-0 flex-grow-1">
+                    <li className="position-relative"><i className="fa-solid fa-check"></i> Immediate emergency dispatch</li>
+                    <li className="position-relative"><i className="fa-solid fa-check"></i> Protects ceilings & wiring</li>
+                    <li className="position-relative"><i className="fa-solid fa-check"></i> 24/7 storm hotline available</li>
+                  </ul>
+                  <button onClick={() => setCurrentPage('contact')} className="secondary_btn d-inline-block mt-auto border-0 text-decoration-none">
+                    Request Tarp <span><img src="/roofora-assets/images/arrow.png" alt="arrow" className="img-fluid d-inline-block" /></span>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
           </div>
+        </section>
+      </div>
+
+      <div className="spacer"></div>
+
+      {/* ── CTA SECTION ── */}
+      <div className="padding-rl float-left w-100">
+        <section className="float-left w-100 cta-con position-relative main-box br-50 text-center">
+          <figure><img src="/roofora-assets/images/cta-vector.png" alt="vector" className="position-absolute cta-vector d-none d-md-block" /></figure>
+          <div className="main-container">
+            <div className="heading-title-con mb-0 position-relative">
+              <span className="special-text text-white d-block">Quote Request</span>
+              <h2 className="text-size-56 text-white font-weight-700">Planning a Re-Roof?</h2>
+              <p className="text-white text-size-18">
+                Complete tile-to-Colorbond conversions start at <span className="text-accent d-inline-block font-weight-700">$385/sqm</span> (Materials, Scaffold & Labor included).
+              </p>
+              <button 
+                onClick={() => setCurrentPage('contact')} 
+                className="secondary_btn d-inline-block border-0 text-decoration-none"
+              >
+                Request Free Fixed Quote <span><img src="/roofora-assets/images/arrow.png" alt="arrow" className="img-fluid d-inline-block" /></span>
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      {/* ── PORTFOLIO SECTION ── */}
+      <section className="float-left w-100 position-relative portfolio-con padding-top padding-bottom main-box overflow-hidden">
+        <div className="main-container">
+          
+          <div className="row align-items-center mb-5">
+            <div className="col-lg-7 col-md-12">
+              <div className="heading-title-con mb-0">
+                <span className="d-block special-text">Recent Projects</span>
+                <h2 className="text-size-56 font-weight-700">
+                  Expert Roofing Projects <br />
+                  Completed Across Melbourne
+                </h2>
+              </div>
+            </div>
+            <div className="col-lg-5 col-md-12">
+              <div className="heading-title-con mb-0">
+                <p className="mb-0 sora-font text-size-16">
+                  From minor tile restorations to full architectural standing seam metal replacements, every project is handled with Australian certified Colorbond steel and meticulous flashing work.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="row">
+            {/* Project 1 */}
+            <div className="col-lg-5 col-md-6 mb-4">
+              <div className="portfolio-box left-img">
+                <figure><img src="/roofora-assets/images/portfolio-img1.jpg" alt="Full Roof Replacement" className="img-fluid" /></figure>
+                <div className="d-flex align-items-center justify-content-between">
+                  <div>
+                    <span className="d-inline-block key-tags mr-2">Residential</span>
+                    <span className="d-inline-block key-tags">Colorbond</span>
+                    <h3 className="text-size-30 font-weight-700">Full Roof Replacement</h3>
+                  </div>
+                  <button onClick={() => setCurrentPage('gallery')} className="border-0 bg-transparent p-0">
+                    <img src="/roofora-assets/images/up-right-lg-arrow.png" alt="arrow" className="border-radius-0 mb-0" />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Project 2 */}
+            <div className="col-lg-7 col-md-6 mb-4">
+              <div className="portfolio-box pt-0 right-img">
+                <figure><img src="/roofora-assets/images/portfolio-img2.jpg" alt="Storm Damage Roof Repair" className="img-fluid" /></figure>
+                <div className="d-flex align-items-center justify-content-between">
+                  <div>
+                    <span className="d-inline-block key-tags mr-2">Leak Fix</span>
+                    <span className="d-inline-block key-tags">Emergency</span>
+                    <h3 className="text-size-30 font-weight-700">Storm Damage Roof Repair</h3>
+                  </div>
+                  <button onClick={() => setCurrentPage('gallery')} className="border-0 bg-transparent p-0">
+                    <img src="/roofora-assets/images/up-right-lg-arrow.png" alt="arrow" className="border-radius-0 mb-0" />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Project 3 */}
+            <div className="col-lg-7 col-md-6 mb-4">
+              <div className="portfolio-box left-img">
+                <figure><img src="/roofora-assets/images/portfolio-img3.jpg" alt="Brick Chimney Re-flash" className="img-fluid" /></figure>
+                <div className="d-flex align-items-center justify-content-between">
+                  <div>
+                    <span className="d-inline-block key-tags mr-2">Masonry</span>
+                    <span className="d-inline-block key-tags">Flashing</span>
+                    <h3 className="text-size-30 font-weight-700">Brick Chimney Re-Flash</h3>
+                  </div>
+                  <button onClick={() => setCurrentPage('gallery')} className="border-0 bg-transparent p-0">
+                    <img src="/roofora-assets/images/up-right-lg-arrow.png" alt="arrow" className="border-radius-0 mb-0" />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Project 4 */}
+            <div className="col-lg-5 col-md-6 mb-4">
+              <div className="portfolio-box pt-0 right-img">
+                <figure><img src="/roofora-assets/images/portfolio-img4.jpg" alt="Shingle Roof Replacement" className="img-fluid" /></figure>
+                <div className="d-flex align-items-center justify-content-between">
+                  <div>
+                    <span className="d-inline-block key-tags mr-2">Premium</span>
+                    <span className="d-inline-block key-tags">Restoration</span>
+                    <h3 className="text-size-30 font-weight-700">Terracotta Tile Restoration</h3>
+                  </div>
+                  <button onClick={() => setCurrentPage('gallery')} className="border-0 bg-transparent p-0">
+                    <img src="/roofora-assets/images/up-right-lg-arrow.png" alt="arrow" className="border-radius-0 mb-0" />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
         </div>
       </section>
 
-      {/* ── 6. RECENT PROJECTS / PORTFOLIO ── */}
-      <section className="py-20 bg-[#f4f8ff]">
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-            <div>
-              <span className="text-sm font-bold uppercase tracking-wider text-[#f19e1f] mb-2 block">
-                Portfolio Showcase
-              </span>
-              <h2 className="text-3xl sm:text-5xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f]">
-                Recent Completed Projects
+      {/* ── TESTIMONIALS SECTION ── */}
+      <div className="padding-rl float-left w-100">
+        <section className="testimonials-con w-100 float-left padding-top padding-bottom position-relative main-box text-center br-50">
+          <figure><img src="/roofora-assets/images/left-quote.png" alt="quote" className="position-absolute left-quote d-none d-md-block" /></figure>
+          <figure><img src="/roofora-assets/images/right-quote.png" alt="quote" className="position-absolute right-quote d-none d-md-block" /></figure>
+          
+          <div className="main-container">
+            
+            <div className="heading-title-con text-center mb-5">
+              <span className="special-text d-block">Client Reviews</span>
+              <h2 className="text-size-56 font-weight-700 text-white mb-0">
+                Real Feedback From <br />
+                Real Homeowners
               </h2>
             </div>
-            <button
-              onClick={() => setCurrentPage('gallery')}
-              className="bg-[#1e2e4f] hover:bg-[#293a5b] text-white font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-full transition-colors flex items-center gap-2"
-            >
-              <span>View All Projects</span>
-              <i className="fa-solid fa-arrow-right text-xs"></i>
-            </button>
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {GALLERY_PROJECTS.slice(0, 6).map((proj) => (
-              <div
-                key={proj.id}
-                onClick={() => setCurrentPage('gallery')}
-                className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer group border border-[#e6ebf6]"
-              >
-                <div className="h-64 overflow-hidden relative">
-                  <img 
-                    src={proj.imageUrl} 
-                    alt={proj.title} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                  />
-                  <div className="absolute top-4 right-4 bg-[#1e2e4f] text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow">
-                    {proj.category}
-                  </div>
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center gap-2 text-xs text-[#f19e1f] font-semibold mb-2">
-                    <i className="fa-solid fa-location-dot"></i>
-                    <span>{proj.location}</span>
-                  </div>
-                  <h3 className="text-xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-2 group-hover:text-[#f19e1f] transition-colors">
-                    {proj.title}
-                  </h3>
-                  <p className="text-xs text-[#616a7e] line-clamp-2">
-                    {proj.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 7. TESTIMONIALS ── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-sm font-bold uppercase tracking-wider text-[#f19e1f] mb-2 block">
-              Customer Reviews
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-4">
-              What Homeowners Say
-            </h2>
-            <p className="text-base text-[#616a7e]">
-              Over 500+ satisfied clients across Melbourne trust ASSIST Roofing for flawless execution.
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto bg-[#1e2e4f] text-white rounded-3xl p-8 sm:p-12 shadow-2xl relative">
-            <div className="flex text-[#f19e1f] text-xl mb-6">
-              {'★★★★★'}
-            </div>
-
-            <p className="text-lg sm:text-xl text-[#b7c1d5] italic leading-relaxed mb-8 font-light">
-              "{TESTIMONIALS[activeTestimonial].comment}"
-            </p>
-
-            <div className="flex flex-col sm:flex-row justify-between items-center gap-6 border-t border-white/10 pt-6">
-              <div className="flex items-center gap-4">
-                <img 
-                  src={TESTIMONIALS[activeTestimonial].imageUrl} 
-                  alt={TESTIMONIALS[activeTestimonial].name} 
-                  className="w-14 h-14 rounded-full object-cover border-2 border-[#f19e1f]"
-                />
-                <div>
-                  <h4 className="text-lg font-bold font-['Oswald',sans-serif] uppercase text-white">
-                    {TESTIMONIALS[activeTestimonial].name}
-                  </h4>
-                  <span className="text-xs text-[#f19e1f] font-medium block">
-                    {TESTIMONIALS[activeTestimonial].location} • {TESTIMONIALS[activeTestimonial].project}
-                  </span>
-                </div>
-              </div>
-
-              {/* Navigation Arrows */}
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => setActiveTestimonial((prev) => (prev > 0 ? prev - 1 : TESTIMONIALS.length - 1))}
-                  className="w-11 h-11 rounded-full bg-white/10 hover:bg-[#f19e1f] flex items-center justify-center text-white transition-colors"
-                >
-                  <i className="fa-solid fa-arrow-left"></i>
-                </button>
-                <button
-                  onClick={() => setActiveTestimonial((prev) => (prev < TESTIMONIALS.length - 1 ? prev + 1 : 0))}
-                  className="w-11 h-11 rounded-full bg-white/10 hover:bg-[#f19e1f] flex items-center justify-center text-white transition-colors"
-                >
-                  <i className="fa-solid fa-arrow-right"></i>
-                </button>
+            <div className="client-review-box max-w-3xl mx-auto mb-5">
+              <figure className="rating-stars mb-4">
+                <img src="/roofora-assets/images/rating-stars.png" alt="5 Stars" className="mx-auto" />
+              </figure>
+              <p className="review-text text-white text-size-18 italic leading-relaxed">
+                "{testimonialsList[activeTestimonial].comment}"
+              </p>
+              <div className="mt-4">
+                <h4 className="text-white text-size-22 font-weight-700 mb-1">{testimonialsList[activeTestimonial].name}</h4>
+                <span className="text-accent text-size-14 font-weight-600">{testimonialsList[activeTestimonial].role}</span>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* ── 8. FAQS ACCORDION ── */}
-      <section className="py-20 bg-[#f4f8ff]">
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-sm font-bold uppercase tracking-wider text-[#f19e1f] mb-2 block">
-              Common Questions
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-4">
-              Frequently Asked Questions
+            {/* Circular Avatar Selector */}
+            <div className="d-flex justify-content-center align-items-center gap-4 mt-5">
+              {testimonialsList.map((t, idx) => (
+                <div 
+                  key={idx}
+                  onClick={() => setActiveTestimonial(idx)}
+                  className={`cursor-pointer rounded-circle p-1 transition-all ${
+                    activeTestimonial === idx 
+                      ? 'border border-warning scale-110 shadow-lg' 
+                      : 'opacity-50 hover:opacity-100'
+                  }`}
+                  style={{ width: '64px', height: '64px' }}
+                >
+                  <img src={t.img} alt={t.name} className="w-100 h-100 rounded-circle object-cover" />
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </section>
+      </div>
+
+      {/* ── FAQ SECTION ── */}
+      <section className="float-left w-100 position-relative faq-con padding-top padding-bottom main-box">
+        <div className="main-container">
+          
+          <div className="heading-title-con text-center mb-5">
+            <span className="special-text d-block">Frequently Asked Questions</span>
+            <h2 className="text-size-56 font-weight-700">
+              Clear Answers for Your <br />
+              Roofing Concerns
             </h2>
-            <p className="text-base text-[#616a7e]">
-              Direct answers from an experienced, hands-on roofing professional.
-            </p>
           </div>
 
-          <div className="max-w-3xl mx-auto space-y-4">
+          <div className="max-w-4xl mx-auto">
             {FAQS.map((faq, idx) => {
               const isOpen = activeFaq === idx;
               return (
-                <div
-                  key={idx}
-                  className="bg-white rounded-2xl shadow-sm border border-[#e6ebf6] overflow-hidden"
+                <div 
+                  key={idx} 
+                  className={`accordion-card mb-4 shadow-sm border ${isOpen ? 'border-warning' : 'border-light'}`}
                 >
-                  <button
+                  <div 
                     onClick={() => setActiveFaq(isOpen ? null : idx)}
-                    className="w-full px-6 py-5 text-left font-bold text-base text-[#1e2e4f] flex justify-between items-center gap-4 hover:text-[#f19e1f] transition-colors"
+                    className="d-flex justify-content-between align-items-center p-4 cursor-pointer"
                   >
-                    <span>{faq.q}</span>
-                    <i className={`fa-solid ${isOpen ? 'fa-minus' : 'fa-plus'} text-[#f19e1f]`}></i>
-                  </button>
-                  <AnimatePresence>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="px-6 pb-6 text-sm text-[#616a7e] leading-relaxed border-t border-gray-100 pt-4"
-                      >
+                    <h3 className="text-size-22 font-weight-700 mb-0 text-dark pr-4">
+                      {faq.q}
+                    </h3>
+                    <div 
+                      className={`rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 ${
+                        isOpen ? 'bg-warning text-white' : 'bg-primary text-white'
+                      }`}
+                      style={{ width: '42px', height: '42px' }}
+                    >
+                      <i className={`fa-solid ${isOpen ? 'fa-minus' : 'fa-plus'}`}></i>
+                    </div>
+                  </div>
+
+                  {isOpen && (
+                    <div className="px-4 pb-4 pt-1 border-top">
+                      <p className="text-size-16 text-muted mb-0 leading-relaxed">
                         {faq.a}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                      </p>
+                    </div>
+                  )}
                 </div>
               );
             })}
           </div>
+
         </div>
       </section>
 
-      {/* ── 9. INSTANT ESTIMATE & BOOKING SECTION ── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center bg-[#1e2e4f] rounded-3xl p-8 sm:p-12 text-white shadow-2xl">
-            
-            <div className="lg:col-span-6">
-              <span className="text-sm font-bold uppercase tracking-wider text-[#f19e1f] mb-2 block">
-                Free Estimate
-              </span>
-              <h2 className="text-3xl sm:text-5xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-white mb-6">
-                Book Your 100% Free Roof Inspection
-              </h2>
-              <p className="text-base text-[#b7c1d5] mb-8 leading-relaxed font-light">
-                Fill out the quick details and our senior estimator will contact you within 2 business hours to schedule your inspection.
-              </p>
-
-              <div className="space-y-4 text-sm text-[#b7c1d5]">
-                <div className="flex items-center gap-3">
-                  <i className="fa-solid fa-phone text-[#f19e1f] text-lg"></i>
-                  <span className="text-white font-bold">1800 277 478</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <i className="fa-solid fa-envelope text-[#f19e1f] text-lg"></i>
-                  <span>info@assistroofing.com.au</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <i className="fa-solid fa-shield-halved text-[#f19e1f] text-lg"></i>
-                  <span>10-Year Guarantee on all major jobs</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-6 bg-white text-[#1e2e4f] rounded-2xl p-6 sm:p-8 shadow-xl">
-              {submitted ? (
-                <div className="text-center py-8">
-                  <div className="w-16 h-16 bg-[#3bad20]/20 text-[#3bad20] rounded-full flex items-center justify-center mx-auto text-2xl mb-4">
-                    <i className="fa-solid fa-check"></i>
-                  </div>
-                  <h3 className="text-2xl font-bold font-['Oswald',sans-serif] uppercase mb-2">Thank You!</h3>
-                  <p className="text-sm text-[#616a7e]">
-                    Your inquiry has been received. Our team will reach out to you shortly.
-                  </p>
-                </div>
-              ) : (
-                <form onSubmit={handleQuoteSubmit} className="space-y-4">
-                  <h3 className="text-xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-4">
-                    Get an Instant Estimate
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#616a7e] mb-1">Your Name</label>
-                      <input
-                        type="text"
-                        required
-                        value={quoteForm.name}
-                        onChange={(e) => setQuoteForm({ ...quoteForm, name: e.target.value })}
-                        className="w-full bg-[#f4f8ff] border border-[#cfd8e8] rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#f19e1f]"
-                        placeholder="John Doe"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#616a7e] mb-1">Phone Number</label>
-                      <input
-                        type="tel"
-                        required
-                        value={quoteForm.phone}
-                        onChange={(e) => setQuoteForm({ ...quoteForm, phone: e.target.value })}
-                        className="w-full bg-[#f4f8ff] border border-[#cfd8e8] rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#f19e1f]"
-                        placeholder="0400 000 000"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-[#616a7e] mb-1">Service Needed</label>
-                    <select
-                      value={quoteForm.service}
-                      onChange={(e) => setQuoteForm({ ...quoteForm, service: e.target.value })}
-                      className="w-full bg-[#f4f8ff] border border-[#cfd8e8] rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#f19e1f]"
-                    >
-                      <option>Emergency Roof Repair</option>
-                      <option>Full Re-Roofing & Replacement</option>
-                      <option>Roof Inspection & Diagnosis</option>
-                      <option>Gutters & Chimney Flashing</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-[#616a7e] mb-1">Property Address</label>
-                    <input
-                      type="text"
-                      required
-                      value={quoteForm.address}
-                      onChange={(e) => setQuoteForm({ ...quoteForm, address: e.target.value })}
-                      className="w-full bg-[#f4f8ff] border border-[#cfd8e8] rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#f19e1f]"
-                      placeholder="e.g. 45 High St, Toorak"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full bg-[#f19e1f] hover:bg-[#d88713] text-white font-bold text-sm uppercase tracking-wider py-4 rounded-full shadow-lg transition-all flex items-center justify-center gap-2 mt-4"
-                  >
-                    <span>Submit Free Request</span>
-                    <i className="fa-solid fa-arrow-right text-xs"></i>
-                  </button>
-                </form>
-              )}
-            </div>
-
+      {/* ── NEWSLETTER / PROMO BAR ── */}
+      <div className="padding-rl float-left w-100">
+        <section className="float-left w-100 newsletter-con position-relative main-box bg-blue padding-top padding-bottom text-center br-50">
+          <div className="main-container">
+            <h2 className="text-size-56 font-weight-700 text-white mb-4">
+              Schedule Your Free On-Site Drone Inspection
+            </h2>
+            <p className="text-white text-size-18 max-w-2xl mx-auto mb-5">
+              Get an accurate, fixed-price quote and photographic defect report with zero high-pressure sales tactics.
+            </p>
+            <button
+              onClick={() => setCurrentPage('contact')}
+              className="secondary_btn d-inline-block border-0 text-decoration-none"
+            >
+              Book Inspection Online <span><img src="/roofora-assets/images/arrow.png" alt="arrow" className="img-fluid d-inline-block" /></span>
+            </button>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
+
     </div>
   );
 };
