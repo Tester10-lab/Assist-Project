@@ -54,11 +54,12 @@ export const Login: React.FC = () => {
               className="flex items-center gap-3 cursor-pointer mb-8"
               onClick={() => setCurrentPage('home')}
             >
-              <div className="w-10 h-10 bg-[#f19e1f] rounded-xl flex items-center justify-center text-white shadow">
-                <i className="fa-solid fa-house-chimney text-lg"></i>
-              </div>
-              <div className="text-xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-white">
-                ASSIST <span className="text-[#f19e1f]">ROOFING</span>
+              <div className="bg-white p-2 rounded-2xl shadow-sm">
+                <img 
+                  src="/roofora-assets/images/logo.png" 
+                  alt="ASSIST Roofing & Home Solution" 
+                  className="h-10 w-auto object-contain"
+                />
               </div>
             </div>
 

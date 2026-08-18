@@ -254,11 +254,34 @@ export const Contact: React.FC = () => {
 
                 <a
                   href="tel:1800277478"
-                  className="w-full bg-[#f19e1f] hover:bg-[#d88713] text-white py-3.5 rounded-full font-bold text-sm uppercase tracking-wider text-center flex items-center justify-center gap-2 shadow"
+                  className="w-full bg-[#f19e1f] hover:bg-[#d88713] text-white py-3.5 rounded-full font-bold text-sm uppercase tracking-wider text-center flex items-center justify-center gap-2 shadow mb-4"
                 >
                   <i className="fa-solid fa-phone"></i>
                   <span>Call 1800 277 478</span>
                 </a>
+
+                {/* Social Channels */}
+                <div className="flex items-center justify-center gap-3 pt-3 border-t border-white/15">
+                  <span className="text-xs text-[#b7c1d5] font-semibold">Follow Us:</span>
+                  <a 
+                    href="https://www.facebook.com/profile.php?id=61560893981491"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#f19e1f] text-white flex items-center justify-center transition-colors text-sm"
+                    aria-label="Facebook"
+                  >
+                    <i className="fa-brands fa-facebook-f"></i>
+                  </a>
+                  <a 
+                    href="https://www.instagram.com/roofingassist/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#f19e1f] text-white flex items-center justify-center transition-colors text-sm"
+                    aria-label="Instagram"
+                  >
+                    <i className="fa-brands fa-instagram"></i>
+                  </a>
+                </div>
               </div>
 
               {/* Real Project Visual */}

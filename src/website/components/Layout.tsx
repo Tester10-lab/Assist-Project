@@ -37,7 +37,12 @@ export const Navbar: React.FC = () => {
                 onClick={() => setCurrentPage('home')}
               >
                 <figure className="mb-0">
-                  <img src="/roofora-assets/images/logo.png" alt="Assist Roofing Logo" className="img-fluid" />
+                  <img 
+                    src="/roofora-assets/images/logo.png" 
+                    alt="ASSIST Roofing & Home Solution Logo" 
+                    className="img-fluid" 
+                    style={{ maxHeight: '54px', width: 'auto', objectFit: 'contain' }}
+                  />
                 </figure>
               </a>
 
@@ -262,8 +267,13 @@ export const Footer: React.FC = () => {
             <div className="middle_portion d-flex flex-wrap align-items-center justify-content-between gap-4">
               <div className="logo-content">
                 <a onClick={() => setCurrentPage('home')} className="footer-logo cursor-pointer">
-                  <figure className="mb-0">
-                    <img src="/roofora-assets/images/footer-logo.png" alt="footer-logo" className="img-fluid" />
+                  <figure className="mb-0 bg-white p-2 rounded-2xl shadow-sm d-inline-block">
+                    <img 
+                      src="/roofora-assets/images/footer-logo.png" 
+                      alt="ASSIST Roofing & Home Solution" 
+                      className="img-fluid"
+                      style={{ maxHeight: '48px', width: 'auto', objectFit: 'contain' }}
+                    />
                   </figure>
                 </a>
               </div>
@@ -309,23 +319,41 @@ export const Footer: React.FC = () => {
 
               <ul className="list-unstyled mb-0 social-icons d-flex gap-2">
                 <li>
-                  <a href="#" className="text-decoration-none">
+                  <a 
+                    href="https://www.facebook.com/profile.php?id=61560893981491" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-decoration-none"
+                    aria-label="Assist Roofing Facebook"
+                  >
                     <i className="fa-brands fa-facebook-f social-networks"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-decoration-none">
+                  <a 
+                    href="https://www.instagram.com/roofingassist/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-decoration-none"
+                    aria-label="Assist Roofing Instagram"
+                  >
                     <i className="fa-brands fa-instagram social-networks"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-decoration-none">
-                    <i className="fa-brands fa-linkedin social-networks"></i>
+                  <a 
+                    href="https://www.facebook.com/profile.php?id=61560893981491" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-decoration-none"
+                    aria-label="Assist Roofing Social"
+                  >
+                    <i className="fa-solid fa-share-nodes social-networks"></i>
                   </a>
                 </li>
               </ul>
 
-              <p className="mb-0">Copyright © {new Date().getFullYear()} ASSIST Roofing & Construction. All Rights Reserved.</p>
+              <p className="mb-0">Copyright © {new Date().getFullYear()} ASSIST Roofing & Home Solution. All Rights Reserved.</p>
             </div>
 
           </div>
