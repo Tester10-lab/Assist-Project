@@ -3,7 +3,7 @@ import { useWebsite } from '../WebsiteContext';
 import { FAQS } from '../data';
 
 export const Home: React.FC = () => {
-  const { setCurrentPage } = useWebsite();
+  const { setCurrentPage, openQuoteModal, openLightbox } = useWebsite();
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
   const [activeTestimonial, setActiveTestimonial] = useState(1);
   const [activeServiceHover, setActiveServiceHover] = useState<number | null>(null);
@@ -44,15 +44,15 @@ export const Home: React.FC = () => {
           <section className="float-left w-100 position-relative banner-con br-50 main-box">
             
             {/* Floating Badges */}
-            <div className="banner-white-box bg-fff position-absolute var1 d-none d-md-flex">
+            <div className="banner-white-box bg-fff position-absolute var1 d-none d-md-flex animate__animated animate__fadeInLeft">
               <img src="/roofora-assets/images/baner-white-icon1.png" alt="Clean Jobsite" className="img-fluid" />
               <p className="mb-0">Clean Jobsite Promise</p>
             </div>
-            <div className="banner-white-box bg-fff position-absolute var2 d-none d-md-flex">
+            <div className="banner-white-box bg-fff position-absolute var2 d-none d-md-flex animate__animated animate__fadeInUp">
               <img src="/roofora-assets/images/baner-white-icon2.png" alt="Same Week" className="img-fluid" />
               <p className="mb-0">Same-Week Service</p>
             </div>
-            <div className="banner-white-box bg-fff position-absolute var3 d-none d-md-flex">
+            <div className="banner-white-box bg-fff position-absolute var3 d-none d-md-flex animate__animated animate__fadeInRight">
               <img src="/roofora-assets/images/baner-white-icon3.png" alt="Insured" className="img-fluid" />
               <p className="mb-0">Fully Insured & VBA</p>
             </div>
@@ -63,7 +63,7 @@ export const Home: React.FC = () => {
                   <div className="banner-content-con">
                     
                     {/* Rating Header */}
-                    <div className="d-flex align-items-center rating-con">
+                    <div className="d-flex align-items-center rating-con animate__animated animate__fadeInDown">
                       <figure className="mb-0">
                         <img src="/roofora-assets/images/google-icon.png" alt="Google" className="google-icon" />
                       </figure>
@@ -75,22 +75,22 @@ export const Home: React.FC = () => {
                     </div>
 
                     {/* Big Heading */}
-                    <h1 className="text-size-90 text-white font-weight-700">
+                    <h1 className="text-size-90 text-white font-weight-700 animate__animated animate__fadeInLeft">
                       Roofing <br />
                       Solutions for <br />
                       Every Home.
                     </h1>
 
                     {/* Subtitle */}
-                    <p className="text-white text-size-18">
+                    <p className="text-white text-size-18 animate__animated animate__fadeInLeft animate__delay-1s">
                       Fast leak fixes, emergency storm repairs, and honest re-roofs. You'll deal with certified master roofers from initial drone inspection to final spotless cleanup.
                     </p>
 
                     {/* Action Buttons */}
-                    <div className="d-flex flex-wrap align-items-center gap-3">
+                    <div className="d-flex flex-wrap align-items-center gap-3 animate__animated animate__fadeInUp animate__delay-1s">
                       <button 
-                        onClick={() => setCurrentPage('contact')} 
-                        className="font-weight-bold secondary_btn d-inline-block text-decoration-none border-0"
+                        onClick={openQuoteModal} 
+                        className="font-weight-bold secondary_btn d-inline-block text-decoration-none border-0 cursor-pointer"
                       >
                         Get a Quote <span className=""><img src="/roofora-assets/images/arrow.png" alt="arrow" className="img-fluid d-inline-block" /></span>
                       </button>
@@ -345,7 +345,7 @@ export const Home: React.FC = () => {
                     <li className="position-relative"><i className="fa-solid fa-check"></i> Identifies leaks & tile rot</li>
                     <li className="position-relative"><i className="fa-solid fa-check"></i> 100% credited toward repair</li>
                   </ul>
-                  <button onClick={() => setCurrentPage('contact')} className="secondary_btn d-inline-block mt-auto border-0 text-decoration-none">
+                  <button onClick={openQuoteModal} className="secondary_btn d-inline-block mt-auto border-0 text-decoration-none cursor-pointer">
                     Book Inspection <span><img src="/roofora-assets/images/arrow.png" alt="arrow" className="img-fluid d-inline-block" /></span>
                   </button>
                 </div>
@@ -366,7 +366,7 @@ export const Home: React.FC = () => {
                     <li className="position-relative"><i className="fa-solid fa-check"></i> Quick, same-day repairs</li>
                     <li className="position-relative"><i className="fa-solid fa-check"></i> Premium sealants included</li>
                   </ul>
-                  <button onClick={() => setCurrentPage('contact')} className="secondary_btn d-inline-block mt-auto border-0 text-decoration-none">
+                  <button onClick={openQuoteModal} className="secondary_btn d-inline-block mt-auto border-0 text-decoration-none cursor-pointer">
                     Book Repair <span><img src="/roofora-assets/images/arrow.png" alt="arrow" className="img-fluid d-inline-block" /></span>
                   </button>
                 </div>
@@ -387,7 +387,7 @@ export const Home: React.FC = () => {
                     <li className="position-relative"><i className="fa-solid fa-check"></i> Prevents chimney water ingress</li>
                     <li className="position-relative"><i className="fa-solid fa-check"></i> Built to endure heavy rain</li>
                   </ul>
-                  <button onClick={() => setCurrentPage('contact')} className="secondary_btn d-inline-block mt-auto border-0 text-decoration-none">
+                  <button onClick={openQuoteModal} className="secondary_btn d-inline-block mt-auto border-0 text-decoration-none cursor-pointer">
                     Book Re-Flash <span><img src="/roofora-assets/images/arrow.png" alt="arrow" className="img-fluid d-inline-block" /></span>
                   </button>
                 </div>
@@ -408,7 +408,7 @@ export const Home: React.FC = () => {
                     <li className="position-relative"><i className="fa-solid fa-check"></i> Protects ceilings & wiring</li>
                     <li className="position-relative"><i className="fa-solid fa-check"></i> 24/7 storm hotline available</li>
                   </ul>
-                  <button onClick={() => setCurrentPage('contact')} className="secondary_btn d-inline-block mt-auto border-0 text-decoration-none">
+                  <button onClick={openQuoteModal} className="secondary_btn d-inline-block mt-auto border-0 text-decoration-none cursor-pointer">
                     Request Tarp <span><img src="/roofora-assets/images/arrow.png" alt="arrow" className="img-fluid d-inline-block" /></span>
                   </button>
                 </div>
@@ -434,8 +434,8 @@ export const Home: React.FC = () => {
                 Complete tile-to-Colorbond conversions start at <span className="text-accent d-inline-block font-weight-700">$385/sqm</span> (Materials, Scaffold & Labor included).
               </p>
               <button 
-                onClick={() => setCurrentPage('contact')} 
-                className="secondary_btn d-inline-block border-0 text-decoration-none"
+                onClick={openQuoteModal} 
+                className="secondary_btn d-inline-block border-0 text-decoration-none cursor-pointer"
               >
                 Request Free Fixed Quote <span><img src="/roofora-assets/images/arrow.png" alt="arrow" className="img-fluid d-inline-block" /></span>
               </button>
@@ -471,14 +471,22 @@ export const Home: React.FC = () => {
             {/* Project 1 */}
             <div className="col-lg-5 col-md-6 mb-4">
               <div className="portfolio-box left-img">
-                <figure><img src="/roofora-assets/images/portfolio-img1.jpg" alt="Full Roof Replacement" className="img-fluid" /></figure>
+                <figure 
+                  className="cursor-pointer"
+                  onClick={() => openLightbox({ src: '/roofora-assets/images/portfolio-img1.jpg', title: 'Full Roof Replacement', subtitle: 'South Yarra, VIC • Architectural Standing Seam Colorbond' })}
+                >
+                  <img src="/roofora-assets/images/portfolio-img1.jpg" alt="Full Roof Replacement" className="img-fluid" />
+                </figure>
                 <div className="d-flex align-items-center justify-content-between">
                   <div>
                     <span className="d-inline-block key-tags mr-2">Residential</span>
                     <span className="d-inline-block key-tags">Colorbond</span>
                     <h3 className="text-size-30 font-weight-700">Full Roof Replacement</h3>
                   </div>
-                  <button onClick={() => setCurrentPage('gallery')} className="border-0 bg-transparent p-0">
+                  <button 
+                    onClick={() => openLightbox({ src: '/roofora-assets/images/portfolio-img1.jpg', title: 'Full Roof Replacement', subtitle: 'South Yarra, VIC • Architectural Standing Seam Colorbond' })} 
+                    className="border-0 bg-transparent p-0 cursor-pointer"
+                  >
                     <img src="/roofora-assets/images/up-right-lg-arrow.png" alt="arrow" className="border-radius-0 mb-0" />
                   </button>
                 </div>
@@ -488,14 +496,22 @@ export const Home: React.FC = () => {
             {/* Project 2 */}
             <div className="col-lg-7 col-md-6 mb-4">
               <div className="portfolio-box pt-0 right-img">
-                <figure><img src="/roofora-assets/images/portfolio-img2.jpg" alt="Storm Damage Roof Repair" className="img-fluid" /></figure>
+                <figure 
+                  className="cursor-pointer"
+                  onClick={() => openLightbox({ src: '/roofora-assets/images/portfolio-img2.jpg', title: 'Storm Damage Roof Repair', subtitle: 'Hawthorn, VIC • High-Pressure Emergency Valley Replacement' })}
+                >
+                  <img src="/roofora-assets/images/portfolio-img2.jpg" alt="Storm Damage Roof Repair" className="img-fluid" />
+                </figure>
                 <div className="d-flex align-items-center justify-content-between">
                   <div>
                     <span className="d-inline-block key-tags mr-2">Leak Fix</span>
                     <span className="d-inline-block key-tags">Emergency</span>
                     <h3 className="text-size-30 font-weight-700">Storm Damage Roof Repair</h3>
                   </div>
-                  <button onClick={() => setCurrentPage('gallery')} className="border-0 bg-transparent p-0">
+                  <button 
+                    onClick={() => openLightbox({ src: '/roofora-assets/images/portfolio-img2.jpg', title: 'Storm Damage Roof Repair', subtitle: 'Hawthorn, VIC • High-Pressure Emergency Valley Replacement' })} 
+                    className="border-0 bg-transparent p-0 cursor-pointer"
+                  >
                     <img src="/roofora-assets/images/up-right-lg-arrow.png" alt="arrow" className="border-radius-0 mb-0" />
                   </button>
                 </div>
@@ -505,14 +521,22 @@ export const Home: React.FC = () => {
             {/* Project 3 */}
             <div className="col-lg-7 col-md-6 mb-4">
               <div className="portfolio-box left-img">
-                <figure><img src="/roofora-assets/images/portfolio-img3.jpg" alt="Brick Chimney Re-flash" className="img-fluid" /></figure>
+                <figure 
+                  className="cursor-pointer"
+                  onClick={() => openLightbox({ src: '/roofora-assets/images/portfolio-img3.jpg', title: 'Brick Chimney Re-Flash', subtitle: 'Kew, VIC • Precision Lead Counter-Flashing' })}
+                >
+                  <img src="/roofora-assets/images/portfolio-img3.jpg" alt="Brick Chimney Re-flash" className="img-fluid" />
+                </figure>
                 <div className="d-flex align-items-center justify-content-between">
                   <div>
                     <span className="d-inline-block key-tags mr-2">Masonry</span>
                     <span className="d-inline-block key-tags">Flashing</span>
                     <h3 className="text-size-30 font-weight-700">Brick Chimney Re-Flash</h3>
                   </div>
-                  <button onClick={() => setCurrentPage('gallery')} className="border-0 bg-transparent p-0">
+                  <button 
+                    onClick={() => openLightbox({ src: '/roofora-assets/images/portfolio-img3.jpg', title: 'Brick Chimney Re-Flash', subtitle: 'Kew, VIC • Precision Lead Counter-Flashing' })} 
+                    className="border-0 bg-transparent p-0 cursor-pointer"
+                  >
                     <img src="/roofora-assets/images/up-right-lg-arrow.png" alt="arrow" className="border-radius-0 mb-0" />
                   </button>
                 </div>
@@ -522,14 +546,22 @@ export const Home: React.FC = () => {
             {/* Project 4 */}
             <div className="col-lg-5 col-md-6 mb-4">
               <div className="portfolio-box pt-0 right-img">
-                <figure><img src="/roofora-assets/images/portfolio-img4.jpg" alt="Shingle Roof Replacement" className="img-fluid" /></figure>
+                <figure 
+                  className="cursor-pointer"
+                  onClick={() => openLightbox({ src: '/roofora-assets/images/portfolio-img4.jpg', title: 'Terracotta Tile Restoration', subtitle: 'Brighton, VIC • Re-bedding & Weatherproof Membrane' })}
+                >
+                  <img src="/roofora-assets/images/portfolio-img4.jpg" alt="Shingle Roof Replacement" className="img-fluid" />
+                </figure>
                 <div className="d-flex align-items-center justify-content-between">
                   <div>
                     <span className="d-inline-block key-tags mr-2">Premium</span>
                     <span className="d-inline-block key-tags">Restoration</span>
                     <h3 className="text-size-30 font-weight-700">Terracotta Tile Restoration</h3>
                   </div>
-                  <button onClick={() => setCurrentPage('gallery')} className="border-0 bg-transparent p-0">
+                  <button 
+                    onClick={() => openLightbox({ src: '/roofora-assets/images/portfolio-img4.jpg', title: 'Terracotta Tile Restoration', subtitle: 'Brighton, VIC • Re-bedding & Weatherproof Membrane' })} 
+                    className="border-0 bg-transparent p-0 cursor-pointer"
+                  >
                     <img src="/roofora-assets/images/up-right-lg-arrow.png" alt="arrow" className="border-radius-0 mb-0" />
                   </button>
                 </div>
@@ -655,8 +687,8 @@ export const Home: React.FC = () => {
               Get an accurate, fixed-price quote and photographic defect report with zero high-pressure sales tactics.
             </p>
             <button
-              onClick={() => setCurrentPage('contact')}
-              className="secondary_btn d-inline-block border-0 text-decoration-none"
+              onClick={openQuoteModal}
+              className="secondary_btn d-inline-block border-0 text-decoration-none cursor-pointer"
             >
               Book Inspection Online <span><img src="/roofora-assets/images/arrow.png" alt="arrow" className="img-fluid d-inline-block" /></span>
             </button>

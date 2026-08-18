@@ -16,6 +16,17 @@
   </head>
   <body>
     <div id="root"></div>
+    <script src="/roofora-assets/js/jquery-3.7.1.min.js"></script>
+    <script src="/roofora-assets/js/popper.min.js"></script>
+    <script src="/roofora-assets/js/bootstrap.min.js"></script>
+    <script src="/roofora-assets/js/wow.js"></script>
+    <script>
+      window.addEventListener('DOMContentLoaded', function() {
+        if (typeof WOW !== 'undefined') {
+          new WOW().init();
+        }
+      });
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

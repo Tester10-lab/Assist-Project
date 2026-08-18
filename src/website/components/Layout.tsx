@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useWebsite } from '../WebsiteContext';
+import { QuoteModal } from './QuoteModal';
+import { LightboxModal } from './LightboxModal';
+import { BackToTop } from './BackToTop';
 
 export const Navbar: React.FC = () => {
-  const { currentPage, setCurrentPage, isMobileMenuOpen, setMobileMenuOpen } = useWebsite();
+  const { currentPage, setCurrentPage, isMobileMenuOpen, setMobileMenuOpen, openQuoteModal } = useWebsite();
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   return (
     <div className="w-100 float-left font-['Sora',sans-serif]">
@@ -14,7 +18,7 @@ export const Navbar: React.FC = () => {
         </div>
         <a 
           className="buy_now text-decoration-none cursor-pointer"
-          onClick={() => setCurrentPage('contact')}
+          onClick={openQuoteModal}
         >
           <span className="label">Get a Free Quote</span>
           <i className="fa-solid fa-arrow-right"></i>
@@ -60,6 +64,7 @@ export const Navbar: React.FC = () => {
                       Home
                     </a>
                   </li>
+
                   <li className="nav-item">
                     <a 
                       className={`nav-link p-0 cursor-pointer ${currentPage === 'about' ? 'active' : ''}`}
@@ -68,22 +73,85 @@ export const Navbar: React.FC = () => {
                       About
                     </a>
                   </li>
-                  <li className="nav-item">
+
+                  {/* Services with Dropdown Popup */}
+                  <li 
+                    className="nav-item dropdown position-relative"
+                    onMouseEnter={() => setActiveDropdown('services')}
+                    onMouseLeave={() => setActiveDropdown(null)}
+                  >
                     <a 
-                      className={`nav-link p-0 cursor-pointer ${currentPage === 'services' ? 'active' : ''}`}
+                      className={`nav-link dropdown-toggle p-0 cursor-pointer ${currentPage === 'services' ? 'active' : ''}`}
                       onClick={() => { setCurrentPage('services'); setMobileMenuOpen(false); }}
                     >
                       Services
                     </a>
+                    {activeDropdown === 'services' && (
+                      <div className="dropdown-menu show position-absolute animate__animated animate__fadeIn animate__faster">
+                        <a 
+                          className="dropdown-item cursor-pointer" 
+                          onClick={() => { setCurrentPage('services'); setActiveDropdown(null); }}
+                        >
+                          All Roofing Services
+                        </a>
+                        <a 
+                          className="dropdown-item cursor-pointer" 
+                          onClick={() => { setCurrentPage('services'); setActiveDropdown(null); }}
+                        >
+                          Residential Roofing
+                        </a>
+                        <a 
+                          className="dropdown-item cursor-pointer" 
+                          onClick={() => { setCurrentPage('services'); setActiveDropdown(null); }}
+                        >
+                          Roof Repairs & Leak Fix
+                        </a>
+                        <a 
+                          className="dropdown-item cursor-pointer" 
+                          onClick={() => { setCurrentPage('services'); setActiveDropdown(null); }}
+                        >
+                          Full Re-Roofing
+                        </a>
+                      </div>
+                    )}
                   </li>
-                  <li className="nav-item">
+
+                  {/* Projects with Dropdown Popup */}
+                  <li 
+                    className="nav-item dropdown position-relative"
+                    onMouseEnter={() => setActiveDropdown('projects')}
+                    onMouseLeave={() => setActiveDropdown(null)}
+                  >
                     <a 
-                      className={`nav-link p-0 cursor-pointer ${currentPage === 'gallery' ? 'active' : ''}`}
+                      className={`nav-link dropdown-toggle p-0 cursor-pointer ${currentPage === 'gallery' ? 'active' : ''}`}
                       onClick={() => { setCurrentPage('gallery'); setMobileMenuOpen(false); }}
                     >
                       Projects
                     </a>
+                    {activeDropdown === 'projects' && (
+                      <div className="dropdown-menu show position-absolute animate__animated animate__fadeIn animate__faster">
+                        <a 
+                          className="dropdown-item cursor-pointer" 
+                          onClick={() => { setCurrentPage('gallery'); setActiveDropdown(null); }}
+                        >
+                          Completed Projects
+                        </a>
+                        <a 
+                          className="dropdown-item cursor-pointer" 
+                          onClick={() => { setCurrentPage('gallery'); setActiveDropdown(null); }}
+                        >
+                          Colorbond Metal Gallery
+                        </a>
+                        <a 
+                          className="dropdown-item cursor-pointer" 
+                          onClick={() => { setCurrentPage('gallery'); setActiveDropdown(null); }}
+                        >
+                          Tile Restoration Gallery
+                        </a>
+                      </div>
+                    )}
                   </li>
+
                   <li className="nav-item">
                     <a 
                       className={`nav-link p-0 cursor-pointer ${currentPage === 'testimonials' ? 'active' : ''}`}
@@ -92,6 +160,7 @@ export const Navbar: React.FC = () => {
                       Testimonials
                     </a>
                   </li>
+
                   <li className="nav-item">
                     <a 
                       className={`nav-link p-0 cursor-pointer ${currentPage === 'contact' ? 'active' : ''}`}
@@ -108,7 +177,7 @@ export const Navbar: React.FC = () => {
                 <ul className="list-unstyled mb-0 d-flex align-items-center">
                   <li className="d-inline-block">
                     <a 
-                      onClick={() => setCurrentPage('contact')} 
+                      onClick={openQuoteModal} 
                       className="contact-btn d-inline-block cursor-pointer text-decoration-none"
                     >
                       Book Inspection <figure><img src="/roofora-assets/images/arrow.png" alt="arrow" /></figure>
@@ -244,6 +313,10 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         {children}
       </main>
       <Footer />
+      <QuoteModal />
+      <LightboxModal />
+      <BackToTop />
     </div>
   );
 };
+
