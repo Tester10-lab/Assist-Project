@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { useWebsite } from '../WebsiteContext';
 import { FAQS } from '../data';
 import { AnimatedCounter } from '../components/AnimatedCounter';
@@ -8,7 +8,6 @@ export const Home: React.FC = () => {
   const { setCurrentPage, openQuoteModal, openLightbox } = useWebsite();
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
   const [activeTestimonial, setActiveTestimonial] = useState(1);
-  const [activeServiceHover, setActiveServiceHover] = useState<number | null>(null);
 
   const testimonialsList = [
     {
@@ -242,8 +241,6 @@ export const Home: React.FC = () => {
               {/* Card 1 */}
               <div 
                 className="custom-card"
-                onMouseEnter={() => setActiveServiceHover(1)}
-                onMouseLeave={() => setActiveServiceHover(null)}
                 onClick={() => setCurrentPage('services')}
               >
                 <img src={asset('/roofora-assets/images/services-img1.jpg')} alt="Residential Roofing" className="img-fluid" />
@@ -260,8 +257,6 @@ export const Home: React.FC = () => {
               {/* Card 2 */}
               <div 
                 className="custom-card"
-                onMouseEnter={() => setActiveServiceHover(2)}
-                onMouseLeave={() => setActiveServiceHover(null)}
                 onClick={() => setCurrentPage('services')}
               >
                 <img src={asset('/roofora-assets/images/services-img2.jpg')} alt="Roof Repairs" className="img-fluid" />
@@ -278,8 +273,6 @@ export const Home: React.FC = () => {
               {/* Card 3 */}
               <div 
                 className="custom-card"
-                onMouseEnter={() => setActiveServiceHover(3)}
-                onMouseLeave={() => setActiveServiceHover(null)}
                 onClick={() => setCurrentPage('services')}
               >
                 <img src={asset('/roofora-assets/images/services-img3.jpg')} alt="Commercial Roofing" className="img-fluid" />
@@ -296,8 +289,6 @@ export const Home: React.FC = () => {
               {/* Card 4 */}
               <div 
                 className="custom-card"
-                onMouseEnter={() => setActiveServiceHover(4)}
-                onMouseLeave={() => setActiveServiceHover(null)}
                 onClick={() => setCurrentPage('services')}
               >
                 <img src={asset('/roofora-assets/images/services-img4.jpg')} alt="Roof Replacement" className="img-fluid" />

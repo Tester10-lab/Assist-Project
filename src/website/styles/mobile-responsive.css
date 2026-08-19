@@ -353,21 +353,35 @@ img[src] {
 /* ==========================================================================
    SERVICES & CARDS ON MOBILE
    ========================================================================== */
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 1199px) {
   .services-con .cards-wrapper {
     display: flex !important;
-    flex-direction: column !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
     height: auto !important;
     gap: 16px !important;
   }
 
   .services-con .custom-card {
-    width: 100% !important;
-    height: 320px !important;
+    width: calc(50% - 8px) !important;
+    height: 340px !important;
     flex: none !important;
     border-radius: 20px !important;
   }
+}
 
+@media screen and (max-width: 767px) {
+  .services-con .cards-wrapper {
+    flex-direction: column !important;
+  }
+
+  .services-con .custom-card {
+    width: 100% !important;
+    height: 320px !important;
+  }
+}
+
+@media screen and (max-width: 991px) {
   .services-con .custom-card .overlay {
     opacity: 1 !important;
     position: absolute !important;
