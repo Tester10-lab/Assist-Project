@@ -2379,7 +2379,7 @@ button.close:hover {
 
 .testimonials-con .right-quote {
     right: 76px;
-    bottom: 118px;
+    top: 300px; /* Align roughly with the testimonial text instead of bottom */
 }
 
 .testimonials-con .rating-stars {

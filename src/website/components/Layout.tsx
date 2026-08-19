@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { useWebsite } from '../WebsiteContext';
 import { QuoteModal } from './QuoteModal';
 import { LightboxModal } from './LightboxModal';
@@ -42,7 +42,7 @@ export const Navbar: React.FC = () => {
                     src={asset('/roofora-assets/images/logo.png')} 
                     alt="ASSIST Roofing & Home Solution Logo" 
                     className="img-fluid" 
-                    style={{ maxHeight: '54px', width: 'auto', objectFit: 'contain' }}
+                    style={{ maxHeight: '85px', width: 'auto', objectFit: 'contain' }}
                   />
                 </figure>
               </a>
@@ -93,7 +93,7 @@ export const Navbar: React.FC = () => {
                       Services
                     </a>
                     {activeDropdown === 'services' && (
-                      <div className="dropdown-menu show position-absolute animate__animated animate__fadeIn animate__faster">
+                      <div className="dropdown-menu show position-absolute wow animated fadeIn fast">
                         <a 
                           className="dropdown-item cursor-pointer" 
                           onClick={() => { setCurrentPage('services'); setActiveDropdown(null); setMobileMenuOpen(false); }}
@@ -135,7 +135,7 @@ export const Navbar: React.FC = () => {
                       Projects
                     </a>
                     {activeDropdown === 'projects' && (
-                      <div className="dropdown-menu show position-absolute animate__animated animate__fadeIn animate__faster">
+                      <div className="dropdown-menu show position-absolute wow animated fadeIn fast">
                         <a 
                           className="dropdown-item cursor-pointer" 
                           onClick={() => { setCurrentPage('gallery'); setActiveDropdown(null); setMobileMenuOpen(false); }}
@@ -273,7 +273,7 @@ export const Footer: React.FC = () => {
                       src={asset('/roofora-assets/images/footer-logo.png')} 
                       alt="ASSIST Roofing & Home Solution" 
                       className="img-fluid"
-                      style={{ maxHeight: '48px', width: 'auto', objectFit: 'contain' }}
+                      style={{ maxHeight: '75px', width: 'auto', objectFit: 'contain' }}
                     />
                   </figure>
                 </a>
@@ -380,4 +380,5 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     </div>
   );
 };
+
 

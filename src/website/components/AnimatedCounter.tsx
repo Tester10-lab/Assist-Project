@@ -10,7 +10,7 @@ interface AnimatedCounterProps {
 
 export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
   end,
-  duration = 1800,
+  duration = 3500,
   suffix = '',
   prefix = '',
   className = '',

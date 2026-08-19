@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { useWebsite } from '../WebsiteContext';
 import { asset } from '../utils/asset';
 
@@ -39,7 +39,7 @@ export const QuoteModal: React.FC = () => {
       onClick={handleClose}
     >
       <div 
-        className="bg-white br-30 position-relative shadow-2xl overflow-hidden w-100 animate__animated animate__zoomIn animate__faster"
+        className="bg-white br-30 position-relative shadow-2xl overflow-hidden w-100 animated zoomIn fast"
         style={{
           maxWidth: '620px',
           maxHeight: '90vh',
@@ -201,3 +201,4 @@ export const QuoteModal: React.FC = () => {
     </div>
   );
 };
+

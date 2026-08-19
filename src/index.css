@@ -150,3 +150,5 @@ body {
   letter-spacing: -0.04em;
   line-height: 1.02;
 }
+
+html, body { overflow-x: hidden; }

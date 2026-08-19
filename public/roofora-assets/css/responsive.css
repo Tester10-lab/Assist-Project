@@ -143,7 +143,7 @@
     }
 
     .about-content-con h2 {
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .users-details-con {
@@ -437,7 +437,7 @@
     }
 
     .case-studies-con .case-inner-row {
-        margin-bottom: 38px;
+        margin-top: 300px;
     }
 
     .text-size-26 {
@@ -446,7 +446,7 @@
     }
 
     .study-box figure {
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .study-box>figure img {
@@ -754,7 +754,7 @@
     }
 
     .privacy-policy-content-con p {
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .heading-title-con {
@@ -806,7 +806,7 @@
     }
 
     .check-content-con .heading-title-con p {
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .check-mail-box .primary_btn {
@@ -899,7 +899,7 @@
     }
 
     .about-content-con p.last-text {
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .about-content-con .secondary_btn {
@@ -1224,14 +1224,14 @@
 
     .banner3-con h1 {
         line-height: 81px;
-        margin-bottom: 20px;
+        margin-top: 250px;
         font-size: 70px;
     }
 
     .banner3-con .banner-left-con .inner-con1 p {
         font-size: 16px;
         line-height: 26px;
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .banner3-icon {
@@ -1400,7 +1400,7 @@
 
     .contact-information-con .info-card {
         padding: 19px 26px;
-        margin-bottom: 20px;
+        margin-top: 250px;
         border-radius: 30px;
     }
 
@@ -1509,7 +1509,7 @@
 
     .gallery-con ul.nav-tabs {
         gap: 40px;
-        margin-bottom: 40px;
+        margin-top: 250px;
     }
 
     .gallery-con ul.nav-tabs li a {
@@ -1805,7 +1805,7 @@
     }
 
     .footer-con .middle_portion {
-        padding-bottom: 40px;
+        padding-top: 250px;
     }
 
     .newsletter-con {
@@ -1916,7 +1916,7 @@
     }
 
     .wf-item {
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .wf-content p {
@@ -1946,7 +1946,7 @@
     }
 
     .case-studies-con .heading-title-con p {
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .case-studies-con .secondary_btn {
@@ -1994,7 +1994,7 @@
 
     .banner3-con h1 {
         line-height: 60px;
-        margin-bottom: 20px;
+        margin-top: 250px;
         font-size: 54px;
     }
 
@@ -2105,7 +2105,7 @@
     }
 
     .benefit-box figure {
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .sub-banner-con {
@@ -2682,7 +2682,7 @@
 
     .testimonials-con .right-quote {
         right: 56px;
-        bottom: 38px;
+        top: 300px;
     }
 
     .text-size-34 {
@@ -2786,7 +2786,7 @@
     }
 
     .portfolio-box img {
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .testimonials-con .left-quote,
@@ -2898,7 +2898,7 @@
     }
 
     .banner2-inner-con h1 {
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .home2-outer-wrapper {
@@ -3046,7 +3046,7 @@
     }
 
     .faq-con .accordion-card {
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     div#faq_accordion1 .row {
@@ -3062,7 +3062,7 @@
     .banner3-con .banner-left-con .inner-con1 p {
         font-size: 14px;
         line-height: 22px;
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .banner3-con .secondary_btn {
@@ -3125,7 +3125,7 @@
     }
 
     .logistics-img2 {
-        bottom: 40px;
+        top: 250px;
         left: 15px;
         width: 150px;
     }
@@ -3143,7 +3143,7 @@
     }
 
     .logistics-img4 {
-        bottom: 40px;
+        top: 250px;
         width: 150px;
     }
 
@@ -3177,7 +3177,7 @@
     }
 
     .material-estimator-con .col-lg-4.col-sm-6 {
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .material-estimator-con .col-lg-4.col-sm-6:last-child {
@@ -3325,7 +3325,7 @@
     }
 
     .only-images-outer .col-lg-4.col-md-6 {
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .only-images-outer .col-lg-4.col-md-6:last-child {
@@ -3382,7 +3382,7 @@
     .error-con p {
         font-size: 16px;
         line-height: 25px;
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .error-con .text-size-170 {
@@ -3456,7 +3456,7 @@
     .error-con p {
         font-size: 16px;
         line-height: 25px;
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .error-con .text-size-170 {
@@ -3514,7 +3514,7 @@
     .error-con p {
         font-size: 16px;
         line-height: 25px;
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .error-con .text-size-170 {
@@ -3588,7 +3588,7 @@
     .error-con p {
         font-size: 16px;
         line-height: 25px;
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .error-con .text-size-170 {
@@ -3612,7 +3612,7 @@
     }
 
     .login-form .login-form-title {
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .login-form .login-card .btn-primary {
@@ -3637,7 +3637,7 @@
     }
 
     .login-form .login-card {
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .login-form .login-form-box .join-now-outer a {
@@ -3727,7 +3727,7 @@
     }
 
     .gallery-inner-con {
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .coming-soon-con .check-mail-box {
@@ -3802,7 +3802,7 @@
     }
 
     .rating-con {
-        margin-bottom: 20px;
+        margin-top: 250px;
         gap: 8px;
     }
 
@@ -3879,7 +3879,7 @@
     }
 
     .about-content-con h2 {
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .services-con .cards-wrapper {
@@ -3980,7 +3980,7 @@
 
     .testimonials-con .right-quote {
         right: 26px;
-        bottom: 40px;
+        top: 250px;
     }
 
     .testimonials-con .pagination-outer .carousel-control-next {
@@ -4023,7 +4023,7 @@
     }
 
     .book-now-con .heading-title-con h2 {
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .newsletter-img-con {
@@ -4041,7 +4041,7 @@
 
     .footer-con .middle_portion {
         padding-inline: 15px;
-        padding-bottom: 40px;
+        padding-top: 250px;
     }
 
     .footer-con .middle_portion .links li {
@@ -4243,7 +4243,7 @@
     }
 
     .banner3-con .live-stock-available {
-        bottom: 20px;
+        top: 250px;
         right: auto;
         left: 20px;
         width: 88%;
@@ -4323,7 +4323,7 @@
     }
 
     .portfolio3-title-con {
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .result-number {
@@ -4545,7 +4545,7 @@
 
     .banner3-con .banner-left-con {
         height: auto;
-        padding-bottom: 40px;
+        padding-top: 250px;
     }
 
     .banner3-con .banner-left-con .inner-con1 {
@@ -4571,7 +4571,7 @@
     .book-now-con {
         height: auto;
         padding-top: 40px;
-        padding-bottom: 40px;
+        padding-top: 250px;
     }
 
     .vendor-setup-con .secondary_btn,
@@ -4646,7 +4646,7 @@
 
     .logistics-con {
         padding-top: 40px;
-        padding-bottom: 40px;
+        padding-top: 250px;
     }
 
     .roofing-categories-con .row {
@@ -4697,7 +4697,7 @@
     .error-con p {
         font-size: 16px;
         line-height: 24px;
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .error-con p br {
@@ -4737,7 +4737,7 @@
     }
 
     .coming-soon-con .text-size-85 {
-        margin-bottom: 20px;
+        margin-top: 250px;
         font-size: 38px;
         line-height: 38px;
     }
@@ -4802,7 +4802,7 @@
     .error-con p {
         font-size: 16px;
         line-height: 24px;
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .error-con p br {
@@ -4842,7 +4842,7 @@
     }
 
     .coming-soon-con .text-size-85 {
-        margin-bottom: 20px;
+        margin-top: 250px;
         font-size: 38px;
         line-height: 38px;
     }
@@ -4874,7 +4874,7 @@
 
     /* Login Page */
     .login-form .login-page-logo {
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .login-form .login-card {
@@ -4970,7 +4970,7 @@
     }
 
     .coming-soon-con .new-logo {
-        margin-bottom: 40px;
+        margin-top: 250px;
     }
 
     .coming-soon-con .text-size-28 {
@@ -5125,7 +5125,7 @@
     }
 
     .testimonials-con .right-quote {
-        bottom: 20px;
+        top: 250px;
     }
 
     .faq-con.main-box {
@@ -5220,7 +5220,7 @@
     }
 
     .book-now-con .heading-title-con p {
-        margin-bottom: 20px;
+        margin-top: 250px;
         width: 100%;
     }
 
@@ -5231,7 +5231,7 @@
     .book-now-con {
         height: auto;
         padding-top: 40px;
-        padding-bottom: 40px;
+        padding-top: 250px;
     }
 
     .newsletter-con input {
@@ -5270,7 +5270,7 @@
 
     .cta-con {
         padding-top: 40px;
-        padding-bottom: 40px;
+        padding-top: 250px;
     }
 
     .footer-con .middle_portion {
@@ -5342,7 +5342,7 @@
     }
 
     .bonding-box .divider {
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .bonding-box .bonding-amount {
@@ -5724,7 +5724,7 @@
     }
 
     .banner2-con {
-        padding-bottom: 40px;
+        padding-top: 250px;
     }
 }
 
@@ -5751,7 +5751,7 @@
     }
 
     .coming-soon-con .new-logo {
-        margin-bottom: 20px;
+        margin-top: 250px;
     }
 
     .coming-soon-con .text-size-36 {

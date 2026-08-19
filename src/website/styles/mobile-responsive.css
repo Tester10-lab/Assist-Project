@@ -536,14 +536,14 @@ img[src] {
   }
 
   .footer-con .footer-logo figure img {
-    max-height: 36px !important;
+    max-height: 48px !important;
     width: auto !important;
     object-fit: contain !important;
   }
 
   /* Header logo mobile sizing */
   .header-con .navbar-brand figure img {
-    max-height: 38px !important;
+    max-height: 56px !important;
     width: auto !important;
     object-fit: contain !important;
   }

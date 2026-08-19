@@ -18,7 +18,7 @@ export const LightboxModal: React.FC = () => {
       onClick={closeLightbox}
     >
       <div 
-        className="position-relative bg-white br-30 overflow-hidden shadow-2xl animate__animated animate__zoomIn animate__faster"
+        className="position-relative bg-white br-30 overflow-hidden shadow-2xl animated zoomIn fast"
         style={{ maxWidth: '850px', width: '100%' }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -72,3 +72,4 @@ export const LightboxModal: React.FC = () => {
     </div>
   );
 };
+
