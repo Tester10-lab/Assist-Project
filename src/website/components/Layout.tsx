@@ -15,7 +15,7 @@ export const Navbar: React.FC = () => {
       <div className="promotional-topbar">
         <div className="promotional-topbar-icon">
           <i className="fa-solid fa-wand-magic-sparkles topbar-icon"></i>
-          <p>Clean Jobsite Promise & 10-Yr Workmanship Guarantee • 1800 277 478</p>
+          <p>Clean Jobsite Promise & 10-Yr Workmanship Guarantee • 0478936120</p>
         </div>
         <a 
           className="buy_now text-decoration-none cursor-pointer"
@@ -187,11 +187,11 @@ export const Navbar: React.FC = () => {
                     <i className="fa-solid fa-calendar-check mr-2"></i> Book Free Inspection
                   </button>
                   <a 
-                    href="tel:1800277478"
+                    href="tel:0478936120"
                     className="btn w-100 py-2.5 rounded-pill font-weight-700 text-white mb-2 text-decoration-none"
                     style={{ backgroundColor: '#1e2e4f' }}
                   >
-                    <i className="fa-solid fa-phone mr-2"></i> 1800 277 478
+                    <i className="fa-solid fa-phone mr-2"></i> 0478936120
                   </a>
                   <button 
                     onClick={() => {
@@ -287,8 +287,8 @@ export const Footer: React.FC = () => {
                     </a>
                   </li>
                   <li className="text footer-number mb-0">
-                    <a href="tel:1800277478" className="text-decoration-none text-white font-weight-700">
-                      1800 277 478
+                    <a href="tel:0478936120" className="text-decoration-none text-white font-weight-700">
+                      0478936120
                     </a>
                   </li>
                 </ul>
@@ -298,8 +298,8 @@ export const Footer: React.FC = () => {
                 <ul className="list-unstyled mb-0">
                   <li className="text">
                     <a className="address mb-0 text-white">
-                      121 King Street Melbourne, 3000, <br />
-                      Victoria, Australia
+                      139 Boundary Road, <br />
+                      North Melbourne VIC 3051, Australia
                     </a>
                   </li>
                 </ul>
@@ -374,6 +374,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         {children}
       </main>
       <Footer />
+      <WhatsAppFloatingButton />
       <QuoteModal />
       <LightboxModal />
       <BackToTop />
@@ -381,4 +382,31 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   );
 };
 
-
+export const WhatsAppFloatingButton: React.FC = () => {
+  return (
+    <a
+      href="https://wa.me/61478936120"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="position-fixed d-flex align-items-center justify-content-center text-white"
+      style={{
+        bottom: '20px',
+        left: '20px',
+        width: '60px',
+        height: '60px',
+        borderRadius: '50%',
+        backgroundColor: '#25D366',
+        boxShadow: '0 4px 10px rgba(0,0,0,0.3)',
+        zIndex: 1000,
+        fontSize: '35px',
+        textDecoration: 'none',
+        transition: 'transform 0.3s'
+      }}
+      onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.1)')}
+      onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+      aria-label="Chat with us on WhatsApp"
+    >
+      <i className="fa-brands fa-whatsapp"></i>
+    </a>
+  );
+};

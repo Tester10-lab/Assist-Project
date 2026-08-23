@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { TEAM_MEMBERS, STATS } from '../data';
 import { useWebsite } from '../WebsiteContext';
 import { motion } from 'framer-motion';
@@ -213,11 +213,11 @@ export const About: React.FC = () => {
               Contact Us
             </button>
             <a
-              href="tel:1800277478"
+              href="tel:0478936120"
               className="bg-[#f19e1f] hover:bg-[#d88713] text-white font-bold text-sm px-7 py-3.5 rounded-full shadow transition-all flex items-center gap-2"
             >
               <i className="fa-solid fa-phone text-xs"></i>
-              <span>1800 277 478</span>
+              <span>0478936120</span>
             </a>
           </div>
         </div>

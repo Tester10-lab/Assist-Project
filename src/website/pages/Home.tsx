@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { useWebsite } from '../WebsiteContext';
 import { FAQS } from '../data';
 import { AnimatedCounter } from '../components/AnimatedCounter';
@@ -97,10 +97,10 @@ export const Home: React.FC = () => {
                       </button>
 
                       <a 
-                        href="tel:1800277478" 
+                        href="tel:0478936120" 
                         className="font-weight-bold elementary_btn d-inline-block text-decoration-none"
                       >
-                        1800 277 478 <span className=""><img src={asset('/roofora-assets/images/arrow.png')} alt="arrow" className="img-fluid d-inline-block" /></span>
+                        0478936120 <span className=""><img src={asset('/roofora-assets/images/arrow.png')} alt="arrow" className="img-fluid d-inline-block" /></span>
                       </a>
                     </div>
 
@@ -159,7 +159,7 @@ export const Home: React.FC = () => {
                     With over 18+ years on ladders across Melbourne, our certified Assist team handles your initial drone inspection, structural timber check, and complete installationâ€”start to finish.
                   </p>
                   <p className="last-text text-size-16">
-                    We maintain full Victorian Building Authority (VBA) plumbing registrations, carry $20M Public Liability insurance, and strictly adhere to AS 1562.1 metal and tile roofing standards.
+                    We maintain full Victorian Building Authority (VBA) plumbing registrations, carry $10M Public Liability insurance, and strictly adhere to AS 1562.1 metal and tile roofing standards.
                   </p>
 
                   <div className="d-flex flex-wrap align-items-center justify-content-between gap-4 mt-4">
@@ -185,13 +185,13 @@ export const Home: React.FC = () => {
                   <div className="users-details-con mt-5">
                     <div className="user-detrail-box pl-0">
                       <span className="d-inline-block counter">
-                        <AnimatedCounter end={500} suffix="+" />
+                        <AnimatedCounter end={3500} suffix="+" />
                       </span>
                       <p className="mb-0 text-black font-weight-600">Jobs Completed</p>
                     </div>
                     <div className="user-detrail-box">
                       <span className="d-inline-block counter">
-                        <AnimatedCounter end={25} suffix="+" />
+                        <AnimatedCounter end={12} suffix="+" />
                       </span>
                       <p className="mb-0 text-black font-weight-600">Expert Crew</p>
                     </div>
@@ -335,7 +335,7 @@ export const Home: React.FC = () => {
                   <p>Comprehensive drone & roof inspection with high-res photo report.</p>
                   <span className="starting-at d-inline-block">Starting at:</span>
                   <div className="price-content">
-                    <span className="dollar">$</span>99<span className="text-size-16">/site</span>
+                    <span className="dollar">$</span>350<span className="text-size-16">/site</span>
                   </div>
                   <ul className="list-unstyled p-0 flex-grow-1">
                     <li className="position-relative"><i className="fa-solid fa-check"></i> High-resolution drone survey</li>
@@ -356,7 +356,7 @@ export const Home: React.FC = () => {
                   <p>Shingle, broken tile, pipe boots, or basic flashing fixes.</p>
                   <span className="starting-at d-inline-block">Starting at:</span>
                   <div className="price-content">
-                    <span className="dollar">$</span>249<span className="text-size-16">/fix</span>
+                    <span className="dollar">$</span>550<span className="text-size-16">/fix</span>
                   </div>
                   <ul className="list-unstyled p-0 flex-grow-1">
                     <li className="position-relative"><i className="fa-solid fa-check"></i> Replaces broken/cracked tiles</li>
@@ -377,7 +377,7 @@ export const Home: React.FC = () => {
                   <p>Typical brick chimney counter-flashing and box gutter sealing.</p>
                   <span className="starting-at d-inline-block">Starting at:</span>
                   <div className="price-content">
-                    <span className="dollar">$</span>550<span className="text-size-16">/job</span>
+                    <span className="dollar">$</span>850<span className="text-size-16">/job</span>
                   </div>
                   <ul className="list-unstyled p-0 flex-grow-1">
                     <li className="position-relative"><i className="fa-solid fa-check"></i> Custom lead/Colorbond flashing</li>
@@ -398,7 +398,7 @@ export const Home: React.FC = () => {
                   <p>Heavy duty weather-proof tarping to stop active water intrusion.</p>
                   <span className="starting-at d-inline-block">Starting at:</span>
                   <div className="price-content">
-                    <span className="dollar">$</span>189<span className="text-size-16">/tarp</span>
+                    <span className="dollar">$</span>499<span className="text-size-16">/tarp</span>
                   </div>
                   <ul className="list-unstyled p-0 flex-grow-1">
                     <li className="position-relative"><i className="fa-solid fa-check"></i> Immediate emergency dispatch</li>

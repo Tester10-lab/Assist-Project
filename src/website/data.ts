@@ -1,4 +1,4 @@
-﻿import { NavLink, ServiceItem, TestimonialItem, GalleryProject, TeamMember } from './types';
+import { NavLink, ServiceItem, TestimonialItem, GalleryProject, TeamMember } from './types';
 import { asset } from './utils/asset';
 
 export const NAV_LINKS: NavLink[] = [
@@ -47,7 +47,7 @@ export const PRICING_PLANS = [
     icon: '/roofora-assets/images/price-icon1.png',
     title: 'Leak Diagnosis',
     subtitle: 'Credited toward your repair if you hire us.',
-    price: '99',
+    price: '350',
     period: 'one-off',
     features: [
       'Professional roof inspection',
@@ -61,7 +61,7 @@ export const PRICING_PLANS = [
     icon: '/roofora-assets/images/price-icon2.png',
     title: 'Standard Repair',
     subtitle: 'Shingles, pipe boots, or basic flashing fixes.',
-    price: '249',
+    price: '550',
     period: 'starting at',
     popular: true,
     features: [
@@ -76,7 +76,7 @@ export const PRICING_PLANS = [
     icon: '/roofora-assets/images/price-icon3.png',
     title: 'Chimney Re-Flash',
     subtitle: 'Typical brick chimney counter-flashing.',
-    price: '550',
+    price: '850',
     period: 'starting at',
     features: [
       'Custom fabricated step flashing',
@@ -211,7 +211,7 @@ export const FAQS = [
   },
   {
     q: 'Are your roofers fully licensed and insured?',
-    a: 'Yes, 100%. All our roofing tradespeople hold full Victorian Building Authority (VBA) registration, working-at-heights certification, and $20M public liability insurance.',
+    a: 'Yes, 100%. All our roofing tradespeople hold full Victorian Building Authority (VBA) registration, working-at-heights certification, and $10M public liability insurance.',
   },
   {
     q: 'What is included in your Clean Jobsite Promise?',

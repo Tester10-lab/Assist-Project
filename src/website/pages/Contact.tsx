@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { useWebsite } from '../WebsiteContext';
 import { motion } from 'framer-motion';
 import { asset } from '../utils/asset';
@@ -59,8 +59,8 @@ export const Contact: React.FC = () => {
               </div>
               <div>
                 <span className="text-xs text-[#616a7e] font-bold uppercase tracking-wider block mb-1">Emergency Call</span>
-                <a href="tel:1800277478" className="text-base font-bold text-[#1e2e4f] hover:text-[#f19e1f] transition-colors">
-                  1800 277 478
+                <a href="tel:0478936120" className="text-base font-bold text-[#1e2e4f] hover:text-[#f19e1f] transition-colors">
+                  0478936120
                 </a>
               </div>
             </div>
@@ -86,7 +86,7 @@ export const Contact: React.FC = () => {
               <div>
                 <span className="text-xs text-[#616a7e] font-bold uppercase tracking-wider block mb-1">Melbourne Office</span>
                 <span className="text-xs font-semibold text-[#1e2e4f] block">
-                  123 Industrial Blvd, Melbourne VIC
+                  139 Boundary Road, North Melbourne VIC 3051, Australia
                 </span>
               </div>
             </div>
@@ -254,11 +254,11 @@ export const Contact: React.FC = () => {
                 </p>
 
                 <a
-                  href="tel:1800277478"
+                  href="tel:0478936120"
                   className="w-full bg-[#f19e1f] hover:bg-[#d88713] text-white py-3.5 rounded-full font-bold text-sm uppercase tracking-wider text-center flex items-center justify-center gap-2 shadow mb-4"
                 >
                   <i className="fa-solid fa-phone"></i>
-                  <span>Call 1800 277 478</span>
+                  <span>Call 0478936120</span>
                 </a>
 
                 {/* Social Channels */}
