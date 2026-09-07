@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Customer Dashboard | KDM Express Portal</title>
+    <!-- Meta Data -->
+    <meta name="description" content="Manage your KDM Express shipments, track active deliveries, create new parcel bookings, view COD collections, and update addresses.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="Customer Dashboard | KDM Express">
+    <meta property="og:description" content="KDM Express portal dashboard for managing courier deliveries in Nepal.">
+    <meta property="og:url" content="https://kdmexpress.com/dashboard.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="images/kdm-logo.jpg">
+
+    <!-- Stylesheets -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+    <link rel="icon" href="images/favicon.png" type="image/png">
+
+    <style>
+        :root {
+            --kdm-navy: #002B49;
+            --kdm-red: #E31837;
+            --kdm-slate: #F4F6F9;
+        }
+        body { font-family: 'Open Sans', sans-serif; color: #333333; background: #f8fafc; }
+        .bg-navy { background-color: var(--kdm-navy) !important; }
+        .bg-red { background-color: var(--kdm-red) !important; }
+        .text-navy { color: var(--kdm-navy) !important; }
+        .text-red { color: var(--kdm-red) !important; }
+
+        .dashboard-nav-item {
+            display: flex;
+            align-items: center;
+            padding: 14px 20px;
+            color: #475569;
+            font-weight: 700;
+            font-size: 14px;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            text-decoration: none !important;
+            transition: all 0.2s ease;
+        }
+        .dashboard-nav-item i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 20px;
+            color: #64748b;
+        }
+        .dashboard-nav-item.active, .dashboard-nav-item:hover {
+            background: var(--kdm-navy);
+            color: #ffffff;
+        }
+        .dashboard-nav-item.active i, .dashboard-nav-item:hover i {
+            color: var(--kdm-red);
+        }
+
+        .stat-card {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .stat-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 10px;
+            background: rgba(0, 43, 73, 0.08);
+            color: var(--kdm-navy);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 18px;
+        }
+        .stat-card.red .stat-icon {
+            background: rgba(227, 24, 55, 0.1);
+            color: var(--kdm-red);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="page">
+
+        <!-- Topbar -->
+        <div id="topbar" class="topbar bg-navy" style="color: #ffffff; padding: 8px 0; font-size: 13px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-sm-12">
+                        <ul class="list-inline" style="margin: 0; padding: 0;">
+                            <li style="margin-right: 20px;"><i class="fa fa-phone text-red"></i> <strong>Call / WhatsApp:</strong> +977 980-1081469</li>
+                            <li style="margin-right: 20px;"><i class="fa fa-envelope text-red"></i> info@kdmexpress.com</li>
+                            <li><i class="fa fa-map-marker text-red"></i> Kathmandu Central Hub, Nepal</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 col-sm-12 text-right text-left-mobile">
+                        <ul class="list-inline" style="margin: 0;">
+                            <li><a href="https://wa.me/9779801081469" target="_blank" style="color: #25D366; font-weight: 700;"><i class="fa fa-whatsapp"></i> WhatsApp Support</a></li>
+                            <li style="margin-left: 15px;"><a href="login.html" style="color: #ffffff;"><i class="fa fa-sign-out"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                <!-- Main Header -->
+        <header id="masthead" class="site-header clearfix">
+            <div class="header-main clearfix">
+                <div class="container">
+                    <div class="row align-items-center" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: nowrap;">
+                        <div class="site-logo">
+                            <a href="index.html" class="logo">
+                                <img src="images/kdm-logo.png" alt="KDM Express" onerror="this.onerror=null; this.src='images/logo.png';">
+                            </a>
+                        </div>
+                        <div class="site-menu">
+                            <button class="kdm-mobile-toggle" id="kdm-mobile-toggle" aria-label="Toggle Navigation">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <nav id="site-navigation" class="main-nav primary-nav nav">
+                                <ul class="menu">
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="services.html">Services</a></li>
+                                    <li><a href="track-your-shipment.html">Track Shipment</a></li>
+                                    <li><a href="our-prices.html">Pricing</a></li>
+                                    <li><a href="branches.html">Branches</a></li>
+                                    <li><a href="about-us.html">About Us</a></li>
+                                    <li><a href="contact.html">Contact</a></li>
+                                    <li><a href="login.html">Login</a></li>
+                                    <li>
+                                        <a href="track-your-shipment.html" class="kdm-nav-btn">
+                                            <i class="fa fa-search"></i> Track Shipment
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Layout -->
+        <section style="padding: 40px 0;">
+            <div class="container">
+                <div class="row">
+                    
+                    <!-- Sidebar Navigation -->
+                    <div class="col-md-3 col-sm-4" style="margin-bottom: 30px;">
+                        <div style="background: #ffffff; border-radius: 12px; padding: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
+                            <div style="text-align: center; padding: 15px 0 20px 0; border-bottom: 1px solid #f1f5f9; margin-bottom: 15px;">
+                                <div style="width: 70px; height: 70px; border-radius: 50%; background: var(--kdm-navy); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; margin: 0 auto 10px auto;">
+                                    KDM
+                                </div>
+                                <h4 style="margin: 0 0 3px 0; color: var(--kdm-navy); font-weight: 800;">Nepal Trade Customer</h4>
+                                <span style="background: rgba(227, 24, 55, 0.1); color: var(--kdm-red); font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 12px; text-transform: uppercase;">E-commerce Merchant</span>
+                            </div>
+
+                            <div class="dashboard-nav">
+                                <a href="#" class="dashboard-nav-item active" data-target="sec-active-shipments"><i class="fa fa-truck"></i> Active Shipments</a>
+                                <a href="#" class="dashboard-nav-item" data-target="sec-shipment-history"><i class="fa fa-history"></i> Shipment History</a>
+                                <a href="#" class="dashboard-nav-item" data-target="sec-book-shipment"><i class="fa fa-plus-circle"></i> Create New Shipment</a>
+                                <a href="#" class="dashboard-nav-item" data-target="sec-saved-addresses"><i class="fa fa-map-marker"></i> Saved Addresses</a>
+                                <a href="#" class="dashboard-nav-item" data-target="sec-profile"><i class="fa fa-user"></i> Profile Settings</a>
+                                <a href="#" class="dashboard-nav-item" data-target="sec-notifications"><i class="fa fa-bell"></i> Notifications (2)</a>
+                                <a href="#" class="dashboard-nav-item" data-target="sec-support"><i class="fa fa-headset"></i> Customer Support</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Dashboard Content -->
+                    <div class="col-md-9 col-sm-8">
+                        
+                        <!-- Top Stat Cards -->
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6">
+                                <div class="stat-card">
+                                    <div class="stat-icon"><i class="fa fa-cube"></i></div>
+                                    <div>
+                                        <span style="font-size: 12px; color: #64748b; font-weight: 700; text-transform: uppercase;">Active Parcels</span>
+                                        <h3 style="margin: 2px 0 0 0; color: var(--kdm-navy); font-weight: 900; font-size: 26px;">2</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="stat-card red">
+                                    <div class="stat-icon"><i class="fa fa-check-circle"></i></div>
+                                    <div>
+                                        <span style="font-size: 12px; color: #64748b; font-weight: 700; text-transform: uppercase;">Delivered This Month</span>
+                                        <h3 style="margin: 2px 0 0 0; color: var(--kdm-navy); font-weight: 900; font-size: 26px;">24</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="stat-card">
+                                    <div class="stat-icon"><i class="fa fa-money"></i></div>
+                                    <div>
+                                        <span style="font-size: 12px; color: #64748b; font-weight: 700; text-transform: uppercase;">Pending COD Remittance</span>
+                                        <h3 style="margin: 2px 0 0 0; color: var(--kdm-red); font-weight: 900; font-size: 22px;">NPR 4,900</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 1: Active Shipments -->
+                        <div id="sec-active-shipments" class="dashboard-tab-section">
+                            <div style="background: #ffffff; border-radius: 12px; padding: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; border-top: 4px solid var(--kdm-navy);">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                    <h3 style="margin: 0; font-weight: 800; color: var(--kdm-navy); font-size: 20px;">My Active Shipments</h3>
+                                    <a href="track-your-shipment.html" class="btn btn-sm" style="background: var(--kdm-red); color: #fff; font-weight: 700;">Track Consignment</a>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle" style="font-size: 14px;">
+                                        <thead style="background: #f1f5f9; color: var(--kdm-navy);">
+                                            <tr>
+                                                <th>Consignment #</th>
+                                                <th>Recipient</th>
+                                                <th>Route</th>
+                                                <th>Status</th>
+                                                <th>Est. Delivery</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><strong style="color: var(--kdm-navy);">KDM-2026-000123</strong></td>
+                                                <td>Rajesh Sharma</td>
+                                                <td>Kathmandu &rarr; Pokhara</td>
+                                                <td><span class="label label-info" style="background: #0284c7; padding: 5px 10px;">Arrived at Branch</span></td>
+                                                <td>2026-08-28</td>
+                                                <td><a href="track-your-shipment.html?tracking=KDM-2026-000123" class="btn btn-xs btn-primary">Track</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong style="color: var(--kdm-navy);">KDM-2026-000456</strong></td>
+                                                <td>Sunita Thapa</td>
+                                                <td>Kathmandu &rarr; Chitwan</td>
+                                                <td><span class="label label-warning" style="background: var(--kdm-red); padding: 5px 10px;">Out for Delivery</span></td>
+                                                <td>2026-08-29</td>
+                                                <td><a href="track-your-shipment.html?tracking=KDM-2026-000456" class="btn btn-xs btn-primary">Track</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 2: Shipment History -->
+                        <div id="sec-shipment-history" class="dashboard-tab-section" style="display: none;">
+                            <div style="background: #ffffff; border-radius: 12px; padding: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
+                                <h3 style="margin: 0 0 20px 0; font-weight: 800; color: var(--kdm-navy); font-size: 20px;">Delivered Shipment History</h3>
+                                <div class="table-responsive">
+                                    <table class="table table-hover" style="font-size: 14px;">
+                                        <thead style="background: #f1f5f9;">
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Consignment #</th>
+                                                <th>Destination</th>
+                                                <th>Type</th>
+                                                <th>COD Amount</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>2026-08-20</td>
+                                                <td>KDM-2026-000098</td>
+                                                <td>Butwal</td>
+                                                <td>E-commerce Parcel</td>
+                                                <td>NPR 1,850</td>
+                                                <td><span class="label label-success" style="background: #16a34a;">Delivered</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2026-08-18</td>
+                                                <td>KDM-2026-000084</td>
+                                                <td>Biratnagar</td>
+                                                <td>Document Dispatch</td>
+                                                <td>NPR 0</td>
+                                                <td><span class="label label-success" style="background: #16a34a;">Delivered</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 3: Book Shipment -->
+                        <div id="sec-book-shipment" class="dashboard-tab-section" style="display: none;">
+                            <div style="background: #ffffff; border-radius: 12px; padding: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
+                                <h3 style="margin: 0 0 20px 0; font-weight: 800; color: var(--kdm-navy); font-size: 20px;">Book New Shipment</h3>
+                                <form onsubmit="alert('Shipment booking created! Consignment number generated: KDM-2026-' + Math.floor(100000 + Math.random() * 900000)); return false;">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6" style="margin-bottom: 15px;">
+                                            <label style="font-weight: 700; font-size: 12px; text-transform: uppercase;">Sender Name</label>
+                                            <input type="text" class="form-control" value="Nepal Trade Customer" required style="height: 44px;">
+                                        </div>
+                                        <div class="col-md-6 col-sm-6" style="margin-bottom: 15px;">
+                                            <label style="font-weight: 700; font-size: 12px; text-transform: uppercase;">Recipient Name</label>
+                                            <input type="text" class="form-control" placeholder="Recipient full name" required style="height: 44px;">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6" style="margin-bottom: 15px;">
+                                            <label style="font-weight: 700; font-size: 12px; text-transform: uppercase;">Recipient Mobile (+977)</label>
+                                            <input type="tel" class="form-control" placeholder="98XXXXXXXX" required style="height: 44px;">
+                                        </div>
+                                        <div class="col-md-6 col-sm-6" style="margin-bottom: 15px;">
+                                            <label style="font-weight: 700; font-size: 12px; text-transform: uppercase;">Delivery District / City</label>
+                                            <select class="form-control" style="height: 44px;">
+                                                <option value="pokhara">Pokhara</option>
+                                                <option value="kathmandu">Kathmandu</option>
+                                                <option value="chitwan">Chitwan</option>
+                                                <option value="butwal">Butwal</option>
+                                                <option value="biratnagar">Biratnagar</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-block" style="background: var(--kdm-navy); color: #fff; font-weight: 700; padding: 12px;">Create Consignment Booking</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 4: Saved Addresses -->
+                        <div id="sec-saved-addresses" class="dashboard-tab-section" style="display: none;">
+                            <div style="background: #ffffff; border-radius: 12px; padding: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
+                                <h3 style="margin: 0 0 20px 0; font-weight: 800; color: var(--kdm-navy); font-size: 20px;">Saved Delivery Addresses</h3>
+                                <div style="background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--kdm-navy);">
+                                    <strong>Kathmandu Warehouse:</strong> Durbar Marg, Ward 1, Kathmandu (+977 980-1081469)
+                                </div>
+                                <div style="background: #f8fafc; padding: 15px; border-radius: 8px; border-left: 4px solid var(--kdm-red);">
+                                    <strong>Pokhara Counter:</strong> Lakeside Ward 6, Pokhara
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 5: Profile Settings -->
+                        <div id="sec-profile" class="dashboard-tab-section" style="display: none;">
+                            <div style="background: #ffffff; border-radius: 12px; padding: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
+                                <h3 style="margin: 0 0 20px 0; font-weight: 800; color: var(--kdm-navy); font-size: 20px;">Profile Settings</h3>
+                                <p style="color: #64748b;">Manage account credentials, COD bank settlement account details, and notification preferences.</p>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 6: Notifications -->
+                        <div id="sec-notifications" class="dashboard-tab-section" style="display: none;">
+                            <div style="background: #ffffff; border-radius: 12px; padding: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
+                                <h3 style="margin: 0 0 20px 0; font-weight: 800; color: var(--kdm-navy); font-size: 20px;">Notifications</h3>
+                                <div class="alert alert-info" style="margin-bottom: 10px;">
+                                    <strong>Shipment Arrival:</strong> Consignment KDM-2026-000123 has arrived at Pokhara Regional Hub.
+                                </div>
+                                <div class="alert alert-success">
+                                    <strong>COD Settlement:</strong> NPR 2,450 COD payout processed for order KDM-2026-000098.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 7: Customer Support -->
+                        <div id="sec-support" class="dashboard-tab-section" style="display: none;">
+                            <div style="background: #ffffff; border-radius: 12px; padding: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;">
+                                <h3 style="margin: 0 0 20px 0; font-weight: 800; color: var(--kdm-navy); font-size: 20px;">Customer Support</h3>
+                                <p style="color: #64748b;">Need help with a consignment or pickup delay?</p>
+                                <a href="https://wa.me/9779801081469" target="_blank" class="btn" style="background: #25D366; color: #fff; font-weight: 700;">
+                                    <i class="fa fa-whatsapp"></i> Chat with Support Desk (+977 980-1081469)
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer style="background: var(--kdm-navy); color: #ffffff; padding: 60px 0 20px 0; font-size: 14px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6" style="margin-bottom: 30px;">
+                        <img src="images/kdm-logo-light.svg" alt="KDM Express" style="max-height: 50px; margin-bottom: 20px;" onerror="this.onerror=null; this.src='images/logo-light.png';">
+                        <p style="color: rgba(255,255,255,0.7); line-height: 1.6;">
+                            KDM Express is a premier Nepal-based courier and logistics company delivering speed, reliability, and security for parcels, documents, and e-commerce across Nepal.
+                        </p>
+                    </div>
+
+                    <div class="col-md-2 col-sm-6" style="margin-bottom: 30px;">
+                        <h4 style="color: #fff; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; font-size: 15px;">Quick Links</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0; line-height: 2.2;">
+                            <li><a href="index.html" style="color: rgba(255,255,255,0.8);">Home</a></li>
+                            <li><a href="services.html" style="color: rgba(255,255,255,0.8);">Our Services</a></li>
+                            <li><a href="track-your-shipment.html" style="color: rgba(255,255,255,0.8);">Track Shipment</a></li>
+                            <li><a href="our-prices.html" style="color: rgba(255,255,255,0.8);">Rate Calculator</a></li>
+                            <li><a href="branches.html" style="color: rgba(255,255,255,0.8);">Nepal Branches</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6" style="margin-bottom: 30px;">
+                        <h4 style="color: #fff; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; font-size: 15px;">Customer Portal</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0; line-height: 2.2;">
+                            <li><a href="login.html" style="color: rgba(255,255,255,0.8);">Customer Login</a></li>
+                            <li><a href="login.html" style="color: rgba(255,255,255,0.8);">Register Account</a></li>
+                            <li><a href="dashboard.html" style="color: rgba(255,255,255,0.8);">Customer Dashboard</a></li>
+                            <li><a href="about-us.html" style="color: rgba(255,255,255,0.8);">About KDM Express</a></li>
+                            <li><a href="contact.html" style="color: rgba(255,255,255,0.8);">Contact & Support</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6" style="margin-bottom: 30px;">
+                        <h4 style="color: #fff; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; font-size: 15px;">Contact Info</h4>
+                        <ul style="list-style: none; padding: 0; margin: 0; line-height: 2; color: rgba(255,255,255,0.8);">
+                            <li><i class="fa fa-phone text-red"></i> <strong>Call / WhatsApp:</strong><br>+977 980-1081469</li>
+                            <li style="margin-top: 10px;"><i class="fa fa-envelope text-red"></i> <strong>Email:</strong><br>info@kdmexpress.com</li>
+                            <li style="margin-top: 10px;"><i class="fa fa-globe text-red"></i> <strong>Website:</strong><br>kdmexpress.com</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; margin-top: 20px; text-align: center; color: rgba(255,255,255,0.5); font-size: 13px;">
+                    &copy; 2026 <strong>KDM Express</strong> (kdmexpress.com). All rights reserved. Nepal Courier & Logistics System.
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/kdm-express.js"></script>
+</body>
+
+</html>
