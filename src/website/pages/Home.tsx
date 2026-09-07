@@ -237,71 +237,60 @@ export const Home: React.FC = () => {
 
             {/* Accordion Flex Cards Wrapper */}
             <div className="cards-wrapper mb-0">
-              
-              {/* Card 1 */}
-              <div 
-                className="custom-card"
-                onClick={() => setCurrentPage('services')}
-              >
-                <img src={asset('/roofora-assets/images/services-img1.jpg')} alt="Residential Roofing" className="img-fluid" />
-                <div className="overlay">
-                  <figure><img src={asset('/roofora-assets/images/service-icon1.png')} alt="Residential icon" className="img-fluid" /></figure>
-                  <h3>Residential Roofing</h3>
-                  <p className="mb-0">Keep your home safe and beautiful with our premium re-roofing, Colorbond metal upgrades, and leak diagnoses.</p>
+              {[
+                {
+                  id: 'residential',
+                  title: 'Residential Roofing',
+                  desc: 'Keep your home safe and beautiful with our premium re-roofing, Colorbond metal upgrades, and leak diagnoses.',
+                  img: asset('/roofora-assets/images/services-img1.jpg'),
+                  icon: asset('/roofora-assets/images/service-icon1.png'),
+                },
+                {
+                  id: 'repairs',
+                  title: 'Roof Repairs & Maintenance',
+                  desc: 'Fast storm leak repairs, ridge capping re-pointing, broken tile replacements, and gutter flashing restorations.',
+                  img: asset('/roofora-assets/images/services-img2.jpg'),
+                  icon: asset('/roofora-assets/images/service-icon2.png'),
+                },
+                {
+                  id: 'commercial',
+                  title: 'Commercial Roofing',
+                  desc: 'Large-span industrial roof installations, box gutter replacement, Klip-Lok systems, and scheduled facility maintenance.',
+                  img: asset('/roofora-assets/images/services-img3.jpg'),
+                  icon: asset('/roofora-assets/images/service-icon3.png'),
+                },
+                {
+                  id: 'reroofing',
+                  title: 'Full Re-Roofing',
+                  desc: 'Complete tile-to-Colorbond conversions, sarking insulation, batten repairs, and full 10-year workmanship warranties.',
+                  img: asset('/roofora-assets/images/services-img4.jpg'),
+                  icon: asset('/roofora-assets/images/service-icon4.png'),
+                },
+              ].map((service, idx) => (
+                <div 
+                  key={service.id}
+                  className={`custom-card cursor-pointer ${idx === 0 ? 'active' : ''}`}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setCurrentPage('services')}
+                  style={{ cursor: 'pointer', touchAction: 'manipulation' }}
+                >
+                  <img src={service.img} alt={service.title} className="img-fluid" />
+                  <div className="overlay">
+                    <figure><img src={service.icon} alt={`${service.title} icon`} className="img-fluid" /></figure>
+                    <h3>{service.title}</h3>
+                    <p className="mb-0">{service.desc}</p>
+                    <div className="mobile-explore-btn mt-3 d-lg-none">
+                      <span className="btn btn-sm btn-warning text-white rounded-pill font-weight-700 px-3 py-1.5">
+                        Explore Service <i className="fa-solid fa-arrow-right ml-1"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <span className="secondary_btn d-none d-lg-inline-block">
+                    Explore <span className=""><img src={asset('/roofora-assets/images/arrow.png')} alt="arrow" className="img-fluid d-inline-block" /></span>
+                  </span>
                 </div>
-                <span className="secondary_btn d-inline-block">
-                  Explore <span className=""><img src={asset('/roofora-assets/images/arrow.png')} alt="arrow" className="img-fluid d-inline-block" /></span>
-                </span>
-              </div>
-
-              {/* Card 2 */}
-              <div 
-                className="custom-card"
-                onClick={() => setCurrentPage('services')}
-              >
-                <img src={asset('/roofora-assets/images/services-img2.jpg')} alt="Roof Repairs" className="img-fluid" />
-                <div className="overlay">
-                  <figure><img src={asset('/roofora-assets/images/service-icon2.png')} alt="Repairs icon" className="img-fluid" /></figure>
-                  <h3>Roof Repairs & Maintenance</h3>
-                  <p className="mb-0">Fast storm leak repairs, ridge capping re-pointing, broken tile replacements, and gutter flashing restorations.</p>
-                </div>
-                <span className="secondary_btn d-inline-block">
-                  Explore <span className=""><img src={asset('/roofora-assets/images/arrow.png')} alt="arrow" className="img-fluid d-inline-block" /></span>
-                </span>
-              </div>
-
-              {/* Card 3 */}
-              <div 
-                className="custom-card"
-                onClick={() => setCurrentPage('services')}
-              >
-                <img src={asset('/roofora-assets/images/services-img3.jpg')} alt="Commercial Roofing" className="img-fluid" />
-                <div className="overlay">
-                  <figure><img src={asset('/roofora-assets/images/service-icon3.png')} alt="Commercial icon" className="img-fluid" /></figure>
-                  <h3>Commercial Roofing</h3>
-                  <p className="mb-0">Large-span industrial roof installations, box gutter replacement, Klip-Lok systems, and scheduled facility maintenance.</p>
-                </div>
-                <span className="secondary_btn d-inline-block">
-                  Explore <span className=""><img src={asset('/roofora-assets/images/arrow.png')} alt="arrow" className="img-fluid d-inline-block" /></span>
-                </span>
-              </div>
-
-              {/* Card 4 */}
-              <div 
-                className="custom-card"
-                onClick={() => setCurrentPage('services')}
-              >
-                <img src={asset('/roofora-assets/images/services-img4.jpg')} alt="Roof Replacement" className="img-fluid" />
-                <div className="overlay">
-                  <figure><img src={asset('/roofora-assets/images/service-icon4.png')} alt="Replacement icon" className="img-fluid" /></figure>
-                  <h3>Full Re-Roofing</h3>
-                  <p className="mb-0">Complete tile-to-Colorbond conversions, sarking insulation, batten repairs, and full 10-year workmanship warranties.</p>
-                </div>
-                <span className="secondary_btn d-inline-block">
-                  Explore <span className=""><img src={asset('/roofora-assets/images/arrow.png')} alt="arrow" className="img-fluid d-inline-block" /></span>
-                </span>
-              </div>
-
+              ))}
             </div>
 
           </div>
