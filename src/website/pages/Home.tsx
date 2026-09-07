@@ -131,7 +131,9 @@ export const Home: React.FC = () => {
             <div className="col-lg-5 col-md-12 mb-4 mb-lg-0">
               <div className="about-img-con position-relative">
                 <div className="navy-box position-absolute bg-blue br-20 text-center shadow-lg">
-                  <figure><img src={asset('/roofora-assets/images/quote.png')} alt="quote" className="img-fluid" /></figure>
+                  <figure className="mx-auto overflow-hidden">
+                    <img src={asset('/roofora-assets/images/quote.png')} alt="quote" style={{ width: '22px', height: 'auto', maxHeight: '22px', objectFit: 'contain', display: 'inline-block' }} />
+                  </figure>
                   <p className="text-white">"If I wouldn't put it on my own home, I won't put it on yours."</p>
                   <span className="position-relative text-white font-weight-bold">Peter & Batshal • Assist Founders</span>
                 </div>

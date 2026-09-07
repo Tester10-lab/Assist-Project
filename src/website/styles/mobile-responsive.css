@@ -290,7 +290,7 @@ img[src] {
     margin-bottom: 30px;
   }
 
-  .about-img-con figure img {
+  .about-img-con > figure > img {
     border-radius: 20px !important;
     width: 100% !important;
     max-height: 360px !important;
@@ -305,6 +305,30 @@ img[src] {
     width: 100% !important;
     border-radius: 16px !important;
     padding: 16px 20px !important;
+  }
+
+  .navy-box figure {
+    width: 50px !important;
+    height: 50px !important;
+    min-height: unset !important;
+    border-radius: 50% !important;
+    background-color: var(--accent--color, #f19e1f) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 auto 12px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .navy-box figure img {
+    width: 22px !important;
+    height: auto !important;
+    max-height: 22px !important;
+    min-height: unset !important;
+    object-fit: contain !important;
+    display: inline-block !important;
+    margin: 0 !important;
   }
 
   .about-vector {
@@ -647,7 +671,7 @@ img[src] {
    ========================================================================== */
 @media screen and (max-width: 768px) {
   /* Force all images in portfolio/about/services to be visible */
-  .about-img-con figure img,
+  .about-img-con > figure > img,
   .portfolio-box figure img,
   .services-con .custom-card img,
   .blog-image img,
