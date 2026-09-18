@@ -140,9 +140,6 @@ export const Home: React.FC = () => {
                 <figure className="mb-0">
                   <img src={asset('/roofora-assets/images/about-img.jpg')} alt="About ASSIST Roofing" className="img-fluid br-40 shadow-md" />
                 </figure>
-                <figure className="position-absolute z-1 about-vector">
-                  <img src={asset('/roofora-assets/images/about-vector.png')} alt="vector" className="img-fluid" />
-                </figure>
               </div>
             </div>
 
@@ -487,7 +484,6 @@ export const Home: React.FC = () => {
       {/* ── CTA SECTION ── */}
       <div className="padding-rl float-left w-100">
         <section className="float-left w-100 cta-con position-relative main-box br-50 text-center">
-          <figure><img src={asset('/roofora-assets/images/cta-vector.png')} alt="vector" className="position-absolute cta-vector d-none d-md-block" /></figure>
           <div className="main-container">
             <div className="heading-title-con mb-0 position-relative">
               <span className="special-text text-white d-block">Quote Request</span>
