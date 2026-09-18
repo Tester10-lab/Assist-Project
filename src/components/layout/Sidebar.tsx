@@ -67,7 +67,7 @@ export const Sidebar: React.FC = () => {
         { id: 'business_calculators', label: 'Business Calculators', icon: Calculator },
         { id: 'employee_hub', label: 'EmployeeHub & GPS Clock', icon: Clock },
         { id: 'job_costing', label: 'Job Costing & Expenses', icon: PieChart },
-        { id: 'crew_management', label: 'Crew & Project Mgmt', icon: Users, badge: 'Batshal 4-Man' },
+        { id: 'crew_management', label: 'Crew & Project Mgmt', icon: Users, badge: 'Boxy 4-Man' },
         { id: 'inventory', label: 'Material Inventory ERP', icon: Package, badge: lowStockCount > 0 ? `${lowStockCount} Alert` : undefined },
         { id: 'warranties', label: 'Warranty Management', icon: ShieldCheck },
         { id: 'maintenance', label: 'Recurring Maintenance', icon: CalendarClock },

@@ -29,7 +29,7 @@ export const ProjectCrewModule: React.FC = () => {
             <Users className="w-6 h-6 text-emerald-600" /> Roofing Crew & Field Operations Module
           </h2>
           <p className="text-xs text-slate-500 mt-1">
-            Melbourne Physical Execution Team led by Batshal (4-person roofing crew, site milestones, safety checks & quality control).
+            Melbourne Physical Execution Team led by Boxy (4-person roofing crew, site milestones, safety checks & quality control).
           </p>
         </div>
 
@@ -51,14 +51,14 @@ export const ProjectCrewModule: React.FC = () => {
       {/* Crew Overview Card */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
-        {/* Batshal 4-Person Crew Card */}
+        {/* Boxy 4-Person Crew Card */}
         <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
           <div className="flex items-center space-x-3">
             <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center justify-center font-black text-lg">
               4M
             </div>
             <div>
-              <h3 className="font-extrabold text-base text-slate-900">Batshal Roofing Crew</h3>
+              <h3 className="font-extrabold text-base text-slate-900">Boxy Roofing Crew</h3>
               <p className="text-xs text-emerald-700 font-bold">4-Person On-Site Specialists</p>
             </div>
           </div>
@@ -66,7 +66,7 @@ export const ProjectCrewModule: React.FC = () => {
           <div className="space-y-2 pt-2 border-t border-slate-100">
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between text-xs">
               <span className="font-bold text-slate-900 flex items-center gap-1.5">
-                <HardHat className="w-4 h-4 text-amber-600" /> Batshal (Crew Leader)
+                <HardHat className="w-4 h-4 text-amber-600" /> Boxy (Crew Leader)
               </span>
               <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded border border-emerald-200">On Site</span>
             </div>
@@ -101,7 +101,7 @@ export const ProjectCrewModule: React.FC = () => {
               <h3 className="text-lg font-black text-slate-900 flex items-center gap-2">
                 <CheckSquare className="w-5 h-5 text-emerald-600" /> Site Execution Checklist & QC Sign-off
               </h3>
-              <p className="text-xs text-slate-500">Batshal verifies each milestone before Stage 3 & Stage 4 payment triggers.</p>
+              <p className="text-xs text-slate-500">Boxy verifies each milestone before Stage 3 & Stage 4 payment triggers.</p>
             </div>
             <span className="px-3 py-1 bg-emerald-100 text-emerald-800 border border-emerald-200 rounded-full font-extrabold text-xs">
               {milestones.filter(m => m.done).length} / {milestones.length} Done
@@ -136,7 +136,7 @@ export const ProjectCrewModule: React.FC = () => {
           <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between pt-3">
             <div className="flex items-center space-x-2 text-xs text-slate-700">
               <Award className="w-4 h-4 text-amber-600" />
-              <span className="font-semibold">Final Quality Control Sign-off by Batshal</span>
+              <span className="font-semibold">Final Quality Control Sign-off by Boxy</span>
             </div>
             <button className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-md shadow-emerald-600/20">
               Approve QC & Final Handover

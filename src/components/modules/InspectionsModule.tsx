@@ -84,7 +84,7 @@ export const InspectionsModule: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
               <span className="text-[10px] uppercase font-bold text-slate-500">Inspector</span>
-              <div className="font-bold text-sm text-slate-900 mt-0.5">{report?.inspectorName || 'Batshal (Melbourne)'}</div>
+              <div className="font-bold text-sm text-slate-900 mt-0.5">{report?.inspectorName || 'Boxy (Melbourne)'}</div>
             </div>
 
             <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">

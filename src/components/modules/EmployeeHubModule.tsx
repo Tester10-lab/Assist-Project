@@ -4,7 +4,7 @@ import { Users, Clock, MapPin, MessageSquare, Award, Play, Square, Navigation } 
 
 export const EmployeeHubModule: React.FC = () => {
   const { timeEntries, clockInEmployee, clockOutEmployee } = useERP();
-  const [empName, setEmpName] = useState('Batshal');
+  const [empName, setEmpName] = useState('Boxy');
   const [empRole, setEmpRole] = useState('Crew Leader');
   const [siteAddress, setSiteAddress] = useState('42 Toorak Rd, South Yarra VIC');
   const [gpsStatus, setGpsStatus] = useState<string>('GPS Ready');
@@ -61,7 +61,7 @@ export const EmployeeHubModule: React.FC = () => {
                 }}
                 className="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl px-3.5 py-2"
               >
-                <option value="Batshal">Batshal (Crew Leader)</option>
+                <option value="Boxy">Boxy (Crew Leader)</option>
                 <option value="Peter">Peter (Sales Executive)</option>
                 <option value="Sam">Sam (Roof Installer)</option>
               </select>
@@ -142,7 +142,7 @@ export const EmployeeHubModule: React.FC = () => {
                 <span>$42,500</span>
               </div>
               <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex justify-between font-bold text-slate-700">
-                <span>2. Batshal (Field Quotes)</span>
+                <span>2. Boxy (Field Quotes)</span>
                 <span>$32,000</span>
               </div>
             </div>

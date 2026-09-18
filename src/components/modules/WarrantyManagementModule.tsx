@@ -105,7 +105,7 @@ export const WarrantyManagementModule: React.FC = () => {
             </div>
 
             <div className="flex justify-between items-center pt-4 border-t border-slate-100">
-              <div className="text-xs text-slate-500">Issued by Peter & Batshal • Melbourne VIC</div>
+              <div className="text-xs text-slate-500">Issued by Peter & Boxy • Melbourne VIC</div>
               <button
                 onClick={() => setShowCertificateModal(false)}
                 className="px-5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-md shadow-emerald-600/20"

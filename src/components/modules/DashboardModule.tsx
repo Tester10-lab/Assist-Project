@@ -45,7 +45,7 @@ export const DashboardModule: React.FC = () => {
             Roofing Operations & Sales ERP Control Center
           </h2>
           <p className="text-xs text-slate-600 max-w-2xl">
-            Unified management across AI Receptionist 24/7 lead qualification, AS 4349.1 RoofCam defect inspections, 24h quote generation, 4-person roofing crew execution (Batshal), inventory ERP, and automated review multipliers.
+            Unified management across AI Receptionist 24/7 lead qualification, AS 4349.1 RoofCam defect inspections, 24h quote generation, 4-person roofing crew execution (Boxy), inventory ERP, and automated review multipliers.
           </p>
         </div>
 
@@ -93,7 +93,7 @@ export const DashboardModule: React.FC = () => {
           <div>
             <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Active Field Projects</span>
             <div className="text-2xl font-black text-slate-900 mt-1">{activeJobs}</div>
-            <span className="text-[11px] text-indigo-700 font-bold mt-1">Batshal 4-Man Crew Dispatched</span>
+            <span className="text-[11px] text-indigo-700 font-bold mt-1">Boxy 4-Man Crew Dispatched</span>
           </div>
           <div className="p-3 bg-indigo-50 border border-indigo-200 rounded-xl text-indigo-600">
             <Users className="w-6 h-6" />

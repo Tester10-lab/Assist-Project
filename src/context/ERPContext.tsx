@@ -58,7 +58,7 @@ const initialLeads: Lead[] = [
     ],
     inspectionReport: {
       id: 'INSP-1001',
-      inspectorName: 'Batshal',
+      inspectorName: 'Boxy',
       inspectionDate: '2026-08-06',
       roofType: 'Corrugated Colorbond Steel (Monument Grey)',
       overallCondition: 'Poor',
@@ -97,7 +97,7 @@ const initialLeads: Lead[] = [
     },
     contractSigned: false,
     crewAssigned: false,
-    crewLeader: 'Batshal',
+    crewLeader: 'Boxy',
     crewMembersCount: 4,
     materialsReady: true,
     qcPassed: false,
@@ -119,7 +119,7 @@ const initialLeads: Lead[] = [
     aiQualificationNotes: 'Wants full roof restoration & re-pointing for terracotta tile roof.',
     stage: 7,
     kanbanColumn: 'in_progress',
-    assignedInspector: 'Batshal',
+    assignedInspector: 'Boxy',
     googleCalendarSynced: true,
     totalProjectValue: 18000,
     jobCosting: {
@@ -141,12 +141,12 @@ const initialLeads: Lead[] = [
     feedbacks: [
       { stage: 1, stageName: 'Stage 1: Booking & AI Qualification', rating: 5, comments: 'Fast response.', submittedAt: '2026-07-15', followUpRequired: false },
       { stage: 2, stageName: 'Stage 2: Quotation & Material Setup', rating: 5, comments: 'Materials delivered right on time.', submittedAt: '2026-07-28', followUpRequired: false },
-      { stage: 3, stageName: 'Stage 3: Mid-Project Work-In-Progress', rating: 4, comments: 'Batshal and 4-man crew working fast!', submittedAt: '2026-08-06', followUpRequired: false },
+      { stage: 3, stageName: 'Stage 3: Mid-Project Work-In-Progress', rating: 4, comments: 'Boxy and 4-man crew working fast!', submittedAt: '2026-08-06', followUpRequired: false },
     ],
     contractSigned: true,
     contractSignedDate: '2026-07-15',
     crewAssigned: true,
-    crewLeader: 'Batshal',
+    crewLeader: 'Boxy',
     crewMembersCount: 4,
     materialsReady: true,
     qcPassed: false,
@@ -190,7 +190,7 @@ const initialAuditLogs: AuditLog[] = [
 ];
 
 const initialTimeEntries: TimeEntry[] = [
-  { id: 'TIME-101', employeeName: 'Batshal', role: 'Crew Leader', clockIn: '07:30 AM', locationAddress: '42 Toorak Rd, South Yarra VIC', gpsCoordinates: { lat: -37.8389, lng: 144.9922 }, gpsVerified: true, status: 'active' },
+  { id: 'TIME-101', employeeName: 'Boxy', role: 'Crew Leader', clockIn: '07:30 AM', locationAddress: '42 Toorak Rd, South Yarra VIC', gpsCoordinates: { lat: -37.8389, lng: 144.9922 }, gpsVerified: true, status: 'active' },
   { id: 'TIME-102', employeeName: 'Peter', role: 'Sales Executive', clockIn: '08:00 AM', locationAddress: '15 Esplanade, Brighton VIC', gpsCoordinates: { lat: -37.9064, lng: 144.9856 }, gpsVerified: true, status: 'active' }
 ];
 
@@ -411,7 +411,7 @@ export const ERPProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       feedbacks: [],
       contractSigned: false,
       crewAssigned: false,
-      crewLeader: 'Batshal',
+      crewLeader: 'Boxy',
       crewMembersCount: 4,
       materialsReady: false,
       qcPassed: false,

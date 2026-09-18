@@ -30,13 +30,13 @@ interface StageConfig {
 const STAGES: StageConfig[] = [
   { stage: 1, title: 'Stage 1: New Leads', nepalDesc: 'Manages Google/Meta Ads & SEO. AI Receptionist qualifies leads 24/7.', melbourneDesc: 'Receives instant mobile notifications for qualified leads.', icon: UserCheck },
   { stage: 2, title: 'Stage 2: Inspection Scheduled', nepalDesc: 'Automation triggers text/email confirmation. CRM syncs to Peter\'s Google Calendar.', melbourneDesc: 'Peter reviews lead details in CRM to prepare.', icon: Calendar },
-  { stage: 3, title: 'Stage 3: Inspection Completed', nepalDesc: 'Tracks time-to-inspection KPIs in dashboard.', melbourneDesc: 'Batshal or Peter performs professional inspection (AS 4349.1), documenting defects with RoofCam photos.', icon: Camera },
+  { stage: 3, title: 'Stage 3: Inspection Completed', nepalDesc: 'Tracks time-to-inspection KPIs in dashboard.', melbourneDesc: 'Boxy or Peter performs professional inspection (AS 4349.1), documenting defects with RoofCam photos.', icon: Camera },
   { stage: 4, title: 'Stage 4: Quotation Sent', nepalDesc: 'Automated tracking monitors customer\'s digital proposal view.', melbourneDesc: 'Peter generates branded multi-line-item quote via CRM within 24 hours.', icon: FileText },
   { stage: 5, title: 'Stage 5: Negotiation', nepalDesc: 'Triggers automated follow-up reminders for outstanding estimates.', melbourneDesc: 'Peter meets customer to build trust & explain technical solutions.', icon: MessageSquare },
   { stage: 6, title: 'Stage 6: Won or Lost', nepalDesc: 'Updates lead status; "Lost" leads tagged for future re-marketing.', melbourneDesc: 'Finalises contract using digital signatures & collects Stage 1 Deposit (30%).', icon: FileCheck },
-  { stage: 7, title: 'Stage 7: Project Complete', nepalDesc: 'Monitors project milestones, material inventory & client database.', melbourneDesc: 'Batshal leads 4-person roofing crew for delivery, quality control & site cleanup.', icon: Award },
+  { stage: 7, title: 'Stage 7: Project Complete', nepalDesc: 'Monitors project milestones, material inventory & client database.', melbourneDesc: 'Boxy leads 4-person roofing crew for delivery, quality control & site cleanup.', icon: Award },
   { stage: 8, title: 'Stage 8: Review Request', nepalDesc: '"Review Multiplier" automation sends Google Review link after final payment (10%).', melbourneDesc: 'Ensures customer is 100% satisfied before leaving site.', icon: Star },
-  { stage: 9, title: 'Stage 9: Referral', nepalDesc: 'Manages automated referral nurturing campaigns at 30, 90, & 365-day intervals.', melbourneDesc: 'Peter or Batshal personally asks happy customer for recommendations.', icon: Share2 }
+  { stage: 9, title: 'Stage 9: Referral', nepalDesc: 'Manages automated referral nurturing campaigns at 30, 90, & 365-day intervals.', melbourneDesc: 'Peter or Boxy personally asks happy customer for recommendations.', icon: Share2 }
 ];
 
 export const CRMPipelineModule: React.FC = () => {

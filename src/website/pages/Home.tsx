@@ -135,7 +135,7 @@ export const Home: React.FC = () => {
                     <img src={asset('/roofora-assets/images/quote.png')} alt="quote" style={{ width: '22px', height: 'auto', maxHeight: '22px', objectFit: 'contain', display: 'inline-block' }} />
                   </figure>
                   <p className="text-white">"If I wouldn't put it on my own home, I won't put it on yours."</p>
-                  <span className="position-relative text-white font-weight-bold">Peter & Batshal • Assist Founders</span>
+                  <span className="position-relative text-white font-weight-bold">Peter & Boxy • Assist Founders</span>
                 </div>
                 <figure className="mb-0">
                   <img src={asset('/roofora-assets/images/about-img.jpg')} alt="About ASSIST Roofing" className="img-fluid br-40 shadow-md" />
@@ -247,13 +247,13 @@ export const Home: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* ── Meet the Leaders: Batshal & Peter ── */}
+                  {/* ── Meet the Leaders: Boxy & Peter ── */}
                   <div className="mt-4 p-4 rounded-3 bg-light border">
                     <div className="row align-items-center">
                       <div className="col-md-7">
-                        <h5 className="font-weight-700 text-size-18 mb-1 text-[#1e2e4f]">Meet Your Project Directors: Batshal & Peter</h5>
+                        <h5 className="font-weight-700 text-size-18 mb-1 text-[#1e2e4f]">Meet Your Project Directors: Boxy & Peter</h5>
                         <p className="text-size-14 text-muted mb-0">
-                          "We don't send sales reps. Our on-site project lead <strong>Batshal</strong> and senior estimator <strong>Peter</strong> personally oversee our 4-man licensed field crew on every Melbourne roof."
+                          "We don't send sales reps. Our on-site project lead <strong>Boxy</strong> and senior estimator <strong>Peter</strong> personally oversee our 4-man licensed field crew on every Melbourne roof."
                         </p>
                       </div>
                       <div className="col-md-5 text-md-right mt-3 mt-md-0">
@@ -535,18 +535,18 @@ export const Home: React.FC = () => {
               <div className="portfolio-box left-img">
                 <figure 
                   className="cursor-pointer"
-                  onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img1.jpg'), title: 'Full Roof Replacement', subtitle: 'South Yarra, VIC • Architectural Standing Seam Colorbond' })}
+                  onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img1.jpg'), title: 'Full Roof Strip & Structural Restoration', subtitle: 'Melbourne, VIC • Timber Truss & Structural Batten Repairs' })}
                 >
-                  <img src={asset('/roofora-assets/images/portfolio-img1.jpg')} alt="Full Roof Replacement" className="img-fluid" />
+                  <img src={asset('/roofora-assets/images/portfolio-img1.jpg')} alt="Full Roof Strip and Restoration" className="img-fluid" />
                 </figure>
                 <div className="d-flex align-items-center justify-content-between">
                   <div>
-                    <span className="d-inline-block key-tags mr-2">Residential</span>
-                    <span className="d-inline-block key-tags">Colorbond</span>
-                    <h3 className="text-size-30 font-weight-700">Full Roof Replacement</h3>
+                    <span className="d-inline-block key-tags mr-2">Full Re-Roof</span>
+                    <span className="d-inline-block key-tags">Restoration</span>
+                    <h3 className="text-size-30 font-weight-700">Full Roof Strip & Restoration</h3>
                   </div>
                   <button 
-                    onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img1.jpg'), title: 'Full Roof Replacement', subtitle: 'South Yarra, VIC • Architectural Standing Seam Colorbond' })} 
+                    onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img1.jpg'), title: 'Full Roof Strip & Structural Restoration', subtitle: 'Melbourne, VIC • Timber Truss & Structural Batten Repairs' })} 
                     className="border-0 bg-transparent p-0 cursor-pointer"
                   >
                     <img src={asset('/roofora-assets/images/up-right-lg-arrow.png')} alt="arrow" className="border-radius-0 mb-0" />
@@ -560,18 +560,18 @@ export const Home: React.FC = () => {
               <div className="portfolio-box pt-0 right-img">
                 <figure 
                   className="cursor-pointer"
-                  onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img2.jpg'), title: 'Storm Damage Roof Repair', subtitle: 'Hawthorn, VIC • High-Pressure Emergency Valley Replacement' })}
+                  onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img2.jpg'), title: 'AS/NZS Sarking & Batten Installation', subtitle: 'Melbourne, VIC • Heavy-Duty Vapor Barrier & Treated Timber Battens' })}
                 >
-                  <img src={asset('/roofora-assets/images/portfolio-img2.jpg')} alt="Storm Damage Roof Repair" className="img-fluid" />
+                  <img src={asset('/roofora-assets/images/portfolio-img2.jpg')} alt="Sarking and Batten Installation" className="img-fluid" />
                 </figure>
                 <div className="d-flex align-items-center justify-content-between">
                   <div>
-                    <span className="d-inline-block key-tags mr-2">Leak Fix</span>
-                    <span className="d-inline-block key-tags">Emergency</span>
-                    <h3 className="text-size-30 font-weight-700">Storm Damage Roof Repair</h3>
+                    <span className="d-inline-block key-tags mr-2">Weatherproofing</span>
+                    <span className="d-inline-block key-tags">Sarking</span>
+                    <h3 className="text-size-30 font-weight-700">AS/NZS Sarking & Batten Install</h3>
                   </div>
                   <button 
-                    onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img2.jpg'), title: 'Storm Damage Roof Repair', subtitle: 'Hawthorn, VIC • High-Pressure Emergency Valley Replacement' })} 
+                    onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img2.jpg'), title: 'AS/NZS Sarking & Batten Installation', subtitle: 'Melbourne, VIC • Heavy-Duty Vapor Barrier & Treated Timber Battens' })} 
                     className="border-0 bg-transparent p-0 cursor-pointer"
                   >
                     <img src={asset('/roofora-assets/images/up-right-lg-arrow.png')} alt="arrow" className="border-radius-0 mb-0" />
@@ -585,18 +585,18 @@ export const Home: React.FC = () => {
               <div className="portfolio-box left-img">
                 <figure 
                   className="cursor-pointer"
-                  onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img3.jpg'), title: 'Brick Chimney Re-Flash', subtitle: 'Kew, VIC • Precision Lead Counter-Flashing' })}
+                  onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img3.jpg'), title: 'Structural Rafter Carpentry & Framing', subtitle: 'Melbourne, VIC • Precision Timber Framing & Rafter Reinforcement' })}
                 >
-                  <img src={asset('/roofora-assets/images/portfolio-img3.jpg')} alt="Brick Chimney Re-flash" className="img-fluid" />
+                  <img src={asset('/roofora-assets/images/portfolio-img3.jpg')} alt="Structural Rafter Carpentry" className="img-fluid" />
                 </figure>
                 <div className="d-flex align-items-center justify-content-between">
                   <div>
-                    <span className="d-inline-block key-tags mr-2">Masonry</span>
-                    <span className="d-inline-block key-tags">Flashing</span>
-                    <h3 className="text-size-30 font-weight-700">Brick Chimney Re-Flash</h3>
+                    <span className="d-inline-block key-tags mr-2">Carpentry</span>
+                    <span className="d-inline-block key-tags">Structural</span>
+                    <h3 className="text-size-30 font-weight-700">Structural Rafter Framing</h3>
                   </div>
                   <button 
-                    onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img3.jpg'), title: 'Brick Chimney Re-Flash', subtitle: 'Kew, VIC • Precision Lead Counter-Flashing' })} 
+                    onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img3.jpg'), title: 'Structural Rafter Carpentry & Framing', subtitle: 'Melbourne, VIC • Precision Timber Framing & Rafter Reinforcement' })} 
                     className="border-0 bg-transparent p-0 cursor-pointer"
                   >
                     <img src={asset('/roofora-assets/images/up-right-lg-arrow.png')} alt="arrow" className="border-radius-0 mb-0" />
@@ -610,18 +610,18 @@ export const Home: React.FC = () => {
               <div className="portfolio-box pt-0 right-img">
                 <figure 
                   className="cursor-pointer"
-                  onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img4.jpg'), title: 'Terracotta Tile Restoration', subtitle: 'Brighton, VIC • Re-bedding & Weatherproof Membrane' })}
+                  onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img4.jpg'), title: 'Terracotta Ridge Capping Re-Pointing', subtitle: 'Melbourne, VIC • SupaPoint Flexible Weatherproof Pointing' })}
                 >
-                  <img src={asset('/roofora-assets/images/portfolio-img4.jpg')} alt="Shingle Roof Replacement" className="img-fluid" />
+                  <img src={asset('/roofora-assets/images/portfolio-img4.jpg')} alt="Terracotta Ridge Capping Re-Pointing" className="img-fluid" />
                 </figure>
                 <div className="d-flex align-items-center justify-content-between">
                   <div>
-                    <span className="d-inline-block key-tags mr-2">Premium</span>
-                    <span className="d-inline-block key-tags">Restoration</span>
-                    <h3 className="text-size-30 font-weight-700">Terracotta Tile Restoration</h3>
+                    <span className="d-inline-block key-tags mr-2">Terracotta</span>
+                    <span className="d-inline-block key-tags">Re-Pointing</span>
+                    <h3 className="text-size-30 font-weight-700">Terracotta Ridge Pointing</h3>
                   </div>
                   <button 
-                    onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img4.jpg'), title: 'Terracotta Tile Restoration', subtitle: 'Brighton, VIC • Re-bedding & Weatherproof Membrane' })} 
+                    onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img4.jpg'), title: 'Terracotta Ridge Capping Re-Pointing', subtitle: 'Melbourne, VIC • SupaPoint Flexible Weatherproof Pointing' })} 
                     className="border-0 bg-transparent p-0 cursor-pointer"
                   >
                     <img src={asset('/roofora-assets/images/up-right-lg-arrow.png')} alt="arrow" className="border-radius-0 mb-0" />

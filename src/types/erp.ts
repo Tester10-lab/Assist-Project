@@ -100,7 +100,7 @@ export interface Quote {
 
 export interface TimeEntry {
   id: string;
-  employeeName: string; // e.g. "Batshal", "Peter"
+  employeeName: string; // e.g. "Boxy", "Peter"
   role: string;
   clockIn: string;
   clockOut?: string;
@@ -144,7 +144,7 @@ export interface Lead {
   aiQualificationNotes: string;
   stage: StageId;
   kanbanColumn: KanbanColumnId;
-  assignedInspector: 'Peter' | 'Batshal';
+  assignedInspector: 'Peter' | 'Boxy';
   googleCalendarSynced: boolean;
   inspectionScheduledTime?: string;
   inspectionReport?: AS4349InspectionReport;

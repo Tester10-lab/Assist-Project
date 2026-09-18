@@ -149,7 +149,7 @@ export const PaymentFeedbackModule: React.FC = () => {
               <textarea
                 rows={2}
                 required
-                placeholder="e.g. Batshal and crew were fast, clean, and extremely polite..."
+                placeholder="e.g. Boxy and crew were fast, clean, and extremely polite..."
                 value={comments}
                 onChange={e => setComments(e.target.value)}
                 className="w-full bg-white border border-slate-200 text-slate-900 text-xs rounded-xl p-2.5 focus:outline-none focus:border-emerald-500"

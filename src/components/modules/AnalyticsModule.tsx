@@ -66,7 +66,7 @@ export const AnalyticsModule: React.FC = () => {
             </div>
 
             <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex justify-between">
-              <span className="text-slate-600 font-medium">Batshal 4-Man Crew On-Time Delivery</span>
+              <span className="text-slate-600 font-medium">Boxy 4-Man Crew On-Time Delivery</span>
               <span className="font-extrabold text-emerald-700">98.2%</span>
             </div>
 
