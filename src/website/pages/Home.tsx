@@ -13,25 +13,25 @@ export const Home: React.FC = () => {
     {
       name: 'Jennifer Troyer',
       role: 'Satisfied Customer',
-      img: asset('/roofora-assets/images/client-img1.jpg'),
+      avatar: 'JT',
       comment: 'Outstanding roofing service from start to finish. The team was punctual, highly skilled, and ensured everything was done safely and professionally. My roof looks brand new and the quality of work exceeded expectations.'
     },
     {
       name: 'Mark Reynolds',
       role: 'Homeowner, Hawthorn',
-      img: asset('/roofora-assets/images/client-img2.jpg'),
+      avatar: 'MR',
       comment: 'ASSIST was honest, professional, and hands-on from the first drone inspection to the final repair. They clearly explained the issue, provided a fair transparent quote, and completed the work exactly as promised. Our Colorbond roof looks spectacular!'
     },
     {
       name: 'Lucy Smith',
       role: 'Property Manager, Brighton',
-      img: asset('/roofora-assets/images/client-img3.jpg'),
+      avatar: 'LS',
       comment: 'Highly impressed with their construction expertise. They handled everything from roof repairs to structural flashing improvements with precision. The project was completed on time and within budget, with excellent communication throughout.'
     },
     {
       name: 'David Campbell',
       role: 'Verified Customer, Kew',
-      img: asset('/roofora-assets/images/client-img4.jpg'),
+      avatar: 'DC',
       comment: 'Reliable and professional roofing contractors. They quickly identified the leak issue during a severe Melbourne storm, installed temporary tarping, and fixed the tile bedding permanently. Highly recommended.'
     }
   ];
@@ -670,14 +670,14 @@ export const Home: React.FC = () => {
                 <div 
                   key={idx}
                   onClick={() => setActiveTestimonial(idx)}
-                  className={`cursor-pointer rounded-circle p-1 transition-all ${
+                  className={`cursor-pointer rounded-circle d-flex align-items-center justify-content-center font-weight-700 transition-all ${
                     activeTestimonial === idx 
-                      ? 'border border-warning scale-110 shadow-lg' 
-                      : 'opacity-50 hover:opacity-100'
+                      ? 'border border-warning scale-110 shadow-lg bg-[#f19e1f] text-white' 
+                      : 'opacity-60 hover:opacity-100 bg-white/20 text-white'
                   }`}
-                  style={{ width: '64px', height: '64px' }}
+                  style={{ width: '58px', height: '58px', fontSize: '18px', letterSpacing: '0.5px' }}
                 >
-                  <img src={t.img} alt={t.name} className="w-100 h-100 rounded-circle object-cover" />
+                  {t.avatar}
                 </div>
               ))}
             </div>

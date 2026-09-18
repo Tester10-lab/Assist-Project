@@ -4,9 +4,11 @@ import React from 'react';
  * Professional CQCM Hero Image Panel
  * Real roof photo with 12 to 16 static green dots overlay (not animated matrix).
  */
+import { asset } from '../utils/asset';
+
 export const HeroImage3D: React.FC<{ className?: string; imageUrl?: string }> = ({ 
   className = '',
-  imageUrl = './images/roofs/roof1.jpg'
+  imageUrl = asset('/roofora-assets/images/banner-bg-img.jpg')
 }) => {
   return (
     <div className={`relative overflow-hidden rounded-2xl border border-slate-900/10 shadow-2xl ${className}`}>

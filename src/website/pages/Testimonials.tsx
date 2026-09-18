@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { TESTIMONIALS } from '../data';
 import { useWebsite } from '../WebsiteContext';
 import { motion } from 'framer-motion';
@@ -74,11 +74,9 @@ export const Testimonials: React.FC = () => {
                 </div>
 
                 <div className="flex items-center gap-4 pt-6 border-t border-gray-100">
-                  <img 
-                    src={review.imageUrl} 
-                    alt={review.name} 
-                    className="w-14 h-14 rounded-full object-cover border-2 border-[#f19e1f]"
-                  />
+                  <div className="w-14 h-14 rounded-full bg-[#1e2e4f] text-white font-bold text-lg flex items-center justify-center border-2 border-[#f19e1f] shrink-0 shadow-sm">
+                    {review.avatar || review.name.split(' ').map(n => n[0]).join('')}
+                  </div>
                   <div>
                     <h4 className="text-lg font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f]">
                       {review.name}
