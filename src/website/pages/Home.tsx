@@ -370,8 +370,6 @@ export const Home: React.FC = () => {
         </section>
       </div>
 
-      <div className="spacer"></div>
-
       {/* ── PRICING SECTION ── */}
       <div className="padding-rl float-left w-100">
         <section className="float-left w-100 pricing-con position-relative padding-top padding-bottom main-box bg-sky br-50">
@@ -479,8 +477,6 @@ export const Home: React.FC = () => {
         </section>
       </div>
 
-      <div className="spacer"></div>
-
       {/* ── CTA SECTION ── */}
       <div className="padding-rl float-left w-100">
         <section className="float-left w-100 cta-con position-relative main-box br-50 text-center">
@@ -503,133 +499,159 @@ export const Home: React.FC = () => {
       </div>
 
       {/* ── PORTFOLIO SECTION ── */}
-      <section className="float-left w-100 position-relative portfolio-con padding-top padding-bottom main-box overflow-hidden">
-        <div className="main-container">
-          
-          <div className="row align-items-center mb-5">
-            <div className="col-lg-7 col-md-12">
-              <div className="heading-title-con mb-0">
-                <span className="d-block special-text">Recent Projects</span>
-                <h2 className="text-size-56 font-weight-700">
-                  Expert Roofing Projects <br />
-                  Completed Across Melbourne
-                </h2>
+      <div className="padding-rl float-left w-100">
+        <section className="float-left w-100 position-relative portfolio-con padding-top padding-bottom main-box br-50 overflow-hidden">
+          <div className="main-container">
+            
+            <div className="row align-items-center mb-5">
+              <div className="col-lg-7 col-md-12">
+                <div className="heading-title-con mb-0">
+                  <span className="d-block special-text">Recent Projects</span>
+                  <h2 className="text-size-56 font-weight-700">
+                    Expert Roofing Projects <br />
+                    Completed Across Melbourne
+                  </h2>
+                </div>
+              </div>
+              <div className="col-lg-5 col-md-12">
+                <div className="heading-title-con mb-0">
+                  <p className="mb-0 sora-font text-size-16">
+                    From minor tile restorations to full architectural standing seam metal replacements, every project is handled with Australian certified Colorbond steel and meticulous flashing work.
+                  </p>
+                </div>
               </div>
             </div>
-            <div className="col-lg-5 col-md-12">
-              <div className="heading-title-con mb-0">
-                <p className="mb-0 sora-font text-size-16">
-                  From minor tile restorations to full architectural standing seam metal replacements, every project is handled with Australian certified Colorbond steel and meticulous flashing work.
-                </p>
+
+            <div className="row">
+              {/* Project 1 */}
+              <div className="col-lg-6 col-md-6 mb-4">
+                <div className="portfolio-box h-100 d-flex flex-column justify-content-between p-0">
+                  <div>
+                    <figure 
+                      className="portfolio-card-figure cursor-pointer"
+                      onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img1.jpg'), title: 'Full Roof Strip & Structural Restoration', subtitle: 'Melbourne, VIC • Timber Truss & Structural Batten Repairs' })}
+                    >
+                      <img 
+                        src={asset('/roofora-assets/images/portfolio-img1.jpg')} 
+                        alt="Full Roof Strip and Restoration" 
+                        className="portfolio-card-img crop-roof-timber" 
+                      />
+                    </figure>
+                  </div>
+                  <div className="d-flex align-items-center justify-content-between mt-auto">
+                    <div>
+                      <span className="d-inline-block key-tags mr-2">Full Re-Roof</span>
+                      <span className="d-inline-block key-tags">Restoration</span>
+                      <h3 className="text-size-26 font-weight-700 mt-1 mb-0">Full Roof Strip & Restoration</h3>
+                    </div>
+                    <button 
+                      onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img1.jpg'), title: 'Full Roof Strip & Structural Restoration', subtitle: 'Melbourne, VIC • Timber Truss & Structural Batten Repairs' })} 
+                      className="border-0 bg-transparent p-0 cursor-pointer shrink-0 ml-3"
+                    >
+                      <img src={asset('/roofora-assets/images/up-right-lg-arrow.png')} alt="arrow" className="border-radius-0 mb-0" />
+                    </button>
+                  </div>
+                </div>
               </div>
+
+              {/* Project 2 */}
+              <div className="col-lg-6 col-md-6 mb-4">
+                <div className="portfolio-box h-100 d-flex flex-column justify-content-between p-0">
+                  <div>
+                    <figure 
+                      className="portfolio-card-figure cursor-pointer"
+                      onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img2.jpg'), title: 'AS/NZS Sarking & Batten Installation', subtitle: 'Melbourne, VIC • Heavy-Duty Vapor Barrier & Treated Timber Battens' })}
+                    >
+                      <img 
+                        src={asset('/roofora-assets/images/portfolio-img2.jpg')} 
+                        alt="Sarking and Batten Installation" 
+                        className="portfolio-card-img" 
+                      />
+                    </figure>
+                  </div>
+                  <div className="d-flex align-items-center justify-content-between mt-auto">
+                    <div>
+                      <span className="d-inline-block key-tags mr-2">Weatherproofing</span>
+                      <span className="d-inline-block key-tags">Sarking</span>
+                      <h3 className="text-size-26 font-weight-700 mt-1 mb-0">AS/NZS Sarking & Batten Install</h3>
+                    </div>
+                    <button 
+                      onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img2.jpg'), title: 'AS/NZS Sarking & Batten Installation', subtitle: 'Melbourne, VIC • Heavy-Duty Vapor Barrier & Treated Timber Battens' })} 
+                      className="border-0 bg-transparent p-0 cursor-pointer shrink-0 ml-3"
+                    >
+                      <img src={asset('/roofora-assets/images/up-right-lg-arrow.png')} alt="arrow" className="border-radius-0 mb-0" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Project 3 */}
+              <div className="col-lg-6 col-md-6 mb-4">
+                <div className="portfolio-box h-100 d-flex flex-column justify-content-between p-0">
+                  <div>
+                    <figure 
+                      className="portfolio-card-figure cursor-pointer"
+                      onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img3.jpg'), title: 'Structural Rafter Carpentry & Framing', subtitle: 'Melbourne, VIC • Precision Timber Framing & Rafter Reinforcement' })}
+                    >
+                      <img 
+                        src={asset('/roofora-assets/images/portfolio-img3.jpg')} 
+                        alt="Structural Rafter Carpentry" 
+                        className="portfolio-card-img" 
+                      />
+                    </figure>
+                  </div>
+                  <div className="d-flex align-items-center justify-content-between mt-auto">
+                    <div>
+                      <span className="d-inline-block key-tags mr-2">Carpentry</span>
+                      <span className="d-inline-block key-tags">Structural</span>
+                      <h3 className="text-size-26 font-weight-700 mt-1 mb-0">Structural Rafter Framing</h3>
+                    </div>
+                    <button 
+                      onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img3.jpg'), title: 'Structural Rafter Carpentry & Framing', subtitle: 'Melbourne, VIC • Precision Timber Framing & Rafter Reinforcement' })} 
+                      className="border-0 bg-transparent p-0 cursor-pointer shrink-0 ml-3"
+                    >
+                      <img src={asset('/roofora-assets/images/up-right-lg-arrow.png')} alt="arrow" className="border-radius-0 mb-0" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Project 4 */}
+              <div className="col-lg-6 col-md-6 mb-4">
+                <div className="portfolio-box h-100 d-flex flex-column justify-content-between p-0">
+                  <div>
+                    <figure 
+                      className="portfolio-card-figure cursor-pointer"
+                      onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img4.jpg'), title: 'Terracotta Ridge Capping Re-Pointing', subtitle: 'Melbourne, VIC • SupaPoint Flexible Weatherproof Pointing' })}
+                    >
+                      <img 
+                        src={asset('/roofora-assets/images/portfolio-img4.jpg')} 
+                        alt="Terracotta Ridge Capping Re-Pointing" 
+                        className="portfolio-card-img" 
+                      />
+                    </figure>
+                  </div>
+                  <div className="d-flex align-items-center justify-content-between mt-auto">
+                    <div>
+                      <span className="d-inline-block key-tags mr-2">Terracotta</span>
+                      <span className="d-inline-block key-tags">Re-Pointing</span>
+                      <h3 className="text-size-26 font-weight-700 mt-1 mb-0">Terracotta Ridge Pointing</h3>
+                    </div>
+                    <button 
+                      onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img4.jpg'), title: 'Terracotta Ridge Capping Re-Pointing', subtitle: 'Melbourne, VIC • SupaPoint Flexible Weatherproof Pointing' })} 
+                      className="border-0 bg-transparent p-0 cursor-pointer shrink-0 ml-3"
+                    >
+                      <img src={asset('/roofora-assets/images/up-right-lg-arrow.png')} alt="arrow" className="border-radius-0 mb-0" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
             </div>
+
           </div>
-
-          <div className="row">
-            {/* Project 1 */}
-            <div className="col-lg-5 col-md-6 mb-4">
-              <div className="portfolio-box left-img">
-                <figure 
-                  className="cursor-pointer"
-                  onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img1.jpg'), title: 'Full Roof Strip & Structural Restoration', subtitle: 'Melbourne, VIC • Timber Truss & Structural Batten Repairs' })}
-                >
-                  <img src={asset('/roofora-assets/images/portfolio-img1.jpg')} alt="Full Roof Strip and Restoration" className="img-fluid" />
-                </figure>
-                <div className="d-flex align-items-center justify-content-between">
-                  <div>
-                    <span className="d-inline-block key-tags mr-2">Full Re-Roof</span>
-                    <span className="d-inline-block key-tags">Restoration</span>
-                    <h3 className="text-size-30 font-weight-700">Full Roof Strip & Restoration</h3>
-                  </div>
-                  <button 
-                    onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img1.jpg'), title: 'Full Roof Strip & Structural Restoration', subtitle: 'Melbourne, VIC • Timber Truss & Structural Batten Repairs' })} 
-                    className="border-0 bg-transparent p-0 cursor-pointer"
-                  >
-                    <img src={asset('/roofora-assets/images/up-right-lg-arrow.png')} alt="arrow" className="border-radius-0 mb-0" />
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Project 2 */}
-            <div className="col-lg-7 col-md-6 mb-4">
-              <div className="portfolio-box pt-0 right-img">
-                <figure 
-                  className="cursor-pointer"
-                  onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img2.jpg'), title: 'AS/NZS Sarking & Batten Installation', subtitle: 'Melbourne, VIC • Heavy-Duty Vapor Barrier & Treated Timber Battens' })}
-                >
-                  <img src={asset('/roofora-assets/images/portfolio-img2.jpg')} alt="Sarking and Batten Installation" className="img-fluid" />
-                </figure>
-                <div className="d-flex align-items-center justify-content-between">
-                  <div>
-                    <span className="d-inline-block key-tags mr-2">Weatherproofing</span>
-                    <span className="d-inline-block key-tags">Sarking</span>
-                    <h3 className="text-size-30 font-weight-700">AS/NZS Sarking & Batten Install</h3>
-                  </div>
-                  <button 
-                    onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img2.jpg'), title: 'AS/NZS Sarking & Batten Installation', subtitle: 'Melbourne, VIC • Heavy-Duty Vapor Barrier & Treated Timber Battens' })} 
-                    className="border-0 bg-transparent p-0 cursor-pointer"
-                  >
-                    <img src={asset('/roofora-assets/images/up-right-lg-arrow.png')} alt="arrow" className="border-radius-0 mb-0" />
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Project 3 */}
-            <div className="col-lg-7 col-md-6 mb-4">
-              <div className="portfolio-box left-img">
-                <figure 
-                  className="cursor-pointer"
-                  onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img3.jpg'), title: 'Structural Rafter Carpentry & Framing', subtitle: 'Melbourne, VIC • Precision Timber Framing & Rafter Reinforcement' })}
-                >
-                  <img src={asset('/roofora-assets/images/portfolio-img3.jpg')} alt="Structural Rafter Carpentry" className="img-fluid" />
-                </figure>
-                <div className="d-flex align-items-center justify-content-between">
-                  <div>
-                    <span className="d-inline-block key-tags mr-2">Carpentry</span>
-                    <span className="d-inline-block key-tags">Structural</span>
-                    <h3 className="text-size-30 font-weight-700">Structural Rafter Framing</h3>
-                  </div>
-                  <button 
-                    onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img3.jpg'), title: 'Structural Rafter Carpentry & Framing', subtitle: 'Melbourne, VIC • Precision Timber Framing & Rafter Reinforcement' })} 
-                    className="border-0 bg-transparent p-0 cursor-pointer"
-                  >
-                    <img src={asset('/roofora-assets/images/up-right-lg-arrow.png')} alt="arrow" className="border-radius-0 mb-0" />
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Project 4 */}
-            <div className="col-lg-5 col-md-6 mb-4">
-              <div className="portfolio-box pt-0 right-img">
-                <figure 
-                  className="cursor-pointer"
-                  onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img4.jpg'), title: 'Terracotta Ridge Capping Re-Pointing', subtitle: 'Melbourne, VIC • SupaPoint Flexible Weatherproof Pointing' })}
-                >
-                  <img src={asset('/roofora-assets/images/portfolio-img4.jpg')} alt="Terracotta Ridge Capping Re-Pointing" className="img-fluid" />
-                </figure>
-                <div className="d-flex align-items-center justify-content-between">
-                  <div>
-                    <span className="d-inline-block key-tags mr-2">Terracotta</span>
-                    <span className="d-inline-block key-tags">Re-Pointing</span>
-                    <h3 className="text-size-30 font-weight-700">Terracotta Ridge Pointing</h3>
-                  </div>
-                  <button 
-                    onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img4.jpg'), title: 'Terracotta Ridge Capping Re-Pointing', subtitle: 'Melbourne, VIC • SupaPoint Flexible Weatherproof Pointing' })} 
-                    className="border-0 bg-transparent p-0 cursor-pointer"
-                  >
-                    <img src={asset('/roofora-assets/images/up-right-lg-arrow.png')} alt="arrow" className="border-radius-0 mb-0" />
-                  </button>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
+        </section>
+      </div>
 
       {/* ── TESTIMONIALS SECTION ── */}
       <div className="padding-rl float-left w-100">
