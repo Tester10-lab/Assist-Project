@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://assistroofing.com.au/sitemap.xml

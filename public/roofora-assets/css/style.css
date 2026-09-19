@@ -1108,7 +1108,7 @@ body {
 
 .footer-con .middle_portion .contact li:hover p,
 .footer-con .middle_portion .contact li:hover i {
-    color: var(--primary--color);
+    color: var(--accent--color);
 }
 
 
@@ -1147,7 +1147,7 @@ body {
 }
 
 .footer-con .contact i {
-    color: var(--primary--color);
+    color: var(--accent--color);
 }
 
 .footer-con .social-icons a:hover i {

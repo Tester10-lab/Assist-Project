@@ -55,7 +55,7 @@ export const LightboxModal: React.FC = () => {
               {lightboxData.title}
             </h4>
             {lightboxData.subtitle && (
-              <p className="text-muted text-size-14 mb-0">
+              <p className="text-[#616a7e] text-size-14 mb-0">
                 {lightboxData.subtitle}
               </p>
             )}

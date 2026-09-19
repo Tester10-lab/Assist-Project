@@ -207,37 +207,37 @@ export const Home: React.FC = () => {
                     <div className="row">
                       <div className="col-sm-6 mb-3">
                         <div className="d-flex align-items-start gap-2">
-                          <i className="fa-solid fa-circle-check text-warning mt-1"></i>
+                          <i className="fa-solid fa-circle-check text-[#f19e1f] mt-1"></i>
                           <div>
-                            <strong className="d-block text-dark font-weight-700">Trust & Transparency</strong>
-                            <span className="text-muted text-size-14">Fixed-price proposals and drone photo evidence. No surprise variations.</span>
+                            <strong className="d-block text-[#1e2e4f] font-weight-700">Trust & Transparency</strong>
+                            <span className="text-[#616a7e] text-size-14">Fixed-price proposals and drone photo evidence. No surprise variations.</span>
                           </div>
                         </div>
                       </div>
                       <div className="col-sm-6 mb-3">
                         <div className="d-flex align-items-start gap-2">
-                          <i className="fa-solid fa-compass-drafting text-warning mt-1"></i>
+                          <i className="fa-solid fa-compass-drafting text-[#f19e1f] mt-1"></i>
                           <div>
-                            <strong className="d-block text-dark font-weight-700">Precision Engineering</strong>
-                            <span className="text-muted text-size-14">Strict compliance with AS 1562.1 metal & tile roofing standards.</span>
+                            <strong className="d-block text-[#1e2e4f] font-weight-700">Precision Engineering</strong>
+                            <span className="text-[#616a7e] text-size-14">Strict compliance with AS 1562.1 metal & tile roofing standards.</span>
                           </div>
                         </div>
                       </div>
                       <div className="col-sm-6 mb-3">
                         <div className="d-flex align-items-start gap-2">
-                          <i className="fa-solid fa-shield-heart text-warning mt-1"></i>
+                          <i className="fa-solid fa-shield-heart text-[#f19e1f] mt-1"></i>
                           <div>
-                            <strong className="d-block text-dark font-weight-700">10-Year Durability</strong>
-                            <span className="text-muted text-size-14">Authentic Bluescope Colorbond steel & flexible polymer ridge pointing.</span>
+                            <strong className="d-block text-[#1e2e4f] font-weight-700">10-Year Durability</strong>
+                            <span className="text-[#616a7e] text-size-14">Authentic Bluescope Colorbond steel & flexible polymer ridge pointing.</span>
                           </div>
                         </div>
                       </div>
                       <div className="col-sm-6 mb-3">
                         <div className="d-flex align-items-start gap-2">
-                          <i className="fa-solid fa-hand-holding-heart text-warning mt-1"></i>
+                          <i className="fa-solid fa-hand-holding-heart text-[#f19e1f] mt-1"></i>
                           <div>
-                            <strong className="d-block text-dark font-weight-700">Customer Care & Clean Sweep</strong>
-                            <span className="text-muted text-size-14">Zero-mess guarantee with magnetic nail sweeps after every job.</span>
+                            <strong className="d-block text-[#1e2e4f] font-weight-700">Customer Care & Clean Sweep</strong>
+                            <span className="text-[#616a7e] text-size-14">Zero-mess guarantee with magnetic nail sweeps after every job.</span>
                           </div>
                         </div>
                       </div>
@@ -245,18 +245,18 @@ export const Home: React.FC = () => {
                   </div>
 
                   {/* ── Meet the Leaders: Boxy & Peter ── */}
-                  <div className="mt-4 p-4 rounded-3 bg-light border">
+                  <div className="mt-4 p-4 rounded-3 bg-[#f4f8ff] border border-[#e6ebf6]">
                     <div className="row align-items-center">
                       <div className="col-md-7">
                         <h5 className="font-weight-700 text-size-18 mb-1 text-[#1e2e4f]">Meet Your Project Directors: Boxy & Peter</h5>
-                        <p className="text-size-14 text-muted mb-0">
+                        <p className="text-size-14 text-[#616a7e] mb-0">
                           "We don't send sales reps. Our on-site project lead <strong>Boxy</strong> and senior estimator <strong>Peter</strong> personally oversee our 4-man licensed field crew on every Melbourne roof."
                         </p>
                       </div>
                       <div className="col-md-5 text-md-right mt-3 mt-md-0">
                         <button 
                           onClick={openQuoteModal}
-                          className="btn btn-warning text-white font-weight-700 rounded-pill px-4 py-2 text-size-14 shadow-sm"
+                          className="bg-[#f19e1f] hover:bg-[#d88713] text-white font-weight-700 rounded-pill px-4 py-2.5 text-size-14 shadow-sm border-0 transition-all cursor-pointer"
                         >
                           Book Free Roof Inspection <i className="fa-solid fa-calendar-check ml-1"></i>
                         </button>
@@ -542,7 +542,7 @@ export const Home: React.FC = () => {
                     <div>
                       <span className="d-inline-block key-tags mr-2">Full Re-Roof</span>
                       <span className="d-inline-block key-tags">Restoration</span>
-                      <h3 className="text-size-26 font-weight-700 mt-1 mb-0">Full Roof Strip & Restoration</h3>
+                      <h3 className="text-size-26 font-weight-700 mt-1 mb-0 text-[#1e2e4f]">Full Roof Strip & Restoration</h3>
                     </div>
                     <button 
                       onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img1.jpg'), title: 'Full Roof Strip & Structural Restoration', subtitle: 'Melbourne, VIC • Timber Truss & Structural Batten Repairs' })} 
@@ -560,7 +560,7 @@ export const Home: React.FC = () => {
                   <div>
                     <figure 
                       className="portfolio-card-figure cursor-pointer"
-                      onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img2.jpg'), title: 'AS/NZS Sarking & Batten Installation', subtitle: 'Melbourne, VIC • Heavy-Duty Vapor Barrier & Treated Timber Battens' })}
+                      onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img2.jpg'), title: 'AS/NZS Sarking & Batten Installation', subtitle: 'Melbourne, VIC • Heavy-Duty Vapor Barrier & Treated Timber Battens' })} 
                     >
                       <img 
                         src={asset('/roofora-assets/images/portfolio-img2.jpg')} 
@@ -573,7 +573,7 @@ export const Home: React.FC = () => {
                     <div>
                       <span className="d-inline-block key-tags mr-2">Weatherproofing</span>
                       <span className="d-inline-block key-tags">Sarking</span>
-                      <h3 className="text-size-26 font-weight-700 mt-1 mb-0">AS/NZS Sarking & Batten Install</h3>
+                      <h3 className="text-size-26 font-weight-700 mt-1 mb-0 text-[#1e2e4f]">AS/NZS Sarking & Batten Install</h3>
                     </div>
                     <button 
                       onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img2.jpg'), title: 'AS/NZS Sarking & Batten Installation', subtitle: 'Melbourne, VIC • Heavy-Duty Vapor Barrier & Treated Timber Battens' })} 
@@ -591,7 +591,7 @@ export const Home: React.FC = () => {
                   <div>
                     <figure 
                       className="portfolio-card-figure cursor-pointer"
-                      onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img3.jpg'), title: 'Structural Rafter Carpentry & Framing', subtitle: 'Melbourne, VIC • Precision Timber Framing & Rafter Reinforcement' })}
+                      onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img3.jpg'), title: 'Structural Rafter Carpentry & Framing', subtitle: 'Melbourne, VIC • Precision Timber Framing & Rafter Reinforcement' })} 
                     >
                       <img 
                         src={asset('/roofora-assets/images/portfolio-img3.jpg')} 
@@ -604,7 +604,7 @@ export const Home: React.FC = () => {
                     <div>
                       <span className="d-inline-block key-tags mr-2">Carpentry</span>
                       <span className="d-inline-block key-tags">Structural</span>
-                      <h3 className="text-size-26 font-weight-700 mt-1 mb-0">Structural Rafter Framing</h3>
+                      <h3 className="text-size-26 font-weight-700 mt-1 mb-0 text-[#1e2e4f]">Structural Rafter Framing</h3>
                     </div>
                     <button 
                       onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img3.jpg'), title: 'Structural Rafter Carpentry & Framing', subtitle: 'Melbourne, VIC • Precision Timber Framing & Rafter Reinforcement' })} 
@@ -622,7 +622,7 @@ export const Home: React.FC = () => {
                   <div>
                     <figure 
                       className="portfolio-card-figure cursor-pointer"
-                      onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img4.jpg'), title: 'Terracotta Ridge Capping Re-Pointing', subtitle: 'Melbourne, VIC • SupaPoint Flexible Weatherproof Pointing' })}
+                      onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img4.jpg'), title: 'Terracotta Ridge Capping Re-Pointing', subtitle: 'Melbourne, VIC • SupaPoint Flexible Weatherproof Pointing' })} 
                     >
                       <img 
                         src={asset('/roofora-assets/images/portfolio-img4.jpg')} 
@@ -635,7 +635,7 @@ export const Home: React.FC = () => {
                     <div>
                       <span className="d-inline-block key-tags mr-2">Terracotta</span>
                       <span className="d-inline-block key-tags">Re-Pointing</span>
-                      <h3 className="text-size-26 font-weight-700 mt-1 mb-0">Terracotta Ridge Pointing</h3>
+                      <h3 className="text-size-26 font-weight-700 mt-1 mb-0 text-[#1e2e4f]">Terracotta Ridge Pointing</h3>
                     </div>
                     <button 
                       onClick={() => openLightbox({ src: asset('/roofora-assets/images/portfolio-img4.jpg'), title: 'Terracotta Ridge Capping Re-Pointing', subtitle: 'Melbourne, VIC • SupaPoint Flexible Weatherproof Pointing' })} 
@@ -690,7 +690,7 @@ export const Home: React.FC = () => {
                   onClick={() => setActiveTestimonial(idx)}
                   className={`cursor-pointer rounded-circle d-flex align-items-center justify-content-center font-weight-700 transition-all ${
                     activeTestimonial === idx 
-                      ? 'border border-warning scale-110 shadow-lg bg-[#f19e1f] text-white' 
+                      ? 'border-2 border-[#f19e1f] scale-110 shadow-lg bg-[#f19e1f] text-white' 
                       : 'opacity-60 hover:opacity-100 bg-white/20 text-white'
                   }`}
                   style={{ width: '58px', height: '58px', fontSize: '18px', letterSpacing: '0.5px' }}
@@ -710,7 +710,7 @@ export const Home: React.FC = () => {
           
           <div className="heading-title-con text-center mb-5">
             <span className="special-text d-block">Frequently Asked Questions</span>
-            <h2 className="text-size-56 font-weight-700">
+            <h2 className="text-size-56 font-weight-700 text-[#1e2e4f]">
               Clear Answers for Your <br />
               Roofing Concerns
             </h2>
@@ -722,18 +722,20 @@ export const Home: React.FC = () => {
               return (
                 <div 
                   key={idx} 
-                  className={`accordion-card mb-4 shadow-sm border ${isOpen ? 'border-warning' : 'border-light'}`}
+                  className={`accordion-card mb-4 shadow-sm border transition-all rounded-3xl overflow-hidden ${
+                    isOpen ? 'border-[#f19e1f] bg-[#f4f8ff]/50' : 'border-[#e6ebf6] bg-white'
+                  }`}
                 >
                   <div 
                     onClick={() => setActiveFaq(isOpen ? null : idx)}
                     className="d-flex justify-content-between align-items-center p-4 cursor-pointer"
                   >
-                    <h3 className="text-size-22 font-weight-700 mb-0 text-dark pr-4">
+                    <h3 className="text-size-22 font-weight-700 mb-0 text-[#1e2e4f] pr-4">
                       {faq.q}
                     </h3>
                     <div 
-                      className={`rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 ${
-                        isOpen ? 'bg-warning text-white' : 'bg-primary text-white'
+                      className={`rounded-circle d-flex align-items-center justify-content-center flex-shrink-0 transition-colors ${
+                        isOpen ? 'bg-[#f19e1f] text-white' : 'bg-[#1e2e4f] text-white'
                       }`}
                       style={{ width: '42px', height: '42px' }}
                     >
@@ -742,8 +744,8 @@ export const Home: React.FC = () => {
                   </div>
 
                   {isOpen && (
-                    <div className="px-4 pb-4 pt-1 border-top">
-                      <p className="text-size-16 text-muted mb-0 leading-relaxed">
+                    <div className="px-4 pb-4 pt-1 border-t border-[#e6ebf6]">
+                      <p className="text-size-16 text-[#616a7e] mb-0 leading-relaxed font-light">
                         {faq.a}
                       </p>
                     </div>

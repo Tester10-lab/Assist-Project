@@ -80,7 +80,7 @@ export const QuoteModal: React.FC = () => {
               <h3 className="text-size-26 font-weight-700 text-blue mb-2">
                 Booking Request Received!
               </h3>
-              <p className="text-size-14 text-muted mb-4">
+              <p className="text-size-14 text-[#616a7e] mb-4">
                 Thank you, <strong>{form.name}</strong>. A senior ASSIST estimator will call you at <strong>{form.phone}</strong> within 2 hours to confirm your drone survey slot.
               </p>
               <button
@@ -94,7 +94,7 @@ export const QuoteModal: React.FC = () => {
             <form onSubmit={handleSubmit}>
               <div className="row">
                 <div className="col-md-6 mb-3">
-                  <label className="text-size-12 font-weight-700 text-uppercase text-muted mb-1 d-block">
+                  <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
                     Your Name *
                   </label>
                   <input
@@ -109,7 +109,7 @@ export const QuoteModal: React.FC = () => {
                 </div>
 
                 <div className="col-md-6 mb-3">
-                  <label className="text-size-12 font-weight-700 text-uppercase text-muted mb-1 d-block">
+                  <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
                     Phone Number *
                   </label>
                   <input
@@ -126,7 +126,7 @@ export const QuoteModal: React.FC = () => {
 
               <div className="row">
                 <div className="col-md-6 mb-3">
-                  <label className="text-size-12 font-weight-700 text-uppercase text-muted mb-1 d-block">
+                  <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
                     Email Address *
                   </label>
                   <input
@@ -141,7 +141,7 @@ export const QuoteModal: React.FC = () => {
                 </div>
 
                 <div className="col-md-6 mb-3">
-                  <label className="text-size-12 font-weight-700 text-uppercase text-muted mb-1 d-block">
+                  <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
                     Service Required
                   </label>
                   <select
@@ -160,7 +160,7 @@ export const QuoteModal: React.FC = () => {
               </div>
 
               <div className="mb-3">
-                <label className="text-size-12 font-weight-700 text-uppercase text-muted mb-1 d-block">
+                <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
                   Property Suburb / Address *
                 </label>
                 <input
@@ -175,7 +175,7 @@ export const QuoteModal: React.FC = () => {
               </div>
 
               <div className="mb-4">
-                <label className="text-size-12 font-weight-700 text-uppercase text-muted mb-1 d-block">
+                <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
                   Notes / Urgent Leak Details
                 </label>
                 <textarea

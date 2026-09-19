@@ -203,7 +203,7 @@ export const Navbar: React.FC = () => {
                         setCurrentPage('login');
                       }
                     }}
-                    className="btn w-100 py-2 rounded-pill font-weight-600 text-muted border"
+                    className="btn w-100 py-2 rounded-pill font-weight-600 text-[#1e2e4f] border border-[#cfd8e8] hover:bg-[#f4f8ff]"
                   >
                     <i className="fa-solid fa-lock mr-2"></i> ERP Portal Login
                   </button>
@@ -261,7 +261,7 @@ export const Footer: React.FC = () => {
       
       {/* ── Footer Container with Roofora Styling ── */}
       <div className="padding-rl float-left w-100">
-        <div className="float-left w-100 footer-con position-relative main-box br-50">
+        <div className="float-left w-100 footer-con position-relative main-box br-50 bg-[#1e2e4f]">
           <div className="main-container position-relative">
             
             {/* Middle Portion */}
@@ -272,7 +272,7 @@ export const Footer: React.FC = () => {
                     <img 
                       src={asset('/roofora-assets/images/footer-logo.png')} 
                       alt="ASSIST Roofing & Home Solution" 
-                      className="img-fluid"
+                      className="img-fluid" 
                       style={{ maxHeight: '75px', width: 'auto', objectFit: 'contain' }}
                     />
                   </figure>
@@ -282,12 +282,12 @@ export const Footer: React.FC = () => {
               <div className="links">
                 <ul className="list-unstyled mb-0">
                   <li className="text">
-                    <a href="mailto:info@assistroofing.com.au" className="text-decoration-none text-white">
+                    <a href="mailto:info@assistroofing.com.au" className="text-decoration-none text-white hover:text-[#f19e1f] transition-colors">
                       info@assistroofing.com.au
                     </a>
                   </li>
                   <li className="text footer-number mb-0">
-                    <a href="tel:0478936120" className="text-decoration-none text-white font-weight-700">
+                    <a href="tel:0478936120" className="text-decoration-none text-white hover:text-[#f19e1f] transition-colors font-weight-700">
                       0478936120
                     </a>
                   </li>
@@ -297,7 +297,13 @@ export const Footer: React.FC = () => {
               <div className="contact">
                 <ul className="list-unstyled mb-0">
                   <li className="text">
-                    <a className="address mb-0 text-white">
+                    <a 
+                      href="https://maps.google.com/?q=139+Boundary+Road,+North+Melbourne+VIC+3051" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="address mb-0 text-white hover:text-[#f19e1f] transition-colors text-decoration-none"
+                    >
+                      <i className="fa-solid fa-location-dot text-[#f19e1f] mr-2"></i>
                       139 Boundary Road, <br />
                       North Melbourne VIC 3051, Australia
                     </a>
@@ -309,13 +315,13 @@ export const Footer: React.FC = () => {
             {/* Copyright & Social Row */}
             <div className="copyright-con d-flex flex-wrap align-items-center justify-content-between text-center gap-3">
               <ul className="footer-links list-unstyled mb-0 d-flex flex-wrap gap-4">
-                <li><a onClick={() => setCurrentPage('home')} className="text-decoration-none cursor-pointer">Home</a></li>
-                <li><a onClick={() => setCurrentPage('about')} className="text-decoration-none cursor-pointer">About</a></li>
-                <li><a onClick={() => setCurrentPage('services')} className="text-decoration-none cursor-pointer">Services</a></li>
-                <li><a onClick={() => setCurrentPage('gallery')} className="text-decoration-none cursor-pointer">Projects</a></li>
-                <li><a onClick={() => setCurrentPage('testimonials')} className="text-decoration-none cursor-pointer">Testimonials</a></li>
-                <li><a onClick={() => setCurrentPage('contact')} className="text-decoration-none cursor-pointer">Contact</a></li>
-                <li><a onClick={() => setCurrentPage('login')} className="text-decoration-none cursor-pointer">ERP Login</a></li>
+                <li><a onClick={() => setCurrentPage('home')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium">Home</a></li>
+                <li><a onClick={() => setCurrentPage('about')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium">About</a></li>
+                <li><a onClick={() => setCurrentPage('services')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium">Services</a></li>
+                <li><a onClick={() => setCurrentPage('gallery')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium">Projects</a></li>
+                <li><a onClick={() => setCurrentPage('testimonials')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium">Testimonials</a></li>
+                <li><a onClick={() => setCurrentPage('contact')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium">Contact</a></li>
+                <li><a onClick={() => setCurrentPage('login')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium">ERP Login</a></li>
               </ul>
 
               <ul className="list-unstyled mb-0 social-icons d-flex gap-2">
@@ -323,7 +329,7 @@ export const Footer: React.FC = () => {
                   <a 
                     href="https://www.facebook.com/profile.php?id=61560893981491" 
                     target="_blank" 
-                    rel="noopener noreferrer"
+                    rel="noopener noreferrer" 
                     className="text-decoration-none"
                     aria-label="Assist Roofing Facebook"
                   >
@@ -334,7 +340,7 @@ export const Footer: React.FC = () => {
                   <a 
                     href="https://www.instagram.com/roofingassist/" 
                     target="_blank" 
-                    rel="noopener noreferrer"
+                    rel="noopener noreferrer" 
                     className="text-decoration-none"
                     aria-label="Assist Roofing Instagram"
                   >
@@ -343,18 +349,18 @@ export const Footer: React.FC = () => {
                 </li>
                 <li>
                   <a 
-                    href="https://www.facebook.com/profile.php?id=61560893981491" 
+                    href="https://maps.google.com/?q=139+Boundary+Road,+North+Melbourne+VIC+3051" 
                     target="_blank" 
-                    rel="noopener noreferrer"
+                    rel="noopener noreferrer" 
                     className="text-decoration-none"
-                    aria-label="Assist Roofing Social"
+                    aria-label="Assist Roofing Google Maps"
                   >
-                    <i className="fa-solid fa-share-nodes social-networks"></i>
+                    <i className="fa-brands fa-google social-networks"></i>
                   </a>
                 </li>
               </ul>
 
-              <p className="mb-0">Copyright © {new Date().getFullYear()} ASSIST Roofing & Home Solution. All Rights Reserved.</p>
+              <p className="mb-0 text-[#b7c1d5] text-xs font-light">Copyright © {new Date().getFullYear()} ASSIST Roofing & Home Solution. All Rights Reserved.</p>
             </div>
 
           </div>

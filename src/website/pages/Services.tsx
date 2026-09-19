@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { SERVICES, SERVICE_AREAS } from '../data';
 import { useWebsite } from '../WebsiteContext';
 import { motion } from 'framer-motion';
@@ -190,10 +190,10 @@ export const Services: React.FC = () => {
       <section className="py-16 bg-white">
         <div className="max-w-[1320px] mx-auto px-4 sm:px-8 flex flex-col md:flex-row justify-between items-center gap-6 bg-[#f19e1f] p-8 sm:p-12 rounded-3xl text-[#1e2e4f]">
           <div>
-            <h3 className="text-3xl sm:text-4xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight mb-2">
+            <h3 className="text-3xl sm:text-4xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-2">
               Need Urgent Leak Repairs or Re-Roofing?
             </h3>
-            <p className="text-sm font-semibold opacity-90">
+            <p className="text-sm font-bold text-[#1e2e4f]">
               Contact our Melbourne emergency roofing team today.
             </p>
           </div>
