@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useWebsite } from '../WebsiteContext';
 import { FAQS, ALL_SERVICES_OFFERED } from '../data';
 import { AnimatedCounter } from '../components/AnimatedCounter';
+import { GoogleReviewsCarousel } from '../components/GoogleReviewsCarousel';
 import { asset } from '../utils/asset';
 
 export const Home: React.FC = () => {
@@ -733,46 +734,21 @@ export const Home: React.FC = () => {
           <figure><img src={asset('/roofora-assets/images/right-quote.png')} alt="quote" className="position-absolute right-quote d-none d-md-block" /></figure>
           
           <div className="main-container">
-            
             <div className="heading-title-con text-center mb-5">
-              <span className="special-text d-block">Client Reviews</span>
-              <h2 className="text-size-56 font-weight-700 text-white mb-0">
-                Real Feedback From <br />
-                Real Homeowners
+              <span className="special-text d-block">Verified Feedback</span>
+              <h2 className="text-size-56 font-weight-700 text-white mb-2">
+                Real Google Reviews From <br />
+                Melbourne Homeowners
               </h2>
-            </div>
-
-            <div className="client-review-box max-w-3xl mx-auto mb-5">
-              <figure className="rating-stars mb-4">
-                <img src={asset('/roofora-assets/images/rating-stars.png')} alt="5 Stars" className="mx-auto" />
-              </figure>
-              <p className="review-text text-white text-size-18 italic leading-relaxed">
-                "{testimonialsList[activeTestimonial].comment}"
+              <p className="text-white text-size-16 opacity-80 max-w-2xl mx-auto mb-0">
+                100% verified customer ratings on Google. Hover over any review to pause the automatic rotation.
               </p>
-              <div className="mt-4">
-                <h4 className="text-white text-size-22 font-weight-700 mb-1">{testimonialsList[activeTestimonial].name}</h4>
-                <span className="text-accent text-size-14 font-weight-600">{testimonialsList[activeTestimonial].role}</span>
-              </div>
             </div>
 
-            {/* Circular Avatar Selector */}
-            <div className="d-flex justify-content-center align-items-center gap-4 mt-5">
-              {testimonialsList.map((t, idx) => (
-                <div 
-                  key={idx}
-                  onClick={() => setActiveTestimonial(idx)}
-                  className={`cursor-pointer rounded-circle d-flex align-items-center justify-content-center font-weight-700 transition-all ${
-                    activeTestimonial === idx 
-                      ? 'border-2 border-[#f19e1f] scale-110 shadow-lg bg-[#f19e1f] text-white' 
-                      : 'opacity-60 hover:opacity-100 bg-white/20 text-white'
-                  }`}
-                  style={{ width: '58px', height: '58px', fontSize: '18px', letterSpacing: '0.5px' }}
-                >
-                  {t.avatar}
-                </div>
-              ))}
-            </div>
-
+            <GoogleReviewsCarousel 
+              theme="dark"
+              showBadgeHeader={true}
+            />
           </div>
         </section>
       </div>

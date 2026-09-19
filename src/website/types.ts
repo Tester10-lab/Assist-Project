@@ -30,6 +30,19 @@ export interface TestimonialItem {
   imageUrl?: string;
 }
 
+export interface GoogleReviewItem {
+  id: string;
+  name: string;
+  suburb: string;
+  avatarBg: string;
+  avatarInitials: string;
+  rating: number;
+  timeAgo: string;
+  project: string;
+  comment: string;
+  verified: boolean;
+}
+
 export interface GalleryProject {
   id: string;
   title: string;
