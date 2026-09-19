@@ -17,8 +17,6 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
-  -webkit-transform: translateZ(0); /* Force GPU rendering on iOS */
-  transform: translateZ(0);
 }
 
 /* Fix images not loading on mobile — force visibility */
@@ -759,6 +757,7 @@ img[src] {
   margin-bottom: 16px !important;
   position: relative !important;
   background-color: #f1f5f9;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
 }
 
 .portfolio-card-img {
@@ -810,17 +809,25 @@ img[src] {
   }
 
   .portfolio-card-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
     border-radius: 18px !important;
   }
 }
 
 @media screen and (max-width: 576px) {
   .portfolio-card-figure {
-    height: 210px !important;
+    height: 220px !important;
     border-radius: 16px !important;
   }
 
   .portfolio-card-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
     border-radius: 16px !important;
   }
 }
