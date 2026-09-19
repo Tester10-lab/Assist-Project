@@ -349,11 +349,12 @@ export const Footer: React.FC = () => {
                 </li>
                 <li>
                   <a 
-                    href="https://maps.google.com/?q=139+Boundary+Road,+North+Melbourne+VIC+3051" 
+                    href="https://www.google.com/search?q=Assist+Roofing+and+Home+Solution+North+Melbourne" 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="text-decoration-none"
-                    aria-label="Assist Roofing Google Maps"
+                    aria-label="Assist Roofing and Home Solution Google Business Profile"
+                    title="Assist Roofing and Home Solution on Google"
                   >
                     <i className="fa-brands fa-google social-networks"></i>
                   </a>

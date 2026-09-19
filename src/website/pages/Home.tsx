@@ -63,17 +63,23 @@ export const Home: React.FC = () => {
                 <div className="col-lg-8 col-12">
                   <div className="banner-content-con">
                     
-                    {/* Rating Header */}
-                    <div className="d-flex align-items-center rating-con wow animated fadeInDown">
+                    {/* Rating Header - Linked to Google Business Profile */}
+                    <a 
+                      href="https://www.google.com/search?q=Assist+Roofing+and+Home+Solution+North+Melbourne"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="d-inline-flex align-items-center rating-con wow animated fadeInDown text-decoration-none cursor-pointer hover:opacity-90 transition-opacity"
+                      title="View Assist Roofing and Home Solution on Google Business"
+                    >
                       <figure className="mb-0">
                         <img src={asset('/roofora-assets/images/google-icon.png')} alt="Google" className="google-icon" />
                       </figure>
                       <span className="d-inline-block rating-text text-white font-weight-600 oswald-font">4.9</span>
                       <div>
-                        <span className="d-block text-size-14 text-white">4.9/5 Reviews</span>
+                        <span className="d-block text-size-14 text-white font-weight-500">4.9/5 Google Reviews</span>
                         <img src={asset('/roofora-assets/images/stars.png')} alt="stars" className="img-fluid" />
                       </div>
-                    </div>
+                    </a>
 
                     {/* Core Brand Authority Heading */}
                     <h1 className="text-size-75 text-white font-weight-700 wow animated fadeInLeft leading-tight">

@@ -38,11 +38,17 @@ export const Testimonials: React.FC = () => {
         <div className="max-w-[1320px] mx-auto px-4 sm:px-8">
           
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border border-[#e6ebf6] mb-4">
+            <a 
+              href="https://www.google.com/search?q=Assist+Roofing+and+Home+Solution+North+Melbourne"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-white px-5 py-2.5 rounded-full shadow-sm border border-[#e6ebf6] mb-4 hover:border-[#f19e1f] hover:shadow-md transition-all text-decoration-none cursor-pointer"
+              title="View Assist Roofing and Home Solution Google Reviews"
+            >
               <img src={asset('/roofora-assets/images/google-icon.png')} alt="Google" className="w-5 h-5 object-contain" />
               <span className="font-['Oswald',sans-serif] text-[#f19e1f] font-bold text-base">4.9 / 5.0</span>
-              <span className="text-xs text-[#616a7e]">Based on 500+ Verified Assist Roof Projects</span>
-            </div>
+              <span className="text-xs text-[#616a7e] font-medium">Verified Google Reviews • 500+ Projects ↗</span>
+            </a>
             <h2 className="text-3xl sm:text-5xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-4">
               Verified Client Stories
             </h2>
