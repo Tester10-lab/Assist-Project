@@ -1,19 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useWebsite } from '../WebsiteContext';
 import { asset } from '../utils/asset';
+import { ALL_SERVICES_OFFERED } from '../data';
 
 export const QuoteModal: React.FC = () => {
-  const { isQuoteModalOpen, closeQuoteModal } = useWebsite();
+  const { isQuoteModalOpen, closeQuoteModal, initialServiceForQuote } = useWebsite();
   const [form, setForm] = useState({
     name: '',
     phone: '',
     email: '',
-    service: 'Emergency Roof Repair',
+    service: 'Roof Leak Repairs',
     address: '',
     urgency: 'Standard (1-2 Days)',
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (initialServiceForQuote) {
+      setForm((prev) => ({ ...prev, service: initialServiceForQuote }));
+    }
+  }, [initialServiceForQuote]);
 
   if (!isQuoteModalOpen) return null;
 
@@ -150,11 +157,27 @@ export const QuoteModal: React.FC = () => {
                     className="form-control br-20 py-2 px-3 text-size-14"
                     style={{ height: '48px', border: '1px solid #cfd8e8' }}
                   >
-                    <option>Emergency Roof Repair</option>
-                    <option>Full Re-Roofing & Colorbond</option>
-                    <option>Roof Leak & Tile Inspection</option>
-                    <option>Chimney Flashing & Valleys</option>
-                    <option>Commercial Roofing</option>
+                    <optgroup label="Repairs & Leak Detection">
+                      {ALL_SERVICES_OFFERED.filter(s => s.category === 'repairs').map(s => (
+                        <option key={s.id} value={s.name}>{s.name}</option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="Installation & Replacement">
+                      {ALL_SERVICES_OFFERED.filter(s => s.category === 'replacement').map(s => (
+                        <option key={s.id} value={s.name}>{s.name}</option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="Restoration, Flashing & Capping">
+                      {ALL_SERVICES_OFFERED.filter(s => s.category === 'restoration').map(s => (
+                        <option key={s.id} value={s.name}>{s.name}</option>
+                      ))}
+                    </optgroup>
+                    <optgroup label="Gutters, Drainage & Additions">
+                      {ALL_SERVICES_OFFERED.filter(s => s.category === 'gutters').map(s => (
+                        <option key={s.id} value={s.name}>{s.name}</option>
+                      ))}
+                    </optgroup>
+                    <option value="Other / Bespoke Roofing Request">Other / Bespoke Roofing Request</option>
                   </select>
                 </div>
               </div>

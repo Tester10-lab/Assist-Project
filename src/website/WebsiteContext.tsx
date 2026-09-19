@@ -13,7 +13,8 @@ interface WebsiteContextType {
   isMobileMenuOpen: boolean;
   setMobileMenuOpen: (open: boolean) => void;
   isQuoteModalOpen: boolean;
-  openQuoteModal: () => void;
+  initialServiceForQuote?: string;
+  openQuoteModal: (serviceOrEvent?: string | React.MouseEvent<any> | any) => void;
   closeQuoteModal: () => void;
   lightboxData: LightboxData | null;
   openLightbox: (data: LightboxData) => void;
@@ -26,6 +27,7 @@ export const WebsiteProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [currentPage, setCurrentPage] = useState<PageId>('home');
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [initialServiceForQuote, setInitialServiceForQuote] = useState<string | undefined>(undefined);
   const [lightboxData, setLightboxData] = useState<LightboxData | null>(null);
 
   const navigateTo = (page: PageId) => {
@@ -34,8 +36,18 @@ export const WebsiteProvider: React.FC<{ children: React.ReactNode }> = ({ child
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const openQuoteModal = () => setIsQuoteModalOpen(true);
-  const closeQuoteModal = () => setIsQuoteModalOpen(false);
+  const openQuoteModal = (serviceOrEvent?: string | React.MouseEvent<any> | any) => {
+    if (typeof serviceOrEvent === 'string') {
+      setInitialServiceForQuote(serviceOrEvent);
+    } else {
+      setInitialServiceForQuote(undefined);
+    }
+    setIsQuoteModalOpen(true);
+  };
+  const closeQuoteModal = () => {
+    setIsQuoteModalOpen(false);
+    setInitialServiceForQuote(undefined);
+  };
 
   const openLightbox = (data: LightboxData) => setLightboxData(data);
   const closeLightbox = () => setLightboxData(null);
@@ -54,6 +66,7 @@ export const WebsiteProvider: React.FC<{ children: React.ReactNode }> = ({ child
       isMobileMenuOpen, 
       setMobileMenuOpen,
       isQuoteModalOpen,
+      initialServiceForQuote,
       openQuoteModal,
       closeQuoteModal,
       lightboxData,

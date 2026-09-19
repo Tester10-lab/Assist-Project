@@ -1,11 +1,16 @@
-import React from 'react';
-import { SERVICES, SERVICE_AREAS } from '../data';
+import React, { useState } from 'react';
+import { SERVICES, SERVICE_AREAS, ALL_SERVICES_OFFERED, ADDITIONAL_OFFERINGS } from '../data';
 import { useWebsite } from '../WebsiteContext';
 import { motion } from 'framer-motion';
 import { asset } from '../utils/asset';
 
 export const Services: React.FC = () => {
-  const { setCurrentPage } = useWebsite();
+  const { setCurrentPage, openQuoteModal } = useWebsite();
+  const [activeCategory, setActiveCategory] = useState<'all' | 'repairs' | 'replacement' | 'restoration' | 'gutters'>('all');
+
+  const filteredServices = activeCategory === 'all'
+    ? ALL_SERVICES_OFFERED
+    : ALL_SERVICES_OFFERED.filter(s => s.category === activeCategory);
 
   const workflowSteps = [
     {
@@ -119,6 +124,148 @@ export const Services: React.FC = () => {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── Services We Offer & Many More (24 Checklist Items) ── */}
+      <section id="services-checklist" className="py-20 bg-white border-b border-[#e6ebf6]">
+        <div className="max-w-[1320px] mx-auto px-4 sm:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-12">
+            <span className="text-sm font-bold uppercase tracking-wider text-[#f19e1f] mb-2 block">
+              Complete Melbourne Roofing Scope
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-4">
+              Services We Offer — And Many More
+            </h2>
+            <p className="text-base text-[#616a7e] leading-relaxed">
+              From emergency storm damage repairs and pinpoint leak detection to full Colorbond replacements and new guttering — our certified team covers every facet of residential and commercial roofing across Melbourne and Victoria.
+            </p>
+          </div>
+
+          {/* Filter Tabs */}
+          <div className="flex flex-wrap justify-center gap-2 mb-12">
+            {[
+              { id: 'all', label: `All Services (${ALL_SERVICES_OFFERED.length})` },
+              { id: 'repairs', label: 'Repairs & Leaks (6)' },
+              { id: 'replacement', label: 'Installation & Replacement (6)' },
+              { id: 'restoration', label: 'Restoration & Painting (5)' },
+              { id: 'gutters', label: 'Gutters & Additions (7)' },
+            ].map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveCategory(tab.id as any)}
+                className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
+                  activeCategory === tab.id
+                    ? 'bg-[#1e2e4f] text-white shadow-md'
+                    : 'bg-[#f4f8ff] text-[#1e2e4f] hover:bg-[#e2ebfa] border border-[#d6e2f5]'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Services Checklist Grid (Exact 24 Items from User's List) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+            {filteredServices.map((service, idx) => (
+              <motion.div
+                key={service.id}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.25, delay: idx * 0.02 }}
+                className="bg-[#f8faff] hover:bg-white rounded-2xl p-6 border border-[#e6ebf6] hover:border-[#f19e1f] shadow-sm hover:shadow-lg transition-all flex flex-col justify-between group"
+              >
+                <div>
+                  <div className="flex items-start gap-3 mb-3">
+                    {/* Red Checkmark Icon matching the user's checklist screenshot */}
+                    <div className="w-8 h-8 rounded-full bg-red-50 border border-red-200 flex items-center justify-center shrink-0 text-[#dc2626] font-extrabold shadow-sm group-hover:bg-[#dc2626] group-hover:text-white transition-colors">
+                      <i className="fa-solid fa-check text-sm"></i>
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-lg font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] group-hover:text-[#f19e1f] transition-colors leading-snug">
+                        {service.name}
+                      </h3>
+                      <span className="text-[10px] uppercase tracking-wider font-semibold text-[#8a96a8]">
+                        {service.categoryLabel}
+                      </span>
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-[#616a7e] leading-relaxed mb-4 pl-11">
+                    {service.description}
+                  </p>
+                </div>
+
+                <div className="pt-3 border-t border-[#eaf0fa] flex items-center justify-between pl-11">
+                  <span className="text-[11px] font-semibold text-[#1e2e4f] bg-white px-2.5 py-1 rounded-full border border-[#dde5f4]">
+                    {service.badge}
+                  </span>
+                  <button
+                    onClick={() => openQuoteModal(service.name)}
+                    className="text-xs font-bold text-[#f19e1f] hover:text-[#d88713] flex items-center gap-1 group-hover:translate-x-1 transition-all cursor-pointer"
+                  >
+                    <span>Book Service</span>
+                    <i className="fa-solid fa-chevron-right text-[10px]"></i>
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* ── And Many More Feature Showcase ── */}
+          <div className="bg-gradient-to-br from-[#1e2e4f] to-[#15233d] text-white rounded-3xl p-8 sm:p-12 shadow-xl border border-white/10 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-[#f19e1f]/10 rounded-full blur-3xl pointer-events-none" />
+            
+            <div className="relative z-10">
+              <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 mb-8 border-b border-white/10 pb-6">
+                <div>
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#f19e1f] block mb-2">
+                    Custom & Specialized Work
+                  </span>
+                  <h3 className="text-2xl sm:text-4xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-white">
+                    ... And Many More Specialized Roofing Services
+                  </h3>
+                  <p className="text-sm text-[#b7c1d5] max-w-2xl mt-2 font-light">
+                    Have a unique architectural design, heritage requirement, or complex commercial roof? Our Melbourne crew handles custom requests with direct project director supervision.
+                  </p>
+                </div>
+                
+                <div className="flex flex-wrap items-center gap-3 shrink-0">
+                  <a
+                    href="tel:0478936120"
+                    className="bg-[#f19e1f] hover:bg-[#d88713] text-[#1e2e4f] font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-full transition-all shadow-md flex items-center gap-2"
+                  >
+                    <i className="fa-solid fa-phone"></i>
+                    <span>Call 0478 936 120</span>
+                  </a>
+                  <button
+                    onClick={() => openQuoteModal('Custom Roofing Request')}
+                    className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-full transition-all border border-white/20 cursor-pointer"
+                  >
+                    Request Custom Quote
+                  </button>
+                </div>
+              </div>
+
+              {/* Additional Services Badges */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {ADDITIONAL_OFFERINGS.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl p-4 flex items-center gap-3 transition-colors"
+                  >
+                    <div className="w-7 h-7 rounded-full bg-[#f19e1f]/20 text-[#f19e1f] flex items-center justify-center shrink-0 text-xs">
+                      <i className="fa-solid fa-plus"></i>
+                    </div>
+                    <span className="text-xs font-semibold text-white/90 leading-tight">
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 

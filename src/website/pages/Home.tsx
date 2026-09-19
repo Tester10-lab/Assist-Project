@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useWebsite } from '../WebsiteContext';
-import { FAQS } from '../data';
+import { FAQS, ALL_SERVICES_OFFERED } from '../data';
 import { AnimatedCounter } from '../components/AnimatedCounter';
 import { asset } from '../utils/asset';
 
@@ -370,6 +370,73 @@ export const Home: React.FC = () => {
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* ── Services We Offer & Many More Checklist Grid (All 24 Items) ── */}
+            <div className="mt-5 pt-4">
+              <div className="bg-white/10 backdrop-blur-md rounded-3xl p-4 p-md-5 border border-white/20">
+                <div className="row align-items-center mb-4">
+                  <div className="col-lg-8">
+                    <span className="special-text text-accent d-block mb-1 text-size-14">Full Melbourne Capability</span>
+                    <h3 className="text-white text-size-36 font-weight-700 mb-2">
+                      Services We Offer — And Many More
+                    </h3>
+                    <p className="text-white text-size-15 opacity-80 mb-0">
+                      Need one of these exact services? Every job is handled by licensed Melbourne trades with AS 4349.1 compliance and a 10-year workmanship guarantee.
+                    </p>
+                  </div>
+                  <div className="col-lg-4 text-lg-right mt-3 mt-lg-0">
+                    <button
+                      onClick={() => openQuoteModal()}
+                      className="bg-[#f19e1f] hover:bg-[#d88713] text-white font-weight-bold rounded-pill px-4 py-3 text-size-14 shadow-sm border-0 transition-all cursor-pointer"
+                    >
+                      Book Free Inspection <i className="fa-solid fa-calendar-check ml-1"></i>
+                    </button>
+                  </div>
+                </div>
+
+                {/* 24 Checklist Items Grid */}
+                <div className="row">
+                  {ALL_SERVICES_OFFERED.map((srv) => (
+                    <div key={srv.id} className="col-lg-3 col-md-4 col-sm-6 mb-3">
+                      <div 
+                        onClick={() => openQuoteModal(srv.name)}
+                        className="d-flex align-items-center gap-2 p-2.5 rounded-3 bg-white/10 hover:bg-white/20 transition-all cursor-pointer border border-white/10 group"
+                        title={`Request quote for ${srv.name}`}
+                      >
+                        <div 
+                          className="rounded-circle d-flex align-items-center justify-content-center shrink-0"
+                          style={{ width: '26px', height: '26px', backgroundColor: '#fff', color: '#dc2626', fontWeight: 'bold', fontSize: '13px' }}
+                        >
+                          <i className="fa-solid fa-check"></i>
+                        </div>
+                        <span className="text-white text-size-14 font-weight-600 line-clamp-1 group-hover:text-[#f19e1f] transition-colors">
+                          {srv.name}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* And Many More bottom ribbon */}
+                <div className="mt-4 pt-3 border-top border-white/20 d-flex flex-wrap align-items-center justify-content-between gap-3">
+                  <div className="d-flex align-items-center gap-2 text-white text-size-14">
+                    <span className="badge bg-[#f19e1f] text-[#1e2e4f] font-weight-bold px-3 py-1.5 rounded-pill text-uppercase">
+                      + And Many More
+                    </span>
+                    <span className="opacity-90">
+                      Whirlybirds, Valley Replacements, Chimney Flashing, Leaf Guards & Custom Metal Works.
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => setCurrentPage('services')}
+                    className="text-white hover:text-[#f19e1f] font-weight-bold text-size-14 text-decoration-none border-0 bg-transparent cursor-pointer"
+                  >
+                    View Complete Scope & Details <i className="fa-solid fa-arrow-right ml-1"></i>
+                  </button>
+                </div>
+
+              </div>
             </div>
 
           </div>
