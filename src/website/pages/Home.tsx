@@ -729,7 +729,15 @@ export const Home: React.FC = () => {
 
       {/* ── TESTIMONIALS SECTION ── */}
       <div className="padding-rl float-left w-100">
-        <section className="testimonials-con w-100 float-left padding-top padding-bottom position-relative main-box text-center br-50">
+        <section 
+          className="testimonials-con w-100 float-left padding-top padding-bottom position-relative main-box text-center br-50"
+          style={{
+            backgroundImage: `linear-gradient(180deg, rgba(15, 23, 42, 0.93) 0%, rgba(26, 42, 74, 0.96) 100%), url('${asset('/roofora-assets/images/testimonial-bg-img.jpg')}')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        >
           <figure><img src={asset('/roofora-assets/images/left-quote.png')} alt="quote" className="position-absolute left-quote d-none d-md-block" /></figure>
           <figure><img src={asset('/roofora-assets/images/right-quote.png')} alt="quote" className="position-absolute right-quote d-none d-md-block" /></figure>
           
