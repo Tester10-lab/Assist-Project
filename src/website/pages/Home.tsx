@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useWebsite } from '../WebsiteContext';
+import { useCmsContent } from '../useCmsContent';
 import { FAQS, ALL_SERVICES_OFFERED } from '../data';
 import { AnimatedCounter } from '../components/AnimatedCounter';
 import { GoogleReviewsCarousel } from '../components/GoogleReviewsCarousel';
@@ -7,35 +8,10 @@ import { asset } from '../utils/asset';
 
 export const Home: React.FC = () => {
   const { setCurrentPage, openQuoteModal, openLightbox } = useWebsite();
+  const { services: cmsServices, pages } = useCmsContent();
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
-  const [activeTestimonial, setActiveTestimonial] = useState(1);
 
-  const testimonialsList = [
-    {
-      name: 'Jennifer Troyer',
-      role: 'Satisfied Customer',
-      avatar: 'JT',
-      comment: 'Outstanding roofing service from start to finish. The team was punctual, highly skilled, and ensured everything was done safely and professionally. My roof looks brand new and the quality of work exceeded expectations.'
-    },
-    {
-      name: 'Mark Reynolds',
-      role: 'Homeowner, Hawthorn',
-      avatar: 'MR',
-      comment: 'ASSIST was honest, professional, and hands-on from the first drone inspection to the final repair. They clearly explained the issue, provided a fair transparent quote, and completed the work exactly as promised. Our Colorbond roof looks spectacular!'
-    },
-    {
-      name: 'Lucy Smith',
-      role: 'Property Manager, Brighton',
-      avatar: 'LS',
-      comment: 'Highly impressed with their construction expertise. They handled everything from roof repairs to structural flashing improvements with precision. The project was completed on time and within budget, with excellent communication throughout.'
-    },
-    {
-      name: 'David Campbell',
-      role: 'Verified Customer, Kew',
-      avatar: 'DC',
-      comment: 'Reliable and professional roofing contractors. They quickly identified the leak issue during a severe Melbourne storm, installed temporary tarping, and fixed the tile bedding permanently. Highly recommended.'
-    }
-  ];
+  const allServices = cmsServices && cmsServices.length > 0 ? cmsServices : ALL_SERVICES_OFFERED;
 
   return (
     <div className="w-100 float-left">
@@ -84,13 +60,16 @@ export const Home: React.FC = () => {
 
                     {/* Core Brand Authority Heading */}
                     <h1 className="text-size-75 text-white font-weight-700 wow animated fadeInLeft leading-tight">
-                      Premium Melbourne Roofing & Home Solutions <br className="d-none d-lg-block" />
-                      Built on Trust.
+                      {pages?.home?.heroHeading ? (
+                        pages.home.heroHeading
+                      ) : (
+                        <>Premium Melbourne Roofing & Home Solutions <br className="d-none d-lg-block" /> Built on Trust.</>
+                      )}
                     </h1>
 
                     {/* Subtitle with Primary Target Keywords */}
                     <p className="text-white text-size-18 wow animated fadeInLeft delay-1s max-w-2xl mt-3 mb-4">
-                      Melbourne's trusted roofing contractor & roof restoration experts. We provide professional roof restorations, prompt leak repairs, and visual inspections under AS 4349.1-2007 standards with an ironclad 10-year workmanship guarantee.
+                      {pages?.home?.heroDescription || "Melbourne's trusted roofing contractor & roof restoration experts. We provide professional roof restorations, prompt leak repairs, and visual inspections under AS 4349.1-2007 standards with an ironclad 10-year workmanship guarantee."}
                     </p>
 
                     {/* Action Buttons */}
@@ -398,7 +377,7 @@ export const Home: React.FC = () => {
 
                 {/* 24 Checklist Items Grid */}
                 <div className="row">
-                  {ALL_SERVICES_OFFERED.map((srv) => (
+                  {allServices.map((srv) => (
                     <div key={srv.id} className="col-lg-3 col-md-4 col-sm-6 mb-3">
                       <div 
                         onClick={() => openQuoteModal(srv.name)}

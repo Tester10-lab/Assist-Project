@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useWebsite } from '../WebsiteContext';
+import { useCmsContent } from '../useCmsContent';
 import { asset } from '../utils/asset';
 import { ALL_SERVICES_OFFERED } from '../data';
 
 export const QuoteModal: React.FC = () => {
   const { isQuoteModalOpen, closeQuoteModal, initialServiceForQuote } = useWebsite();
+  const { services: cmsServices } = useCmsContent();
+  const allServices = cmsServices && cmsServices.length > 0 ? cmsServices : ALL_SERVICES_OFFERED;
   const [form, setForm] = useState({
     name: '',
     phone: '',
@@ -158,22 +161,22 @@ export const QuoteModal: React.FC = () => {
                     style={{ height: '48px', border: '1px solid #cfd8e8' }}
                   >
                     <optgroup label="Repairs & Leak Detection">
-                      {ALL_SERVICES_OFFERED.filter(s => s.category === 'repairs').map(s => (
+                      {allServices.filter(s => s.category === 'repairs').map(s => (
                         <option key={s.id} value={s.name}>{s.name}</option>
                       ))}
                     </optgroup>
                     <optgroup label="Installation & Replacement">
-                      {ALL_SERVICES_OFFERED.filter(s => s.category === 'replacement').map(s => (
+                      {allServices.filter(s => s.category === 'replacement').map(s => (
                         <option key={s.id} value={s.name}>{s.name}</option>
                       ))}
                     </optgroup>
                     <optgroup label="Restoration, Flashing & Capping">
-                      {ALL_SERVICES_OFFERED.filter(s => s.category === 'restoration').map(s => (
+                      {allServices.filter(s => s.category === 'restoration').map(s => (
                         <option key={s.id} value={s.name}>{s.name}</option>
                       ))}
                     </optgroup>
                     <optgroup label="Gutters, Drainage & Additions">
-                      {ALL_SERVICES_OFFERED.filter(s => s.category === 'gutters').map(s => (
+                      {allServices.filter(s => s.category === 'gutters').map(s => (
                         <option key={s.id} value={s.name}>{s.name}</option>
                       ))}
                     </optgroup>

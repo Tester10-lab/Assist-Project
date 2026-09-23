@@ -29,7 +29,7 @@ export const GoogleReviewsCarousel: React.FC<GoogleReviewsCarouselProps> = ({
         if ((window as any).elfsightPlatform && typeof (window as any).elfsightPlatform.init === 'function') {
           (window as any).elfsightPlatform.init();
         }
-      } catch (err) {
+      } catch {
         // silently ignore
       }
     }

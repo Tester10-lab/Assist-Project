@@ -1,0 +1,981 @@
+{
+  "users": [
+    {
+      "id": "51b4b243-5926-4bc2-9d85-aeb874f29ad7",
+      "email": "admin@assistroofing.com.au",
+      "name": "Administrator",
+      "role": "admin",
+      "passwordHash": "12371c532065d59c291d634dcb8e882ed0966c5473d124854abc63e1816893d50c5a6ebde00a5d53b310938c1e621256def590a7e02667350323cea1b363e6d4",
+      "passwordSalt": "96afe1a36089258b88d96b2e9bb81ca8",
+      "mustChangePassword": true,
+      "createdAt": "2026-09-23T08:33:16.552Z",
+      "updatedAt": "2026-09-23T08:33:16.552Z"
+    }
+  ],
+  "sessions": [],
+  "pages": [
+    {
+      "id": "home",
+      "slug": "",
+      "title": "Home",
+      "status": "published",
+      "heroHeading": "Roofing Contractor & Roof Restoration Melbourne",
+      "heroDescription": "Certified roofing experts specializing in Colorbond restorations, emergency leak repairs, and AS 4349.1 structural inspections with a 10-year warranty.",
+      "heroImage": "/roofora-assets/images/banner-bg-img.jpg",
+      "content": "Assist Roofing & Home Solution is Melbourne’s premier residential and commercial roofing contractor.",
+      "seoTitle": "Roofing Contractor & Roof Restoration Melbourne | Assist Roofing",
+      "metaDescription": "Melbourne's trusted roofing contractor & restoration experts. Colorbond restorations, emergency leak repairs, and AS 4349.1 inspections with 10-yr warranty.",
+      "canonical": "https://assistroofing.com.au/",
+      "ogImage": "https://assistroofing.com.au/roofora-assets/images/portfolio-img1.jpg",
+      "noIndex": false,
+      "updatedAt": "2026-09-23T08:33:16.355Z"
+    },
+    {
+      "id": "about",
+      "slug": "about",
+      "title": "About Us",
+      "status": "published",
+      "heroHeading": "Master Craftsmanship & Honest Melbourne Values",
+      "heroDescription": "Founded by Boxy and Peter with over 15 years of on-site experience across Melbourne suburbs.",
+      "heroImage": "/roofora-assets/images/sub-banner-bg-img.jpg",
+      "content": "We take pride in every ridge cap, Colorbond sheet, and structural rafter we touch.",
+      "seoTitle": "About Assist Roofing | Licensed Melbourne Roofing Contractors",
+      "metaDescription": "Learn about Assist Roofing & Home Solution. Boxy & Peter provide honest, licensed roofing across Melbourne.",
+      "canonical": "https://assistroofing.com.au/#about",
+      "ogImage": "https://assistroofing.com.au/roofora-assets/images/portfolio-img2.jpg",
+      "noIndex": false,
+      "updatedAt": "2026-09-23T08:33:16.367Z"
+    },
+    {
+      "id": "services",
+      "slug": "services",
+      "title": "Services",
+      "status": "published",
+      "heroHeading": "Comprehensive Melbourne Roofing Services",
+      "heroDescription": "From emergency leak patching and ridge repointing to complete Colorbond re-roofing.",
+      "heroImage": "/roofora-assets/images/sub-banner-bg-img.jpg",
+      "content": "24 specialized services backed by our Clean Jobsite Promise and 10-Year Workmanship Warranty.",
+      "seoTitle": "All Roofing Services Melbourne | Repairs, Restoration & Re-Roofing | Assist Roofing",
+      "metaDescription": "Explore our full range of 24 roofing services across Melbourne: leak fixes, re-roofing, gutters, and painting.",
+      "canonical": "https://assistroofing.com.au/#services",
+      "ogImage": "https://assistroofing.com.au/roofora-assets/images/portfolio-img4.jpg",
+      "noIndex": false,
+      "updatedAt": "2026-09-23T08:33:16.367Z"
+    },
+    {
+      "id": "gallery",
+      "slug": "gallery",
+      "title": "Projects & Gallery",
+      "status": "published",
+      "heroHeading": "Our Recent Melbourne Roofing Projects",
+      "heroDescription": "Inspect real before-and-after transformations of heritage terracotta and modern Colorbond homes.",
+      "heroImage": "/roofora-assets/images/sub-banner-bg-img.jpg",
+      "content": "High-resolution photo portfolio of completed projects across Toorak, Brighton, Hawthorn, and Kew.",
+      "seoTitle": "Roofing Project Gallery Melbourne | Before & After Photos | Assist Roofing",
+      "metaDescription": "Browse real roofing projects completed by Assist Roofing in Melbourne. Terracotta and Colorbond examples.",
+      "canonical": "https://assistroofing.com.au/#gallery",
+      "ogImage": "https://assistroofing.com.au/roofora-assets/images/portfolio-img1.jpg",
+      "noIndex": false,
+      "updatedAt": "2026-09-23T08:33:16.367Z"
+    },
+    {
+      "id": "testimonials",
+      "slug": "testimonials",
+      "title": "Testimonials & Reviews",
+      "status": "published",
+      "heroHeading": "What Melbourne Homeowners Say About Assist Roofing",
+      "heroDescription": "Over 520 verified 5-star customer reviews across Google and local Melbourne communities.",
+      "heroImage": "/roofora-assets/images/sub-banner-bg-img.jpg",
+      "content": "Real reviews from residential homeowners and commercial property managers.",
+      "seoTitle": "Customer Reviews & Testimonials | Assist Roofing Melbourne",
+      "metaDescription": "Read 520+ verified 5-star reviews from Melbourne homeowners about Assist Roofing services.",
+      "canonical": "https://assistroofing.com.au/#testimonials",
+      "ogImage": "https://assistroofing.com.au/roofora-assets/images/portfolio-img5.jpg",
+      "noIndex": false,
+      "updatedAt": "2026-09-23T08:33:16.367Z"
+    },
+    {
+      "id": "contact",
+      "slug": "contact",
+      "title": "Contact Us",
+      "status": "published",
+      "heroHeading": "Get in Touch for a Free Melbourne Roof Inspection",
+      "heroDescription": "Call 0478 936 120 or submit an inspection request online. Same-day emergency response available.",
+      "heroImage": "/roofora-assets/images/sub-banner-bg-img.jpg",
+      "content": "Headquartered at 139 Boundary Road, North Melbourne VIC 3051.",
+      "seoTitle": "Contact Assist Roofing Melbourne | Book Free Roof Inspection",
+      "metaDescription": "Contact Assist Roofing in North Melbourne. Call 0478 936 120 for free drone inspection and quote.",
+      "canonical": "https://assistroofing.com.au/#contact",
+      "ogImage": "https://assistroofing.com.au/roofora-assets/images/portfolio-img1.jpg",
+      "noIndex": false,
+      "updatedAt": "2026-09-23T08:33:16.367Z"
+    }
+  ],
+  "services": [
+    {
+      "id": "roof-leak-repairs",
+      "name": "Roof Leak Repairs",
+      "slug": "roof-leak-repairs",
+      "category": "repairs",
+      "categoryLabel": "Repairs & Leaks",
+      "shortDescription": "Pinpoint emergency water leak detection, broken tile replacements, and weatherproof seal fixes.",
+      "fullDescription": "Comprehensive rapid-response roof leak repair service across Greater Melbourne. Our licensed VBA trades diagnose active water penetration paths, replace broken tiles, re-bed damaged ridge capping, and apply industrial weatherproof seals backed by warranty.",
+      "image": "/roofora-assets/images/services-img1.jpg",
+      "icon": "fa-solid fa-droplet-slash",
+      "badge": "Urgent 24/7",
+      "features": [
+        "24/7 Emergency Dispatch",
+        "Thermal & Drone Leak Tracing",
+        "Same-Day Temporary Tarping",
+        "100% Water Penetration Warranty"
+      ],
+      "benefits": [
+        "Stops ceiling and electrical damage",
+        "Affordable targeted repair",
+        "VBA certified tradespeople"
+      ],
+      "faqs": [
+        {
+          "q": "How fast can you attend an active roof leak?",
+          "a": "For severe active leaks in Melbourne metro, we offer priority same-day dispatch."
+        }
+      ],
+      "seoTitle": "Roof Leak Repairs Melbourne | 24/7 Emergency Leak Fix | Assist Roofing",
+      "metaDescription": "Emergency roof leak repairs and leak detection across Melbourne. Same-day service, licensed roofers, and guaranteed workmanship.",
+      "status": "published",
+      "order": 1
+    },
+    {
+      "id": "roof-replacement",
+      "name": "Roof Replacement",
+      "slug": "roof-replacement",
+      "category": "replacement",
+      "categoryLabel": "Installation & Replacement",
+      "shortDescription": "Complete tile-to-Colorbond or full roof strip-down & replacement with 10-year warranty.",
+      "fullDescription": "Complete residential and commercial roof replacement engineered to Australian AS 1562.1 standards. We replace aging, porous tile or rusted iron with genuine Bluescope Colorbond steel, new treated timber battens, and heavy-duty vapor barrier sarking.",
+      "image": "/roofora-assets/images/services-img4.jpg",
+      "icon": "fa-solid fa-house-chimney",
+      "badge": "10-Yr Warranty",
+      "features": [
+        "Tile-to-Colorbond Conversion",
+        "AS/NZS 4200.1 Heavy Duty Sarking",
+        "Treated Pine Battens",
+        "10-Year Workmanship Guarantee"
+      ],
+      "benefits": [
+        "Increases property value",
+        "Superior storm & hail resistance",
+        "Zero maintenance for decades"
+      ],
+      "faqs": [
+        {
+          "q": "Can you replace our tiled roof with Colorbond?",
+          "a": "Yes! Tile-to-Colorbond conversion is our specialty across Melbourne."
+        }
+      ],
+      "seoTitle": "Roof Replacement Melbourne | Colorbond Re-Roofing | Assist Roofing",
+      "metaDescription": "Transform your home with a complete roof replacement in Melbourne. Tile to Colorbond conversions with 10-year warranty.",
+      "status": "published",
+      "order": 2
+    },
+    {
+      "id": "roof-repairs",
+      "name": "Roof Repairs",
+      "slug": "roof-repairs",
+      "category": "repairs",
+      "categoryLabel": "Repairs & Leaks",
+      "shortDescription": "Fast, certified repair of cracked shingles, sagging battens, warped sheets, and valleys.",
+      "fullDescription": "Expert maintenance and repairs covering cracked terracotta tiles, damaged Colorbond sheets, rusted valley irons, and failing flashings.",
+      "image": "/roofora-assets/images/services-img2.jpg",
+      "icon": "fa-solid fa-screwdriver-wrench",
+      "badge": "Same-Day Dispatch",
+      "features": [
+        "Broken Tile Replacement",
+        "Valley Iron Renewal",
+        "Rafter Straightening",
+        "Safety Rail Equipped"
+      ],
+      "benefits": [
+        "Extends roof longevity",
+        "Prevents costly structural rot"
+      ],
+      "faqs": [],
+      "seoTitle": "Roof Repairs Melbourne | Certified Roofing Trades | Assist Roofing",
+      "metaDescription": "Professional roof repairs across Melbourne. Fast fixes for cracked tiles, leaking valleys, and storm damage.",
+      "status": "published",
+      "order": 3
+    },
+    {
+      "id": "new-roof-installation",
+      "name": "New Roof Installation",
+      "slug": "new-roof-installation",
+      "category": "replacement",
+      "categoryLabel": "Installation & Replacement",
+      "shortDescription": "Custom roof builds for new construction, extensions, and modern architectural Melbourne homes.",
+      "fullDescription": "Engineered new roof installations for architect-designed residences, home extensions, and commercial properties.",
+      "image": "/roofora-assets/images/portfolio-img1.jpg",
+      "icon": "fa-solid fa-hammer",
+      "badge": "AS 1562.1 Certified",
+      "features": [
+        "Architectural Standing Seam",
+        "Custom Orb & Klip-Lok Profiles",
+        "Complete Insulation Packages"
+      ],
+      "benefits": [
+        "Tailored architectural finish",
+        "Strict compliance with Victorian building codes"
+      ],
+      "faqs": [],
+      "seoTitle": "New Roof Installation Melbourne | Architectural Roofing | Assist Roofing",
+      "metaDescription": "Premium new roof installations in Melbourne for extensions and architectural developments.",
+      "status": "published",
+      "order": 4
+    },
+    {
+      "id": "roof-leak-detection",
+      "name": "Roof Leak Detection",
+      "slug": "roof-leak-detection",
+      "category": "repairs",
+      "categoryLabel": "Repairs & Leaks",
+      "shortDescription": "High-res drone survey and electronic moisture detection to trace invisible leak paths.",
+      "fullDescription": "Non-invasive diagnostic leak detection utilizing drone photography and deep-penetrating moisture meters.",
+      "image": "/roofora-assets/images/portfolio-img2.jpg",
+      "icon": "fa-solid fa-magnifying-glass",
+      "badge": "Drone Survey",
+      "features": [
+        "4K Aerial Drone Inspection",
+        "Thermal Imaging Analysis",
+        "Detailed Photo Condition Report"
+      ],
+      "benefits": [
+        "Identifies tricky mystery leaks",
+        "No invasive roof cutting required"
+      ],
+      "faqs": [],
+      "seoTitle": "Roof Leak Detection Melbourne | Drone Inspection | Assist Roofing",
+      "metaDescription": "Pinpoint hidden roof leaks with high-definition drone surveys and electronic moisture sensors.",
+      "status": "published",
+      "order": 5
+    },
+    {
+      "id": "roof-installation",
+      "name": "Roof Installation",
+      "slug": "roof-installation",
+      "category": "replacement",
+      "categoryLabel": "Installation & Replacement",
+      "shortDescription": "Expert residential and commercial installations built to highest Victorian Building Authority standards.",
+      "fullDescription": "Full-spectrum residential and commercial roofing installations across Victoria.",
+      "image": "/roofora-assets/images/services-img3.jpg",
+      "icon": "fa-solid fa-trowel-bricks",
+      "badge": "Master Roofers",
+      "features": [
+        "Colorbond & Zincalume",
+        "Timber & Steel Battens",
+        "Full Workmanship Warranty"
+      ],
+      "benefits": [
+        "Certified trades",
+        "Long-lasting weather protection"
+      ],
+      "faqs": [],
+      "seoTitle": "Roof Installation Melbourne | Assist Roofing",
+      "metaDescription": "Trusted Melbourne roof installations built to VBA standards with premium Australian materials.",
+      "status": "published",
+      "order": 6
+    },
+    {
+      "id": "storm-wind-damage-repair",
+      "name": "Roof Repair For Storm & Wind Damage",
+      "slug": "storm-wind-damage-repair",
+      "category": "repairs",
+      "categoryLabel": "Repairs & Leaks",
+      "shortDescription": "Emergency structural tarping, wind-blown sheet replacement, and rapid insurance report assessments.",
+      "fullDescription": "Rapid emergency response following severe Melbourne storms, high winds, and hail events. Includes digital photo reports for insurance claims.",
+      "image": "/roofora-assets/images/portfolio-img3.jpg",
+      "icon": "fa-solid fa-cloud-bolt",
+      "badge": "Insurance Ready",
+      "features": [
+        "Emergency Tarping",
+        "Insurance Scope of Works",
+        "Tree Branch Impact Repair"
+      ],
+      "benefits": [
+        "Fast insurance approval",
+        "Immediate hazard mitigation"
+      ],
+      "faqs": [],
+      "seoTitle": "Storm & Wind Damage Roof Repairs Melbourne | Assist Roofing",
+      "metaDescription": "Emergency storm and hail damage roof repairs in Melbourne. Insurance claim reports and urgent tarping.",
+      "status": "published",
+      "order": 7
+    },
+    {
+      "id": "roof-painting",
+      "name": "Roof Painting",
+      "slug": "roof-painting",
+      "category": "restoration",
+      "categoryLabel": "Restoration & Painting",
+      "shortDescription": "Multi-coat premium UV-reflective coating systems that protect against Australian sun & rain.",
+      "fullDescription": "High-durability roof painting and restoration using 100% acrylic heat-reflective membrane coatings.",
+      "image": "/roofora-assets/images/portfolio-img4.jpg",
+      "icon": "fa-solid fa-paint-roller",
+      "badge": "UV Reflective",
+      "features": [
+        "High-Pressure Cleaning",
+        "Anti-Fungal Sterilization",
+        "Heat-Reflective Nano-Coating"
+      ],
+      "benefits": [
+        "Reduces attic heat by up to 15°C",
+        "Refreshes home curb appeal"
+      ],
+      "faqs": [],
+      "seoTitle": "Roof Painting Melbourne | Heat-Reflective Roof Coatings | Assist Roofing",
+      "metaDescription": "Professional roof painting and heat reflective coatings for Melbourne tile and metal roofs.",
+      "status": "published",
+      "order": 8
+    },
+    {
+      "id": "tile-metal-roof-painting",
+      "name": "Tile & Metal Roof Painting",
+      "slug": "tile-metal-roof-painting",
+      "category": "restoration",
+      "categoryLabel": "Restoration & Painting",
+      "shortDescription": "Specialist primer and color restoration for faded terracotta, concrete tiles, and Colorbond steel.",
+      "fullDescription": "Custom multi-step priming and coating systems formulated specifically for porous concrete tiles or weathered Colorbond.",
+      "image": "/roofora-assets/images/portfolio-img5.jpg",
+      "icon": "fa-solid fa-brush",
+      "badge": "High Durability",
+      "features": [
+        "Color-Matched Formulations",
+        "Anti-Corrosion Primers",
+        "10-Year Peeling Warranty"
+      ],
+      "benefits": [
+        "Restores factory shine",
+        "Prevents tile degradation"
+      ],
+      "faqs": [],
+      "seoTitle": "Tile & Metal Roof Painting Melbourne | Assist Roofing",
+      "metaDescription": "Expert tile and metal roof restoration coatings across Melbourne. Long-lasting protection.",
+      "status": "published",
+      "order": 9
+    },
+    {
+      "id": "garage-pergola-roofing",
+      "name": "Garage & Pergola Roofing",
+      "slug": "garage-pergola-roofing",
+      "category": "replacement",
+      "categoryLabel": "Installation & Replacement",
+      "shortDescription": "Polycarbonate twin-wall and Colorbond roofing solutions for garages, carports, and outdoor pergolas.",
+      "fullDescription": "Outdoor roofing solutions including Colorbond corrugated sheeting, insulated patio panels, and multiwall polycarbonate.",
+      "image": "/roofora-assets/images/portfolio-img6.jpg",
+      "icon": "fa-solid fa-warehouse",
+      "badge": "Custom Fit",
+      "features": [
+        "Polycarbonate Light Transmission",
+        "Colorbond Insulation Panels",
+        "Integrated Guttering"
+      ],
+      "benefits": [
+        "Maximizes natural outdoor light",
+        "All-weather entertaining space"
+      ],
+      "faqs": [],
+      "seoTitle": "Garage & Pergola Roofing Melbourne | Patio Roofing | Assist Roofing",
+      "metaDescription": "Custom garage, pergola, and carport roofing installations across Greater Melbourne.",
+      "status": "published",
+      "order": 10
+    },
+    {
+      "id": "roof-flashing",
+      "name": "Roof Flashing",
+      "slug": "roof-flashing",
+      "category": "restoration",
+      "categoryLabel": "Restoration & Painting",
+      "shortDescription": "Lead, zinc, and apron flashing fabrication to stop water penetrating chimney and wall junctions.",
+      "fullDescription": "Precision metal fabrication and installation of chimney counter-flashings, parapet caps, and step flashings.",
+      "image": "/roofora-assets/images/portfolio-img9.jpg",
+      "icon": "fa-solid fa-shield-halved",
+      "badge": "Leak Prevention",
+      "features": [
+        "Custom Folded Apron Flashing",
+        "Lead & Colorbond Combinations",
+        "Masonry Chased Seals"
+      ],
+      "benefits": [
+        "Eliminates the #1 cause of internal leaks",
+        "Long-term masonry protection"
+      ],
+      "faqs": [],
+      "seoTitle": "Roof Flashing Repairs & Fabrication Melbourne | Assist Roofing",
+      "metaDescription": "Custom lead and Colorbond roof flashings for chimneys, parapets, and wall junctions in Melbourne.",
+      "status": "published",
+      "order": 11
+    },
+    {
+      "id": "roof-inspection",
+      "name": "Roof Inspection",
+      "slug": "roof-inspection",
+      "category": "repairs",
+      "categoryLabel": "Repairs & Leaks",
+      "shortDescription": "Comprehensive AS 4349.1 condition report with high-res photographs and structural assessments.",
+      "fullDescription": "Independent roof audit assessing structural framing, sarking, tiles, flashings, and stormwater drainage.",
+      "image": "/roofora-assets/images/portfolio-img7.jpg",
+      "icon": "fa-solid fa-clipboard-check",
+      "badge": "AS 4349.1 Standard",
+      "features": [
+        "AS 4349.1 Certified Checklist",
+        "Digital Photo Evidence",
+        "Prioritized Remediation Scope"
+      ],
+      "benefits": [
+        "Peace of mind before buying or selling",
+        "Written warranty compliance documentation"
+      ],
+      "faqs": [],
+      "seoTitle": "Roof Inspection Melbourne | AS 4349.1 Reports | Assist Roofing",
+      "metaDescription": "Comprehensive AS 4349.1 roof condition inspections and digital photo reports in Melbourne.",
+      "status": "published",
+      "order": 12
+    },
+    {
+      "id": "leaky-roof-maintenance",
+      "name": "Leaky Roof Maintenance",
+      "slug": "leaky-roof-maintenance",
+      "category": "repairs",
+      "categoryLabel": "Repairs & Leaks",
+      "shortDescription": "Preventative sealing, moss and debris clearing, and routine seasonal maintenance checks.",
+      "fullDescription": "Proactive seasonal roof maintenance to protect properties against severe Melbourne weather.",
+      "image": "/roofora-assets/images/services-img1.jpg",
+      "icon": "fa-solid fa-wrench",
+      "badge": "Preventative",
+      "features": [
+        "Moss & Lichen Treatment",
+        "Valley Iron Cleanout",
+        "Silicone Resealing"
+      ],
+      "benefits": [
+        "Avoids expensive emergency leaks",
+        "Keeps gutters free-flowing"
+      ],
+      "faqs": [],
+      "seoTitle": "Leaky Roof Maintenance Melbourne | Assist Roofing",
+      "metaDescription": "Routine and preventative roof maintenance services across Melbourne suburbs.",
+      "status": "published",
+      "order": 13
+    },
+    {
+      "id": "concrete-tile-roof",
+      "name": "Concrete Tile Roof",
+      "slug": "concrete-tile-roof",
+      "category": "replacement",
+      "categoryLabel": "Installation & Replacement",
+      "shortDescription": "Specialist restoration, replacement, and structural batten repairs for concrete tile systems.",
+      "fullDescription": "Restoration, batten re-alignment, and tile replacement for Monier, Boral, and Bristile concrete tile roofs.",
+      "image": "/roofora-assets/images/portfolio-img8.jpg",
+      "icon": "fa-solid fa-cubes",
+      "badge": "Heavy Duty",
+      "features": [
+        "Batten Straightening",
+        "Anti-Fungal Pressure Washing",
+        "Color-Coded Replacement Tiles"
+      ],
+      "benefits": [
+        "Restores structural integrity",
+        "Weatherproof seal for 15+ years"
+      ],
+      "faqs": [],
+      "seoTitle": "Concrete Tile Roof Restoration Melbourne | Assist Roofing",
+      "metaDescription": "Complete concrete tile roof repairs, repointing, and restoration in Melbourne.",
+      "status": "published",
+      "order": 14
+    },
+    {
+      "id": "corrugated-iron-roof",
+      "name": "Corrugated Iron Roof",
+      "slug": "corrugated-iron-roof",
+      "category": "replacement",
+      "categoryLabel": "Installation & Replacement",
+      "shortDescription": "Traditional and contemporary corrugated profiles with authentic Bluescope steel durability.",
+      "fullDescription": "Installation and restoration of corrugated iron roofs with 0.42 and 0.48 BMT BlueScope steel.",
+      "image": "/roofora-assets/images/portfolio-img1.jpg",
+      "icon": "fa-solid fa-layer-group",
+      "badge": "Bluescope Steel",
+      "features": [
+        "Custom Orb Profiles",
+        "Heavy Duty Screws with EPDM Washers",
+        "High Wind Uplift Resistance"
+      ],
+      "benefits": [
+        "Authentic Australian architectural style",
+        "Extreme longevity and fire resistance"
+      ],
+      "faqs": [],
+      "seoTitle": "Corrugated Iron Roofing Melbourne | Colorbond Sheets | Assist Roofing",
+      "metaDescription": "Authentic corrugated iron roofing installations and repairs in Melbourne with BlueScope steel.",
+      "status": "published",
+      "order": 15
+    },
+    {
+      "id": "guttering-repair-new-guttering",
+      "name": "Guttering Repair & New Guttering",
+      "slug": "guttering-repair-new-guttering",
+      "category": "gutters",
+      "categoryLabel": "Gutters & Drainage",
+      "shortDescription": "Full gutter renewals, bracket re-securing, and high-capacity quad or half-round gutter systems.",
+      "fullDescription": "Complete roof plumbing solutions for failing, rusted, or undersized gutter installations.",
+      "image": "/roofora-assets/images/portfolio-img10.jpg",
+      "icon": "fa-solid fa-water",
+      "badge": "Overflow Shield",
+      "features": [
+        "Quad & Half-Round Gutters",
+        "Heavy-Duty Concealed Brackets",
+        "Expansion Joint Seals"
+      ],
+      "benefits": [
+        "Stops rainwater overflowing into eaves",
+        "Protects foundation from water pooling"
+      ],
+      "faqs": [],
+      "seoTitle": "Guttering Repairs & New Gutters Melbourne | Assist Roofing",
+      "metaDescription": "New gutter installations and emergency gutter repairs across Melbourne. Colorbond quad and half-round.",
+      "status": "published",
+      "order": 16
+    },
+    {
+      "id": "gutter-installation",
+      "name": "Gutter Installation",
+      "slug": "gutter-installation",
+      "category": "gutters",
+      "categoryLabel": "Gutters & Drainage",
+      "shortDescription": "Precision fall alignment and custom-fitted guttering engineered for Melbourne rainfall intensity.",
+      "fullDescription": "Precision-measured gutter installations ensuring exact gradient fall toward downpipes to eliminate standing water.",
+      "image": "/roofora-assets/images/portfolio-img11.jpg",
+      "icon": "fa-solid fa-arrows-split-up-and-left",
+      "badge": "Engineered Fall",
+      "features": [
+        "Laser Level Gradient Calculation",
+        "Mitred Corner Joints",
+        "Leaf-Guard Compatible"
+      ],
+      "benefits": [
+        "Zero standing water in gutters",
+        "Maximizes water delivery to rainwater tanks"
+      ],
+      "faqs": [],
+      "seoTitle": "Gutter Installation Melbourne | Roof Plumbing | Assist Roofing",
+      "metaDescription": "Certified gutter installations engineered for Melbourne storms. High capacity Colorbond gutters.",
+      "status": "published",
+      "order": 17
+    },
+    {
+      "id": "gutter-repairs",
+      "name": "Gutter Repairs",
+      "slug": "gutter-repairs",
+      "category": "gutters",
+      "categoryLabel": "Gutters & Drainage",
+      "shortDescription": "Seam re-soldering, corner joint leak sealing, rust treatment, and sagging gutter re-alignments.",
+      "fullDescription": "Targeted fixes for leaking corner joins, loose fall clips, and rusted section patch repairs.",
+      "image": "/roofora-assets/images/portfolio-img12.jpg",
+      "icon": "fa-solid fa-toolbox",
+      "badge": "Quick Fix",
+      "features": [
+        "Joint Resealing with Neutral Cure Silicone",
+        "Bracket Replacement",
+        "Downpipe Unblocking"
+      ],
+      "benefits": [
+        "Fast, low-cost fix for annoying drips",
+        "Prevents fascia wood rot"
+      ],
+      "faqs": [],
+      "seoTitle": "Gutter Repairs Melbourne | Leaking Gutters Fixed | Assist Roofing",
+      "metaDescription": "Fast and reliable gutter repairs across Melbourne. Leaking joints sealed, sagging sections aligned.",
+      "status": "published",
+      "order": 18
+    },
+    {
+      "id": "colorbond-gutters",
+      "name": "Colorbond Gutters",
+      "slug": "colorbond-gutters",
+      "category": "gutters",
+      "categoryLabel": "Gutters & Drainage",
+      "shortDescription": "Genuine Australian Colorbond gutters in 22 designer colors backed by 20-year material warranties.",
+      "fullDescription": "Genuine Colorbond steel gutters available in the complete 22 Australian designer palette including Monument, Surfmist, and Woodland Grey.",
+      "image": "/roofora-assets/images/portfolio-img9.jpg",
+      "icon": "fa-solid fa-palette",
+      "badge": "22 Colors",
+      "features": [
+        "22 Colorbond Colors",
+        "20-Year BlueScope Material Warranty",
+        "Baked-on Enamel Finish"
+      ],
+      "benefits": [
+        "Matches roof and fascia colors",
+        "Will not blister, chip, or peel"
+      ],
+      "faqs": [],
+      "seoTitle": "Colorbond Gutters Melbourne | Genuine BlueScope Steel | Assist Roofing",
+      "metaDescription": "Genuine Colorbond gutters in 22 designer colors installed across Melbourne with 20-year warranty.",
+      "status": "published",
+      "order": 19
+    },
+    {
+      "id": "gutters-and-downpipes",
+      "name": "Gutters And Downpipes",
+      "slug": "gutters-and-downpipes",
+      "category": "gutters",
+      "categoryLabel": "Gutters & Drainage",
+      "shortDescription": "Complete stormwater drainage integration with high-flow PVC and Colorbond downpipes.",
+      "fullDescription": "Holistic rainwater management systems connecting gutters, spreaders, downpipes, and stormwater integration.",
+      "image": "/roofora-assets/images/portfolio-img10.jpg",
+      "icon": "fa-solid fa-arrows-down-to-line",
+      "badge": "High Flow",
+      "features": [
+        "High-Flow Downpipe Drops",
+        "Debris Filters",
+        "Stormwater Connection Testing"
+      ],
+      "benefits": [
+        "Handles heavy downpours effortlessly",
+        "Prevents overflow cascading into foundations"
+      ],
+      "faqs": [],
+      "seoTitle": "Gutters and Downpipes Melbourne | Assist Roofing",
+      "metaDescription": "Complete gutter and downpipe replacement in Melbourne. Engineered stormwater drainage.",
+      "status": "published",
+      "order": 20
+    },
+    {
+      "id": "bedding-and-repointing",
+      "name": "Bedding And Repointing",
+      "slug": "bedding-and-repointing",
+      "category": "restoration",
+      "categoryLabel": "Restoration & Painting",
+      "shortDescription": "Fresh sand-and-cement mortar re-bedding finished with flexible SupaPoint flexible polymer seal.",
+      "fullDescription": "Complete ridge cap renewal including chipping off loose mortar, laying new screeded bedding mix, and applying flexible polymer pointing.",
+      "image": "/roofora-assets/images/portfolio-img4.jpg",
+      "icon": "fa-solid fa-trowel",
+      "badge": "Flexible Seal",
+      "features": [
+        "Clean Mortar Bedding",
+        "Flexible SupaPoint Polymer Seal",
+        "Color-Matched Mortar"
+      ],
+      "benefits": [
+        "Accommodates thermal roof expansion",
+        "Prevents displaced ridge caps in storms"
+      ],
+      "faqs": [],
+      "seoTitle": "Ridge Bedding and Repointing Melbourne | Flexible Pointing | Assist Roofing",
+      "metaDescription": "Ridge capping bedding and repointing in Melbourne using flexible SupaPoint compound. Guaranteed leak-free.",
+      "status": "published",
+      "order": 21
+    },
+    {
+      "id": "ridge-capping",
+      "name": "Ridge Capping",
+      "slug": "ridge-capping",
+      "category": "restoration",
+      "categoryLabel": "Restoration & Painting",
+      "shortDescription": "Storm-resilient ridge cap realignment, cracked collar repairs, and 100% watertight pointing.",
+      "fullDescription": "Specialist alignment and sealing of hip and ridge capping for terracotta, concrete, and metal roof caps.",
+      "image": "/roofora-assets/images/portfolio-img6.jpg",
+      "icon": "fa-solid fa-mountain",
+      "badge": "Storm Locked",
+      "features": [
+        "Ridge Straightening",
+        "Apex Cap Anchoring",
+        "Storm-Locked Security"
+      ],
+      "benefits": [
+        "Eliminates rattling in high winds",
+        "Guaranteed watertight crest"
+      ],
+      "faqs": [],
+      "seoTitle": "Ridge Capping Repairs Melbourne | Assist Roofing",
+      "metaDescription": "Specialist ridge capping repair, realignment, and pointing services in Melbourne.",
+      "status": "published",
+      "order": 22
+    },
+    {
+      "id": "fascia-eave-repair",
+      "name": "Fascia & Eave Repair",
+      "slug": "fascia-eave-repair",
+      "category": "gutters",
+      "categoryLabel": "Gutters & Drainage",
+      "shortDescription": "Rotted timber fascia replacement, metal fascia capping covers, and durable cement sheet eave lining.",
+      "fullDescription": "Carpentry repairs to water-damaged timber fascia boards, bargeboards, and fiber-cement eave soffits.",
+      "image": "/roofora-assets/images/portfolio-img3.jpg",
+      "icon": "fa-solid fa-border-top-left",
+      "badge": "Structural Wood",
+      "features": [
+        "Treated Pine Replacement",
+        "Colorbond Fascia Capping",
+        "Eave Ventilation Grilles"
+      ],
+      "benefits": [
+        "Prevents pest and possum entry",
+        "Restores solid anchor for gutters"
+      ],
+      "faqs": [],
+      "seoTitle": "Fascia & Eave Repairs Melbourne | Timber & Metal Capping | Assist Roofing",
+      "metaDescription": "Timber fascia board replacement and eave repairs across Melbourne. Pest-proof and rot-free.",
+      "status": "published",
+      "order": 23
+    },
+    {
+      "id": "skylight-installation",
+      "name": "Skylight Installation",
+      "slug": "skylight-installation",
+      "category": "gutters",
+      "categoryLabel": "Gutters & Drainage",
+      "shortDescription": "Leak-free Velux and custom skylight installations with insulated surrounds and solar flashing kits.",
+      "fullDescription": "Certified installation of Velux fixed, manual, and solar-powered skylights complete with factory flashing kits.",
+      "image": "/roofora-assets/images/portfolio-img7.jpg",
+      "icon": "fa-solid fa-sun",
+      "badge": "Velux Certified",
+      "features": [
+        "Velux Certified Installation",
+        "Insulated Double Glazing",
+        "100% Weathertight Flashing Kit"
+      ],
+      "benefits": [
+        "Floods dark rooms with natural daylight",
+        "Thermal acoustic insulation"
+      ],
+      "faqs": [],
+      "seoTitle": "Skylight Installation Melbourne | Velux Certified Roofers | Assist Roofing",
+      "metaDescription": "Certified Velux skylight installations and roof window repairs in Melbourne. Leak-free guarantee.",
+      "status": "published",
+      "order": 24
+    }
+  ],
+  "locations": [
+    {
+      "id": "north-melbourne",
+      "name": "North Melbourne",
+      "slug": "north-melbourne",
+      "pageTitle": "Roofing Contractor North Melbourne VIC 3051 | Assist Roofing",
+      "intro": "Based on Boundary Road, Assist Roofing is North Melbourne’s local roofing specialist.",
+      "localContent": "Our headquarters at 139 Boundary Road allows us to provide rapid 1-hour response times to North Melbourne, Parkville, and Flemington residents.",
+      "services": [
+        "Roof Leak Repairs",
+        "Heritage Terracotta Restoration",
+        "Colorbond Re-Roofing",
+        "Gutter Repairs"
+      ],
+      "images": [
+        "/roofora-assets/images/portfolio-img1.jpg"
+      ],
+      "faqs": [
+        {
+          "q": "Where are you based in North Melbourne?",
+          "a": "Our office and equipment depot is located at 139 Boundary Road, North Melbourne VIC 3051."
+        }
+      ],
+      "seoTitle": "Roofing Contractor North Melbourne VIC 3051 | Assist Roofing",
+      "metaDescription": "Local North Melbourne roofing contractors. Emergency leak fixes and full restorations. Call 0478 936 120.",
+      "postalCode": "3051",
+      "coordinates": {
+        "lat": -37.7963,
+        "lng": 144.9392
+      },
+      "status": "published"
+    },
+    {
+      "id": "brighton",
+      "name": "Brighton",
+      "slug": "brighton",
+      "pageTitle": "Premium Roofing Contractor Brighton VIC 3186 | Assist Roofing",
+      "intro": "Marine-grade coastal Colorbond roofing and heritage restoration in Brighton.",
+      "localContent": "Brighton coastal properties require specialized Colorbond Ultra steel and corrosion-resistant fasteners.",
+      "services": [
+        "Colorbond Re-Roofing",
+        "Coastal Flashing Upgrades",
+        "Architectural Standing Seam"
+      ],
+      "images": [
+        "/roofora-assets/images/portfolio-img9.jpg"
+      ],
+      "faqs": [
+        {
+          "q": "Do you use coastal-grade materials in Brighton?",
+          "a": "Yes, we specify Colorbond Ultra and marine stainless steel fasteners for homes within 2km of Port Phillip Bay."
+        }
+      ],
+      "seoTitle": "Roofing Services Brighton VIC 3186 | Coastal Roofing Specialists",
+      "metaDescription": "Coastal roofing experts in Brighton VIC. High salinity protection and luxury roof restorations.",
+      "postalCode": "3186",
+      "coordinates": {
+        "lat": -37.9062,
+        "lng": 144.9918
+      },
+      "status": "published"
+    },
+    {
+      "id": "south-yarra",
+      "name": "South Yarra",
+      "slug": "south-yarra",
+      "pageTitle": "Roof Repairs & Colorbond Roofing South Yarra VIC 3141",
+      "intro": "Trusted roofing contractor serving heritage terraces and contemporary apartments in South Yarra.",
+      "localContent": "From Victorian parapet flashings near Toorak Road to modern metal roofs along Chapel Street, our team provides discreet, licensed roofing.",
+      "services": [
+        "Roof Leak Detection",
+        "Parapet Wall Flashing",
+        "Gutter Replacement"
+      ],
+      "images": [
+        "/roofora-assets/images/portfolio-img4.jpg"
+      ],
+      "faqs": [],
+      "seoTitle": "Roof Repairs South Yarra VIC 3141 | Assist Roofing",
+      "metaDescription": "Emergency roof repairs and restorations in South Yarra. Victorian heritage and modern homes.",
+      "postalCode": "3141",
+      "coordinates": {
+        "lat": -37.8396,
+        "lng": 144.9922
+      },
+      "status": "published"
+    }
+  ],
+  "blog": [],
+  "media": [
+    {
+      "id": "m1",
+      "filename": "logo.png",
+      "url": "/roofora-assets/images/logo.png",
+      "altText": "Assist Roofing Logo",
+      "caption": "Primary Brand Logo",
+      "mimeType": "image/png",
+      "size": 60454,
+      "dimensions": "300x85",
+      "createdAt": "2026-09-23T08:33:16.367Z"
+    },
+    {
+      "id": "m2",
+      "filename": "portfolio-img1.jpg",
+      "url": "/roofora-assets/images/portfolio-img1.jpg",
+      "altText": "Colorbond Roof Restoration",
+      "caption": "Full strip down project",
+      "mimeType": "image/jpeg",
+      "size": 120400,
+      "dimensions": "800x600",
+      "createdAt": "2026-09-23T08:33:16.367Z"
+    },
+    {
+      "id": "m3",
+      "filename": "portfolio-img4.jpg",
+      "url": "/roofora-assets/images/portfolio-img4.jpg",
+      "altText": "Terracotta Ridge Capping Pointing",
+      "caption": "SupaPoint pointing in Melbourne",
+      "mimeType": "image/jpeg",
+      "size": 98500,
+      "dimensions": "800x600",
+      "createdAt": "2026-09-23T08:33:16.367Z"
+    },
+    {
+      "id": "m4",
+      "filename": "services-img1.jpg",
+      "url": "/roofora-assets/images/services-img1.jpg",
+      "altText": "Leak Fix Service",
+      "caption": "Emergency leak repair",
+      "mimeType": "image/jpeg",
+      "size": 110200,
+      "dimensions": "800x600",
+      "createdAt": "2026-09-23T08:33:16.367Z"
+    }
+  ],
+  "seo": {
+    "siteTitle": "Roofing Contractor & Roof Restoration Melbourne | Assist Roofing",
+    "defaultMetaDescription": "Melbourne's trusted roofing contractor & restoration experts. We provide professional Colorbond restorations, emergency leak repairs, and AS 4349.1 structural inspections with a 10-year warranty.",
+    "defaultOgImage": "https://assistroofing.com.au/roofora-assets/images/portfolio-img1.jpg",
+    "robotsIndex": true,
+    "sitemapUrl": "https://assistroofing.com.au/sitemap.xml",
+    "gscVerification": "",
+    "businessSchema": {
+      "name": "Assist Roofing and Home Solution",
+      "phone": "+61478936120",
+      "email": "info@assistroofing.com.au",
+      "streetAddress": "139 Boundary Road",
+      "locality": "North Melbourne",
+      "region": "VIC",
+      "postalCode": "3051",
+      "country": "AU",
+      "latitude": -37.7963,
+      "longitude": 144.9392,
+      "priceRange": "$$",
+      "ratingValue": "4.9",
+      "reviewCount": "520"
+    }
+  },
+  "settings": {
+    "business": {
+      "name": "Assist Roofing & Home Solution",
+      "legalName": "Assist Roofing and Home Solution Pty Ltd",
+      "phone": "0478936120",
+      "internationalPhone": "+61478936120",
+      "email": "info@assistroofing.com.au",
+      "address": "139 Boundary Road, North Melbourne VIC 3051",
+      "hoursWeekday": "Monday - Friday: 07:00 - 18:00",
+      "hoursWeekend": "Saturday: 08:00 - 15:00, Sunday: Emergency on-call"
+    },
+    "branding": {
+      "logoUrl": "/roofora-assets/images/logo.png",
+      "footerLogoUrl": "/roofora-assets/images/footer-logo.png",
+      "faviconUrl": "/favicon.png"
+    },
+    "social": {
+      "facebook": "https://www.facebook.com/profile.php?id=61560893981491",
+      "instagram": "https://www.instagram.com/roofingassist/",
+      "googleMaps": "https://maps.google.com/?q=Assist+Roofing+and+Home+Solution+139+Boundary+Rd+North+Melbourne+VIC+3051"
+    },
+    "tracking": {
+      "ga4Id": "G-VTEV53E3T3",
+      "elfsightEnabled": true
+    }
+  },
+  "activity": [
+    {
+      "id": "8aa18e77-2836-425a-a345-e5c7228518f2",
+      "user": "Administrator",
+      "action": "Deleted Service",
+      "resource": "Services",
+      "timestamp": "2026-09-23T09:11:43.508Z",
+      "details": "Service: \"Automated Test Service\""
+    },
+    {
+      "id": "54d9a9fc-5045-4b96-a80a-2410b6a511c3",
+      "user": "Administrator",
+      "action": "Created Service",
+      "resource": "Services",
+      "timestamp": "2026-09-23T09:11:43.484Z",
+      "details": "Service: \"Automated Test Service\""
+    },
+    {
+      "id": "6a750cef-c9f5-43d7-a5bb-d919a5a55db3",
+      "user": "Test Editor",
+      "action": "User Logged In",
+      "resource": "Authentication",
+      "timestamp": "2026-09-23T09:11:43.435Z",
+      "details": "IP: ::1"
+    },
+    {
+      "id": "18863f04-c111-4104-bc79-a2f3424938b4",
+      "user": "Test Editor",
+      "action": "User Logged In",
+      "resource": "Authentication",
+      "timestamp": "2026-09-23T09:11:20.077Z",
+      "details": "IP: ::1"
+    },
+    {
+      "id": "act-001",
+      "user": "System Initializer",
+      "action": "System Initialized",
+      "resource": "Database & CMS",
+      "timestamp": "2026-09-23T08:33:16.367Z",
+      "details": "Seeded verified public services, pages, locations, and SEO configuration."
+    }
+  ]
+}

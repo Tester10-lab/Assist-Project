@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
 import { SERVICES, SERVICE_AREAS, ALL_SERVICES_OFFERED, ADDITIONAL_OFFERINGS } from '../data';
 import { useWebsite } from '../WebsiteContext';
+import { useCmsContent } from '../useCmsContent';
 import { motion } from 'framer-motion';
 import { asset } from '../utils/asset';
 
 export const Services: React.FC = () => {
   const { setCurrentPage, openQuoteModal } = useWebsite();
+  const { services: cmsServices, pages } = useCmsContent();
   const [activeCategory, setActiveCategory] = useState<'all' | 'repairs' | 'replacement' | 'restoration' | 'gutters'>('all');
 
+  const allServices = cmsServices && cmsServices.length > 0 ? cmsServices : ALL_SERVICES_OFFERED;
+
   const filteredServices = activeCategory === 'all'
-    ? ALL_SERVICES_OFFERED
-    : ALL_SERVICES_OFFERED.filter(s => s.category === activeCategory);
+    ? allServices
+    : allServices.filter(s => s.category === activeCategory);
+
 
   const workflowSteps = [
     {
@@ -47,10 +52,10 @@ export const Services: React.FC = () => {
 
         <div className="max-w-[1320px] mx-auto px-4 sm:px-8 relative z-10 text-center">
           <h1 className="text-4xl sm:text-6xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-white mb-4">
-            Our Services
+            {pages?.services?.heroHeading || 'Our Services'}
           </h1>
           <p className="text-base sm:text-lg text-[#b7c1d5] max-w-2xl mx-auto mb-6 font-light">
-            Comprehensive residential and commercial roofing solutions backed by 15+ years of licensed Australian excellence.
+            {pages?.services?.heroDescription || 'Comprehensive residential and commercial roofing solutions backed by 15+ years of licensed Australian excellence.'}
           </p>
 
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-semibold">
@@ -145,11 +150,11 @@ export const Services: React.FC = () => {
           {/* Filter Tabs */}
           <div className="flex flex-wrap justify-center gap-2 mb-12">
             {[
-              { id: 'all', label: `All Services (${ALL_SERVICES_OFFERED.length})` },
-              { id: 'repairs', label: 'Repairs & Leaks (6)' },
-              { id: 'replacement', label: 'Installation & Replacement (6)' },
-              { id: 'restoration', label: 'Restoration & Painting (5)' },
-              { id: 'gutters', label: 'Gutters & Additions (7)' },
+              { id: 'all', label: `All Services (${allServices.length})` },
+              { id: 'repairs', label: `Repairs & Leaks (${allServices.filter(s => s.category === 'repairs').length})` },
+              { id: 'replacement', label: `Installation & Replacement (${allServices.filter(s => s.category === 'replacement').length})` },
+              { id: 'restoration', label: `Restoration & Painting (${allServices.filter(s => s.category === 'restoration').length})` },
+              { id: 'gutters', label: `Gutters & Additions (${allServices.filter(s => s.category === 'gutters').length})` },
             ].map(tab => (
               <button
                 key={tab.id}
@@ -192,7 +197,7 @@ export const Services: React.FC = () => {
                   </div>
 
                   <p className="text-xs text-[#616a7e] leading-relaxed mb-4 pl-11">
-                    {service.description}
+                    {service.description || service.shortDescription}
                   </p>
                 </div>
 

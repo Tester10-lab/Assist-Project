@@ -69,7 +69,7 @@ export const Testimonials: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {GOOGLE_REVIEWS.map((review, idx) => (
+            {GOOGLE_REVIEWS.map((review) => (
               <motion.div
                 key={review.id}
                 whileHover={{ y: -6 }}

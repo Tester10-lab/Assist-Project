@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useWebsite } from '../WebsiteContext';
+import { useCmsContent } from '../useCmsContent';
 import { QuoteModal } from './QuoteModal';
 import { LightboxModal } from './LightboxModal';
 import { BackToTop } from './BackToTop';
@@ -7,7 +8,12 @@ import { asset } from '../utils/asset';
 
 export const Navbar: React.FC = () => {
   const { currentPage, setCurrentPage, isMobileMenuOpen, setMobileMenuOpen, openQuoteModal } = useWebsite();
+  const { settings } = useCmsContent();
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+
+  const phone = settings?.business?.phone || '0478936120';
+  const displayPhone = phone.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
+  const logoUrl = settings?.branding?.logoUrl || asset('/roofora-assets/images/logo.png');
 
   return (
     <div className="w-100 float-left font-['Sora',sans-serif]">
@@ -15,7 +21,7 @@ export const Navbar: React.FC = () => {
       <div className="promotional-topbar">
         <div className="promotional-topbar-icon">
           <i className="fa-solid fa-wand-magic-sparkles topbar-icon"></i>
-          <p>Clean Jobsite Promise & 10-Yr Workmanship Guarantee • 0478936120</p>
+          <p>Clean Jobsite Promise & 10-Yr Workmanship Guarantee • {displayPhone}</p>
         </div>
         <a 
           className="buy_now text-decoration-none cursor-pointer"
@@ -39,7 +45,7 @@ export const Navbar: React.FC = () => {
               >
                 <figure className="mb-0">
                   <img 
-                    src={asset('/roofora-assets/images/logo.png')} 
+                    src={logoUrl} 
                     alt="ASSIST Roofing & Home Solution Logo" 
                     className="img-fluid" 
                     style={{ maxHeight: '85px', width: 'auto', objectFit: 'contain' }}
@@ -187,26 +193,12 @@ export const Navbar: React.FC = () => {
                     <i className="fa-solid fa-calendar-check mr-2"></i> Book Free Inspection
                   </button>
                   <a 
-                    href="tel:0478936120"
+                    href={`tel:${phone.replace(/\s+/g, '')}`}
                     className="btn w-100 py-2.5 rounded-pill font-weight-700 text-white mb-2 text-decoration-none"
                     style={{ backgroundColor: '#1e2e4f' }}
                   >
-                    <i className="fa-solid fa-phone mr-2"></i> 0478936120
+                    <i className="fa-solid fa-phone mr-2"></i> {displayPhone}
                   </a>
-                  <button 
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      if (localStorage.getItem('authToken')) {
-                        window.location.hash = '#erp';
-                        window.dispatchEvent(new CustomEvent('switch-view', { detail: 'erp' }));
-                      } else {
-                        setCurrentPage('login');
-                      }
-                    }}
-                    className="btn w-100 py-2 rounded-pill font-weight-600 text-[#1e2e4f] border border-[#cfd8e8] hover:bg-[#f4f8ff]"
-                  >
-                    <i className="fa-solid fa-lock mr-2"></i> ERP Portal Login
-                  </button>
                 </div>
               </div>
 
@@ -224,17 +216,10 @@ export const Navbar: React.FC = () => {
                   <li className="d-flex align-items-center position-relative">
                     <div>
                       <a 
-                        onClick={() => {
-                          if (localStorage.getItem('authToken')) {
-                            window.location.hash = '#erp';
-                            window.dispatchEvent(new CustomEvent('switch-view', { detail: 'erp' }));
-                          } else {
-                            setCurrentPage('login');
-                          }
-                        }} 
+                        href={`tel:${phone.replace(/\s+/g, '')}`}
                         className="text-decoration-none cell-no cursor-pointer"
                       >
-                        <span className="number d-inline-block urbanist-font">ERP Portal</span>
+                        <span className="number d-inline-block urbanist-font">{displayPhone}</span>
                       </a>
                     </div>
                     <figure className="header-phone mb-0">
@@ -254,6 +239,16 @@ export const Navbar: React.FC = () => {
 
 export const Footer: React.FC = () => {
   const { setCurrentPage } = useWebsite();
+  const { settings } = useCmsContent();
+
+  const phone = settings?.business?.phone || '0478936120';
+  const displayPhone = phone.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
+  const email = settings?.business?.email || 'info@assistroofing.com.au';
+  const address = settings?.business?.address || '139 Boundary Road, North Melbourne VIC 3051';
+  const footerLogo = settings?.branding?.footerLogoUrl || asset('/roofora-assets/images/footer-logo.png');
+  const facebook = settings?.social?.facebook || 'https://www.facebook.com/profile.php?id=61560893981491';
+  const instagram = settings?.social?.instagram || 'https://www.instagram.com/roofingassist/';
+  const googleMaps = settings?.social?.googleMaps || 'https://maps.google.com/?q=139+Boundary+Road,+North+Melbourne+VIC+3051';
 
   return (
     <footer className="w-100 float-left font-['Sora',sans-serif]">
@@ -270,7 +265,7 @@ export const Footer: React.FC = () => {
                 <a onClick={() => setCurrentPage('home')} className="footer-logo cursor-pointer">
                   <figure className="mb-0 bg-white p-2 rounded-2xl shadow-sm d-inline-block">
                     <img 
-                      src={asset('/roofora-assets/images/footer-logo.png')} 
+                      src={footerLogo} 
                       alt="ASSIST Roofing & Home Solution" 
                       className="img-fluid" 
                       style={{ maxHeight: '75px', width: 'auto', objectFit: 'contain' }}
@@ -282,13 +277,13 @@ export const Footer: React.FC = () => {
               <div className="links">
                 <ul className="list-unstyled mb-0">
                   <li className="text">
-                    <a href="mailto:info@assistroofing.com.au" className="text-decoration-none text-white hover:text-[#f19e1f] transition-colors">
-                      info@assistroofing.com.au
+                    <a href={`mailto:${email}`} className="text-decoration-none text-white hover:text-[#f19e1f] transition-colors">
+                      {email}
                     </a>
                   </li>
                   <li className="text footer-number mb-0">
-                    <a href="tel:0478936120" className="text-decoration-none text-white hover:text-[#f19e1f] transition-colors font-weight-700">
-                      0478936120
+                    <a href={`tel:${phone.replace(/\s+/g, '')}`} className="text-decoration-none text-white hover:text-[#f19e1f] transition-colors font-weight-700">
+                      {displayPhone}
                     </a>
                   </li>
                 </ul>
@@ -298,14 +293,13 @@ export const Footer: React.FC = () => {
                 <ul className="list-unstyled mb-0">
                   <li className="text">
                     <a 
-                      href="https://maps.google.com/?q=139+Boundary+Road,+North+Melbourne+VIC+3051" 
+                      href={googleMaps} 
                       target="_blank" 
                       rel="noopener noreferrer" 
                       className="address mb-0 text-white hover:text-[#f19e1f] transition-colors text-decoration-none"
                     >
                       <i className="fa-solid fa-location-dot text-[#f19e1f] mr-2"></i>
-                      139 Boundary Road, <br />
-                      North Melbourne VIC 3051, Australia
+                      {address}, Australia
                     </a>
                   </li>
                 </ul>
@@ -321,13 +315,12 @@ export const Footer: React.FC = () => {
                 <li><a onClick={() => setCurrentPage('gallery')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium">Projects</a></li>
                 <li><a onClick={() => setCurrentPage('testimonials')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium">Testimonials</a></li>
                 <li><a onClick={() => setCurrentPage('contact')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium">Contact</a></li>
-                <li><a onClick={() => setCurrentPage('login')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium">ERP Login</a></li>
               </ul>
 
               <ul className="list-unstyled mb-0 social-icons d-flex gap-2">
                 <li>
                   <a 
-                    href="https://www.facebook.com/profile.php?id=61560893981491" 
+                    href={facebook} 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="text-decoration-none"
@@ -338,7 +331,7 @@ export const Footer: React.FC = () => {
                 </li>
                 <li>
                   <a 
-                    href="https://www.instagram.com/roofingassist/" 
+                    href={instagram} 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="text-decoration-none"
@@ -349,7 +342,7 @@ export const Footer: React.FC = () => {
                 </li>
                 <li>
                   <a 
-                    href="https://www.google.com/search?q=Assist+Roofing+and+Home+Solution+North+Melbourne" 
+                    href={googleMaps} 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="text-decoration-none"
@@ -361,7 +354,7 @@ export const Footer: React.FC = () => {
                 </li>
               </ul>
 
-              <p className="mb-0 text-[#b7c1d5] text-xs font-light">Copyright © {new Date().getFullYear()} ASSIST Roofing & Home Solution. All Rights Reserved.</p>
+              <p className="mb-0 text-[#b7c1d5] text-xs font-light">Copyright © {new Date().getFullYear()} {settings?.business?.name || 'ASSIST Roofing & Home Solution'}. All Rights Reserved.</p>
             </div>
 
           </div>
@@ -390,9 +383,13 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 };
 
 export const WhatsAppFloatingButton: React.FC = () => {
+  const { settings } = useCmsContent();
+  const phone = (settings?.business?.internationalPhone || settings?.business?.phone || '61478936120').replace(/[^0-9]/g, '');
+  const waUrl = phone.startsWith('61') ? `https://wa.me/${phone}` : `https://wa.me/61${phone.replace(/^0/, '')}`;
+
   return (
     <a
-      href="https://wa.me/61478936120"
+      href={waUrl}
       target="_blank"
       rel="noopener noreferrer"
       className="position-fixed d-flex align-items-center justify-content-center text-white"

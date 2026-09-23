@@ -1,64 +1,63 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { WebsiteApp } from './website/WebsiteApp';
-import { ERPApp } from './ERPApp';
-import { ERPProvider } from './context/ERPContext';
+import { CmsContentProvider } from './website/useCmsContent';
+
+const AdminApp = lazy(() => import('./admin/AdminApp'));
+
 
 export function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('authToken'));
-  const [currentView, setCurrentView] = useState<'website' | 'erp'>(() => {
+  const [isAdminRoute, setIsAdminRoute] = useState<boolean>(() => {
+    // If user arrived with legacy #erp or ?view=erp, clean the URL
     if (window.location.hash === '#erp' || window.location.search.includes('view=erp')) {
-      return 'erp';
+      window.history.replaceState(null, '', '/admin');
+      return true;
     }
-    // Default to website view
-    return 'website';
+    return window.location.pathname.startsWith('/admin');
   });
 
   useEffect(() => {
-    const handleAuthChange = () => {
-      const auth = !!localStorage.getItem('authToken');
-      setIsAuthenticated(auth);
-      if (auth) {
-        setCurrentView('erp');
-      } else {
-        setCurrentView('website');
+    // Purge any legacy ERP localStorage keys that old visitors might have cached
+    try {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userRole');
+      localStorage.removeItem('erp_user');
+      localStorage.removeItem('erp_leads');
+      localStorage.removeItem('erp_quotes');
+    } catch {}
+
+    const handleLocationChange = () => {
+      // Legacy hash / query cleanup
+      if (window.location.hash === '#erp' || window.location.search.includes('view=erp')) {
+        window.history.replaceState(null, '', '/admin');
+        setIsAdminRoute(true);
+        return;
       }
+      setIsAdminRoute(window.location.pathname.startsWith('/admin'));
     };
 
-    const handleSwitchView = (e: any) => {
-      if (e.detail === 'erp' || e.detail === 'website') {
-        setCurrentView(e.detail);
-      }
-    };
-
-    const handleHashChange = () => {
-      if (window.location.hash === '#erp') {
-        setCurrentView('erp');
-      } else if (window.location.hash === '#website') {
-        setCurrentView('website');
-      }
-    };
-
-    window.addEventListener('auth-change', handleAuthChange);
-    window.addEventListener('switch-view', handleSwitchView);
-    window.addEventListener('hashchange', handleHashChange);
-
-    return () => {
-      window.removeEventListener('auth-change', handleAuthChange);
-      window.removeEventListener('switch-view', handleSwitchView);
-      window.removeEventListener('hashchange', handleHashChange);
-    };
+    window.addEventListener('popstate', handleLocationChange);
+    return () => window.removeEventListener('popstate', handleLocationChange);
   }, []);
 
+  if (isAdminRoute) {
+    return (
+      <Suspense
+        fallback={
+          <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+            <div className="w-8 h-8 border-4 border-[#f19e1f] border-t-transparent rounded-full animate-spin" />
+          </div>
+        }
+      >
+        <AdminApp />
+      </Suspense>
+    );
+  }
+
   return (
-    <ERPProvider>
-      {currentView === 'erp' && isAuthenticated ? (
-        <ERPApp />
-      ) : (
-        <WebsiteApp />
-      )}
-    </ERPProvider>
+    <CmsContentProvider>
+      <WebsiteApp />
+    </CmsContentProvider>
   );
 }
 
 export default App;
-

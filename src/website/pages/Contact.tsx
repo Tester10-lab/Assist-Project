@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 import { useWebsite } from '../WebsiteContext';
-import { motion } from 'framer-motion';
+import { useCmsContent } from '../useCmsContent';
 import { asset } from '../utils/asset';
 import { ALL_SERVICES_OFFERED } from '../data';
 
 export const Contact: React.FC = () => {
   const { setCurrentPage } = useWebsite();
+  const { services: cmsServices, pages, settings } = useCmsContent();
+
+  const allServices = cmsServices && cmsServices.length > 0 ? cmsServices : ALL_SERVICES_OFFERED;
+  const phone = settings?.business?.phone || '0478936120';
+  const displayPhone = phone.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
+  const email = settings?.business?.email || 'info@assistroofing.com.au';
+  const address = settings?.business?.address || '139 Boundary Road, North Melbourne VIC 3051';
+  const hoursWeekday = settings?.business?.hoursWeekday || 'Mon - Fri: 7:00am - 6:00pm';
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -34,10 +43,10 @@ export const Contact: React.FC = () => {
 
         <div className="max-w-[1320px] mx-auto px-4 sm:px-8 relative z-10 text-center">
           <h1 className="text-4xl sm:text-6xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-white mb-4">
-            Contact Us
+            {pages?.contact?.heroHeading || 'Contact Us'}
           </h1>
           <p className="text-base sm:text-lg text-[#b7c1d5] max-w-2xl mx-auto mb-6 font-light">
-            Need urgent leak fixes or planning a complete roof replacement? Our team responds within 2 business hours.
+            {pages?.contact?.heroDescription || 'Need urgent leak fixes or planning a complete roof replacement? Our team responds within 2 business hours.'}
           </p>
 
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-semibold">
@@ -60,8 +69,8 @@ export const Contact: React.FC = () => {
               </div>
               <div>
                 <span className="text-xs text-[#616a7e] font-bold uppercase tracking-wider block mb-1">Emergency Call</span>
-                <a href="tel:0478936120" className="text-base font-bold text-[#1e2e4f] hover:text-[#f19e1f] transition-colors">
-                  0478936120
+                <a href={`tel:${phone.replace(/\s+/g, '')}`} className="text-base font-bold text-[#1e2e4f] hover:text-[#f19e1f] transition-colors">
+                  {displayPhone}
                 </a>
               </div>
             </div>
@@ -73,8 +82,8 @@ export const Contact: React.FC = () => {
               </div>
               <div>
                 <span className="text-xs text-[#616a7e] font-bold uppercase tracking-wider block mb-1">Email Estimates</span>
-                <a href="mailto:info@assistroofing.com.au" className="text-sm font-bold text-[#1e2e4f] hover:text-[#f19e1f] transition-colors">
-                  info@assistroofing.com.au
+                <a href={`mailto:${email}`} className="text-sm font-bold text-[#1e2e4f] hover:text-[#f19e1f] transition-colors">
+                  {email}
                 </a>
               </div>
             </div>
@@ -87,7 +96,7 @@ export const Contact: React.FC = () => {
               <div>
                 <span className="text-xs text-[#616a7e] font-bold uppercase tracking-wider block mb-1">Melbourne Office</span>
                 <span className="text-xs font-semibold text-[#1e2e4f] block">
-                  139 Boundary Road, North Melbourne VIC 3051, Australia
+                  {address}, Australia
                 </span>
               </div>
             </div>
@@ -100,7 +109,7 @@ export const Contact: React.FC = () => {
               <div>
                 <span className="text-xs text-[#616a7e] font-bold uppercase tracking-wider block mb-1">Working Hours</span>
                 <span className="text-xs font-semibold text-[#1e2e4f] block">
-                  Mon - Fri: 7:00am - 6:00pm
+                  {hoursWeekday}
                 </span>
               </div>
             </div>
@@ -200,22 +209,22 @@ export const Contact: React.FC = () => {
                         className="w-full bg-white border border-[#cfd8e8] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#f19e1f]"
                       >
                         <optgroup label="Repairs & Leak Detection">
-                          {ALL_SERVICES_OFFERED.filter(s => s.category === 'repairs').map(s => (
+                          {allServices.filter(s => s.category === 'repairs').map(s => (
                             <option key={s.id} value={s.name}>{s.name}</option>
                           ))}
                         </optgroup>
                         <optgroup label="Installation & Replacement">
-                          {ALL_SERVICES_OFFERED.filter(s => s.category === 'replacement').map(s => (
+                          {allServices.filter(s => s.category === 'replacement').map(s => (
                             <option key={s.id} value={s.name}>{s.name}</option>
                           ))}
                         </optgroup>
                         <optgroup label="Restoration, Flashing & Capping">
-                          {ALL_SERVICES_OFFERED.filter(s => s.category === 'restoration').map(s => (
+                          {allServices.filter(s => s.category === 'restoration').map(s => (
                             <option key={s.id} value={s.name}>{s.name}</option>
                           ))}
                         </optgroup>
                         <optgroup label="Gutters, Drainage & Additions">
-                          {ALL_SERVICES_OFFERED.filter(s => s.category === 'gutters').map(s => (
+                          {allServices.filter(s => s.category === 'gutters').map(s => (
                             <option key={s.id} value={s.name}>{s.name}</option>
                           ))}
                         </optgroup>

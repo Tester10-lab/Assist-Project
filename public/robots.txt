@@ -1,5 +1,8 @@
 User-agent: *
+Disallow: /admin/
+Disallow: /admin
 Allow: /
 
 # Sitemap
 Sitemap: https://assistroofing.com.au/sitemap.xml
+
