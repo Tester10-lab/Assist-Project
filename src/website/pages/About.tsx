@@ -22,7 +22,7 @@ export const About: React.FC = () => {
             About Assist Roofing Melbourne
           </h1>
           <p className="text-base sm:text-lg text-[#b7c1d5] max-w-2xl mx-auto mb-6 font-light">
-            More than roofing contractors — we provide complete project assurance, transparent pricing, and decades of Australian roofing expertise.
+            More than roofing contractors — we provide complete project assurance, transparent pricing, and 8+ years of Australian roofing expertise.
           </p>
 
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-semibold">
@@ -74,7 +74,7 @@ export const About: React.FC = () => {
                 Built on Trust, Driven by Craftsmanship
               </h2>
               <p className="text-base text-[#616a7e] mb-4 leading-relaxed">
-                Founded in 2011, ASSIST Roofing started with a singular mission: to elevate the standard of roofing in Melbourne through honest upfront pricing, superior materials, and uncompromising workmanship.
+                With 8+ years of dedicated service, ASSIST Roofing operates with a singular mission: to elevate the standard of roofing in Melbourne through honest upfront pricing, superior materials, and uncompromising workmanship.
               </p>
               <p className="text-base text-[#616a7e] mb-8 leading-relaxed">
                 We do not believe in high-pressure sales tactics or cutting corners. We believe in doing the job right the first time, using high-tensile BlueScope Colorbond and certified terracotta tiles, backed by our ironclad 10-year workmanship warranty.

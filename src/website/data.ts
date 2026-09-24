@@ -366,17 +366,17 @@ export const FAQS = [
 ];
 
 export const STATS = [
-  { value: '2,500+', label: 'Projects Completed' },
-  { value: '15+', label: 'Years Experience' },
+  { value: '1,100+', label: 'Roofs Completed' },
+  { value: '8+', label: 'Years Experience' },
   { value: '100%', label: 'Clean Jobsite Rate' },
   { value: '10yr', label: 'Workmanship Guarantee' },
   { value: '4.9/5', label: 'Customer Rating' },
 ];
 
 export const SERVICE_AREAS = [
-  'South Yarra', 'Brighton', 'Toorak', 'Hawthorn', 'Kew',
-  'Camberwell', 'Malvern', 'Armadale', 'St Kilda', 'Richmond',
-  'Prahran', 'Windsor', 'Glen Iris', 'Canterbury', 'Balwyn',
+  'Kew', 'Hawthorn', 'Camberwell', 'Box Hill', 'Ringwood',
+  'Glen Waverley', 'Clayton', 'Springvale', 'Brighton', 'Preston',
+  'Reservoir', 'Bundoora', 'Toorak', 'South Yarra', 'Malvern'
 ];
 
 export interface ServiceOfferingItem {

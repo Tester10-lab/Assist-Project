@@ -75,6 +75,9 @@ export const QuoteModal: React.FC = () => {
           <p className="text-white text-size-14 mb-0 opacity-75">
             Same-day confirmation. Direct master roofer contact.
           </p>
+          <div className="mt-2 text-size-12 text-warning font-weight-600">
+            <i className="fa-solid fa-tag me-1"></i> Special Campaign: 10% Off for Elderly & Pensioner Citizens
+          </div>
         </div>
 
         {/* Form Body */}

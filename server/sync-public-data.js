@@ -59,7 +59,7 @@ const CANONICAL_ROUTES = [
   {
     path: 'about',
     title: 'About Us | VBA Registered Roofers Melbourne | Assist Roofing',
-    description: "Learn about Assist Roofing's 15+ years of Melbourne roofing expertise, VBA-registered master trades, $10M insurance, and clean jobsite promise.",
+    description: "Learn about Assist Roofing's 8+ years of Melbourne roofing expertise, VBA-registered master trades, $10M insurance, and clean jobsite promise.",
     priority: '0.8',
     changefreq: 'monthly'
   },

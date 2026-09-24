@@ -45,7 +45,7 @@ const SeoSync: React.FC = () => {
 
       const descriptions: Record<string, string> = {
         home: pageData?.metaDescription || seo?.defaultMetaDescription || "Melbourne's trusted roofing contractor for Colorbond restorations, emergency leak repairs & inspections. VBA registered, 10-year warranty. Free quote.",
-        about: pageData?.metaDescription || "Learn about Assist Roofing's 15+ years of Melbourne roofing expertise, VBA-registered master trades, $10M insurance, and clean jobsite promise.",
+        about: pageData?.metaDescription || "Learn about Assist Roofing's 8+ years of Melbourne roofing expertise, VBA-registered master trades, $10M insurance, and clean jobsite promise.",
         services: pageData?.metaDescription || "Explore comprehensive Melbourne roofing services: Colorbond roof replacements, emergency leak repairs, guttering, and restorations backed by a 10-year warranty.",
         gallery: pageData?.metaDescription || "Browse completed roofing projects across Melbourne. High-resolution before and after photos of tile restorations, Colorbond replacements, and re-bedding.",
         testimonials: pageData?.metaDescription || "Read verified Google customer reviews for Assist Roofing Melbourne. 4.9/5 average rating across 520+ reviews for roof restorations, leak repairs & re-roofing.",

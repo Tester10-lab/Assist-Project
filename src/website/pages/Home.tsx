@@ -100,6 +100,12 @@ export const Home: React.FC = () => {
                       </a>
                     </div>
 
+                    {/* Community Campaign Badge */}
+                    <div className="mt-3 d-inline-flex align-items-center gap-2 px-3 py-1.5 rounded-full" style={{ backgroundColor: 'rgba(255, 255, 255, 0.12)', backdropFilter: 'blur(4px)', border: '1px solid rgba(255, 255, 255, 0.2)' }}>
+                      <span className="text-warning"><i className="fa-solid fa-tag"></i></span>
+                      <span className="text-white text-size-14 font-weight-500">Community Campaign: <strong>10% Off</strong> for Elderly & Pensioner Citizens</span>
+                    </div>
+
                   </div>
                 </div>
               </div>
@@ -151,7 +157,7 @@ export const Home: React.FC = () => {
                     See in Every Detail
                   </h2>
                   <p className="text-size-16">
-                    With over 18+ years on ladders across Melbourne, our certified Assist team handles your initial drone inspection, structural timber check, and complete installation — start to finish.
+                    With over 8+ years on ladders across Melbourne, our certified Assist team handles your initial drone inspection, structural timber check, and complete installation — start to finish.
                   </p>
                   <p className="last-text text-size-16">
                     We maintain full Victorian Building Authority (VBA) plumbing registrations, carry $10M Public Liability insurance, and strictly adhere to AS 1562.1 metal and tile roofing standards.
@@ -170,7 +176,7 @@ export const Home: React.FC = () => {
                       <figure><img src={asset('/roofora-assets/images/about-icon.png')} alt="experience" className="img-fluid" /></figure>
                       <div>
                         <span className="oswald-font d-inline-block text-white">
-                          <AnimatedCounter end={18} suffix="+" />
+                          <AnimatedCounter end={8} suffix="+" />
                         </span>
                       </div>
                       <p className="mb-0">Years Master <br /> Experience</p>
@@ -181,9 +187,9 @@ export const Home: React.FC = () => {
                   <div className="users-details-con mt-5">
                     <div className="user-detail-box pl-0">
                       <span className="d-inline-block counter">
-                        <AnimatedCounter end={3500} suffix="+" />
+                        <AnimatedCounter end={1100} suffix="+" />
                       </span>
-                      <p className="mb-0 text-black font-weight-600">Jobs Completed</p>
+                      <p className="mb-0 text-black font-weight-600">Roofs Completed</p>
                     </div>
                     <div className="user-detail-box">
                       <span className="d-inline-block counter">

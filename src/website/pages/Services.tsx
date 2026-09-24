@@ -455,7 +455,7 @@ export const Services: React.FC = () => {
             {pages?.services?.heroHeading || 'Roofing Services Melbourne'}
           </h1>
           <p className="text-base sm:text-lg text-[#b7c1d5] max-w-2xl mx-auto mb-6 font-light">
-            {pages?.services?.heroDescription || 'Comprehensive residential and commercial roofing solutions across Melbourne backed by 15+ years of licensed VBA Australian excellence.'}
+            {pages?.services?.heroDescription || 'Comprehensive residential and commercial roofing solutions across Melbourne backed by 8+ years of VBA registered Australian excellence.'}
           </p>
 
           <nav aria-label="Breadcrumb">
