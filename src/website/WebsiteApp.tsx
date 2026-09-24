@@ -9,88 +9,247 @@ import { Services } from './pages/Services';
 import { Gallery } from './pages/Gallery';
 import { Testimonials } from './pages/Testimonials';
 import { Contact } from './pages/Contact';
+import { CORE_SERVICES_DATA } from './servicesData';
+
+const BASE_URL = 'https://assistroofing.com.au';
 
 const SeoSync: React.FC = () => {
-  const { currentPage } = useWebsite();
+  const { currentPage, currentServiceSlug } = useWebsite();
   const { pages, seo } = useCmsContent();
 
   useEffect(() => {
-    const pageData = pages?.[currentPage];
+    let title = 'Roofing Contractor & Roof Restoration Melbourne | Assist Roofing';
+    let description = "Melbourne's licensed roofing contractor for Colorbond restorations, emergency leak repairs & inspections. VBA registered, 10-year warranty. Free quote.";
+    let canonical = BASE_URL;
+    let ogImage = `${BASE_URL}/roofora-assets/images/portfolio-img1.jpg`;
 
-    // 1. Dynamic Title
-    if (pageData?.seoTitle) {
-      document.title = pageData.seoTitle;
-    } else if (seo?.siteTitle && currentPage === 'home') {
-      document.title = seo.siteTitle;
+    // 1. Service Deep-Route Metadata
+    if (currentPage === 'services' && currentServiceSlug && CORE_SERVICES_DATA[currentServiceSlug]) {
+      const s = CORE_SERVICES_DATA[currentServiceSlug];
+      title = s.metaTitle;
+      description = s.metaDescription;
+      canonical = `${BASE_URL}${s.canonicalPath}`;
+      ogImage = `${BASE_URL}${s.heroImage}`;
     } else {
+      // General Core Routes
+      const pageData = pages?.[currentPage];
+
       const titles: Record<string, string> = {
-        home: 'Roofing Contractor & Roof Restoration Melbourne | Assist Roofing',
-        about: 'About Us | Assist Roofing Melbourne',
-        services: 'All Roofing Services Melbourne | Repairs, Restoration & Re-Roofing | Assist Roofing',
-        gallery: 'Roofing Project Gallery Melbourne | Before & After Photos | Assist Roofing',
-        testimonials: 'Customer Reviews & Testimonials | Assist Roofing Melbourne',
-        contact: 'Contact Assist Roofing Melbourne | Book Free Roof Inspection'
+        home: pageData?.seoTitle || seo?.siteTitle || 'Roofing Contractor & Roof Restoration Melbourne | Assist Roofing',
+        about: pageData?.seoTitle || 'About Us | VBA Registered Roofers Melbourne | Assist Roofing',
+        services: pageData?.seoTitle || 'Roofing Services Melbourne | Repairs, Restoration & Re-Roofing',
+        gallery: pageData?.seoTitle || 'Roofing Projects Gallery Melbourne | Before & After Photos',
+        testimonials: pageData?.seoTitle || 'Customer Reviews & Testimonials | Assist Roofing Melbourne',
+        contact: pageData?.seoTitle || 'Contact Assist Roofing Melbourne | Book Free Roof Inspection'
       };
-      document.title = titles[currentPage] || 'Assist Roofing & Home Solution';
+
+      const descriptions: Record<string, string> = {
+        home: pageData?.metaDescription || seo?.defaultMetaDescription || "Melbourne's trusted roofing contractor for Colorbond restorations, emergency leak repairs & inspections. VBA registered, 10-year warranty. Free quote.",
+        about: pageData?.metaDescription || "Learn about Assist Roofing's 15+ years of Melbourne roofing expertise, VBA-registered master trades, $10M insurance, and clean jobsite promise.",
+        services: pageData?.metaDescription || "Explore comprehensive Melbourne roofing services: Colorbond roof replacements, emergency leak repairs, guttering, and restorations backed by a 10-year warranty.",
+        gallery: pageData?.metaDescription || "Browse completed roofing projects across Melbourne. High-resolution before and after photos of tile restorations, Colorbond replacements, and re-bedding.",
+        testimonials: pageData?.metaDescription || "Read verified Google customer reviews for Assist Roofing Melbourne. 4.9/5 average rating across 520+ reviews for roof restorations, leak repairs & re-roofing.",
+        contact: pageData?.metaDescription || "Contact Assist Roofing in North Melbourne. Call 0478 936 120 or book a free on-site roof condition assessment and itemized fixed-price quote."
+      };
+
+      const paths: Record<string, string> = {
+        home: '',
+        about: '/about',
+        services: '/services',
+        gallery: '/projects',
+        testimonials: '/testimonials',
+        contact: '/contact'
+      };
+
+      title = titles[currentPage] || titles.home;
+      description = descriptions[currentPage] || descriptions.home;
+      canonical = `${BASE_URL}${paths[currentPage] || ''}`;
+      if (pageData?.ogImage) ogImage = pageData.ogImage;
     }
 
-    // 2. Meta Description
-    const desc = pageData?.metaDescription || seo?.defaultMetaDescription;
-    if (desc) {
-      let metaDesc = document.querySelector('meta[name="description"]');
-      if (!metaDesc) {
-        metaDesc = document.createElement('meta');
-        metaDesc.setAttribute('name', 'description');
-        document.head.appendChild(metaDesc);
+    // Apply Title
+    document.title = title;
+
+    // Apply Meta Description
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute('content', description);
+
+    // Apply Canonical Link
+    let linkCanonical = document.querySelector('link[rel="canonical"]');
+    if (!linkCanonical) {
+      linkCanonical = document.createElement('link');
+      linkCanonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(linkCanonical);
+    }
+    linkCanonical.setAttribute('href', canonical);
+
+    // Apply OpenGraph
+    const setMeta = (attr: string, key: string, content: string) => {
+      let el = document.querySelector(`meta[${attr}="${key}"]`);
+      if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attr, key);
+        document.head.appendChild(el);
       }
-      metaDesc.setAttribute('content', desc);
-    }
+      el.setAttribute('content', content);
+    };
 
-    // 3. Canonical Link
-    if (pageData?.canonical) {
-      let linkCanonical = document.querySelector('link[rel="canonical"]');
-      if (!linkCanonical) {
-        linkCanonical = document.createElement('link');
-        linkCanonical.setAttribute('rel', 'canonical');
-        document.head.appendChild(linkCanonical);
+    setMeta('property', 'og:title', title);
+    setMeta('property', 'og:description', description);
+    setMeta('property', 'og:url', canonical);
+    setMeta('property', 'og:image', ogImage);
+
+    // Apply Twitter Cards
+    setMeta('name', 'twitter:title', title);
+    setMeta('name', 'twitter:description', description);
+    setMeta('name', 'twitter:image', ogImage);
+
+    // Inject Dynamic Route Schema
+    let schemaScript = document.getElementById('route-schema') as HTMLScriptElement | null;
+
+    if (currentPage === 'services' && currentServiceSlug && CORE_SERVICES_DATA[currentServiceSlug]) {
+      const s = CORE_SERVICES_DATA[currentServiceSlug];
+      const routeSchema = {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BreadcrumbList",
+            "@id": `${canonical}#breadcrumb`,
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": `${BASE_URL}/`
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Services",
+                "item": `${BASE_URL}/services`
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": s.name,
+                "item": canonical
+              }
+            ]
+          },
+          {
+            "@type": "Service",
+            "@id": `${canonical}#service`,
+            "name": s.name,
+            "headline": s.heroHeading,
+            "description": s.shortDesc,
+            "provider": {
+              "@type": "RoofingContractor",
+              "name": "Assist Roofing and Home Solution",
+              "@id": `${BASE_URL}/#business`
+            },
+            "areaServed": {
+              "@type": "City",
+              "name": "Melbourne"
+            },
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": `${s.name} Inclusions`,
+              "itemListElement": s.features.map(f => ({
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": f
+                }
+              }))
+            },
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "AUD",
+              "description": s.pricingText
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "@id": `${canonical}#faq`,
+            "mainEntity": s.faqs.map(faq => ({
+              "@type": "Question",
+              "name": faq.q,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.a
+              }
+            }))
+          }
+        ]
+      };
+
+      if (!schemaScript) {
+        schemaScript = document.createElement('script');
+        schemaScript.id = 'route-schema';
+        schemaScript.type = 'application/ld+json';
+        document.head.appendChild(schemaScript);
       }
-      linkCanonical.setAttribute('href', pageData.canonical);
+      schemaScript.textContent = JSON.stringify(routeSchema, null, 2);
+    } else if (currentPage !== 'home') {
+      // Other top-level pages get BreadcrumbList
+      const pageNames: Record<string, string> = {
+        about: 'About Us',
+        services: 'Services',
+        gallery: 'Projects',
+        testimonials: 'Testimonials',
+        contact: 'Contact'
+      };
+
+      const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "@id": `${canonical}#breadcrumb`,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": `${BASE_URL}/`
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": pageNames[currentPage] || currentPage,
+            "item": canonical
+          }
+        ]
+      };
+
+      if (!schemaScript) {
+        schemaScript = document.createElement('script');
+        schemaScript.id = 'route-schema';
+        schemaScript.type = 'application/ld+json';
+        document.head.appendChild(schemaScript);
+      }
+      schemaScript.textContent = JSON.stringify(breadcrumbSchema, null, 2);
+    } else {
+      // Home page uses the static schema in index.html, so remove route-schema if present
+      if (schemaScript) {
+        schemaScript.remove();
+      }
     }
 
-    // 4. Meta Robots
-    let metaRobots = document.querySelector('meta[name="robots"]');
-    if (!metaRobots) {
-      metaRobots = document.createElement('meta');
-      metaRobots.setAttribute('name', 'robots');
-      document.head.appendChild(metaRobots);
-    }
-    metaRobots.setAttribute('content', pageData?.noIndex ? 'noindex, nofollow' : 'index, follow');
-
-    // 5. OpenGraph Tags
-    const ogTitle = pageData?.seoTitle || document.title;
-    const ogDesc = pageData?.metaDescription || seo?.defaultMetaDescription;
-    const ogImg = pageData?.ogImage || seo?.defaultOgImage;
-
-    let metaOgTitle = document.querySelector('meta[property="og:title"]');
-    if (metaOgTitle && ogTitle) metaOgTitle.setAttribute('content', ogTitle);
-
-    let metaOgDesc = document.querySelector('meta[property="og:description"]');
-    if (metaOgDesc && ogDesc) metaOgDesc.setAttribute('content', ogDesc);
-
-    let metaOgImg = document.querySelector('meta[property="og:image"]');
-    if (metaOgImg && ogImg) metaOgImg.setAttribute('content', ogImg);
-
-  }, [currentPage, pages, seo]);
+  }, [currentPage, currentServiceSlug, pages, seo]);
 
   return null;
 };
 
 const PageContent: React.FC = () => {
-  const { currentPage } = useWebsite();
+  const { currentPage, currentServiceSlug } = useWebsite();
 
   return (
     <motion.div
-      key={currentPage}
+      key={`${currentPage}-${currentServiceSlug || 'root'}`}
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}

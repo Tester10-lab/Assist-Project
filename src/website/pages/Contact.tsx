@@ -5,7 +5,7 @@ import { asset } from '../utils/asset';
 import { ALL_SERVICES_OFFERED } from '../data';
 
 export const Contact: React.FC = () => {
-  const { setCurrentPage } = useWebsite();
+  const { navigateTo } = useWebsite();
   const { services: cmsServices, pages, settings } = useCmsContent();
 
   const allServices = cmsServices && cmsServices.length > 0 ? cmsServices : ALL_SERVICES_OFFERED;
@@ -50,7 +50,7 @@ export const Contact: React.FC = () => {
           </p>
 
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-semibold">
-            <button onClick={() => setCurrentPage('home')} className="text-[#b7c1d5] hover:text-white transition-colors">Home</button>
+            <a href="/" onClick={(e) => { e.preventDefault(); navigateTo('home'); }} className="text-[#b7c1d5] hover:text-white transition-colors">Home</a>
             <span className="text-[#f19e1f] font-bold">/</span>
             <span className="text-white">Contact</span>
           </div>
@@ -315,7 +315,7 @@ export const Contact: React.FC = () => {
               <div className="rounded-3xl overflow-hidden shadow-md border border-[#e6ebf6] relative h-64">
                 <img 
                   src={asset('/roofora-assets/images/portfolio-img1.jpg')} 
-                  alt="Melbourne Roofing Project" 
+                  alt="Completed Assist Roofing restoration and Colorbond installation in Melbourne"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1e2e4f]/80 via-transparent to-transparent flex items-end p-6">

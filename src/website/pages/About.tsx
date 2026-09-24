@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { asset } from '../utils/asset';
 
 export const About: React.FC = () => {
-  const { setCurrentPage } = useWebsite();
+  const { navigateTo } = useWebsite();
 
   return (
     <div className="w-full bg-white text-[#1e2e4f] font-['Sora',sans-serif]">
@@ -19,14 +19,14 @@ export const About: React.FC = () => {
 
         <div className="max-w-[1320px] mx-auto px-4 sm:px-8 relative z-10 text-center">
           <h1 className="text-4xl sm:text-6xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-white mb-4">
-            About Us
+            About Assist Roofing Melbourne
           </h1>
           <p className="text-base sm:text-lg text-[#b7c1d5] max-w-2xl mx-auto mb-6 font-light">
             More than roofing contractors — we provide complete project assurance, transparent pricing, and decades of Australian roofing expertise.
           </p>
 
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-semibold">
-            <button onClick={() => setCurrentPage('home')} className="text-[#b7c1d5] hover:text-white transition-colors">Home</button>
+            <a href="/" onClick={(e) => { e.preventDefault(); navigateTo('home'); }} className="text-[#b7c1d5] hover:text-white transition-colors">Home</a>
             <span className="text-[#f19e1f] font-bold">/</span>
             <span className="text-white">About</span>
           </div>
@@ -43,12 +43,12 @@ export const About: React.FC = () => {
               <div className="grid grid-cols-2 gap-4">
                 <img 
                   src={asset('/roofora-assets/images/about-img1.jpg')} 
-                  alt="Roofing Crew" 
+                  alt="Assist Roofing VBA registered roofing crew at Melbourne residential site"
                   className="rounded-3xl shadow-lg w-full h-[320px] object-cover"
                 />
                 <img 
                   src={asset('/roofora-assets/images/about-img2.jpg')} 
-                  alt="Precision Workmanship" 
+                  alt="Precision Colorbond and metal roofing workmanship in Melbourne"
                   className="rounded-3xl shadow-lg w-full h-[320px] object-cover mt-8"
                 />
               </div>
@@ -59,7 +59,7 @@ export const About: React.FC = () => {
                   <i className="fa-solid fa-award"></i>
                 </div>
                 <div>
-                  <span className="text-sm font-bold font-['Oswald',sans-serif] uppercase block">100% VBA Licensed</span>
+                  <span className="text-sm font-bold font-['Oswald',sans-serif] uppercase block">VBA Registered Trades</span>
                   <span className="text-xs text-[#b7c1d5]">Registered Master Builders</span>
                 </div>
               </div>
@@ -86,11 +86,11 @@ export const About: React.FC = () => {
                   <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-[#f19e1f] mb-3 text-lg">
                     <i className="fa-solid fa-shield-halved"></i>
                   </div>
-                  <h4 className="text-base font-bold font-['Oswald',sans-serif] uppercase text-[#1e2e4f] mb-1">
+                  <h3 className="text-base font-bold font-['Oswald',sans-serif] uppercase text-[#1e2e4f] mb-1">
                     Safety & Compliance
-                  </h4>
+                  </h3>
                   <p className="text-xs text-[#616a7e]">
-                    Working-at-heights certified with $20M comprehensive public liability.
+                    Working-at-heights certified with $10M comprehensive public liability.
                   </p>
                 </div>
 
@@ -98,22 +98,23 @@ export const About: React.FC = () => {
                   <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-[#f19e1f] mb-3 text-lg">
                     <i className="fa-solid fa-broom"></i>
                   </div>
-                  <h4 className="text-base font-bold font-['Oswald',sans-serif] uppercase text-[#1e2e4f] mb-1">
+                  <h3 className="text-base font-bold font-['Oswald',sans-serif] uppercase text-[#1e2e4f] mb-1">
                     Clean Site Guarantee
-                  </h4>
+                  </h3>
                   <p className="text-xs text-[#616a7e]">
                     Magnetic nail sweeps and complete site cleanup after every single shift.
                   </p>
                 </div>
               </div>
 
-              <button
-                onClick={() => setCurrentPage('contact')}
-                className="self-start bg-[#f19e1f] hover:bg-[#d88713] text-white font-bold text-sm px-8 py-4 rounded-full shadow-lg transition-all flex items-center gap-2"
+              <a
+                href="/contact"
+                onClick={(e) => { e.preventDefault(); navigateTo('contact'); }}
+                className="self-start bg-[#f19e1f] hover:bg-[#d88713] text-white font-bold text-sm px-8 py-4 rounded-full shadow-lg transition-all flex items-center gap-2 text-decoration-none cursor-pointer"
               >
                 <span>Work With Us</span>
                 <i className="fa-solid fa-arrow-right text-xs"></i>
-              </button>
+              </a>
             </div>
 
           </div>
@@ -149,7 +150,7 @@ export const About: React.FC = () => {
               Meet Our Leadership & Crew
             </h2>
             <p className="text-base text-[#616a7e]">
-              Dedicated, licensed roofing professionals passionate about protecting Melbourne homes.
+              Dedicated, VBA registered roofing trades passionate about protecting Melbourne homes.
             </p>
           </div>
 
@@ -198,20 +199,21 @@ export const About: React.FC = () => {
       <section className="py-16 bg-white border-t border-gray-100">
         <div className="max-w-[1320px] mx-auto px-4 sm:px-8 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
           <div>
-            <h3 className="text-2xl sm:text-3xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-1">
+            <h2 className="text-2xl sm:text-3xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-1">
               Have Questions About Your Roof?
-            </h3>
+            </h2>
             <p className="text-sm text-[#616a7e]">
               Speak directly with our master roofing team today.
             </p>
           </div>
           <div className="flex items-center gap-4">
-            <button
-              onClick={() => setCurrentPage('contact')}
-              className="bg-[#1e2e4f] hover:bg-[#293a5b] text-white font-bold text-sm px-7 py-3.5 rounded-full transition-colors"
+            <a
+              href="/contact"
+              onClick={(e) => { e.preventDefault(); navigateTo('contact'); }}
+              className="bg-[#1e2e4f] hover:bg-[#293a5b] text-white font-bold text-sm px-7 py-3.5 rounded-full transition-colors text-decoration-none cursor-pointer"
             >
               Contact Us
-            </button>
+            </a>
             <a
               href="tel:0478936120"
               className="bg-[#f19e1f] hover:bg-[#d88713] text-white font-bold text-sm px-7 py-3.5 rounded-full shadow transition-all flex items-center gap-2"

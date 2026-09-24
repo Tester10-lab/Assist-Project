@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { asset } from '../utils/asset';
 
 export const Testimonials: React.FC = () => {
-  const { setCurrentPage, openQuoteModal } = useWebsite();
+  const { navigateTo, openQuoteModal } = useWebsite();
 
   return (
     <div className="w-full bg-white text-[#1e2e4f] font-['Sora',sans-serif]">
@@ -20,16 +20,16 @@ export const Testimonials: React.FC = () => {
 
         <div className="max-w-[1320px] mx-auto px-4 sm:px-8 relative z-10 text-center">
           <h1 className="text-4xl sm:text-6xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-white mb-4">
-            Google Reviews
+            Google Reviews & Customer Testimonials
           </h1>
           <p className="text-base sm:text-lg text-[#b7c1d5] max-w-2xl mx-auto mb-6 font-light">
             Read authentic Google feedback from Melbourne homeowners about ASSIST's honest drone inspections, prompt leak fixes, and 10-year warranty craftsmanship.
           </p>
 
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-semibold">
-            <button onClick={() => setCurrentPage('home')} className="text-[#b7c1d5] hover:text-white transition-colors">Home</button>
+            <a href="/" onClick={(e) => { e.preventDefault(); navigateTo('home'); }} className="text-[#b7c1d5] hover:text-white transition-colors">Home</a>
             <span className="text-[#f19e1f] font-bold">/</span>
-            <span className="text-white">Google Reviews</span>
+            <span className="text-white">Testimonials</span>
           </div>
         </div>
       </section>
@@ -110,9 +110,9 @@ export const Testimonials: React.FC = () => {
                       {review.avatarInitials}
                     </div>
                     <div>
-                      <h4 className="text-base font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f]">
+                      <h3 className="text-base font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f]">
                         {review.name}
-                      </h4>
+                      </h3>
                       <span className="text-xs text-[#616a7e] block">
                         {review.suburb} • {review.timeAgo}
                       </span>
@@ -133,7 +133,7 @@ export const Testimonials: React.FC = () => {
       <section className="py-16 bg-[#1e2e4f] text-white">
         <div className="max-w-[1320px] mx-auto px-4 sm:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-white mb-4">
-            Ready for a 5-Star Roofing Experience?
+            Ready to Discuss Your Melbourne Roof?
           </h2>
           <p className="text-base text-[#b7c1d5] max-w-xl mx-auto mb-8 font-light">
             Get the same pristine craftsmanship and peace of mind for your home today.

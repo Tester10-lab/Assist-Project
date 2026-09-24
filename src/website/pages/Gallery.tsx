@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { GALLERY_PROJECTS } from '../data';
 import { useWebsite } from '../WebsiteContext';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -6,7 +6,7 @@ import { asset } from '../utils/asset';
 
 export const Gallery: React.FC = () => {
   const [filter, setFilter] = useState('All');
-  const { setCurrentPage, openLightbox, openQuoteModal } = useWebsite();
+  const { navigateTo, openLightbox, openQuoteModal } = useWebsite();
 
   const categories = ['All', ...Array.from(new Set(GALLERY_PROJECTS.map(p => p.category)))];
   
@@ -33,7 +33,7 @@ export const Gallery: React.FC = () => {
           </p>
 
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-semibold">
-            <button onClick={() => setCurrentPage('home')} className="text-[#b7c1d5] hover:text-white transition-colors">Home</button>
+            <a href="/" onClick={(e) => { e.preventDefault(); navigateTo('home'); }} className="text-[#b7c1d5] hover:text-white transition-colors">Home</a>
             <span className="text-[#f19e1f] font-bold">/</span>
             <span className="text-white">Projects</span>
           </div>
@@ -44,6 +44,16 @@ export const Gallery: React.FC = () => {
       <section className="py-20 bg-[#f4f8ff]">
         <div className="max-w-[1320px] mx-auto px-4 sm:px-8">
           
+          {/* Section Heading */}
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#f19e1f] mb-2 block">
+              Melbourne Portfolio
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f]">
+              Featured Roofing Installations & Restorations
+            </h2>
+          </div>
+
           {/* Category Tabs */}
           <div className="flex flex-wrap justify-center gap-3 mb-16">
             {categories.map((cat) => {
@@ -132,12 +142,13 @@ export const Gallery: React.FC = () => {
           <p className="text-base text-[#616a7e] max-w-xl mx-auto mb-8">
             Our master sheet metal fabricators specialize in custom standing seam, box gutters, and intricate tile roof restorations.
           </p>
-          <button
-            onClick={() => setCurrentPage('contact')}
-            className="bg-[#f19e1f] hover:bg-[#d88713] text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-full shadow-lg transition-all"
+          <a
+            href="/contact"
+            onClick={(e) => { e.preventDefault(); navigateTo('contact'); }}
+            className="bg-[#f19e1f] hover:bg-[#d88713] text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-full shadow-lg transition-all text-decoration-none d-inline-block cursor-pointer"
           >
             Schedule On-Site Consultation
-          </button>
+          </a>
         </div>
       </section>
     </div>

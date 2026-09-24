@@ -1,15 +1,24 @@
-export type PageId = 
-  | 'home' 
-  | 'about' 
-  | 'services' 
-  | 'gallery' 
-  | 'testimonials' 
+export type PageId =
+  | 'home'
+  | 'about'
+  | 'services'
+  | 'gallery'
+  | 'testimonials'
   | 'contact';
 
+export type CoreServiceSlug =
+  | 'roof-restoration'
+  | 'roof-repairs'
+  | 'roof-replacement'
+  | 'colorbond-roofing'
+  | 'guttering'
+  | 'leak-detection';
 
 export interface NavLink {
   id: PageId;
   label: string;
+  path?: string;
+  serviceSlug?: CoreServiceSlug;
 }
 
 export interface ServiceItem {
