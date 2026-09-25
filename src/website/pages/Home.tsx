@@ -4,6 +4,7 @@ import { useCmsContent } from '../useCmsContent';
 import { FAQS, ALL_SERVICES_OFFERED } from '../data';
 import { AnimatedCounter } from '../components/AnimatedCounter';
 import { GoogleReviewsCarousel } from '../components/GoogleReviewsCarousel';
+import { ServicesAccordion } from '../components/ServicesAccordion';
 import { asset } from '../utils/asset';
 import type { CoreServiceSlug } from '../types';
 
@@ -401,32 +402,12 @@ export const Home: React.FC = () => {
                   </div>
                 </div>
 
-                {/* 24 Checklist Items Grid */}
-                <div className="row">
-                  {allServices.map((srv) => (
-                    <div key={srv.id} className="col-lg-3 col-md-4 col-sm-6 mb-3">
-                      <div
-                        onClick={() => openQuoteModal(srv.name)}
-                        className="d-flex align-items-center gap-2 p-2.5 rounded-3 bg-white/10 hover:bg-white/20 transition-all cursor-pointer border border-white/10 group"
-                        title={`Request quote for ${srv.name}`}
-                      >
-                        <div
-                          className="rounded-circle d-flex align-items-center justify-content-center shrink-0"
-                          style={{ width: '26px', height: '26px', backgroundColor: '#fff', color: '#dc2626', fontWeight: 'bold', fontSize: '13px' }}
-                        >
-                          <i className="fa-solid fa-check"></i>
-                        </div>
-                        <span className="text-white text-size-14 font-weight-600 line-clamp-1 group-hover:text-[#f19e1f] transition-colors">
-                          {srv.name}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                {/* 24 Services Organized into Professional SEO-Safe Accordion Structure */}
+                <ServicesAccordion services={allServices} className="mt-3 mb-2" />
 
                 {/* And Many More bottom ribbon */}
                 <div className="mt-4 pt-3 border-top border-white/20 d-flex flex-wrap align-items-center justify-content-between gap-3">
-                  <div className="d-flex align-items-center gap-2 text-white text-size-14">
+                  <div className="d-flex flex-wrap align-items-center gap-2 text-white text-size-13 text-sm-size-14">
                     <span className="badge bg-[#f19e1f] text-[#1e2e4f] font-weight-bold px-3 py-1.5 rounded-pill text-uppercase">
                       + And Many More
                     </span>

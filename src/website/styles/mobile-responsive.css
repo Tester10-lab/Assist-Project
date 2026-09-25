@@ -757,15 +757,19 @@ img[src] {
   margin-bottom: 16px !important;
   position: relative !important;
   background-color: #f1f5f9;
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
 }
 
-.portfolio-card-img {
+.portfolio-card-img,
+.portfolio-box figure img,
+.portfolio-box .portfolio-card-figure .portfolio-card-img {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
   display: block !important;
   border-radius: 24px !important;
+  margin: 0 !important;
+  margin-top: 0 !important;
+  padding: 0 !important;
 }
 
 /* Specific framing for Card 1 to focus on roof timbers/framing instead of sky */
@@ -781,6 +785,11 @@ img[src] {
 
 /* Mobile & Tablet Responsive Refinements */
 @media screen and (max-width: 991px) {
+  /* Prevent invisible blank sections waiting on WOW.js scroll triggers */
+  .wow {
+    visibility: visible !important;
+  }
+
   .padding-top {
     padding-top: 45px !important;
   }
@@ -808,12 +817,17 @@ img[src] {
     border-radius: 18px !important;
   }
 
-  .portfolio-card-img {
+  .portfolio-card-img,
+  .portfolio-box figure img,
+  .portfolio-box .portfolio-card-figure .portfolio-card-img {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
     display: block !important;
     border-radius: 18px !important;
+    margin: 0 !important;
+    margin-top: 0 !important;
+    padding: 0 !important;
   }
 }
 
@@ -823,12 +837,17 @@ img[src] {
     border-radius: 16px !important;
   }
 
-  .portfolio-card-img {
+  .portfolio-card-img,
+  .portfolio-box figure img,
+  .portfolio-box .portfolio-card-figure .portfolio-card-img {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
     display: block !important;
     border-radius: 16px !important;
+    margin: 0 !important;
+    margin-top: 0 !important;
+    padding: 0 !important;
   }
 }
 

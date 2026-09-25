@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export const BackToTop: React.FC = () => {
   const [visible, setVisible] = useState(false);
@@ -20,8 +20,8 @@ export const BackToTop: React.FC = () => {
   return (
     <button
       onClick={scrollToTop}
-      id="button"
-      className="position-fixed shadow-lg d-flex align-items-center justify-content-center border-0 wow animated fadeIn"
+      id="back-to-top-btn"
+      className="position-fixed shadow-lg d-flex align-items-center justify-content-center border-0 animated fadeIn"
       style={{
         bottom: '30px',
         right: '30px',
