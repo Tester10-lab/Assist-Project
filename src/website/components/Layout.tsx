@@ -64,10 +64,11 @@ export const Navbar: React.FC = () => {
 
               {/* Mobile Hamburger Toggle */}
               <button
-                className="navbar-toggler d-lg-none border-0"
+                className={`navbar-toggler d-lg-none border-0 ${isMobileMenuOpen ? '' : 'collapsed'}`}
                 type="button"
                 onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
                 aria-label="Toggle navigation"
+                aria-expanded={isMobileMenuOpen}
               >
                 <span className="navbar-toggler-icon"></span>
                 <span className="navbar-toggler-icon"></span>
@@ -75,7 +76,7 @@ export const Navbar: React.FC = () => {
               </button>
 
               {/* Center Sky-Blue Pill Menu */}
-              <div className={`collapse navbar-collapse ${isMobileMenuOpen ? 'show d-block' : 'd-none d-lg-block'}`} id="navbarSupportedContent">
+              <div className={`navbar-collapse ${isMobileMenuOpen ? 'show d-block' : 'd-none d-lg-block'}`} id="navbarSupportedContent">
                 <ul className="navbar-nav ml-auto">
                   <li className="nav-item">
                     <a

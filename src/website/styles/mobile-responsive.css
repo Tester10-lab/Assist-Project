@@ -59,45 +59,121 @@ img[src] {
     width: auto !important;
   }
 
-  /* Hamburger Toggle */
-  .navbar-toggler {
-    padding: 8px 12px !important;
+  /* Hamburger / Close Toggle Button - pinned cleanly to top right of navbar */
+  .header-con .navbar-toggler {
+    width: 44px !important;
+    height: 40px !important;
+    padding: 0 !important;
+    position: absolute !important;
+    top: 50% !important;
+    right: 0 !important;
+    transform: translateY(-50%) !important;
     background-color: var(--sky--color, #e8f4fc) !important;
     border-radius: 12px !important;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    cursor: pointer !important;
+    z-index: 1001 !important;
+    border: none !important;
+    outline: none !important;
   }
 
-  .navbar-toggler-icon {
-    display: block;
-    width: 22px;
-    height: 2px;
+  /* Hamburger icon state (3 horizontal lines) */
+  .header-con .navbar-toggler.collapsed .navbar-toggler-icon {
+    display: block !important;
+    width: 22px !important;
+    height: 2px !important;
     background-color: #1e2e4f !important;
-    border-radius: 2px;
+    border-radius: 2px !important;
+    position: static !important;
+    transform: none !important;
+    visibility: visible !important;
+    margin: 2px 0 !important;
+    transition: all 0.3s ease-in-out !important;
   }
 
-  /* Mobile Dropdown Collapse Menu */
+  /* When menu is open: keep toggle aligned with top bar, and form an X */
+  .header-con:has(.navbar-collapse.show) .navbar-toggler,
+  .header-con:has(.navbar-collapse.d-block) .navbar-toggler {
+    top: 22px !important;
+    transform: none !important;
+  }
+
+  .header-con .navbar-toggler:not(.collapsed) {
+    position: absolute !important;
+  }
+
+  .header-con .navbar-toggler:not(.collapsed) .navbar-toggler-icon:nth-child(1) {
+    position: absolute !important;
+    top: 19px !important;
+    left: 11px !important;
+    width: 22px !important;
+    height: 2px !important;
+    background-color: #1e2e4f !important;
+    transform: rotate(135deg) !important;
+    border-radius: 2px !important;
+    visibility: visible !important;
+    transition: all 0.3s ease-in-out !important;
+  }
+
+  .header-con .navbar-toggler:not(.collapsed) .navbar-toggler-icon:nth-child(2) {
+    display: none !important;
+    visibility: hidden !important;
+    background-color: transparent !important;
+  }
+
+  .header-con .navbar-toggler:not(.collapsed) .navbar-toggler-icon:nth-child(3) {
+    position: absolute !important;
+    top: 19px !important;
+    left: 11px !important;
+    width: 22px !important;
+    height: 2px !important;
+    background-color: #1e2e4f !important;
+    transform: rotate(-135deg) !important;
+    border-radius: 2px !important;
+    visibility: visible !important;
+    transition: all 0.3s ease-in-out !important;
+  }
+
+  /* Mobile Dropdown Menu */
   .header-con .navbar-collapse {
+    visibility: visible !important;
     background-color: #ffffff !important;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #e2e8f0 !important;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12) !important;
     border-radius: 20px !important;
     padding: 20px !important;
     margin-top: 15px !important;
-    position: relative;
-    z-index: 999;
+    position: relative !important;
+    z-index: 999 !important;
+    width: 100% !important;
+  }
+
+  .header-con .navbar-collapse,
+  .header-con .navbar-collapse *,
+  .header-con .navbar-nav,
+  .header-con .navbar-nav * {
+    visibility: visible !important;
   }
 
   .header-con .navbar-nav {
     display: flex !important;
     flex-direction: column !important;
-    gap: 12px !important;
+    gap: 8px !important;
     height: auto !important;
     background-color: transparent !important;
     border-radius: 0 !important;
     padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+  }
+
+  .header-con .navbar-nav .nav-item {
+    width: 100% !important;
+    margin: 0 !important;
   }
 
   .header-con .navbar-nav .nav-item .nav-link {
@@ -108,6 +184,10 @@ img[src] {
     border-radius: 12px !important;
     display: block !important;
     transition: all 0.2s ease;
+    opacity: 1 !important;
+    visibility: visible !important;
+    text-align: left !important;
+    width: 100% !important;
   }
 
   .header-con .navbar-nav .nav-item .nav-link.active,
@@ -118,11 +198,17 @@ img[src] {
 
   .header-con .navbar-collapse .mobile-action-buttons {
     display: flex !important;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid #e2e8f0;
+    flex-direction: column !important;
+    gap: 10px !important;
+    margin-top: 15px !important;
+    padding-top: 15px !important;
+    border-top: 1px solid #e2e8f0 !important;
+    width: 100% !important;
+    visibility: visible !important;
+  }
+
+  .header-con .navbar-collapse .mobile-action-buttons * {
+    visibility: visible !important;
   }
 
   /* Promotional Topbar */
@@ -589,11 +675,15 @@ img[src] {
     line-height: 24px !important;
   }
 
+  /* FAQ on Mobile: explicitly cancel out template 250px margin-top bug */
+  .faq-con .accordion-card,
   .accordion-card {
+    margin-top: 0 !important;
+    margin-bottom: 14px !important;
     border-radius: 16px !important;
-    margin-bottom: 12px !important;
   }
 
+  .faq-con .accordion-card h3,
   .accordion-card h3 {
     font-size: 16px !important;
     line-height: 22px !important;
@@ -849,5 +939,11 @@ img[src] {
     margin-top: 0 !important;
     padding: 0 !important;
   }
+}
+
+/* Global override for Roofora responsive.css 250px margin-top bug on FAQ cards */
+.faq-con .accordion-card,
+.accordion-card {
+  margin-top: 0 !important;
 }
 
