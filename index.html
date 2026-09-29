@@ -1,6 +1,11 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Charset MUST be within first 1024 bytes -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
     <!-- GitHub Pages Single Page App routing redirect restore -->
     <script type="text/javascript">
       (function(l) {
@@ -14,26 +19,49 @@
         }
       }(window.location));
     </script>
+
+    <!-- Resource Hints: Preconnect to critical third-party origins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link rel="dns-prefetch" href="https://static.elfsight.com" />
+    <link rel="dns-prefetch" href="https://wa.me" />
+
+    <!-- Preload critical heading font for faster LCP -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Sora:wght@100;200;300;400;500;600;700;800&display=swap" />
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VTEV53E3T3"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-VTEV53E3T3');
     </script>
+
     <!-- Elfsight Google Reviews Platform -->
     <script src="https://elfsightcdn.com/platform.js" async></script>
-    <meta charset="UTF-8" />
+
+    <!-- Favicon & Mobile App -->
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Assist Roofing" />
+    <meta name="theme-color" content="#1e2e4f" />
+    <meta name="format-detection" content="telephone=yes" />
+    <!-- Primary SEO Meta -->
     <link rel="canonical" href="https://assistroofing.com.au/" />
     <meta name="description" content="Melbourne's licensed roofing contractor for Colorbond restorations, emergency leak repairs &amp; inspections. VBA registered, 10-year warranty. Free quote." />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="google-site-verification" content="TLR9qRMzVpG8KTuRgckGsiUXzJy6MaY0o6pn8EjbOCM" />
     <meta name="keywords" content="Roof Leak Repairs Melbourne, Roof Replacement Melbourne, Roof Repairs, New Roof Installation, Roof Leak Detection, Roof Installation, Storm Wind Damage Roof Repair, Roof Painting Melbourne, Tile and Metal Roof Painting, Garage and Pergola Roofing, Roof Flashing, Roof Inspection Melbourne, Leaky Roof Maintenance, Concrete Tile Roof, Corrugated Iron Roof, Guttering Repair Melbourne, Gutter Installation, Gutter Repairs, Colorbond Gutters, Gutters And Downpipes, Bedding And Repointing Melbourne, Ridge Capping, Fascia and Eave Repair, Skylight Installation Melbourne" />
     
+    <!-- Locale & Language Targeting -->
+    <link rel="alternate" hreflang="en-AU" href="https://assistroofing.com.au/" />
+    <link rel="alternate" hreflang="x-default" href="https://assistroofing.com.au/" />
+
     <!-- Geo Meta Tags for Melbourne Local SEO -->
     <meta name="geo.region" content="AU-VIC" />
     <meta name="geo.placename" content="North Melbourne" />
@@ -45,15 +73,19 @@
     <meta property="og:locale" content="en_AU" />
     <meta property="og:site_name" content="Assist Roofing & Home Solution" />
     <meta property="og:url" content="https://assistroofing.com.au/" />
-    <meta property="og:title" content="Roofing Contractor & Roof Restoration Melbourne | Assist Roofing" />
+    <meta property="og:title" content="Roofing Contractor &amp; Restoration Melbourne | Assist Roofing" />
     <meta property="og:description" content="Melbourne's trusted roofing contractor. Specializing in Colorbond re-roofing, emergency leak fixes, terracotta tile restoration, and structural repairs under AS 4349.1 standards. 10-Year warranty." />
     <meta property="og:image" content="https://assistroofing.com.au/roofora-assets/images/portfolio-img1.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Assist Roofing Melbourne - Professional roof restoration and repairs" />
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Roofing Contractor & Roof Restoration Melbourne | Assist Roofing" />
+    <meta name="twitter:title" content="Roofing Contractor &amp; Restoration Melbourne | Assist Roofing" />
     <meta name="twitter:description" content="Melbourne's trusted roofing contractor. Free on-site inspection, emergency leak repairs, and full Colorbond restorations with 10-year warranty." />
     <meta name="twitter:image" content="https://assistroofing.com.au/roofora-assets/images/portfolio-img1.jpg" />
+    <meta name="twitter:image:alt" content="Assist Roofing Melbourne - Professional roof restoration and repairs" />
 
     <!-- Schema.org JSON-LD Structured Data: LocalBusiness & RoofingContractor -->
     <script type="application/ld+json">
@@ -61,7 +93,18 @@
       "@context": "https://schema.org",
       "@graph": [
         {
-          "@type": "RoofingContractor",
+          "@type": "WebSite",
+          "@id": "https://assistroofing.com.au/#website",
+          "url": "https://assistroofing.com.au",
+          "name": "Assist Roofing Melbourne",
+          "description": "Melbourne's trusted roofing contractor for Colorbond restorations, emergency leak repairs, and roof replacements.",
+          "inLanguage": "en-AU",
+          "publisher": {
+            "@id": "https://assistroofing.com.au/#business"
+          }
+        },
+        {
+          "@type": ["RoofingContractor", "Organization"],
           "@id": "https://assistroofing.com.au/#business",
           "name": "Assist Roofing and Home Solution",
           "legalName": "Assist Roofing and Home Solution",
@@ -70,7 +113,7 @@
           "logo": "https://assistroofing.com.au/logo.png",
           "image": "https://assistroofing.com.au/roofora-assets/images/portfolio-img1.jpg",
           "description": "Licensed and insured Melbourne roofing contractor specializing in Colorbond re-roofing, terracotta tile restoration, leak repairs, and AS 4349.1 visual inspections.",
-          "telephone": "+61478936120",
+          "telephone": "+61478250790",
           "email": "info@assistroofing.com.au",
           "address": {
             "@type": "PostalAddress",
@@ -199,7 +242,93 @@
     <title>Roofing Contractor & Roof Restoration Melbourne | Assist Roofing</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Semantic Static Fallback for Search Crawlers and AI Bots (Replaced on React Client Hydration) -->
+      <header>
+        <nav aria-label="Main Navigation">
+          <a href="/">Home</a> |
+          <a href="/about">About Us</a> |
+          <a href="/services">Services</a> |
+          <a href="/services/roof-restoration">Roof Restoration</a> |
+          <a href="/services/roof-repairs">Roof Repairs</a> |
+          <a href="/services/roof-replacement">Roof Replacement</a> |
+          <a href="/services/colorbond-roofing">Colorbond Roofing</a> |
+          <a href="/services/guttering">Guttering &amp; Downpipes</a> |
+          <a href="/services/leak-detection">Leak Detection</a> |
+          <a href="/projects">Projects</a> |
+          <a href="/testimonials">Testimonials</a> |
+          <a href="/contact">Contact</a>
+        </nav>
+      </header>
+
+      <main>
+        <article>
+          <h1>Licensed Melbourne Roofing Contractor &amp; Roof Restoration Specialists</h1>
+          <p>
+            Assist Roofing and Home Solution is Melbourne's premier licensed roofing contractor headquartered at 139 Boundary Road, North Melbourne VIC 3051. Backed by over 8+ years of Australian roofing excellence, our VBA-registered trades specialize in full tile-to-Colorbond roof replacements, heritage terracotta restoration, high-pressure cleaning, SupaPoint flexible repointing, and rapid-response emergency leak repairs across Greater Melbourne.
+          </p>
+          <p>
+            Every roof inspection is conducted under Australian Standard AS 4349.1 with high-resolution drone imaging and structural roof timber checks. All major restorations and replacements are protected by our 10-year written workmanship warranty, genuine BlueScope Colorbond material warranties of up to 25 years, and $10,000,000 public liability insurance.
+          </p>
+
+          <section>
+            <h2>Melbourne Roofing Services</h2>
+            <ul>
+              <li>
+                <strong><a href="/services/roof-restoration">Roof Restoration Melbourne</a></strong>: Complete 4-step restorative overhaul for weathered concrete and terracotta tile roofs. Includes eco-friendly rotary pressure washing, damaged tile replacement, mortar ridge cap re-bedding, and SupaPoint flexible pointing with 3-coat UV-reflective membrane sealing.
+              </li>
+              <li>
+                <strong><a href="/services/roof-repairs">Emergency Roof Repairs</a></strong>: Same-day fast response for active water leaks, cracked roof tiles, damaged valley irons, rusted flashings, and severe storm damage across Melbourne.
+              </li>
+              <li>
+                <strong><a href="/services/roof-replacement">Roof Replacement &amp; Conversions</a></strong>: Full structural roof replacements converting tired, cracked concrete or terracotta tiles to modern BlueScope Colorbond steel, fully compliant with AS 1562.1 and AS/NZS 4200.1 sarking requirements.
+              </li>
+              <li>
+                <strong><a href="/services/colorbond-roofing">Colorbond Metal Roofing</a></strong>: Premium metal roofing installations featuring 22 designer Australian colors, integrated thermal-acoustic insulation, and superior resistance to Melbourne's volatile weather.
+              </li>
+              <li>
+                <strong><a href="/services/guttering">Guttering &amp; Downpipe Replacement</a></strong>: Seamless Colorbond gutters, box gutters, high-flow downpipes, and leaf guard protection preventing overflow, fascia timber rot, and foundation dampness.
+              </li>
+              <li>
+                <strong><a href="/services/leak-detection">Electronic Roof Leak Detection</a></strong>: Non-destructive moisture tracking and thermal aerial imaging to pinpoint hidden water ingress points without damaging ceiling plaster.
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Why Choose Assist Roofing Melbourne?</h2>
+            <ul>
+              <li><strong>VBA Registered Trades</strong>: Certified Australian tradespeople adhering to strict Victorian Building Authority building codes.</li>
+              <li><strong>$10M Public Liability Insurance</strong>: Complete protection for residential and commercial properties throughout every stage of the project.</li>
+              <li><strong>10-Year Workmanship Warranty</strong>: Written assurance covering all structural replacements and comprehensive roof restorations.</li>
+              <li><strong>Clean Jobsite Guarantee</strong>: Ground tarps to protect landscaping and heavy magnetic sweepers to collect loose nails and fasteners before handover.</li>
+              <li><strong>4.9 / 5.0 Star Rating</strong>: Trusted by hundreds of Melbourne homeowners with over 520+ verified customer reviews.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Frequently Asked Questions</h2>
+            <h3>How quickly can Assist Roofing inspect an active leak?</h3>
+            <p>
+              We provide same-day emergency inspection for active leaks throughout North Melbourne and metropolitan Melbourne. Non-emergency inspections are typically completed within 24 to 48 hours accompanied by a detailed digital photographic report and upfront fixed-price quotation.
+            </p>
+            <h3>Are your tradespeople fully licensed and insured in Victoria?</h3>
+            <p>
+              Yes, 100%. All Assist Roofing tradespeople are registered with the Victorian Building Authority (VBA), hold working-at-heights safety certifications, and carry $10,000,000 in comprehensive public liability insurance.
+            </p>
+          </section>
+        </article>
+      </main>
+
+      <footer>
+        <p>
+          <strong>Assist Roofing and Home Solution</strong><br />
+          Headquarters: 139 Boundary Road, North Melbourne VIC 3051, Australia<br />
+          Phone: <a href="tel:+61478250790">0478 250 790</a> | Email: <a href="mailto:info@assistroofing.com.au">info@assistroofing.com.au</a><br />
+          Hours: Monday - Friday: 07:00 - 18:00, Saturday: 08:00 - 15:00, Sunday: Closed
+        </p>
+      </footer>
+    </div>
     <script src="/roofora-assets/js/jquery-3.7.1.min.js"></script>
     <script src="/roofora-assets/js/popper.min.js"></script>
     <script src="/roofora-assets/js/bootstrap.min.js"></script>

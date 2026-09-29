@@ -327,9 +327,9 @@ export const TEAM_MEMBERS: TeamMember[] = [
     imageUrl: '/roofora-assets/images/team-person1.jpg',
   },
   {
-    name: 'Peter',
-    role: 'Co-Founder & Senior Estimator',
-    bio: 'Expert in transparent quoting, AS 4349.1 structural inspections, and BlueScope Colorbond specification.',
+    name: 'Peter Bayamis',
+    role: 'Executive',
+    bio: 'Direct Mobile: 0478 250 790. Senior roofing estimator, AS 4349.1 structural inspector, and Colorbond specification specialist.',
     imageUrl: '/roofora-assets/images/team-person2.jpg',
   },
   {

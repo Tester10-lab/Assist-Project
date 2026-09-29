@@ -9,7 +9,7 @@ export const Contact: React.FC = () => {
   const { services: cmsServices, pages, settings } = useCmsContent();
 
   const allServices = cmsServices && cmsServices.length > 0 ? cmsServices : ALL_SERVICES_OFFERED;
-  const phone = settings?.business?.phone || '0478936120';
+  const phone = settings?.business?.phone || '0478250790';
   const displayPhone = phone.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
   const email = settings?.business?.email || 'info@assistroofing.com.au';
   const address = settings?.business?.address || '139 Boundary Road, North Melbourne VIC 3051';
@@ -26,8 +26,35 @@ export const Contact: React.FC = () => {
   });
   const [submitted, setSubmitted] = useState(false);
 
+  const rawPhone = settings?.business?.internationalPhone || settings?.business?.phone || '0478250790';
+  const cleanPhone = rawPhone.replace(/[^0-9]/g, '');
+  const waNumber = cleanPhone.startsWith('61')
+    ? cleanPhone
+    : (cleanPhone.startsWith('0') ? `61${cleanPhone.slice(1)}` : `61${cleanPhone}`);
+
+  const buildWhatsAppUrl = () => {
+    const lines = [
+      `👋 *New Inquiry - Assist Roofing*`,
+      `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+      `👤 *Name:* ${formData.firstName} ${formData.lastName}`.trim(),
+      `📞 *Phone:* ${formData.phone}`,
+      formData.email ? `✉️ *Email:* ${formData.email}` : null,
+      formData.address ? `🏠 *Address:* ${formData.address}` : null,
+      `🔨 *Service:* ${formData.service}`,
+      formData.message ? `📝 *Message:* ${formData.message}` : null,
+      `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+      `🌐 _Sent from Contact Page (assistroofing.com.au)_`
+    ].filter(Boolean);
+
+    return `https://wa.me/${waNumber}?text=${encodeURIComponent(lines.join('\n'))}`;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const waUrl = buildWhatsAppUrl();
+    try {
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+    } catch {}
     setSubmitted(true);
   };
 
@@ -68,10 +95,11 @@ export const Contact: React.FC = () => {
                 <i className="fa-solid fa-phone"></i>
               </div>
               <div>
-                <span className="text-xs text-[#616a7e] font-bold uppercase tracking-wider block mb-1">Emergency Call</span>
-                <a href={`tel:${phone.replace(/\s+/g, '')}`} className="text-base font-bold text-[#1e2e4f] hover:text-[#f19e1f] transition-colors">
+                <span className="text-xs text-[#616a7e] font-bold uppercase tracking-wider block mb-1">Direct / Peter Bayamis</span>
+                <a href={`tel:${phone.replace(/\s+/g, '')}`} className="text-base font-bold text-[#1e2e4f] hover:text-[#f19e1f] transition-colors block">
                   {displayPhone}
                 </a>
+                <span className="text-[11px] text-slate-500 font-medium">Executive Contact</span>
               </div>
             </div>
 
@@ -134,19 +162,30 @@ export const Contact: React.FC = () => {
 
               {submitted ? (
                 <div className="text-center py-12 bg-white rounded-2xl p-8 border border-green-200">
-                  <div className="w-16 h-16 bg-[#3bad20]/20 text-[#3bad20] rounded-full flex items-center justify-center mx-auto text-2xl mb-4">
-                    <i className="fa-solid fa-check"></i>
+                  <div className="w-16 h-16 bg-[#eaf8e6] text-[#25D366] rounded-full flex items-center justify-center mx-auto text-3xl mb-4 shadow-sm">
+                    <i className="fa-brands fa-whatsapp"></i>
                   </div>
-                  <h3 className="text-2xl font-bold font-['Oswald',sans-serif] uppercase text-[#1e2e4f] mb-2">Message Sent Successfully!</h3>
-                  <p className="text-sm text-[#616a7e] max-w-md mx-auto">
-                    Thank you for reaching out. An ASSIST senior estimator will call you shortly to confirm your inspection date.
+                  <h3 className="text-2xl font-bold font-['Oswald',sans-serif] uppercase text-[#1e2e4f] mb-2">Request Ready for WhatsApp!</h3>
+                  <p className="text-sm text-[#616a7e] max-w-md mx-auto mb-6">
+                    Thank you, <strong>{formData.firstName}</strong>. Your inquiry has been forwarded to our WhatsApp desk ({displayPhone}).
                   </p>
-                  <button
-                    onClick={() => setSubmitted(false)}
-                    className="mt-6 bg-[#1e2e4f] text-white px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider"
+                  <a
+                    href={buildWhatsAppUrl()}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white px-8 py-3.5 rounded-full text-sm font-bold shadow-md transition-all text-decoration-none"
                   >
-                    Submit Another Inquiry
-                  </button>
+                    <i className="fa-brands fa-whatsapp text-xl"></i>
+                    Open WhatsApp to Send Inquiry
+                  </a>
+                  <div className="mt-4">
+                    <button
+                      onClick={() => setSubmitted(false)}
+                      className="text-xs text-[#616a7e] hover:text-[#1e2e4f] font-semibold underline bg-transparent border-0 cursor-pointer"
+                    >
+                      Submit Another Inquiry
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
@@ -257,9 +296,10 @@ export const Contact: React.FC = () => {
 
                   <button
                     type="submit"
-                    className="w-full bg-[#f19e1f] hover:bg-[#d88713] text-white font-bold text-sm uppercase tracking-wider py-4 rounded-full shadow-lg transition-all flex items-center justify-center gap-2"
+                    className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-sm uppercase tracking-wider py-4 rounded-full shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    <span>Submit Free Request</span>
+                    <i className="fa-brands fa-whatsapp text-xl"></i>
+                    <span>Send Inquiry to WhatsApp</span>
                     <i className="fa-solid fa-arrow-right text-xs"></i>
                   </button>
                 </form>
@@ -280,11 +320,11 @@ export const Contact: React.FC = () => {
                 </p>
 
                 <a
-                  href="tel:0478936120"
+                  href="tel:0478250790"
                   className="w-full bg-[#f19e1f] hover:bg-[#d88713] text-white py-3.5 rounded-full font-bold text-sm uppercase tracking-wider text-center flex items-center justify-center gap-2 shadow mb-4"
                 >
                   <i className="fa-solid fa-phone"></i>
-                  <span>Call 0478936120</span>
+                  <span>Call 0478 250 790</span>
                 </a>
 
                 {/* Social Channels */}

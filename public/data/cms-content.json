@@ -727,11 +727,11 @@
       "title": "Contact Us",
       "status": "published",
       "heroHeading": "Get in Touch for a Free Melbourne Roof Inspection",
-      "heroDescription": "Call 0478 936 120 or submit an inspection request online. Same-day emergency response available.",
+      "heroDescription": "Call 0478 250 790 or submit an inspection request online. Same-day emergency response available.",
       "heroImage": "/roofora-assets/images/sub-banner-bg-img.jpg",
       "content": "Headquartered at 139 Boundary Road, North Melbourne VIC 3051.",
       "seoTitle": "Contact Assist Roofing Melbourne | Book Free Roof Inspection",
-      "metaDescription": "Contact Assist Roofing in North Melbourne. Call 0478 936 120 for free drone inspection and quote.",
+      "metaDescription": "Contact Assist Roofing in North Melbourne. Call 0478 250 790 for free drone inspection and quote.",
       "canonical": "https://assistroofing.com.au/#contact",
       "ogImage": "https://assistroofing.com.au/roofora-assets/images/portfolio-img1.jpg",
       "noIndex": false,
@@ -762,7 +762,7 @@
         }
       ],
       "seoTitle": "Roofing Contractor North Melbourne VIC 3051 | Assist Roofing",
-      "metaDescription": "Local North Melbourne roofing contractors. Emergency leak fixes and full restorations. Call 0478 936 120.",
+      "metaDescription": "Local North Melbourne roofing contractors. Emergency leak fixes and full restorations. Call 0478 250 790.",
       "postalCode": "3051",
       "coordinates": {
         "lat": -37.7963,
@@ -833,10 +833,10 @@
     "defaultOgImage": "https://assistroofing.com.au/roofora-assets/images/portfolio-img1.jpg",
     "robotsIndex": true,
     "sitemapUrl": "https://assistroofing.com.au/sitemap.xml",
-    "gscVerification": "",
+    "gscVerification": "TLR9qRMzVpG8KTuRgckGsiUXzJy6MaY0o6pn8EjbOCM",
     "businessSchema": {
       "name": "Assist Roofing and Home Solution",
-      "phone": "+61478936120",
+      "phone": "+61478250790",
       "email": "info@assistroofing.com.au",
       "streetAddress": "139 Boundary Road",
       "locality": "North Melbourne",
@@ -854,8 +854,8 @@
     "business": {
       "name": "Assist Roofing & Home Solution",
       "legalName": "Assist Roofing and Home Solution Pty Ltd",
-      "phone": "0478936120",
-      "internationalPhone": "+61478936120",
+      "phone": "0478250790",
+      "internationalPhone": "+61478250790",
       "email": "info@assistroofing.com.au",
       "address": "139 Boundary Road, North Melbourne VIC 3051",
       "hoursWeekday": "Monday - Friday: 07:00 - 18:00",
@@ -876,5 +876,5 @@
       "elfsightEnabled": true
     }
   },
-  "exportedAt": "2026-09-26T01:17:35.970Z"
+  "exportedAt": "2026-09-29T09:17:55.457Z"
 }

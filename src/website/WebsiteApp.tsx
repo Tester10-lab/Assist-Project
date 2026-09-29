@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { WebsiteProvider, useWebsite } from './WebsiteContext';
 import { useCmsContent } from './useCmsContent';
 import { motion } from 'framer-motion';
-import { Navbar, Footer } from './components/Layout';
+import { Layout } from './components/Layout';
 import { Home } from './pages/Home';
 import { About } from './pages/About';
 import { Services } from './pages/Services';
@@ -49,7 +49,7 @@ const SeoSync: React.FC = () => {
         services: pageData?.metaDescription || "Explore comprehensive Melbourne roofing services: Colorbond roof replacements, emergency leak repairs, guttering, and restorations backed by a 10-year warranty.",
         gallery: pageData?.metaDescription || "Browse completed roofing projects across Melbourne. High-resolution before and after photos of tile restorations, Colorbond replacements, and re-bedding.",
         testimonials: pageData?.metaDescription || "Read verified Google customer reviews for Assist Roofing Melbourne. 4.9/5 average rating across 520+ reviews for roof restorations, leak repairs & re-roofing.",
-        contact: pageData?.metaDescription || "Contact Assist Roofing in North Melbourne. Call 0478 936 120 or book a free on-site roof condition assessment and itemized fixed-price quote."
+        contact: pageData?.metaDescription || "Contact Assist Roofing in North Melbourne. Call 0478 250 790 or book a free on-site roof condition assessment and itemized fixed-price quote."
       };
 
       const paths: Record<string, string> = {
@@ -109,6 +109,18 @@ const SeoSync: React.FC = () => {
     setMeta('name', 'twitter:description', description);
     setMeta('name', 'twitter:image', ogImage);
 
+    // Apply OG Image Dimensions & Alt
+    setMeta('property', 'og:image:width', '1200');
+    setMeta('property', 'og:image:height', '630');
+    setMeta('property', 'og:image:alt', title);
+    setMeta('name', 'twitter:image:alt', title);
+
+    // Apply Google Search Console Verification Tag
+    const gscTag = seo?.gscVerification || 'TLR9qRMzVpG8KTuRgckGsiUXzJy6MaY0o6pn8EjbOCM';
+    if (gscTag) {
+      setMeta('name', 'google-site-verification', gscTag);
+    }
+
     // Inject Dynamic Route Schema
     let schemaScript = document.getElementById('route-schema') as HTMLScriptElement | null;
 
@@ -148,13 +160,20 @@ const SeoSync: React.FC = () => {
             "headline": s.heroHeading,
             "description": s.shortDesc,
             "provider": {
-              "@type": "RoofingContractor",
+              "@type": ["RoofingContractor", "Organization"],
               "name": "Assist Roofing and Home Solution",
               "@id": `${BASE_URL}/#business`
             },
             "areaServed": {
               "@type": "City",
               "name": "Melbourne"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.9",
+              "reviewCount": "520",
+              "bestRating": "5",
+              "worstRating": "1"
             },
             "hasOfferCatalog": {
               "@type": "OfferCatalog",
@@ -274,13 +293,9 @@ export const WebsiteApp: React.FC = () => {
   return (
     <WebsiteProvider>
       <SeoSync />
-      <div className="min-h-screen bg-white flex flex-col text-[#1e2e4f] font-['Sora',sans-serif]">
-        <Navbar />
-        <main className="flex-1 flex flex-col">
-          <PageContent />
-        </main>
-        <Footer />
-      </div>
+      <Layout>
+        <PageContent />
+      </Layout>
     </WebsiteProvider>
   );
 };

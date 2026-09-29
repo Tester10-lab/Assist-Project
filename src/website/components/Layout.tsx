@@ -19,7 +19,7 @@ export const Navbar: React.FC = () => {
     setActiveDropdown(null);
   };
 
-  const phone = settings?.business?.phone || '0478936120';
+  const phone = settings?.business?.phone || '0478250790';
   const displayPhone = phone.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
   const logoUrl = settings?.branding?.logoUrl || asset('/roofora-assets/images/logo.png');
 
@@ -43,8 +43,8 @@ export const Navbar: React.FC = () => {
       {/* ── Main Header & Pill Navigation ── */}
       <div className="padding-rl float-left w-100">
         <div className="wrapper1605">
-          <header className="w-100 float-left header-con position-relative main-box">
-            <nav className="navbar navbar-expand-lg navbar-light d-flex align-items-center justify-content-between">
+          <header className="w-100 float-left header-con position-relative main-box" role="banner">
+            <nav className="navbar navbar-expand-lg navbar-light d-flex align-items-center justify-content-between" role="navigation" aria-label="Main Navigation">
 
               {/* Brand Logo */}
               <a
@@ -230,7 +230,7 @@ export const Navbar: React.FC = () => {
                 {/* Mobile Drawer Action Buttons (Visible only on mobile) */}
                 <div className="mobile-action-buttons d-lg-none mt-3 pt-3 border-top">
                   <button
-                    onClick={() => { openQuoteModal(); setMobileMenuOpen(false); }}
+                    onClick={() => { openQuoteModal('Free Roof & Drone Inspection (Full Property Assessment)'); setMobileMenuOpen(false); }}
                     className="btn w-100 py-2.5 rounded-pill font-weight-700 text-white shadow-sm mb-2"
                     style={{ backgroundColor: '#f19e1f' }}
                   >
@@ -251,7 +251,7 @@ export const Navbar: React.FC = () => {
                 <ul className="list-unstyled mb-0 d-flex align-items-center">
                   <li className="d-inline-block">
                     <a
-                      onClick={openQuoteModal}
+                      onClick={() => openQuoteModal('Free Roof & Drone Inspection (Full Property Assessment)')}
                       className="contact-btn d-inline-block cursor-pointer text-decoration-none"
                     >
                       Book Inspection <figure><img src={asset('/roofora-assets/images/arrow.png')} alt="arrow" /></figure>
@@ -295,7 +295,7 @@ export const Footer: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const phone = settings?.business?.phone || '0478936120';
+  const phone = settings?.business?.phone || '0478250790';
   const displayPhone = phone.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
   const email = settings?.business?.email || 'info@assistroofing.com.au';
   const address = settings?.business?.address || '139 Boundary Road, North Melbourne VIC 3051';
@@ -305,12 +305,12 @@ export const Footer: React.FC = () => {
   const googleMaps = settings?.social?.googleMaps || 'https://maps.google.com/?q=139+Boundary+Road,+North+Melbourne+VIC+3051';
 
   return (
-    <footer className="w-100 float-left font-['Sora',sans-serif]">
+    <footer className="w-100 float-left font-['Sora',sans-serif]" role="contentinfo">
       <div className="spacer"></div>
 
       {/* ── Footer Container with Roofora Styling ── */}
       <div className="padding-rl float-left w-100">
-        <div className="float-left w-100 footer-con position-relative main-box br-50 bg-[#1e2e4f]">
+        <div className="float-left w-100 footer-con position-relative main-box br-50 bg-[#1e2e4f]" style={{ backgroundImage: 'none' }}>
           <div className="main-container position-relative">
 
             {/* Middle Portion */}
@@ -441,9 +441,9 @@ export const Footer: React.FC = () => {
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen bg-white flex flex-col text-[#1e2e4f] font-['Sora',sans-serif]">
       <Navbar />
-      <main className="flex-1 w-100 float-left">
+      <main id="main-content" role="main" className="flex-1 flex flex-col w-100 float-left">
         {children}
       </main>
       <Footer />
@@ -457,8 +457,13 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
 export const WhatsAppFloatingButton: React.FC = () => {
   const { settings } = useCmsContent();
-  const phone = (settings?.business?.internationalPhone || settings?.business?.phone || '61478936120').replace(/[^0-9]/g, '');
-  const waUrl = phone.startsWith('61') ? `https://wa.me/${phone}` : `https://wa.me/61${phone.replace(/^0/, '')}`;
+  const rawPhone = settings?.business?.internationalPhone || settings?.business?.phone || '0478250790';
+  const cleanPhone = rawPhone.replace(/[^0-9]/g, '');
+  const waNumber = cleanPhone.startsWith('61')
+    ? cleanPhone
+    : (cleanPhone.startsWith('0') ? `61${cleanPhone.slice(1)}` : `61${cleanPhone}`);
+  const defaultMsg = encodeURIComponent("Hello Assist Roofing! I'd like to ask a question about your roofing services.");
+  const waUrl = `https://wa.me/${waNumber}?text=${defaultMsg}`;
 
   return (
     <a

@@ -1045,10 +1045,8 @@ body {
 /* Footer */
 .footer-con {
     padding-top: 80px;
-    background-image: url(../images/footer-bg-img.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+    background-color: #1e2e4f;
+    background-image: none !important;
     border-top-left-radius: 0 !important;
     border-top-right-radius: 0 !important;
 }

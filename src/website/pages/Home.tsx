@@ -94,10 +94,10 @@ export const Home: React.FC = () => {
                       </button>
 
                       <a
-                        href="tel:0478936120"
+                        href="tel:0478250790"
                         className="font-weight-bold elementary_btn d-inline-block text-decoration-none"
                       >
-                        Call: 0478936120 <span><img src={asset('/roofora-assets/images/arrow.png')} alt="arrow" className="img-fluid d-inline-block" /></span>
+                        Call: 0478 250 790 <span><img src={asset('/roofora-assets/images/arrow.png')} alt="arrow" className="img-fluid d-inline-block" /></span>
                       </a>
                     </div>
 

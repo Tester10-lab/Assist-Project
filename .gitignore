@@ -31,3 +31,6 @@ server/data/initial-admin-setup.txt
 .env*
 !*.example
 
+# Cloned reference toolkits
+open-seo/
+ultimate-seo-geo/

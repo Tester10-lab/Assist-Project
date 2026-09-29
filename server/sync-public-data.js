@@ -54,14 +54,22 @@ const CANONICAL_ROUTES = [
     title: 'Roofing Contractor & Roof Restoration Melbourne | Assist Roofing',
     description: "Melbourne's trusted roofing contractor for Colorbond restorations, emergency leak repairs & inspections. VBA registered, 10-year warranty. Free quote.",
     priority: '1.0',
-    changefreq: 'weekly'
+    changefreq: 'weekly',
+    image: {
+      loc: 'https://assistroofing.com.au/roofora-assets/images/portfolio-img1.jpg',
+      title: 'Assist Roofing Melbourne - Professional Roof Restoration'
+    }
   },
   {
     path: 'about',
     title: 'About Us | VBA Registered Roofers Melbourne | Assist Roofing',
     description: "Learn about Assist Roofing's 8+ years of Melbourne roofing expertise, VBA-registered master trades, $10M insurance, and clean jobsite promise.",
     priority: '0.8',
-    changefreq: 'monthly'
+    changefreq: 'monthly',
+    image: {
+      loc: 'https://assistroofing.com.au/roofora-assets/images/about-img1.jpg',
+      title: 'About Assist Roofing Melbourne'
+    }
   },
   {
     path: 'services',
@@ -75,42 +83,66 @@ const CANONICAL_ROUTES = [
     title: 'Roof Restoration Melbourne | Tile Cleaning & SupaPoint Pointing',
     description: 'Professional Melbourne roof restorations by VBA registered trades. High-pressure cleaning, SupaPoint flexible repointing, tile repairs, and 10-year warranty.',
     priority: '0.9',
-    changefreq: 'weekly'
+    changefreq: 'weekly',
+    image: {
+      loc: 'https://assistroofing.com.au/roofora-assets/images/services-img4.jpg',
+      title: 'Roof Restoration Melbourne - Tile Repointing and Membrane Sealing'
+    }
   },
   {
     path: 'services/roof-repairs',
     title: 'Emergency Roof Repairs Melbourne | Broken Tiles & Leak Repairs',
     description: 'Fast, reliable emergency roof repairs across Melbourne. We repair cracked tiles, leaking flashings, storm damage, and rusted valleys. Starting from $550.',
     priority: '0.9',
-    changefreq: 'weekly'
+    changefreq: 'weekly',
+    image: {
+      loc: 'https://assistroofing.com.au/roofora-assets/images/services-img1.jpg',
+      title: 'Emergency Roof Leak Repairs Melbourne'
+    }
   },
   {
     path: 'services/roof-replacement',
     title: 'Roof Replacement Melbourne | Tile to Colorbond Re-Roofing',
     description: 'Complete roof replacement and tile-to-Colorbond re-roofing in Melbourne. AS/NZS 4200.1 sarking, treated timber battens, and 10-year workmanship warranty.',
     priority: '0.9',
-    changefreq: 'weekly'
+    changefreq: 'weekly',
+    image: {
+      loc: 'https://assistroofing.com.au/roofora-assets/images/services-img2.jpg',
+      title: 'Roof Replacement & Re-Roofing Melbourne'
+    }
   },
   {
     path: 'services/colorbond-roofing',
     title: 'Colorbond Roofing Melbourne | BlueScope Steel Installation',
     description: 'Expert Colorbond metal roofing installations across Melbourne. Genuine BlueScope steel, 22 designer colors, AS 1562.1 compliance & up to 25-year warranty.',
     priority: '0.9',
-    changefreq: 'weekly'
+    changefreq: 'weekly',
+    image: {
+      loc: 'https://assistroofing.com.au/roofora-assets/images/services-img3.jpg',
+      title: 'Colorbond Steel Roofing Melbourne'
+    }
   },
   {
     path: 'services/guttering',
     title: 'Gutter Replacement Melbourne | Colorbond Gutters & Leaf Guard',
     description: 'High-capacity Colorbond gutter replacement, downpipes & leaf guard across Melbourne. Prevent overflow and foundation damage with VBA registered roof plumbers.',
     priority: '0.8',
-    changefreq: 'monthly'
+    changefreq: 'monthly',
+    image: {
+      loc: 'https://assistroofing.com.au/roofora-assets/images/services-img5.jpg',
+      title: 'Gutter Replacement and Downpipe Repairs Melbourne'
+    }
   },
   {
     path: 'services/leak-detection',
     title: 'Roof Leak Detection Melbourne | Drone Inspection & Moisture Tests',
     description: 'Pinpoint roof leak detection in Melbourne using digital drone imaging and electronic moisture meters. $350 inspection fee credited toward repair when hired.',
     priority: '0.9',
-    changefreq: 'weekly'
+    changefreq: 'weekly',
+    image: {
+      loc: 'https://assistroofing.com.au/roofora-assets/images/services-img6.jpg',
+      title: 'Roof Leak Detection & Drone Thermal Inspection Melbourne'
+    }
   },
   {
     path: 'projects',
@@ -129,22 +161,28 @@ const CANONICAL_ROUTES = [
   {
     path: 'contact',
     title: 'Contact Assist Roofing Melbourne | Book Free Roof Inspection',
-    description: 'Contact Assist Roofing in North Melbourne. Call 0478 936 120 or book a free on-site roof condition assessment and itemized fixed-price quote.',
+    description: 'Contact Assist Roofing in North Melbourne. Call 0478 250 790 or book a free on-site roof condition assessment and itemized fixed-price quote.',
     priority: '0.9',
     changefreq: 'monthly'
   }
 ];
 
-// Generate Clean Sitemap (No hash fragments, strictly canonical indexable URLs)
+// Generate Clean Sitemap (No hash fragments, strictly canonical indexable URLs with image sitemap extension)
 const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${CANONICAL_ROUTES.map(route => {
   const loc = route.path ? `${BASE_URL}/${route.path}` : `${BASE_URL}/`;
+  const imageXml = route.image ? `
+    <image:image>
+      <image:loc>${route.image.loc}</image:loc>
+      <image:title>${route.image.title}</image:title>
+    </image:image>` : '';
   return `  <url>
     <loc>${loc}</loc>
     <lastmod>${TODAY}</lastmod>
     <changefreq>${route.changefreq}</changefreq>
-    <priority>${route.priority}</priority>
+    <priority>${route.priority}</priority>${imageXml}
   </url>`;
 }).join('\n')}
 </urlset>
@@ -168,6 +206,16 @@ if (fs.existsSync(DIST_DIR)) {
   // Write sitemap to dist/sitemap.xml
   fs.writeFileSync(path.join(DIST_DIR, 'sitemap.xml'), sitemapXml, 'utf-8');
   console.log(`[CMS Build Sync] Generated dist/sitemap.xml`);
+
+  // Sync llms.txt & llms-full.txt to dist
+  const publicLlms = path.join(__dirname, '..', 'public', 'llms.txt');
+  const publicLlmsFull = path.join(__dirname, '..', 'public', 'llms-full.txt');
+  if (fs.existsSync(publicLlms)) {
+    fs.copyFileSync(publicLlms, path.join(DIST_DIR, 'llms.txt'));
+  }
+  if (fs.existsSync(publicLlmsFull)) {
+    fs.copyFileSync(publicLlmsFull, path.join(DIST_DIR, 'llms-full.txt'));
+  }
 
   // GitHub Pages SPA Routing Support:
   const distIndex = path.join(DIST_DIR, 'index.html');
@@ -238,6 +286,18 @@ if (fs.existsSync(DIST_DIR)) {
         /<meta\s+name=["']twitter:description["']\s+content=["'].*?["']\s*\/?>/i,
         `<meta name="twitter:description" content="${route.description}" />`
       );
+
+      // Replace OG Image and Twitter Image if specific image provided
+      if (route.image?.loc) {
+        routeHtml = routeHtml.replace(
+          /<meta\s+property=["']og:image["']\s+content=["'].*?["']\s*\/?>/i,
+          `<meta property="og:image" content="${route.image.loc}" />`
+        );
+        routeHtml = routeHtml.replace(
+          /<meta\s+name=["']twitter:image["']\s+content=["'].*?["']\s*\/?>/i,
+          `<meta name="twitter:image" content="${route.image.loc}" />`
+        );
+      }
 
       const targetPath = path.join(routeDir, 'index.html');
       fs.writeFileSync(targetPath, routeHtml, 'utf-8');

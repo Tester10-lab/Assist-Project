@@ -1,8 +1,36 @@
-User-agent: *
+# Assist Roofing - robots.txt
+# https://assistroofing.com.au
+
+User-agent: Googlebot
+Allow: /
 Disallow: /admin/
 Disallow: /admin
+
+User-agent: Googlebot-Image
+Allow: /roofora-assets/
+Allow: /uploads/
 Allow: /
 
-# Sitemap
-Sitemap: https://assistroofing.com.au/sitemap.xml
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/
+Disallow: /admin
 
+User-agent: Applebot
+Allow: /
+Disallow: /admin/
+Disallow: /admin
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /admin
+
+# Sitemap Location
+Sitemap: https://assistroofing.com.au/sitemap.xml

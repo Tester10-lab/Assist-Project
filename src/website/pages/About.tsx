@@ -215,11 +215,11 @@ export const About: React.FC = () => {
               Contact Us
             </a>
             <a
-              href="tel:0478936120"
+              href="tel:0478250790"
               className="bg-[#f19e1f] hover:bg-[#d88713] text-white font-bold text-sm px-7 py-3.5 rounded-full shadow transition-all flex items-center gap-2"
             >
               <i className="fa-solid fa-phone text-xs"></i>
-              <span>0478936120</span>
+              <span>0478 250 790</span>
             </a>
           </div>
         </div>

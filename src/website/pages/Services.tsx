@@ -124,11 +124,11 @@ export const Services: React.FC = () => {
                   <i className="fa-solid fa-arrow-right text-xs"></i>
                 </button>
                 <a
-                  href="tel:0478936120"
+                  href="tel:0478250790"
                   className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider px-6 py-4 rounded-full transition-all border border-white/20 flex items-center gap-2"
                 >
                   <i className="fa-solid fa-phone text-[#f19e1f]"></i>
-                  <span>Call 0478 936 120</span>
+                  <span>Call 0478 250 790</span>
                 </a>
               </div>
             </div>
@@ -294,11 +294,11 @@ export const Services: React.FC = () => {
                     Request Free Assessment
                   </button>
                   <a
-                    href="tel:0478936120"
+                    href="tel:0478250790"
                     className="w-full bg-white hover:bg-[#f8faff] border border-[#cbd5e1] text-[#1e2e4f] font-bold text-xs uppercase tracking-wider py-3 px-4 rounded-xl transition-all flex items-center justify-center gap-2 text-center"
                   >
                     <i className="fa-solid fa-phone text-[#f19e1f]"></i>
-                    <span>0478 936 120</span>
+                    <span>0478 250 790</span>
                   </a>
                 </div>
 
@@ -426,10 +426,10 @@ export const Services: React.FC = () => {
                   Book Free Assessment
                 </button>
                 <a
-                  href="tel:0478936120"
+                  href="tel:0478250790"
                   className="bg-white hover:bg-slate-50 text-[#1e2e4f] font-bold text-xs uppercase tracking-wider px-6 py-4 rounded-full transition-all shadow-sm"
                 >
-                  0478 936 120
+                  0478 250 790
                 </a>
               </div>
             </div>
@@ -646,11 +646,11 @@ export const Services: React.FC = () => {
 
                 <div className="flex flex-wrap items-center gap-3 shrink-0">
                   <a
-                    href="tel:0478936120"
+                    href="tel:0478250790"
                     className="bg-[#f19e1f] hover:bg-[#d88713] text-[#1e2e4f] font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-full transition-all shadow-md flex items-center gap-2"
                   >
                     <i className="fa-solid fa-phone"></i>
-                    <span>Call 0478 936 120</span>
+                    <span>Call 0478 250 790</span>
                   </a>
                   <button
                     onClick={() => openQuoteModal('Custom Roofing Request')}

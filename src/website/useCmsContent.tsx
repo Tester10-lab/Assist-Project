@@ -20,7 +20,7 @@ const defaultContent: PublicCmsContent = {
   seo: null,
   settings: {
     business: {
-      phone: '0478936120',
+      phone: '0478250790',
       email: 'info@assistroofing.com.au',
       address: '139 Boundary Road, North Melbourne VIC 3051',
       name: 'Assist Roofing & Home Solution'

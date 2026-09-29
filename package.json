@@ -7,8 +7,10 @@
     "dev": "vite",
     "build": "tsc -b && vite build && node server/sync-public-data.js",
     "start": "node server/index.js",
-    "lint": "oxlint",
-    "preview": "vite preview"
+    "lint": "oxlint src tools",
+    "preview": "vite preview",
+    "seo": "node tools/assist-seo.mjs report",
+    "seo:audit": "node tools/assist-seo.mjs audit"
   },
   "dependencies": {
     "@types/three": "^0.185.4",
