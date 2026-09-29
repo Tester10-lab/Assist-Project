@@ -313,60 +313,82 @@ export const Footer: React.FC = () => {
         <div className="float-left w-100 footer-con position-relative main-box br-50" style={{ backgroundColor: '#1e2e4f', backgroundImage: 'none' }}>
           <div className="main-container position-relative">
 
-            {/* Middle Portion */}
-            <div className="middle_portion d-flex flex-wrap align-items-center justify-content-between gap-4">
-              <div className="logo-content">
+            {/* Middle Portion - Organized 3-column layout with clearance for floating Google Reviews badge */}
+            <div 
+              className="middle_portion d-flex flex-wrap align-items-start justify-content-between gap-4 py-4"
+              style={{ paddingLeft: 'clamp(0px, 9vw, 130px)' }}
+            >
+              {/* Brand & VBA Licencing */}
+              <div className="logo-content d-flex flex-column align-items-start text-start" style={{ minWidth: '220px', maxWidth: '320px' }}>
                 <a
                   href="/"
                   onClick={(e) => handleNav(e, 'home')}
-                  className="footer-logo cursor-pointer"
+                  className="footer-logo cursor-pointer mb-2"
+                  aria-label="Assist Roofing Home"
                 >
-                  <figure className="mb-0 bg-white p-2 rounded-2xl shadow-sm d-inline-block">
+                  <figure className="mb-0 bg-white p-2.5 rounded-2xl shadow-sm d-inline-block">
                     <img
                       src={footerLogo}
                       alt="ASSIST Roofing & Home Solution"
                       className="img-fluid"
-                      style={{ maxHeight: '75px', width: 'auto', objectFit: 'contain' }}
+                      style={{ maxHeight: '70px', width: 'auto', objectFit: 'contain' }}
                     />
                   </figure>
                 </a>
+                <p className="text-xs mb-0 mt-1" style={{ color: '#b7c1d5', lineHeight: 1.5 }}>
+                  Melbourne's trusted roofing restoration, Colorbond replacement & 4K drone leak inspection experts. Fully insured & VBA registered.
+                </p>
               </div>
 
-              <div className="links">
-                <ul className="list-unstyled mb-0">
-                  <li className="text">
-                    <a href={`mailto:${email}`} className="text-decoration-none text-white hover:text-[#f19e1f] transition-colors" style={{ color: '#ffffff' }}>
-                      {email}
-                    </a>
-                  </li>
-                  <li className="text footer-number mb-0">
-                    <a href={`tel:${phone.replace(/\s+/g, '')}`} className="text-decoration-none text-white hover:text-[#f19e1f] transition-colors font-weight-700" style={{ color: '#ffffff' }}>
-                      {displayPhone}
-                    </a>
-                  </li>
-                </ul>
+              {/* Direct Phone & Dispatch */}
+              <div className="contact-direct d-flex flex-column align-items-start text-start" style={{ minWidth: '220px' }}>
+                <div className="text-uppercase text-xs font-weight-700 tracking-wider mb-1" style={{ color: '#f19e1f' }}>
+                  24/7 Rapid Response & Quotes
+                </div>
+                <a
+                  href={`tel:${phone.replace(/\s+/g, '')}`}
+                  className="text-decoration-none font-weight-700 d-inline-flex align-items-center gap-2 mb-1 transition-colors hover:text-[#f19e1f]"
+                  style={{ fontSize: 'clamp(22px, 2.2vw, 30px)', color: '#ffffff' }}
+                >
+                  <i className="fa-solid fa-phone text-[#f19e1f]" style={{ fontSize: '18px' }}></i>
+                  <span>{displayPhone}</span>
+                </a>
+                <a
+                  href={`mailto:${email}`}
+                  className="text-decoration-none d-inline-flex align-items-center gap-2 text-xs transition-colors hover:text-[#f19e1f]"
+                  style={{ color: '#b7c1d5' }}
+                >
+                  <i className="fa-solid fa-envelope text-[#f19e1f]"></i>
+                  <span>{email}</span>
+                </a>
+                <div className="text-xs mt-2" style={{ color: '#94a3b8' }}>
+                  Mon – Sat: 7:00 AM – 6:00 PM • Emergency 24/7
+                </div>
               </div>
 
-              <div className="contact">
-                <ul className="list-unstyled mb-0">
-                  <li className="text">
-                    <a
-                      href={googleMaps}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="address mb-0 text-white hover:text-[#f19e1f] transition-colors text-decoration-none"
-                      style={{ color: '#ffffff' }}
-                    >
-                      <i className="fa-solid fa-location-dot text-[#f19e1f] mr-2"></i>
-                      {address}, Australia
-                    </a>
-                  </li>
-                </ul>
+              {/* Melbourne Headquarters & Workshop */}
+              <div className="hq-location d-flex flex-column align-items-start text-start" style={{ minWidth: '240px', maxWidth: '340px' }}>
+                <div className="text-uppercase text-xs font-weight-700 tracking-wider mb-1" style={{ color: '#f19e1f' }}>
+                  Melbourne Headquarters
+                </div>
+                <a
+                  href={googleMaps}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="address mb-0 text-white hover:text-[#f19e1f] transition-colors text-decoration-none d-inline-flex align-items-start gap-2"
+                  style={{ color: '#ffffff', fontSize: '14px', lineHeight: 1.5 }}
+                >
+                  <i className="fa-solid fa-location-dot text-[#f19e1f] mt-1"></i>
+                  <span>{address}, Australia</span>
+                </a>
+                <div className="text-xs mt-2" style={{ color: '#b7c1d5' }}>
+                  Servicing Greater Melbourne, Mornington Peninsula & All Surrounding Suburbs
+                </div>
               </div>
             </div>
 
             {/* Core Services Crawlable Pillar Links */}
-            <div className="border-t border-b border-white/10 py-3 my-4">
+            <div className="border-t border-b border-white/10 py-3 my-3" style={{ paddingLeft: 'clamp(0px, 9vw, 130px)' }}>
               <div className="d-flex flex-wrap align-items-center justify-content-between gap-3 text-xs">
                 <span className="text-[#f19e1f] font-weight-700 text-uppercase tracking-wider">Specialized Services:</span>
                 <div className="d-flex flex-wrap gap-x-4 gap-y-2">
@@ -381,7 +403,7 @@ export const Footer: React.FC = () => {
             </div>
 
             {/* Copyright & Social Row with bottom-left clearance for Google Reviews Badge */}
-            <div className="copyright-con d-flex flex-wrap align-items-center justify-content-between text-center gap-3 pt-2" style={{ paddingLeft: 'min(120px, 10vw)' }}>
+            <div className="copyright-con d-flex flex-wrap align-items-center justify-content-between text-center gap-3 pt-2" style={{ paddingLeft: 'clamp(0px, 9vw, 130px)' }}>
               <ul className="footer-links list-unstyled mb-0 d-flex flex-wrap gap-4">
                 <li><a href="/" onClick={(e) => handleNav(e, 'home')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium" style={{ color: '#b7c1d5' }}>Home</a></li>
                 <li><a href="/about" onClick={(e) => handleNav(e, 'about')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium" style={{ color: '#b7c1d5' }}>About</a></li>

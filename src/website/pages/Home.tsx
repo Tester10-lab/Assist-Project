@@ -802,22 +802,156 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* ── NEWSLETTER / PROMO BAR ── */}
-      <div className="padding-rl float-left w-100">
-        <section className="float-left w-100 newsletter-con position-relative main-box bg-blue padding-top padding-bottom text-center br-50">
-          <div className="main-container">
-            <h2 className="text-size-56 font-weight-700 text-white mb-4">
+      {/* ── DRONE INSPECTION CTA BANNER ── */}
+      <div className="padding-rl float-left w-100 my-4 my-md-5">
+        <section 
+          className="float-left w-100 position-relative main-box text-center br-50 overflow-hidden"
+          style={{
+            background: 'linear-gradient(135deg, #131f37 0%, #1e2e4f 55%, #253961 100%)',
+            border: '1px solid rgba(255, 255, 255, 0.12)',
+            boxShadow: '0 24px 48px -12px rgba(15, 23, 42, 0.35)',
+            padding: 'clamp(44px, 5.5vw, 68px) clamp(20px, 4vw, 48px)',
+          }}
+        >
+          {/* Subtle warm accent ambient glow */}
+          <div 
+            className="position-absolute pointer-events-none"
+            style={{
+              top: '-20%',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '550px',
+              height: '240px',
+              background: 'radial-gradient(circle, rgba(241, 158, 31, 0.15) 0%, transparent 70%)',
+              filter: 'blur(45px)',
+            }}
+          />
+
+          <div className="main-container position-relative" style={{ maxWidth: '880px', margin: '0 auto' }}>
+            {/* Trust Pill Tag */}
+            <div 
+              className="d-inline-flex align-items-center gap-2 mb-3 px-3 py-1.5 rounded-pill"
+              style={{ background: 'rgba(241, 158, 31, 0.14)', border: '1px solid rgba(241, 158, 31, 0.35)' }}
+            >
+              <i className="fa-solid fa-drone text-[#f19e1f]" style={{ fontSize: '13px' }}></i>
+              <span style={{ color: '#f19e1f', fontSize: '13px', fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+                100% Free Drone Inspection • Zero Obligation
+              </span>
+            </div>
+
+            {/* Main Headline */}
+            <h2 
+              className="text-white font-weight-700 mb-3" 
+              style={{ fontSize: 'clamp(26px, 3.6vw, 44px)', lineHeight: 1.25, letterSpacing: '-0.02em' }}
+            >
               Schedule Your Free On-Site Drone Inspection
             </h2>
-            <p className="text-white text-size-18 max-w-2xl mx-auto mb-5">
+
+            {/* Subtitle */}
+            <p 
+              className="mx-auto mb-4" 
+              style={{ color: '#cbd5e1', fontSize: 'clamp(15px, 1.2vw, 17px)', lineHeight: 1.6, maxWidth: '660px' }}
+            >
               Get an accurate, fixed-price quote and photographic defect report with zero high-pressure sales tactics.
             </p>
-            <button
-              onClick={openQuoteModal}
-              className="secondary_btn d-inline-block border-0 text-decoration-none cursor-pointer"
-            >
-              Book Inspection Online <span><img src={asset('/roofora-assets/images/arrow.png')} alt="arrow" className="img-fluid d-inline-block" /></span>
-            </button>
+
+            {/* Action Buttons Row */}
+            <div className="d-flex flex-wrap align-items-center justify-content-center gap-3 mb-4">
+              <button
+                type="button"
+                onClick={openQuoteModal}
+                className="border-0 cursor-pointer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '12px',
+                  backgroundColor: '#f19e1f',
+                  color: '#1e2e4f',
+                  fontWeight: 700,
+                  fontSize: '16px',
+                  padding: '14px 28px',
+                  borderRadius: '9999px',
+                  boxShadow: '0 8px 24px rgba(241, 158, 31, 0.35)',
+                  transition: 'all 0.3s ease',
+                  whiteSpace: 'nowrap',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#ffa928';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#f19e1f';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                <span>Book Free Inspection Online</span>
+                <span 
+                  style={{
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '50%',
+                    backgroundColor: '#1e2e4f',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                  }}
+                >
+                  <img 
+                    src={asset('/roofora-assets/images/arrow.png')} 
+                    alt="arrow" 
+                    style={{ width: '12px', height: '12px', filter: 'brightness(0) invert(1)' }} 
+                  />
+                </span>
+              </button>
+
+              <a
+                href="tel:0478250790"
+                className="text-decoration-none"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '10px',
+                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                  border: '1px solid rgba(255, 255, 255, 0.22)',
+                  color: '#ffffff',
+                  fontWeight: 600,
+                  fontSize: '16px',
+                  padding: '14px 24px',
+                  borderRadius: '9999px',
+                  transition: 'all 0.3s ease',
+                  whiteSpace: 'nowrap',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.16)';
+                  e.currentTarget.style.borderColor = '#f19e1f';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.22)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                <i className="fa-solid fa-phone text-[#f19e1f]"></i>
+                <span>Direct Call: 0478 250 790</span>
+              </a>
+            </div>
+
+            {/* Trust Micro-points */}
+            <div className="d-flex flex-wrap justify-content-center align-items-center gap-3 gap-md-4 text-xs font-medium" style={{ color: '#94a3b8' }}>
+              <span className="d-inline-flex align-items-center gap-1.5">
+                <i className="fa-solid fa-camera text-[#f19e1f]"></i> 4K Drone Aerial Photos
+              </span>
+              <span className="d-inline-flex align-items-center gap-1.5">
+                <i className="fa-solid fa-file-invoice-dollar text-[#f19e1f]"></i> Fixed-Price Written Quote
+              </span>
+              <span className="d-inline-flex align-items-center gap-1.5">
+                <i className="fa-solid fa-shield-halved text-[#f19e1f]"></i> VBA Licensed & Insured
+              </span>
+            </div>
           </div>
         </section>
       </div>
