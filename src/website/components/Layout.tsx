@@ -449,6 +449,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       </main>
       <Footer />
       <WhatsAppFloatingButton />
+      <MobileCROStickyBar />
       <QuoteModal />
       <LightboxModal />
       <BackToTop />
@@ -463,7 +464,7 @@ export const WhatsAppFloatingButton: React.FC = () => {
   const waNumber = cleanPhone.startsWith('61')
     ? cleanPhone
     : (cleanPhone.startsWith('0') ? `61${cleanPhone.slice(1)}` : `61${cleanPhone}`);
-  const defaultMsg = encodeURIComponent("Hello Assist Roofing! I'd like to ask a question about your roofing services.");
+  const defaultMsg = encodeURIComponent("Hello Assist Roofing! I'd like to ask a question about your Melbourne roofing services.");
   const waUrl = `https://wa.me/${waNumber}?text=${defaultMsg}`;
 
   return (
@@ -471,25 +472,95 @@ export const WhatsAppFloatingButton: React.FC = () => {
       href={waUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="position-fixed d-flex align-items-center justify-content-center text-white"
+      className="position-fixed d-none d-md-flex align-items-center justify-content-center text-white"
       style={{
-        bottom: '20px',
-        left: '20px',
-        width: '60px',
-        height: '60px',
+        bottom: '25px',
+        right: '25px',
+        width: '58px',
+        height: '58px',
         borderRadius: '50%',
         backgroundColor: '#25D366',
-        boxShadow: '0 4px 10px rgba(0,0,0,0.3)',
+        boxShadow: '0 6px 18px rgba(37, 211, 102, 0.4)',
         zIndex: 1000,
-        fontSize: '35px',
+        fontSize: '32px',
         textDecoration: 'none',
-        transition: 'transform 0.3s'
+        transition: 'transform 0.25s ease-in-out'
       }}
-      onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.1)')}
+      onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.08)')}
       onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
       aria-label="Chat with us on WhatsApp"
+      title="Chat with Assist Roofing on WhatsApp"
     >
       <i className="fa-brands fa-whatsapp"></i>
     </a>
+  );
+};
+
+export const MobileCROStickyBar: React.FC = () => {
+  const { settings } = useCmsContent();
+  const { openQuoteModal } = useWebsite();
+  const phone = settings?.business?.phone || '0478 250 790';
+  const rawPhone = settings?.business?.internationalPhone || phone;
+  const cleanPhone = rawPhone.replace(/[^0-9]/g, '');
+  const waNumber = cleanPhone.startsWith('61')
+    ? cleanPhone
+    : (cleanPhone.startsWith('0') ? `61${cleanPhone.slice(1)}` : `61${cleanPhone}`);
+  const defaultMsg = encodeURIComponent("Hello Assist Roofing! I need a fast quote / roof inspection.");
+  const waUrl = `https://wa.me/${waNumber}?text=${defaultMsg}`;
+
+  return (
+    <div
+      className="position-fixed d-flex d-md-none align-items-center justify-content-between w-100"
+      style={{
+        bottom: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1040,
+        backgroundColor: '#1e2e4f',
+        borderTop: '1px solid rgba(255, 255, 255, 0.15)',
+        padding: '8px 12px',
+        boxShadow: '0 -4px 16px rgba(0,0,0,0.25)',
+      }}
+    >
+      <a
+        href={`tel:${phone.replace(/\s+/g, '')}`}
+        className="d-flex flex-column align-items-center justify-content-center text-white text-decoration-none px-2 py-1"
+        style={{ fontSize: '11px', fontWeight: 600, flex: 1 }}
+      >
+        <i className="fa-solid fa-phone text-[#f19e1f] mb-1" style={{ fontSize: '16px' }}></i>
+        <span>Call Now</span>
+      </a>
+
+      <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.15)' }}></div>
+
+      <a
+        href={waUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="d-flex flex-column align-items-center justify-content-center text-white text-decoration-none px-2 py-1"
+        style={{ fontSize: '11px', fontWeight: 600, flex: 1 }}
+      >
+        <i className="fa-brands fa-whatsapp mb-1" style={{ color: '#25D366', fontSize: '18px' }}></i>
+        <span>WhatsApp</span>
+      </a>
+
+      <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.15)' }}></div>
+
+      <button
+        onClick={() => openQuoteModal()}
+        className="btn d-flex align-items-center justify-content-center border-0 text-white font-weight-700 px-3 py-2 rounded-pill shadow-sm"
+        style={{
+          backgroundColor: '#f19e1f',
+          color: '#1e2e4f',
+          fontSize: '12px',
+          fontWeight: 700,
+          flex: 1.5,
+          letterSpacing: '0.02em'
+        }}
+      >
+        <i className="fa-solid fa-clipboard-check me-1.5" style={{ color: '#1e2e4f' }}></i>
+        <span style={{ color: '#1e2e4f' }}>Free Quote</span>
+      </button>
+    </div>
   );
 };

@@ -373,12 +373,14 @@ export const QuoteModal: React.FC = () => {
                 </span>
               </button>
 
-              <div className="d-flex align-items-center justify-content-center gap-3 mt-3 text-size-12 text-[#616a7e]">
-                <span><i className="fa-solid fa-shield-halved text-success me-1"></i> No Obligation</span>
+              <div className="d-flex flex-wrap align-items-center justify-content-center gap-2 mt-3 text-size-12 text-[#616a7e]">
+                <span><i className="fa-solid fa-award text-[#f19e1f] me-1"></i> 10-Yr Warranty</span>
                 <span>•</span>
-                <span><i className="fa-solid fa-drone text-primary me-1"></i> Drone Survey Included</span>
+                <span><i className="fa-solid fa-certificate text-primary me-1"></i> VBA Registered</span>
                 <span>•</span>
-                <span><i className="fa-solid fa-bolt text-warning me-1"></i> Instant WhatsApp Dispatch</span>
+                <span><i className="fa-solid fa-shield-halved text-success me-1"></i> $10M Insured</span>
+                <span>•</span>
+                <span><i className="fa-solid fa-bolt text-warning me-1"></i> Fast WhatsApp Dispatch</span>
               </div>
             </form>
           )}

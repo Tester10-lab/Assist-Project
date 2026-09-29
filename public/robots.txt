@@ -27,10 +27,28 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
+# AI Search Bots (GEO Open Directives)
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
 User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /admin
 
-# Sitemap Location
+# Sitemap & LLM Knowledge References
 Sitemap: https://assistroofing.com.au/sitemap.xml
+# AI Knowledge Standard: https://assistroofing.com.au/llms.txt
+# Extended Knowledge: https://assistroofing.com.au/llms-full.txt
