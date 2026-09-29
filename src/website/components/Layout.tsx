@@ -310,7 +310,7 @@ export const Footer: React.FC = () => {
 
       {/* ── Footer Container with Roofora Styling ── */}
       <div className="padding-rl float-left w-100">
-        <div className="float-left w-100 footer-con position-relative main-box br-50 bg-[#1e2e4f]" style={{ backgroundImage: 'none' }}>
+        <div className="float-left w-100 footer-con position-relative main-box br-50" style={{ backgroundColor: '#1e2e4f', backgroundImage: 'none' }}>
           <div className="main-container position-relative">
 
             {/* Middle Portion */}
@@ -335,12 +335,12 @@ export const Footer: React.FC = () => {
               <div className="links">
                 <ul className="list-unstyled mb-0">
                   <li className="text">
-                    <a href={`mailto:${email}`} className="text-decoration-none text-white hover:text-[#f19e1f] transition-colors">
+                    <a href={`mailto:${email}`} className="text-decoration-none text-white hover:text-[#f19e1f] transition-colors" style={{ color: '#ffffff' }}>
                       {email}
                     </a>
                   </li>
                   <li className="text footer-number mb-0">
-                    <a href={`tel:${phone.replace(/\s+/g, '')}`} className="text-decoration-none text-white hover:text-[#f19e1f] transition-colors font-weight-700">
+                    <a href={`tel:${phone.replace(/\s+/g, '')}`} className="text-decoration-none text-white hover:text-[#f19e1f] transition-colors font-weight-700" style={{ color: '#ffffff' }}>
                       {displayPhone}
                     </a>
                   </li>
@@ -355,6 +355,7 @@ export const Footer: React.FC = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="address mb-0 text-white hover:text-[#f19e1f] transition-colors text-decoration-none"
+                      style={{ color: '#ffffff' }}
                     >
                       <i className="fa-solid fa-location-dot text-[#f19e1f] mr-2"></i>
                       {address}, Australia
@@ -369,25 +370,25 @@ export const Footer: React.FC = () => {
               <div className="d-flex flex-wrap align-items-center justify-content-between gap-3 text-xs">
                 <span className="text-[#f19e1f] font-weight-700 text-uppercase tracking-wider">Specialized Services:</span>
                 <div className="d-flex flex-wrap gap-x-4 gap-y-2">
-                  <a href="/services/roof-restoration" onClick={(e) => handleNav(e, 'services', 'roof-restoration')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none">Roof Restoration</a>
-                  <a href="/services/roof-repairs" onClick={(e) => handleNav(e, 'services', 'roof-repairs')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none">Emergency Roof Repairs</a>
-                  <a href="/services/roof-replacement" onClick={(e) => handleNav(e, 'services', 'roof-replacement')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none">Roof Replacement</a>
-                  <a href="/services/colorbond-roofing" onClick={(e) => handleNav(e, 'services', 'colorbond-roofing')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none">Colorbond Roofing</a>
-                  <a href="/services/guttering" onClick={(e) => handleNav(e, 'services', 'guttering')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none">Gutter Replacement</a>
-                  <a href="/services/leak-detection" onClick={(e) => handleNav(e, 'services', 'leak-detection')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none">Drone Leak Detection</a>
+                  <a href="/services/roof-restoration" onClick={(e) => handleNav(e, 'services', 'roof-restoration')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none" style={{ color: '#b7c1d5' }}>Roof Restoration</a>
+                  <a href="/services/roof-repairs" onClick={(e) => handleNav(e, 'services', 'roof-repairs')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none" style={{ color: '#b7c1d5' }}>Emergency Roof Repairs</a>
+                  <a href="/services/roof-replacement" onClick={(e) => handleNav(e, 'services', 'roof-replacement')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none" style={{ color: '#b7c1d5' }}>Roof Replacement</a>
+                  <a href="/services/colorbond-roofing" onClick={(e) => handleNav(e, 'services', 'colorbond-roofing')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none" style={{ color: '#b7c1d5' }}>Colorbond Roofing</a>
+                  <a href="/services/guttering" onClick={(e) => handleNav(e, 'services', 'guttering')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none" style={{ color: '#b7c1d5' }}>Gutter Replacement</a>
+                  <a href="/services/leak-detection" onClick={(e) => handleNav(e, 'services', 'leak-detection')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none" style={{ color: '#b7c1d5' }}>Drone Leak Detection</a>
                 </div>
               </div>
             </div>
 
-            {/* Copyright & Social Row */}
-            <div className="copyright-con d-flex flex-wrap align-items-center justify-content-between text-center gap-3">
+            {/* Copyright & Social Row with bottom-left clearance for Google Reviews Badge */}
+            <div className="copyright-con d-flex flex-wrap align-items-center justify-content-between text-center gap-3 pt-2" style={{ paddingLeft: 'min(120px, 10vw)' }}>
               <ul className="footer-links list-unstyled mb-0 d-flex flex-wrap gap-4">
-                <li><a href="/" onClick={(e) => handleNav(e, 'home')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium">Home</a></li>
-                <li><a href="/about" onClick={(e) => handleNav(e, 'about')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium">About</a></li>
-                <li><a href="/services" onClick={(e) => handleNav(e, 'services')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium">Services</a></li>
-                <li><a href="/projects" onClick={(e) => handleNav(e, 'gallery')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium">Projects</a></li>
-                <li><a href="/testimonials" onClick={(e) => handleNav(e, 'testimonials')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium">Testimonials</a></li>
-                <li><a href="/contact" onClick={(e) => handleNav(e, 'contact')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium">Contact</a></li>
+                <li><a href="/" onClick={(e) => handleNav(e, 'home')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium" style={{ color: '#b7c1d5' }}>Home</a></li>
+                <li><a href="/about" onClick={(e) => handleNav(e, 'about')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium" style={{ color: '#b7c1d5' }}>About</a></li>
+                <li><a href="/services" onClick={(e) => handleNav(e, 'services')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium" style={{ color: '#b7c1d5' }}>Services</a></li>
+                <li><a href="/projects" onClick={(e) => handleNav(e, 'gallery')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium" style={{ color: '#b7c1d5' }}>Projects</a></li>
+                <li><a href="/testimonials" onClick={(e) => handleNav(e, 'testimonials')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium" style={{ color: '#b7c1d5' }}>Testimonials</a></li>
+                <li><a href="/contact" onClick={(e) => handleNav(e, 'contact')} className="text-[#b7c1d5] hover:text-[#f19e1f] transition-colors text-decoration-none cursor-pointer text-xs font-medium" style={{ color: '#b7c1d5' }}>Contact</a></li>
               </ul>
 
               <ul className="list-unstyled mb-0 social-icons d-flex gap-2">
@@ -427,7 +428,7 @@ export const Footer: React.FC = () => {
                 </li>
               </ul>
 
-              <p className="mb-0 text-[#b7c1d5] text-xs font-light">Copyright © {new Date().getFullYear()} {settings?.business?.name || 'ASSIST Roofing & Home Solution'}. All Rights Reserved.</p>
+              <p className="mb-0 text-[#b7c1d5] text-xs font-light" style={{ color: '#b7c1d5' }}>Copyright © {new Date().getFullYear()} {settings?.business?.name || 'ASSIST Roofing & Home Solution'}. All Rights Reserved.</p>
             </div>
 
           </div>

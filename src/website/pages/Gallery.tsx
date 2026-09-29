@@ -145,7 +145,8 @@ export const Gallery: React.FC = () => {
           <a
             href="/contact"
             onClick={(e) => { e.preventDefault(); navigateTo('contact'); }}
-            className="bg-[#f19e1f] hover:bg-[#d88713] text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-full shadow-lg transition-all text-decoration-none d-inline-block cursor-pointer"
+            className="font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-full shadow-lg transition-all text-decoration-none d-inline-block cursor-pointer"
+            style={{ backgroundColor: '#f19e1f', color: '#ffffff' }}
           >
             Schedule On-Site Consultation
           </a>
