@@ -7,6 +7,7 @@ import { GoogleReviewsCarousel } from '../components/GoogleReviewsCarousel';
 import { ServicesAccordion } from '../components/ServicesAccordion';
 import { asset } from '../utils/asset';
 import type { CoreServiceSlug } from '../types';
+import { trackCallConversion } from '../utils/tracking';
 
 export const Home: React.FC = () => {
   const { navigateTo, openQuoteModal, openLightbox } = useWebsite();
@@ -95,6 +96,7 @@ export const Home: React.FC = () => {
 
                       <a
                         href="tel:0478250790"
+                        onClick={() => trackCallConversion()}
                         className="font-weight-bold elementary_btn d-inline-block text-decoration-none"
                       >
                         Call: 0478 250 790 <span><img src={asset('/roofora-assets/images/arrow.png')} alt="arrow" className="img-fluid d-inline-block" /></span>
@@ -908,6 +910,7 @@ export const Home: React.FC = () => {
 
               <a
                 href="tel:0478250790"
+                onClick={() => trackCallConversion()}
                 className="text-decoration-none"
                 style={{
                   display: 'inline-flex',

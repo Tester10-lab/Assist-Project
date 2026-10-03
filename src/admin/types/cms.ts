@@ -134,6 +134,7 @@ export interface SiteSettings {
     name: string;
     legalName: string;
     phone: string;
+    whatsapp?: string;
     internationalPhone: string;
     email: string;
     address: string;
@@ -152,8 +153,30 @@ export interface SiteSettings {
   };
   tracking: {
     ga4Id: string;
+    googleAdsId?: string;
+    googleAdsCallConversionLabel?: string;
+    googleAdsLeadConversionLabel?: string;
+    phoneConversionNumber?: string;
     elfsightEnabled: boolean;
   };
+}
+
+export interface EnquiryItem {
+  id: string;
+  type: 'callback' | 'quote' | 'contact';
+  name: string;
+  phone: string;
+  email?: string;
+  address?: string;
+  service: string;
+  preferredTime?: string;
+  urgency?: string;
+  message?: string;
+  status: 'new' | 'contacted' | 'resolved';
+  createdAt: string;
+  userAgent?: string;
+  ip?: string;
+  notes?: string;
 }
 
 export interface ActivityItem {
@@ -172,4 +195,5 @@ export interface DashboardMetrics {
   blog: { total: number; published: number };
   media: { total: number };
   users: { total: number };
+  enquiries?: { total: number; new: number };
 }

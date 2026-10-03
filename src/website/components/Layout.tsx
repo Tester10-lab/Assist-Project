@@ -6,9 +6,10 @@ import { QuoteModal } from './QuoteModal';
 import { LightboxModal } from './LightboxModal';
 import { BackToTop } from './BackToTop';
 import { asset } from '../utils/asset';
+import { trackCallConversion } from '../utils/tracking';
 
 export const Navbar: React.FC = () => {
-  const { currentPage, currentServiceSlug, navigateTo, isMobileMenuOpen, setMobileMenuOpen, openQuoteModal } = useWebsite();
+  const { currentPage, currentServiceSlug, navigateTo, isMobileMenuOpen, setMobileMenuOpen, openQuoteModal, openCallbackModal } = useWebsite();
   const { settings } = useCmsContent();
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
@@ -31,13 +32,23 @@ export const Navbar: React.FC = () => {
           <i className="fa-solid fa-wand-magic-sparkles topbar-icon"></i>
           <p>Clean Jobsite Promise & 10-Yr Workmanship Guarantee • {displayPhone}</p>
         </div>
-        <a
-          className="buy_now text-decoration-none cursor-pointer"
-          onClick={openQuoteModal}
-        >
-          <span className="label">Get a Free Quote</span>
-          <i className="fa-solid fa-arrow-right"></i>
-        </a>
+        <div className="d-flex align-items-center gap-2">
+          <a
+            className="buy_now text-decoration-none cursor-pointer d-none d-md-inline-flex"
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.15)', color: '#ffffff' }}
+            onClick={() => openCallbackModal()}
+          >
+            <i className="fa-solid fa-phone-volume me-1.5" style={{ color: '#f19e1f' }}></i>
+            <span className="label">15-Min Callback</span>
+          </a>
+          <a
+            className="buy_now text-decoration-none cursor-pointer"
+            onClick={openQuoteModal}
+          >
+            <span className="label">Get a Free Quote</span>
+            <i className="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
       </div>
 
       {/* ── Main Header & Pill Navigation ── */}
@@ -238,6 +249,7 @@ export const Navbar: React.FC = () => {
                   </button>
                   <a
                     href={`tel:${phone.replace(/\s+/g, '')}`}
+                    onClick={() => trackCallConversion()}
                     className="btn w-100 py-2.5 rounded-pill font-weight-700 text-white mb-2 text-decoration-none"
                     style={{ backgroundColor: '#1e2e4f' }}
                   >
@@ -261,6 +273,7 @@ export const Navbar: React.FC = () => {
                     <div>
                       <a
                         href={`tel:${phone.replace(/\s+/g, '')}`}
+                        onClick={() => trackCallConversion()}
                         className="text-decoration-none cell-no cursor-pointer"
                       >
                         <span className="number d-inline-block urbanist-font">{displayPhone}</span>
@@ -347,6 +360,7 @@ export const Footer: React.FC = () => {
                 </div>
                 <a
                   href={`tel:${phone.replace(/\s+/g, '')}`}
+                  onClick={() => trackCallConversion()}
                   className="text-decoration-none font-weight-700 d-inline-flex align-items-center gap-2 mb-1 transition-colors hover:text-[#f19e1f]"
                   style={{ fontSize: 'clamp(22px, 2.2vw, 30px)', color: '#ffffff' }}
                 >
@@ -481,7 +495,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
 export const WhatsAppFloatingButton: React.FC = () => {
   const { settings } = useCmsContent();
-  const rawPhone = settings?.business?.internationalPhone || settings?.business?.phone || '0478250790';
+  const rawPhone = settings?.business?.whatsapp || '0478936120';
   const cleanPhone = rawPhone.replace(/[^0-9]/g, '');
   const waNumber = cleanPhone.startsWith('61')
     ? cleanPhone
@@ -520,10 +534,10 @@ export const WhatsAppFloatingButton: React.FC = () => {
 
 export const MobileCROStickyBar: React.FC = () => {
   const { settings } = useCmsContent();
-  const { openQuoteModal } = useWebsite();
+  const { openQuoteModal, openCallbackModal } = useWebsite();
   const phone = settings?.business?.phone || '0478 250 790';
-  const rawPhone = settings?.business?.internationalPhone || phone;
-  const cleanPhone = rawPhone.replace(/[^0-9]/g, '');
+  const rawWaPhone = settings?.business?.whatsapp || '0478936120';
+  const cleanPhone = rawWaPhone.replace(/[^0-9]/g, '');
   const waNumber = cleanPhone.startsWith('61')
     ? cleanPhone
     : (cleanPhone.startsWith('0') ? `61${cleanPhone.slice(1)}` : `61${cleanPhone}`);
@@ -546,12 +560,24 @@ export const MobileCROStickyBar: React.FC = () => {
     >
       <a
         href={`tel:${phone.replace(/\s+/g, '')}`}
+        onClick={() => trackCallConversion()}
         className="d-flex flex-column align-items-center justify-content-center text-white text-decoration-none px-2 py-1"
         style={{ fontSize: '11px', fontWeight: 600, flex: 1 }}
       >
         <i className="fa-solid fa-phone text-[#f19e1f] mb-1" style={{ fontSize: '16px' }}></i>
-        <span>Call Now</span>
+        <span>Call</span>
       </a>
+
+      <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.15)' }}></div>
+
+      <button
+        onClick={() => openCallbackModal()}
+        className="d-flex flex-column align-items-center justify-content-center text-white text-decoration-none px-2 py-1 bg-transparent border-0 cursor-pointer"
+        style={{ fontSize: '11px', fontWeight: 600, flex: 1.1 }}
+      >
+        <i className="fa-solid fa-bolt text-[#f19e1f] mb-1" style={{ fontSize: '16px' }}></i>
+        <span>Callback</span>
+      </button>
 
       <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.15)' }}></div>
 
@@ -562,7 +588,7 @@ export const MobileCROStickyBar: React.FC = () => {
         className="d-flex flex-column align-items-center justify-content-center text-white text-decoration-none px-2 py-1"
         style={{ fontSize: '11px', fontWeight: 600, flex: 1 }}
       >
-        <i className="fa-brands fa-whatsapp mb-1" style={{ color: '#25D366', fontSize: '18px' }}></i>
+        <i className="fa-brands fa-whatsapp mb-1" style={{ color: '#25D366', fontSize: '17px' }}></i>
         <span>WhatsApp</span>
       </a>
 
@@ -576,12 +602,12 @@ export const MobileCROStickyBar: React.FC = () => {
           color: '#1e2e4f',
           fontSize: '12px',
           fontWeight: 700,
-          flex: 1.5,
+          flex: 1.4,
           letterSpacing: '0.02em'
         }}
       >
-        <i className="fa-solid fa-clipboard-check me-1.5" style={{ color: '#1e2e4f' }}></i>
-        <span style={{ color: '#1e2e4f' }}>Free Quote</span>
+        <i className="fa-solid fa-clipboard-check me-1" style={{ color: '#1e2e4f' }}></i>
+        <span style={{ color: '#1e2e4f' }}>Quote</span>
       </button>
     </div>
   );

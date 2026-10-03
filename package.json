@@ -10,7 +10,8 @@
     "lint": "oxlint src tools",
     "preview": "vite preview",
     "seo": "node tools/assist-seo.mjs report",
-    "seo:audit": "node tools/assist-seo.mjs audit"
+    "seo:audit": "node tools/assist-seo.mjs audit",
+    "test:routes": "node tools/verify-routes.mjs"
   },
   "dependencies": {
     "@types/three": "^0.185.4",

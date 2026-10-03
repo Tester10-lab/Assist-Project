@@ -19,11 +19,13 @@ import {
   UserCheck,
   Lock,
   ChevronRight,
-  AlertTriangle
+  AlertTriangle,
+  PhoneCall
 } from 'lucide-react';
 
 export type AdminSection =
   | 'dashboard'
+  | 'enquiries'
   | 'pages'
   | 'services'
   | 'locations'
@@ -91,7 +93,8 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
     {
       label: 'Overview',
       items: [
-        { id: 'dashboard' as AdminSection, label: 'Dashboard', icon: LayoutDashboard }
+        { id: 'dashboard' as AdminSection, label: 'Dashboard', icon: LayoutDashboard },
+        { id: 'enquiries' as AdminSection, label: 'Enquiries & Callbacks', icon: PhoneCall }
       ]
     },
     {

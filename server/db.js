@@ -702,6 +702,10 @@ function getInitialSeedData() {
     },
     tracking: {
       ga4Id: 'G-VTEV53E3T3',
+      googleAdsId: 'AW-18404411620',
+      googleAdsCallConversionLabel: '',
+      googleAdsLeadConversionLabel: '',
+      phoneConversionNumber: '0478 250 790',
       elfsightEnabled: true
     }
   };
@@ -709,6 +713,7 @@ function getInitialSeedData() {
   return {
     users: [],
     sessions: [],
+    enquiries: [],
     pages: verifiedPages,
     services: verifiedServices,
     locations: verifiedLocations,
@@ -754,6 +759,10 @@ class Database {
     } else {
       this.data = getInitialSeedData();
       this.save();
+    }
+
+    if (!Array.isArray(this.data.enquiries)) {
+      this.data.enquiries = [];
     }
 
     this.ensureAdminUser();
@@ -838,6 +847,43 @@ Please log in at /admin/login and immediately change this password.
     }
     this.save();
     return entry;
+  }
+
+  addEnquiry(enquiry) {
+    if (!Array.isArray(this.data.enquiries)) {
+      this.data.enquiries = [];
+    }
+    this.data.enquiries.unshift(enquiry);
+    // Keep up to 1000 enquiries
+    if (this.data.enquiries.length > 1000) {
+      this.data.enquiries = this.data.enquiries.slice(0, 1000);
+    }
+    this.save();
+    return enquiry;
+  }
+
+  updateEnquiry(id, updates) {
+    if (!Array.isArray(this.data.enquiries)) return null;
+    const index = this.data.enquiries.findIndex(e => e.id === id);
+    if (index === -1) return null;
+    this.data.enquiries[index] = {
+      ...this.data.enquiries[index],
+      ...updates,
+      updatedAt: new Date().toISOString()
+    };
+    this.save();
+    return this.data.enquiries[index];
+  }
+
+  deleteEnquiry(id) {
+    if (!Array.isArray(this.data.enquiries)) return false;
+    const initialLen = this.data.enquiries.length;
+    this.data.enquiries = this.data.enquiries.filter(e => e.id !== id);
+    if (this.data.enquiries.length !== initialLen) {
+      this.save();
+      return true;
+    }
+    return false;
   }
 }
 

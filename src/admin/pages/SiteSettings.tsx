@@ -149,7 +149,7 @@ export const SiteSettings: React.FC = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <label className="block font-bold uppercase tracking-wider text-slate-600 mb-1">
                 Phone Number (Public Dial)
@@ -161,6 +161,23 @@ export const SiteSettings: React.FC = () => {
                 onChange={e => setSettings({
                   ...settings,
                   business: { ...settings.business, phone: e.target.value }
+                })}
+                className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:border-[#f19e1f] disabled:bg-slate-50"
+              />
+            </div>
+
+            <div>
+              <label className="block font-bold uppercase tracking-wider text-slate-600 mb-1">
+                WhatsApp Phone Number
+              </label>
+              <input
+                type="text"
+                disabled={!isAdmin}
+                placeholder="e.g. 0478936120"
+                value={settings.business.whatsapp || ''}
+                onChange={e => setSettings({
+                  ...settings,
+                  business: { ...settings.business, whatsapp: e.target.value }
                 })}
                 className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:border-[#f19e1f] disabled:bg-slate-50"
               />
@@ -335,27 +352,107 @@ export const SiteSettings: React.FC = () => {
         </div>
 
         {/* Analytics & Tracking */}
-        <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
+        <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-5">
           <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
             <BarChart className="w-5 h-5 text-amber-600" />
-            <h3 className="font-bold text-sm text-slate-900">Analytics & Tracking</h3>
+            <div>
+              <h3 className="font-bold text-sm text-slate-900">Analytics, Google Ads & Website Call Tracking</h3>
+              <p className="text-xs text-slate-500">Configure Google tags, conversion actions, and automated call-tracking forwarding.</p>
+            </div>
           </div>
 
-          <div>
-            <label className="block font-bold uppercase tracking-wider text-slate-600 mb-1">
-              Google Analytics 4 Measurement ID
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">
+                Google Analytics 4 ID
+              </label>
+              <input
+                type="text"
+                disabled={!isAdmin}
+                value={settings.tracking.ga4Id}
+                onChange={e => setSettings({
+                  ...settings,
+                  tracking: { ...settings.tracking, ga4Id: e.target.value }
+                })}
+                placeholder="G-VTEV53E3T3"
+                className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-xs focus:outline-none focus:border-[#f19e1f] disabled:bg-slate-50 font-mono"
+              />
+              <span className="text-[11px] text-slate-400 mt-1 block">Active GA4 measurement ID</span>
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">
+                Google Ads Tag ID (AW-XXXXXXXXX)
+              </label>
+              <input
+                type="text"
+                disabled={!isAdmin}
+                value={settings.tracking.googleAdsId || ''}
+                onChange={e => setSettings({
+                  ...settings,
+                  tracking: { ...settings.tracking, googleAdsId: e.target.value }
+                })}
+                placeholder="AW-123456789"
+                className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-xs focus:outline-none focus:border-[#f19e1f] disabled:bg-slate-50 font-mono"
+              />
+              <span className="text-[11px] text-slate-400 mt-1 block">Supplied by your Google Ads account</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+            <div>
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">
+                Website Call Conversion Action / Label
+              </label>
+              <input
+                type="text"
+                disabled={!isAdmin}
+                value={settings.tracking.googleAdsCallConversionLabel || ''}
+                onChange={e => setSettings({
+                  ...settings,
+                  tracking: { ...settings.tracking, googleAdsCallConversionLabel: e.target.value }
+                })}
+                placeholder="AW-XXXXXXXXX/AbCdEfGhIjKl or CallLabel"
+                className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-xs focus:outline-none focus:border-[#f19e1f] disabled:bg-slate-50 font-mono"
+              />
+              <span className="text-[11px] text-slate-400 mt-1 block">Fires on mobile phone clicks & website call conversions</span>
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">
+                Phone Number for Dynamic Swapping
+              </label>
+              <input
+                type="text"
+                disabled={!isAdmin}
+                value={settings.tracking.phoneConversionNumber || '0478 250 790'}
+                onChange={e => setSettings({
+                  ...settings,
+                  tracking: { ...settings.tracking, phoneConversionNumber: e.target.value }
+                })}
+                placeholder="0478 250 790"
+                className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-xs focus:outline-none focus:border-[#f19e1f] disabled:bg-slate-50 font-mono"
+              />
+              <span className="text-[11px] text-slate-400 mt-1 block">Primary business phone target for Google forwarding numbers</span>
+            </div>
+          </div>
+
+          <div className="pt-2 border-t border-slate-100">
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1">
+              Google Ads Form / Lead Conversion Action (Optional)
             </label>
             <input
               type="text"
               disabled={!isAdmin}
-              value={settings.tracking.ga4Id}
+              value={settings.tracking.googleAdsLeadConversionLabel || ''}
               onChange={e => setSettings({
                 ...settings,
-                tracking: { ...settings.tracking, ga4Id: e.target.value }
+                tracking: { ...settings.tracking, googleAdsLeadConversionLabel: e.target.value }
               })}
-              placeholder="G-XXXXXXXXXX"
-              className="w-full max-w-sm px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:outline-none focus:border-[#f19e1f] disabled:bg-slate-50"
+              placeholder="AW-XXXXXXXXX/MnOpQrStUvWx or LeadLabel"
+              className="w-full max-w-md px-3.5 py-2.5 border border-slate-300 rounded-xl text-xs focus:outline-none focus:border-[#f19e1f] disabled:bg-slate-50 font-mono"
             />
+            <span className="text-[11px] text-slate-400 mt-1 block">Fires when visitor completes an enquiry / callback request</span>
           </div>
         </div>
 

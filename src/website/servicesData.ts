@@ -72,44 +72,55 @@ export const CORE_SERVICES_DATA: Record<CoreServiceSlug, ServiceDetail> = {
     slug: 'roof-repairs',
     name: 'Roof Repairs',
     heroHeading: 'Emergency Roof Repairs Melbourne',
-    metaTitle: 'Emergency Roof Repairs Melbourne | Broken Tiles & Leak Repairs',
-    metaDescription: 'Fast, reliable emergency roof repairs across Melbourne. We repair cracked tiles, leaking flashings, storm damage, and rusted valleys. Starting from $550.',
+    metaTitle: 'Emergency Roof Repairs Melbourne | 24/7 Leak Make-Safe & Broken Tiles',
+    metaDescription: '24/7 emergency roof repairs across Melbourne. Rapid 1-2 hour make-safe storm tarping, cracked tile replacement, leaking flashings & insurance reports. Call 0478 250 790.',
     canonicalPath: '/services/roof-repairs',
-    shortDesc: 'Rapid-response emergency and structural roof repairs across Melbourne suburbs. We fix cracked tiles, leaking valleys, failing flashings, and storm-damaged roof sections.',
-    aeoSummary: 'Assist Roofing provides rapid roof repair services across Melbourne for residential and commercial properties. We resolve active water leaks, cracked terracotta and concrete tiles, rusted valley irons, degraded chimney flashings, and displaced ridge capping, backed by VBA registration, same-day emergency dispatch, and $10M public liability insurance.',
+    shortDesc: '24/7 rapid-response emergency and structural roof repairs across all Melbourne suburbs. 1-2 hour emergency make-safe response for active leaks, cracked tiles, rusted valleys, and storm damage.',
+    aeoSummary: 'Assist Roofing delivers 24/7 emergency roof repairs and storm make-safe services across Greater Melbourne. Led by Peter Bayamis, our VBA-registered roofers prioritize active ceiling leaks with rapid on-site storm tarping, tile replacement, Colorbond valley renewals, and comprehensive insurance damage documentation backed by $10M public liability insurance.',
     heroImage: '/roofora-assets/images/services-img1.jpg',
     features: [
-      'Same-day emergency leak inspection and temporary tarping',
-      'Cracked, chipped, and shifted tile replacements',
-      'Chimney, valley iron, and parapet flashing repairs',
-      'Structural batten alignment and sag correction',
-      'Terracotta ridge cap re-bedding & flexible re-pointing',
-      'Multi-point roof safety and moisture integrity check'
+      '24/7 Rapid Emergency Response & 1-2 Hour Storm Make-Safe Tarping',
+      'Cracked, Slipped & Missing Tile Replacement (Terracotta & Concrete)',
+      'Colorbond Valley Iron Renewal & Box Gutter Overflow Remediation',
+      'Chimney, Parapet, Skylight & Vent Pipe Boot Flashing Repairs',
+      'Ridge Capping Re-Bedding & SupaPoint Flexible Re-Pointing',
+      'Drone Aerial Survey & Insurance Claim Damage Reports',
+      'Victorian Building Authority (VBA) Registered & $10M Insured Trades',
+      'Clean Jobsite Promise & Magnetic Nail Sweep on Every Property'
     ],
-    pricingText: 'Standard repairs starting at $550 (materials and labor included)',
+    pricingText: 'Emergency make-safe from $550 • Free on-site inspection & transparent itemized quotes',
     matchingGalleryCategory: 'Roof Repairs',
-    whenNeededTitle: 'Common Situations Requiring Immediate Roof Repairs',
+    whenNeededTitle: 'Immediate Situations Requiring Emergency Roof Repairs',
     whenNeededSigns: [
-      'Active water ingress, damp ceiling plaster, or bubbling paint during rain',
-      'Shifted, cracked, or missing roof tiles after high Melbourne wind events',
-      'Rusted valley irons, blocked box gutters, or overflowing water channels',
-      'Deteriorated lead chimney aprons, side flashings, or parapet caps'
+      'Active water pouring or dripping through ceiling plaster, light fixtures, or cornices',
+      'Shifted, smashed, or missing roof tiles after high Melbourne wind or hail storms',
+      'Rusted valley irons or overflowing box gutters causing water backflow into eaves',
+      'Deteriorated mortar bedding or cracked ridge capping loose along the roofline',
+      'Degraded lead aprons around chimneys, skylights, or multi-level parapets'
     ],
     relatedPillarSlug: 'leak-detection',
     relatedPillarName: 'Roof Leak Detection',
-    relatedPillarBlurb: 'Can’t locate the exact source of a mystery leak? Our digital drone mapping and electronic moisture meters trace water entry points across complex rooflines.',
+    relatedPillarBlurb: 'Mystery leak appearing far from where water is visible? Our digital drone mapping and electronic moisture meters trace concealed water entry points across complex rooflines.',
     faqs: [
       {
         q: 'How fast can you attend to an emergency roof leak in Melbourne?',
-        a: 'We prioritize active water leaks with same-day emergency dispatch across Melbourne. Our VBA registered trades can install storm tarps immediately to prevent interior water damage before completing permanent repairs.'
+        a: 'We operate 24/7 emergency dispatch across all Melbourne suburbs. For active leaks threatening interior ceilings or timber framing, our licensed trades aim to be on-site within 1-2 hours to install heavy-duty storm tarps and execute make-safe water diversions.'
       },
       {
-        q: 'How much do typical roof repairs cost in Melbourne?',
-        a: 'Standard repairs like tile replacements, minor flashing fixes, or pipe boot sealing start at $550 with all materials and labor included. We provide fixed-price quotes before any work begins.'
+        q: 'What should I do while waiting for your emergency repair team?',
+        a: 'Ensure personal safety first: move furniture, rugs, and electrical appliances away from the leak. Place large buckets or plastic containers with towels beneath to cushion dripping, and take photos for insurance. Never climb onto a wet, slippery roof in the rain.'
       },
       {
-        q: 'Do you fix storm and wind damage for insurance claims?',
-        a: 'Yes. We provide emergency weatherproofing followed by detailed condition assessment reports and itemized quotations accepted by Australian insurance providers.'
+        q: 'Can you repair a roof while it is still raining?',
+        a: 'Yes. During heavy rain and storms, our VBA-registered roofers execute professional "make-safe" procedures: securing industrial tarps, sandbags, and temporary weatherproofing to halt interior water entry. Once the storm passes and tiles dry, we complete permanent structural repairs.'
+      },
+      {
+        q: 'Do you provide causation reports and quotes for insurance claims?',
+        a: 'Yes. We provide comprehensive written condition reports complete with high-resolution digital drone photos, moisture meter logs, and itemized scopes of work accepted by all major Australian insurance companies (RACV, NRMA, Allianz, QBE, AAMI, Suncorp).'
+      },
+      {
+        q: 'How much do emergency roof repairs cost in Melbourne?',
+        a: 'Standard emergency repairs and make-safe storm tarping start at $550, covering all emergency materials, labor, and safety equipment. We provide fixed-price upfront pricing before commencing work with no hidden callout surprises.'
       }
     ]
   },

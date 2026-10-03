@@ -8,7 +8,8 @@ import type {
   SeoSettings,
   SiteSettings,
   ActivityItem,
-  DashboardMetrics
+  DashboardMetrics,
+  EnquiryItem
 } from '../types/cms';
 
 const API_BASE = import.meta.env.VITE_API_URL || '/api';
@@ -247,5 +248,22 @@ export const adminApi = {
     if (filters?.action) params.set('action', filters.action);
     const qs = params.toString();
     return request<ActivityItem[]>(`/admin/activity${qs ? `?${qs}` : ''}`);
-  }
+  },
+
+  // ── Enquiries & Callbacks ──
+  getEnquiries: (status?: string) => {
+    const qs = status ? `?status=${encodeURIComponent(status)}` : '';
+    return request<EnquiryItem[]>(`/admin/enquiries${qs}`);
+  },
+
+  updateEnquiry: (id: string, updates: Partial<EnquiryItem>) =>
+    request<{ success: boolean; enquiry: EnquiryItem }>(`/admin/enquiries/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(updates)
+    }),
+
+  deleteEnquiry: (id: string) =>
+    request<{ success: boolean }>(`/admin/enquiries/${id}`, {
+      method: 'DELETE'
+    })
 };

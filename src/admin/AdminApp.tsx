@@ -12,12 +12,14 @@ import { SeoManager } from './pages/SeoManager';
 import { SiteSettings } from './pages/SiteSettings';
 import { UsersManager } from './pages/UsersManager';
 import { ActivityLog } from './pages/ActivityLog';
+import { EnquiriesManager } from './pages/EnquiriesManager';
 import { AlertCircle, ArrowLeft } from 'lucide-react';
 
 const pathToSection = (path: string): AdminSection | 'login' | '404' => {
   const clean = path.replace(/\/+$/, '');
   if (clean === '/admin' || clean === '/admin/dashboard') return 'dashboard';
   if (clean === '/admin/login') return 'login';
+  if (clean === '/admin/enquiries') return 'enquiries';
   if (clean === '/admin/pages') return 'pages';
   if (clean === '/admin/services') return 'services';
   if (clean === '/admin/locations') return 'locations';
@@ -138,6 +140,7 @@ const AdminContent: React.FC = () => {
   return (
     <AdminLayout currentSection={section} onNavigate={navigateTo}>
       {section === 'dashboard' && <Dashboard onNavigate={navigateTo} />}
+      {section === 'enquiries' && <EnquiriesManager />}
       {section === 'pages' && <PagesManager />}
       {section === 'services' && <ServicesManager />}
       {section === 'locations' && <LocationsManager />}

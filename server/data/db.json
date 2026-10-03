@@ -5,11 +5,11 @@
       "email": "admin@assistroofing.com.au",
       "name": "Administrator",
       "role": "admin",
-      "passwordHash": "12371c532065d59c291d634dcb8e882ed0966c5473d124854abc63e1816893d50c5a6ebde00a5d53b310938c1e621256def590a7e02667350323cea1b363e6d4",
-      "passwordSalt": "96afe1a36089258b88d96b2e9bb81ca8",
-      "mustChangePassword": true,
+      "passwordHash": "73d0cc2041fc847bdd0d457146bf1f406b0b31b78d391acee80e85b46499428b63f88cd78f905f320d2e7fd8dd6179ddf7a0bea4fa4cc423d6f1f41911cf03aa",
+      "passwordSalt": "d402e090bcd0583a8d14b9b3213abdf4",
+      "mustChangePassword": false,
       "createdAt": "2026-09-23T08:33:16.552Z",
-      "updatedAt": "2026-09-23T08:33:16.552Z"
+      "updatedAt": "2026-10-03T07:42:48.363Z"
     }
   ],
   "sessions": [],
@@ -933,10 +933,38 @@
     },
     "tracking": {
       "ga4Id": "G-VTEV53E3T3",
+      "googleAdsId": "AW-18404411620",
+      "googleAdsCallConversionLabel": "",
+      "googleAdsLeadConversionLabel": "",
+      "phoneConversionNumber": "0478 250 790",
       "elfsightEnabled": true
     }
   },
   "activity": [
+    {
+      "id": "272211e4-0026-4626-8c3d-764df583dd87",
+      "user": "Emma Watson",
+      "action": "Callback Request Received",
+      "resource": "Enquiry",
+      "timestamp": "2026-10-03T06:05:21.861Z",
+      "details": "ID: ENQ-521857-11D9 | Service: Roof Restoration | Phone: 03 9876 5432 | Preferred Time: Morning (9:00am - 12:00pm)"
+    },
+    {
+      "id": "23671516-1882-428e-b865-476ca68f07db",
+      "user": "Michael Scott",
+      "action": "Callback Request Received",
+      "resource": "Enquiry",
+      "timestamp": "2026-10-03T06:05:21.186Z",
+      "details": "ID: ENQ-521120-2D9D | Service: Roof Leak Repairs | Phone: 0478 250 790 | Preferred Time: ASAP / Next 15 mins"
+    },
+    {
+      "id": "bbb0be56-9f76-4bf1-973f-609e9a32740d",
+      "user": "John Test",
+      "action": "Callback Request Received",
+      "resource": "Enquiry",
+      "timestamp": "2026-10-03T05:51:42.681Z",
+      "details": "ID: ENQ-702661-85FB | Service: Roof Restoration | Phone: 0478 250 790 | Preferred Time: ASAP / Next 15 mins"
+    },
     {
       "id": "8aa18e77-2836-425a-a345-e5c7228518f2",
       "user": "Administrator",
@@ -976,6 +1004,24 @@
       "resource": "Database & CMS",
       "timestamp": "2026-09-23T08:33:16.367Z",
       "details": "Seeded verified public services, pages, locations, and SEO configuration."
+    }
+  ],
+  "enquiries": [
+    {
+      "id": "ENQ-702661-85FB",
+      "type": "callback",
+      "name": "John Test",
+      "phone": "0478 250 790",
+      "email": "",
+      "address": "",
+      "service": "Roof Restoration",
+      "preferredTime": "ASAP / Next 15 mins",
+      "urgency": "ASAP / Next 15 mins",
+      "message": "",
+      "status": "new",
+      "createdAt": "2026-10-03T05:51:42.661Z",
+      "userAgent": "",
+      "ip": "::1"
     }
   ]
 }

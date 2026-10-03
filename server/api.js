@@ -229,6 +229,104 @@ app.get('/api/public/content', (req, res) => {
   });
 });
 
+// POST /api/public/enquiry (Also alias /api/public/callback)
+const handlePublicEnquiry = (req, res) => {
+  try {
+    const {
+      name,
+      phone,
+      email,
+      address,
+      service,
+      urgency,
+      preferredTime,
+      message,
+      type = 'callback'
+    } = req.body || {};
+
+    if (!phone || typeof phone !== 'string' || !phone.trim()) {
+      return res.status(400).json({
+        success: false,
+        accepted: false,
+        error: 'A valid Australian phone number is required so our team can call you.'
+      });
+    }
+
+    const cleanPhone = phone.trim().replace(/[^0-9+ ]/g, '');
+    const digitCount = cleanPhone.replace(/[^0-9]/g, '').length;
+    if (digitCount < 8 || digitCount > 15) {
+      return res.status(400).json({
+        success: false,
+        accepted: false,
+        error: 'Please enter a valid Australian mobile or landline number (e.g. 0478 250 790).'
+      });
+    }
+
+    const cleanName = (name && typeof name === 'string' ? name : 'Website Visitor').trim().slice(0, 100);
+    const cleanService = (service && typeof service === 'string' ? service : 'Roof Inspection / Callback').trim().slice(0, 120);
+    const timing = (preferredTime || urgency || 'ASAP / Within 2 hours').trim().slice(0, 80);
+    const cleanAddress = (address && typeof address === 'string' ? address : '').trim().slice(0, 200);
+    const cleanEmail = (email && typeof email === 'string' ? email : '').trim().slice(0, 100);
+    const cleanMessage = (message && typeof message === 'string' ? message : '').trim().slice(0, 1500);
+
+    const enquiryId = `ENQ-${Date.now().toString().slice(-6)}-${crypto.randomBytes(2).toString('hex').toUpperCase()}`;
+
+    const newEnquiry = {
+      id: enquiryId,
+      type: type === 'quote' ? 'quote' : 'callback',
+      name: cleanName,
+      phone: cleanPhone,
+      email: cleanEmail,
+      address: cleanAddress,
+      service: cleanService,
+      preferredTime: timing,
+      urgency: timing,
+      message: cleanMessage,
+      status: 'new', // 'new' | 'contacted' | 'resolved'
+      createdAt: new Date().toISOString(),
+      userAgent: req.headers['user-agent'] || '',
+      ip: req.ip || req.socket?.remoteAddress || ''
+    };
+
+    // Deliver & store enquiry
+    db.addEnquiry(newEnquiry);
+
+    // Record activity trail
+    db.logActivity(
+      cleanName,
+      'Callback Request Received',
+      'Enquiry',
+      `ID: ${enquiryId} | Service: ${cleanService} | Phone: ${cleanPhone} | Preferred Time: ${timing}`
+    );
+
+    // Return 201 Created and ACCEPTED confirmation
+    return res.status(201).json({
+      success: true,
+      accepted: true,
+      id: enquiryId,
+      message: `Callback request accepted! Reference #${enquiryId}. Peter from Assist Roofing will call you ${timing === 'ASAP / Next 15 mins' ? 'within 15 minutes' : 'shortly'}.`,
+      enquiry: {
+        id: enquiryId,
+        name: cleanName,
+        phone: cleanPhone,
+        service: cleanService,
+        preferredTime: timing,
+        createdAt: newEnquiry.createdAt
+      }
+    });
+  } catch (err) {
+    console.error('[Enquiry API Error]:', err);
+    return res.status(500).json({
+      success: false,
+      accepted: false,
+      error: 'Unable to deliver your enquiry. Please call Peter directly on 0478 250 790.'
+    });
+  }
+};
+
+app.post('/api/public/enquiry', handlePublicEnquiry);
+app.post('/api/public/callback', handlePublicEnquiry);
+
 // ────────────────────────────────────────────────────────
 // 3. ADMIN CMS ENDPOINTS (Protected with RBAC)
 // ────────────────────────────────────────────────────────
@@ -251,6 +349,10 @@ app.get('/api/admin/dashboard', requireAuth, (req, res) => {
   const totalMedia = db.data.media.length;
   const totalUsers = db.data.users.length;
 
+  const allEnquiries = Array.isArray(db.data.enquiries) ? db.data.enquiries : [];
+  const totalEnquiries = allEnquiries.length;
+  const newEnquiries = allEnquiries.filter(e => e.status === 'new').length;
+
   const recentActivity = db.data.activity.slice(0, 10);
 
   res.json({
@@ -260,10 +362,50 @@ app.get('/api/admin/dashboard', requireAuth, (req, res) => {
       locations: { total: totalLocations, published: publishedLocations },
       blog: { total: totalBlog, published: publishedBlog },
       media: { total: totalMedia },
-      users: { total: totalUsers }
+      users: { total: totalUsers },
+      enquiries: { total: totalEnquiries, new: newEnquiries }
     },
     recentActivity
   });
+});
+
+// ── Enquiries Management ──
+app.get('/api/admin/enquiries', requireAuth, (req, res) => {
+  const statusFilter = req.query.status;
+  let items = Array.isArray(db.data.enquiries) ? db.data.enquiries : [];
+  if (statusFilter && statusFilter !== 'all') {
+    items = items.filter(e => e.status === statusFilter);
+  }
+  res.json(items);
+});
+
+app.put('/api/admin/enquiries/:id', requireAuth, (req, res) => {
+  const { status, notes } = req.body || {};
+  const updated = db.updateEnquiry(req.params.id, { status, notes });
+  if (!updated) {
+    return res.status(404).json({ error: 'Enquiry not found' });
+  }
+  db.logActivity(
+    req.user?.name || 'Admin',
+    'Updated Enquiry',
+    'Enquiry',
+    `ID: ${req.params.id} marked as ${status || 'updated'}`
+  );
+  res.json(updated);
+});
+
+app.delete('/api/admin/enquiries/:id', requireAuth, (req, res) => {
+  const success = db.deleteEnquiry(req.params.id);
+  if (!success) {
+    return res.status(404).json({ error: 'Enquiry not found' });
+  }
+  db.logActivity(
+    req.user?.name || 'Admin',
+    'Deleted Enquiry',
+    'Enquiry',
+    `ID: ${req.params.id}`
+  );
+  res.json({ success: true });
 });
 
 // ── Pages Management ──

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import confetti from 'canvas-confetti';
 import { useWebsite } from '../WebsiteContext';
 import { useCmsContent } from '../useCmsContent';
 import { asset } from '../utils/asset';
 import { ALL_SERVICES_OFFERED } from '../data';
+import { trackLeadConversion, trackCallConversion } from '../utils/tracking';
 
 export const Contact: React.FC = () => {
   const { navigateTo } = useWebsite();
@@ -24,9 +26,12 @@ export const Contact: React.FC = () => {
     address: '',
     message: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [acceptedEnquiry, setAcceptedEnquiry] = useState<{ id: string; message: string } | null>(null);
 
-  const rawPhone = settings?.business?.internationalPhone || settings?.business?.phone || '0478250790';
+  const rawPhone = settings?.business?.whatsapp || '0478936120';
   const cleanPhone = rawPhone.replace(/[^0-9]/g, '');
   const waNumber = cleanPhone.startsWith('61')
     ? cleanPhone
@@ -36,6 +41,7 @@ export const Contact: React.FC = () => {
     const lines = [
       `👋 *New Inquiry - Assist Roofing*`,
       `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
+      acceptedEnquiry?.id ? `🔖 *Reference:* #${acceptedEnquiry.id}` : null,
       `👤 *Name:* ${formData.firstName} ${formData.lastName}`.trim(),
       `📞 *Phone:* ${formData.phone}`,
       formData.email ? `✉️ *Email:* ${formData.email}` : null,
@@ -43,19 +49,87 @@ export const Contact: React.FC = () => {
       `🔨 *Service:* ${formData.service}`,
       formData.message ? `📝 *Message:* ${formData.message}` : null,
       `━━━━━━━━━━━━━━━━━━━━━━━━━━`,
-      `🌐 _Sent from Contact Page (assistroofing.com.au)_`
+      `🌐 _Delivered via assistroofing.com.au_`
     ].filter(Boolean);
 
     return `https://wa.me/${waNumber}?text=${encodeURIComponent(lines.join('\n'))}`;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const waUrl = buildWhatsAppUrl();
+    setErrorMsg(null);
+
+    const cleanPhoneDigits = formData.phone.replace(/[^0-9]/g, '');
+    if (cleanPhoneDigits.length < 8 || cleanPhoneDigits.length > 15) {
+      setErrorMsg('Please enter a valid Australian mobile or landline number (e.g. 0478 250 790).');
+      return;
+    }
+
+    setIsSubmitting(true);
+
     try {
-      window.open(waUrl, '_blank', 'noopener,noreferrer');
-    } catch {}
-    setSubmitted(true);
+      const response = await fetch('/api/public/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: `${formData.firstName} ${formData.lastName}`.trim(),
+          phone: formData.phone.trim(),
+          email: formData.email.trim(),
+          address: formData.address.trim(),
+          service: formData.service,
+          message: formData.message.trim(),
+          preferredTime: 'Within 2 hours',
+          type: 'quote',
+        })
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      // STRICT ACCEPTANCE CHECK
+      if (!response.ok || !data.accepted) {
+        setErrorMsg(data.error || 'Unable to store your enquiry. Please call Peter directly on 0478 250 790.');
+        setIsSubmitting(false);
+        return; // HALT
+      }
+
+      setAcceptedEnquiry({ id: data.id, message: data.message });
+      setSubmitted(true);
+      setIsSubmitting(false);
+
+      // Trigger custom DOM event
+      try {
+        window.dispatchEvent(
+          new CustomEvent('assist:enquiry_accepted', {
+            detail: {
+              id: data.id,
+              type: 'contact',
+              service: formData.service,
+              phone: formData.phone,
+              timestamp: new Date().toISOString(),
+            }
+          })
+        );
+      } catch (evtErr) {
+        console.warn('[Event Dispatch Warning]:', evtErr);
+      }
+
+      // Trigger Google Ads & GA4 Lead Conversion
+      trackLeadConversion(data.id, 'contact', formData.service);
+
+      // Confetti celebration
+      try {
+        confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#f19e1f', '#1e2e4f', '#25D366']
+        });
+      } catch {}
+    } catch (err: any) {
+      console.error('[Contact Submit Error]:', err);
+      setErrorMsg('Connection error while delivering your enquiry. Please call Peter directly on 0478 250 790.');
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -96,7 +170,11 @@ export const Contact: React.FC = () => {
               </div>
               <div>
                 <span className="text-xs text-[#616a7e] font-bold uppercase tracking-wider block mb-1">Direct / Peter Bayamis</span>
-                <a href={`tel:${phone.replace(/\s+/g, '')}`} className="text-base font-bold text-[#1e2e4f] hover:text-[#f19e1f] transition-colors block">
+                <a
+                  href={`tel:${phone.replace(/\s+/g, '')}`}
+                  onClick={() => trackCallConversion()}
+                  className="text-base font-bold text-[#1e2e4f] hover:text-[#f19e1f] transition-colors block"
+                >
                   {displayPhone}
                 </a>
                 <span className="text-[11px] text-slate-500 font-medium">Executive Contact</span>
@@ -162,25 +240,48 @@ export const Contact: React.FC = () => {
 
               {submitted ? (
                 <div className="text-center py-12 bg-white rounded-2xl p-8 border border-green-200">
-                  <div className="w-16 h-16 bg-[#eaf8e6] text-[#25D366] rounded-full flex items-center justify-center mx-auto text-3xl mb-4 shadow-sm">
-                    <i className="fa-brands fa-whatsapp"></i>
+                  <div className="w-16 h-16 bg-[#eaf8e6] text-[#16a34a] rounded-full flex items-center justify-center mx-auto text-3xl mb-4 shadow-sm">
+                    <i className="fa-solid fa-check"></i>
                   </div>
-                  <h3 className="text-2xl font-bold font-['Oswald',sans-serif] uppercase text-[#1e2e4f] mb-2">Request Ready for WhatsApp!</h3>
+                  <div className="inline-block bg-green-50 text-green-700 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-2">
+                    ✓ Enquiry Successfully Stored & Dispatched
+                  </div>
+                  <h3 className="text-2xl font-bold font-['Oswald',sans-serif] uppercase text-[#1e2e4f] mb-1">
+                    Inspection Request Accepted!
+                  </h3>
+                  {acceptedEnquiry?.id && (
+                    <div className="text-xs font-mono font-bold text-slate-600 mb-3">
+                      Reference #{acceptedEnquiry.id}
+                    </div>
+                  )}
                   <p className="text-sm text-[#616a7e] max-w-md mx-auto mb-6">
-                    Thank you, <strong>{formData.firstName}</strong>. Your inquiry has been forwarded to our WhatsApp desk ({displayPhone}).
+                    Thank you, <strong>{formData.firstName}</strong>. Peter Bayamis from Assist Roofing has received your details and will call you on <strong>{formData.phone}</strong> shortly.
                   </p>
-                  <a
-                    href={buildWhatsAppUrl()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white px-8 py-3.5 rounded-full text-sm font-bold shadow-md transition-all text-decoration-none"
-                  >
-                    <i className="fa-brands fa-whatsapp text-xl"></i>
-                    Open WhatsApp to Send Inquiry
-                  </a>
+
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto mb-4">
+                    <a
+                      href={`tel:${phone.replace(/\s+/g, '')}`}
+                      onClick={() => trackCallConversion()}
+                      className="inline-flex items-center justify-center gap-2 bg-[#1e2e4f] hover:bg-[#152038] text-white px-6 py-3 rounded-full text-xs font-bold shadow-md transition-all text-decoration-none"
+                    >
+                      <i className="fa-solid fa-phone text-[#f19e1f]"></i>
+                      Call Peter: {displayPhone}
+                    </a>
+
+                    <a
+                      href={buildWhatsAppUrl()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white px-6 py-3 rounded-full text-xs font-bold shadow-md transition-all text-decoration-none"
+                    >
+                      <i className="fa-brands fa-whatsapp text-base"></i>
+                      WhatsApp Desk
+                    </a>
+                  </div>
+
                   <div className="mt-4">
                     <button
-                      onClick={() => setSubmitted(false)}
+                      onClick={() => { setSubmitted(false); setAcceptedEnquiry(null); }}
                       className="text-xs text-[#616a7e] hover:text-[#1e2e4f] font-semibold underline bg-transparent border-0 cursor-pointer"
                     >
                       Submit Another Inquiry
@@ -189,9 +290,16 @@ export const Contact: React.FC = () => {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
+                  {errorMsg && (
+                    <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-xl text-xs flex items-center gap-2">
+                      <i className="fa-solid fa-triangle-exclamation text-red-500 shrink-0"></i>
+                      <span>{errorMsg}</span>
+                    </div>
+                  )}
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#616a7e] mb-1.5">First Name</label>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#616a7e] mb-1.5">First Name *</label>
                       <input
                         type="text"
                         required
@@ -202,7 +310,7 @@ export const Contact: React.FC = () => {
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#616a7e] mb-1.5">Last Name</label>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#616a7e] mb-1.5">Last Name *</label>
                       <input
                         type="text"
                         required
@@ -219,29 +327,28 @@ export const Contact: React.FC = () => {
                       <label className="block text-xs font-bold uppercase tracking-wider text-[#616a7e] mb-1.5">Email Address</label>
                       <input
                         type="email"
-                        required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="w-full bg-white border border-[#cfd8e8] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#f19e1f]"
-                        placeholder="john@example.com"
+                        placeholder="john@example.com (optional)"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#616a7e] mb-1.5">Phone Number</label>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#616a7e] mb-1.5">Phone Number *</label>
                       <input
                         type="tel"
                         required
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         className="w-full bg-white border border-[#cfd8e8] rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#f19e1f]"
-                        placeholder="0400 000 000"
+                        placeholder="0478 250 790"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#616a7e] mb-1.5">Service Required</label>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#616a7e] mb-1.5">Service Required *</label>
                       <select
                         value={formData.service}
                         onChange={(e) => setFormData({ ...formData, service: e.target.value })}
@@ -271,7 +378,7 @@ export const Contact: React.FC = () => {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-[#616a7e] mb-1.5">Property Address / Suburb</label>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-[#616a7e] mb-1.5">Property Address / Suburb *</label>
                       <input
                         type="text"
                         required
@@ -296,11 +403,21 @@ export const Contact: React.FC = () => {
 
                   <button
                     type="submit"
-                    className="w-full bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-sm uppercase tracking-wider py-4 rounded-full shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    disabled={isSubmitting}
+                    className="w-full bg-[#f19e1f] hover:bg-[#d88713] text-[#1e2e4f] font-bold text-sm uppercase tracking-wider py-4 rounded-full shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
                   >
-                    <i className="fa-brands fa-whatsapp text-xl"></i>
-                    <span>Send Inquiry to WhatsApp</span>
-                    <i className="fa-solid fa-arrow-right text-xs"></i>
+                    {isSubmitting ? (
+                      <>
+                        <i className="fa-solid fa-circle-notch fa-spin text-base"></i>
+                        <span>Delivering to Peter...</span>
+                      </>
+                    ) : (
+                      <>
+                        <i className="fa-solid fa-clipboard-check text-base"></i>
+                        <span>Submit Inspection Request</span>
+                        <i className="fa-solid fa-arrow-right text-xs"></i>
+                      </>
+                    )}
                   </button>
                 </form>
               )}
@@ -321,6 +438,7 @@ export const Contact: React.FC = () => {
 
                 <a
                   href="tel:0478250790"
+                  onClick={() => trackCallConversion()}
                   className="w-full bg-[#f19e1f] hover:bg-[#d88713] text-white py-3.5 rounded-full font-bold text-sm uppercase tracking-wider text-center flex items-center justify-center gap-2 shadow mb-4"
                 >
                   <i className="fa-solid fa-phone"></i>

@@ -27,10 +27,10 @@ dist-ssr
 scratch/
 *.json.secret
 *credentials*.json
-server/data/initial-admin-setup.txt
 .env*
 !*.example
 
-# Cloned reference toolkits
+# Cloned reference toolkits & agent scratch
 open-seo/
 ultimate-seo-geo/
+.agents/

@@ -10,12 +10,13 @@ import { Gallery } from './pages/Gallery';
 import { Testimonials } from './pages/Testimonials';
 import { Contact } from './pages/Contact';
 import { CORE_SERVICES_DATA } from './servicesData';
+import { initGoogleAdsTracking } from './utils/tracking';
 
 const BASE_URL = 'https://assistroofing.com.au';
 
 const SeoSync: React.FC = () => {
   const { currentPage, currentServiceSlug } = useWebsite();
-  const { pages, seo } = useCmsContent();
+  const { pages, seo, settings } = useCmsContent();
 
   useEffect(() => {
     let title = 'Roofing Contractor & Roof Restoration Melbourne | Assist Roofing';
@@ -258,7 +259,12 @@ const SeoSync: React.FC = () => {
       }
     }
 
-  }, [currentPage, currentServiceSlug, pages, seo]);
+    // Initialize or refresh Google Ads & website call tracking
+    if (settings?.tracking) {
+      initGoogleAdsTracking(settings.tracking);
+    }
+
+  }, [currentPage, currentServiceSlug, pages, seo, settings]);
 
   return null;
 };

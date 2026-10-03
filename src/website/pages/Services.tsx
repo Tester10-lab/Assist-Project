@@ -6,9 +6,10 @@ import { motion } from 'framer-motion';
 import { asset } from '../utils/asset';
 import { CORE_SERVICES_DATA } from '../servicesData';
 import type { CoreServiceSlug } from '../types';
+import { trackCallConversion } from '../utils/tracking';
 
 export const Services: React.FC = () => {
-  const { currentServiceSlug, navigateTo, openQuoteModal } = useWebsite();
+  const { currentServiceSlug, navigateTo, openQuoteModal, openCallbackModal } = useWebsite();
   const { services: cmsServices, pages } = useCmsContent();
   const [activeCategory, setActiveCategory] = useState<'all' | 'repairs' | 'replacement' | 'restoration' | 'gutters'>('all');
 
@@ -105,9 +106,19 @@ export const Services: React.FC = () => {
             </nav>
 
             <div className="max-w-3xl">
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#f19e1f] mb-3 block">
-                Melbourne Roofing Specialists • VBA Registered
-              </span>
+              {service.slug === 'roof-repairs' ? (
+                <div className="inline-flex items-center gap-2.5 bg-red-600/90 text-white px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-4 shadow-md backdrop-blur-sm">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
+                  </span>
+                  <span>24/7 Melbourne Emergency Dispatch • 1–2 Hr Response</span>
+                </div>
+              ) : (
+                <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#f19e1f] mb-3 block">
+                  Melbourne Roofing Specialists • VBA Registered
+                </span>
+              )}
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-white mb-4 leading-tight">
                 {service.heroHeading}
               </h1>
@@ -115,22 +126,50 @@ export const Services: React.FC = () => {
                 {service.shortDesc}
               </p>
 
-              <div className="flex flex-wrap items-center gap-4">
-                <button
-                  onClick={() => openQuoteModal(service.name)}
-                  className="bg-[#f19e1f] hover:bg-[#d88713] text-[#1e2e4f] font-bold text-xs uppercase tracking-wider px-8 py-4 rounded-full transition-all shadow-lg flex items-center gap-2 cursor-pointer"
-                >
-                  <span>Book Free Inspection</span>
-                  <i className="fa-solid fa-arrow-right text-xs"></i>
-                </button>
-                <a
-                  href="tel:0478250790"
-                  className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider px-6 py-4 rounded-full transition-all border border-white/20 flex items-center gap-2"
-                >
-                  <i className="fa-solid fa-phone text-[#f19e1f]"></i>
-                  <span>Call 0478 250 790</span>
-                </a>
-              </div>
+              {service.slug === 'roof-repairs' ? (
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+                  <a
+                    href="tel:0478250790"
+                    onClick={() => trackCallConversion()}
+                    className="bg-[#d92228] hover:bg-[#b91c1c] text-white font-black text-sm uppercase tracking-wider px-8 py-4 rounded-full transition-all shadow-xl flex items-center justify-center gap-3 text-center border-2 border-red-400/40 active:scale-95"
+                  >
+                    <i className="fa-solid fa-phone-volume text-base animate-pulse"></i>
+                    <span>Emergency Call: 0478 250 790</span>
+                  </a>
+                  <button
+                    onClick={() => openQuoteModal(service.name)}
+                    className="bg-[#f19e1f] hover:bg-[#d88713] text-[#1e2e4f] font-bold text-xs uppercase tracking-wider px-8 py-4 rounded-full transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <span>Book Urgent Assessment</span>
+                    <i className="fa-solid fa-arrow-right text-xs"></i>
+                  </button>
+                  <button
+                    onClick={() => openCallbackModal('Emergency Roof Repairs')}
+                    className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider px-6 py-4 rounded-full transition-all border border-white/20 flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <i className="fa-regular fa-clock text-[#f19e1f]"></i>
+                    <span>Fast Callback</span>
+                  </button>
+                </div>
+              ) : (
+                <div className="flex flex-wrap items-center gap-4">
+                  <button
+                    onClick={() => openQuoteModal(service.name)}
+                    className="bg-[#f19e1f] hover:bg-[#d88713] text-[#1e2e4f] font-bold text-xs uppercase tracking-wider px-8 py-4 rounded-full transition-all shadow-lg flex items-center gap-2 cursor-pointer"
+                  >
+                    <span>Book Free Inspection</span>
+                    <i className="fa-solid fa-arrow-right text-xs"></i>
+                  </button>
+                  <a
+                    href="tel:0478250790"
+                    onClick={() => trackCallConversion()}
+                    className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider px-6 py-4 rounded-full transition-all border border-white/20 flex items-center gap-2"
+                  >
+                    <i className="fa-solid fa-phone text-[#f19e1f]"></i>
+                    <span>Call 0478 250 790</span>
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -159,6 +198,52 @@ export const Services: React.FC = () => {
           </div>
         </div>
 
+        {/* ── 24/7 Melbourne Emergency Dispatch Ribbon (Roof Repairs Only) ── */}
+        {service.slug === 'roof-repairs' && (
+          <section className="bg-gradient-to-r from-red-700 via-[#d92228] to-red-800 text-white py-6 shadow-md border-y border-red-800">
+            <div className="max-w-[1320px] mx-auto px-4 sm:px-8">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-5">
+                <div className="flex items-center gap-4 text-center md:text-left">
+                  <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center shrink-0 text-xl border border-white/20">
+                    <i className="fa-solid fa-truck-fast text-[#f19e1f]"></i>
+                  </div>
+                  <div>
+                    <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-1">
+                      <span className="bg-white text-red-700 text-[10px] font-black uppercase px-2 py-0.5 rounded-full tracking-wider shadow-sm">
+                        24/7 Melbourne Emergency Dispatch
+                      </span>
+                      <span className="text-xs text-white/90 font-semibold">
+                        • 1–2 Hr Urgent Make-Safe Tarping
+                      </span>
+                    </div>
+                    <p className="text-sm font-bold text-white leading-snug">
+                      Active roof leak, storm damage, or ceiling collapse hazard? Direct line to Master Roofer Peter Bayamis.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center justify-center gap-3 w-full md:w-auto">
+                  <a
+                    href="tel:0478250790"
+                    onClick={() => trackCallConversion()}
+                    className="w-full sm:w-auto bg-white hover:bg-slate-100 text-red-700 font-black text-sm uppercase tracking-wider px-7 py-3.5 rounded-full transition-all shadow-xl flex items-center justify-center gap-2 active:scale-95"
+                  >
+                    <i className="fa-solid fa-phone-volume text-red-600 animate-pulse text-base"></i>
+                    <span>Tap to Call: 0478 250 790</span>
+                  </a>
+                  <button
+                    onClick={() => openCallbackModal('Emergency Roof Repairs')}
+                    className="w-full sm:w-auto bg-[#1e2e4f] hover:bg-[#152138] text-white font-bold text-xs uppercase tracking-wider px-5 py-3.5 rounded-full transition-all border border-white/20 flex items-center justify-center gap-2 cursor-pointer shadow-md"
+                  >
+                    <i className="fa-regular fa-clock text-[#f19e1f]"></i>
+                    <span>Request Fast Callback</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* ── AEO Answer Definition Block & Scope Inclusions ── */}
         <section className="py-16 bg-white">
           <div className="max-w-[1320px] mx-auto px-4 sm:px-8">
@@ -175,6 +260,84 @@ export const Services: React.FC = () => {
                     {service.aeoSummary}
                   </p>
                 </div>
+
+                {/* Emergency Services Details Grid (Roof Repairs Only) */}
+                {service.slug === 'roof-repairs' && (
+                  <div className="mb-10 bg-[#fef2f2] border-2 border-red-200 rounded-3xl p-6 sm:p-8 shadow-sm">
+                    <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-red-700 mb-2">
+                      <i className="fa-solid fa-triangle-exclamation"></i>
+                      <span>24/7 Melbourne Emergency Service Protocol</span>
+                    </div>
+                    <h2 className="text-2xl sm:text-3xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-4">
+                      Rapid Make-Safe Storm Protocol & Insurance Claim Support
+                    </h2>
+                    <p className="text-sm text-[#4a5568] leading-relaxed mb-6 font-normal">
+                      Severe Melbourne weather, heavy downpours, fallen eucalyptus branches, or rusted valley gutters require fast professional intervention. Delaying leak repairs risks catastrophic plaster collapse, soaked roof insulation, and dangerous electrical short-circuits. Assist Roofing provides 24-hour rapid make-safe services across all Melbourne suburbs.
+                    </p>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                      <div className="bg-white rounded-2xl p-4 border border-red-100 shadow-sm">
+                        <div className="flex items-center gap-2.5 text-[#1e2e4f] font-bold text-sm mb-1.5">
+                          <i className="fa-solid fa-shield-halved text-[#d92228]"></i>
+                          <span>1–2 Hour Make-Safe Tarping</span>
+                        </div>
+                        <p className="text-xs text-[#616a7e] leading-relaxed">
+                          Industrial storm tarps battens-secured to roofing rafters to immediately halt active leaks and protect ceiling plaster, timber joists, and flooring.
+                        </p>
+                      </div>
+
+                      <div className="bg-white rounded-2xl p-4 border border-red-100 shadow-sm">
+                        <div className="flex items-center gap-2.5 text-[#1e2e4f] font-bold text-sm mb-1.5">
+                          <i className="fa-solid fa-user-check text-[#d92228]"></i>
+                          <span>Direct Master Roofer Line</span>
+                        </div>
+                        <p className="text-xs text-[#616a7e] leading-relaxed">
+                          Speak directly with Peter Bayamis (VBA Registered Trades, $10M public liability). No outsourced call centres or unvetted contractors.
+                        </p>
+                      </div>
+
+                      <div className="bg-white rounded-2xl p-4 border border-red-100 shadow-sm">
+                        <div className="flex items-center gap-2.5 text-[#1e2e4f] font-bold text-sm mb-1.5">
+                          <i className="fa-solid fa-file-invoice text-[#d92228]"></i>
+                          <span>Insurance Causation Reports</span>
+                        </div>
+                        <p className="text-xs text-[#616a7e] leading-relaxed">
+                          Full digital causation assessments, moisture logs, and high-res drone imagery accepted by RACV, NRMA, Allianz, QBE, Youi, CGU, and AAMI.
+                        </p>
+                      </div>
+
+                      <div className="bg-white rounded-2xl p-4 border border-red-100 shadow-sm">
+                        <div className="flex items-center gap-2.5 text-[#1e2e4f] font-bold text-sm mb-1.5">
+                          <i className="fa-solid fa-boxes-stacked text-[#d92228]"></i>
+                          <span>Emergency Tile & Valley Stock</span>
+                        </div>
+                        <p className="text-xs text-[#616a7e] leading-relaxed">
+                          Mobile service vans carry matching Monier, Boral, Wunderlich tiles, Colorbond valley irons, and flexible pointing compound for fast permanent repairs.
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Prominent In-Content Mobile Call Button */}
+                    <div className="bg-white rounded-2xl p-4 sm:p-5 border border-red-200 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
+                      <div className="text-center sm:text-left">
+                        <span className="text-xs font-black text-red-700 uppercase tracking-wide block">
+                          Water entering your ceiling right now?
+                        </span>
+                        <span className="text-sm font-bold text-[#1e2e4f]">
+                          Direct Emergency Dispatch: 0478 250 790 (Peter Bayamis)
+                        </span>
+                      </div>
+                      <a
+                        href="tel:0478250790"
+                        onClick={() => trackCallConversion()}
+                        className="w-full sm:w-auto bg-[#d92228] hover:bg-[#b91c1c] text-white font-extrabold text-xs uppercase tracking-wider px-6 py-3.5 rounded-full transition-all shadow-md flex items-center justify-center gap-2 shrink-0 active:scale-95"
+                      >
+                        <i className="fa-solid fa-phone text-xs"></i>
+                        <span>Call 0478 250 790 Now</span>
+                      </a>
+                    </div>
+                  </div>
+                )}
 
                 <h2 className="text-2xl sm:text-3xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-6">
                   What Is Included In Our {service.name}
@@ -279,28 +442,65 @@ export const Services: React.FC = () => {
 
               {/* Right Column: Quick Contact & Other Core Services */}
               <div className="lg:col-span-4 space-y-6">
-                {/* Free Quote Card */}
-                <div className="bg-[#f4f8ff] rounded-3xl p-6 sm:p-8 border border-[#d6e2f5] shadow-sm">
-                  <h3 className="text-xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-2">
-                    Request an Inspection
-                  </h3>
-                  <p className="text-xs text-[#616a7e] mb-6 font-light">
-                    Have Peter or Boxy conduct a comprehensive condition inspection of your Melbourne roof.
-                  </p>
-                  <button
-                    onClick={() => openQuoteModal(service.name)}
-                    className="w-full bg-[#1e2e4f] hover:bg-[#f19e1f] text-white font-bold text-xs uppercase tracking-wider py-3.5 px-4 rounded-xl transition-all shadow-md mb-3 cursor-pointer text-center block"
-                  >
-                    Request Free Assessment
-                  </button>
-                  <a
-                    href="tel:0478250790"
-                    className="w-full bg-white hover:bg-[#f8faff] border border-[#cbd5e1] text-[#1e2e4f] font-bold text-xs uppercase tracking-wider py-3 px-4 rounded-xl transition-all flex items-center justify-center gap-2 text-center"
-                  >
-                    <i className="fa-solid fa-phone text-[#f19e1f]"></i>
-                    <span>0478 250 790</span>
-                  </a>
-                </div>
+                {/* Emergency Contact Card (Roof Repairs) or Standard Free Quote Card */}
+                {service.slug === 'roof-repairs' ? (
+                  <div className="bg-gradient-to-b from-[#fff5f5] to-[#fef2f2] rounded-3xl p-6 sm:p-8 border-2 border-red-300 shadow-md">
+                    <div className="inline-flex items-center gap-2 bg-red-100 text-red-700 text-[11px] font-black uppercase px-3 py-1 rounded-full mb-3">
+                      <span className="w-2 h-2 rounded-full bg-red-600 animate-ping"></span>
+                      24/7 Melbourne Emergency Unit
+                    </div>
+                    <h3 className="text-xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-2">
+                      Urgent Roof Leak?
+                    </h3>
+                    <p className="text-xs text-[#616a7e] mb-4 font-normal leading-relaxed">
+                      Active ceiling drip, broken ridge caps, or storm displacement? Direct call to Peter for priority 1–2 hour make-safe dispatch.
+                    </p>
+                    <a
+                      href="tel:0478250790"
+                      onClick={() => trackCallConversion()}
+                      className="w-full bg-[#d92228] hover:bg-[#b91c1c] text-white font-black text-xs uppercase tracking-wider py-4 px-4 rounded-xl transition-all shadow-md mb-3 flex items-center justify-center gap-2 text-center active:scale-95"
+                    >
+                      <i className="fa-solid fa-phone-volume text-sm animate-pulse"></i>
+                      <span>Emergency Call: 0478 250 790</span>
+                    </a>
+                    <button
+                      onClick={() => openCallbackModal('Urgent Roof Repairs')}
+                      className="w-full bg-[#1e2e4f] hover:bg-[#152138] text-white font-bold text-xs uppercase tracking-wider py-3.5 px-4 rounded-xl transition-all shadow-sm mb-3 flex items-center justify-center gap-2 text-center cursor-pointer"
+                    >
+                      <i className="fa-regular fa-clock text-[#f19e1f]"></i>
+                      <span>Request Fast Callback</span>
+                    </button>
+                    <button
+                      onClick={() => openQuoteModal(service.name)}
+                      className="w-full bg-white hover:bg-slate-50 border border-red-200 text-[#1e2e4f] font-bold text-xs uppercase tracking-wider py-2.5 px-4 rounded-xl transition-all text-center cursor-pointer"
+                    >
+                      Book Standard Inspection
+                    </button>
+                  </div>
+                ) : (
+                  <div className="bg-[#f4f8ff] rounded-3xl p-6 sm:p-8 border border-[#d6e2f5] shadow-sm">
+                    <h3 className="text-xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-2">
+                      Request an Inspection
+                    </h3>
+                    <p className="text-xs text-[#616a7e] mb-6 font-light">
+                      Have Peter or Boxy conduct a comprehensive condition inspection of your Melbourne roof.
+                    </p>
+                    <button
+                      onClick={() => openQuoteModal(service.name)}
+                      className="w-full bg-[#1e2e4f] hover:bg-[#f19e1f] text-white font-bold text-xs uppercase tracking-wider py-3.5 px-4 rounded-xl transition-all shadow-md mb-3 cursor-pointer text-center block"
+                    >
+                      Request Free Assessment
+                    </button>
+                    <a
+                      href="tel:0478250790"
+                      onClick={() => trackCallConversion()}
+                      className="w-full bg-white hover:bg-[#f8faff] border border-[#cbd5e1] text-[#1e2e4f] font-bold text-xs uppercase tracking-wider py-3 px-4 rounded-xl transition-all flex items-center justify-center gap-2 text-center"
+                    >
+                      <i className="fa-solid fa-phone text-[#f19e1f]"></i>
+                      <span>0478 250 790</span>
+                    </a>
+                  </div>
+                )}
 
                 {/* Other Core Services Links */}
                 <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#e6ebf6] shadow-sm">
@@ -427,9 +627,11 @@ export const Services: React.FC = () => {
                 </button>
                 <a
                   href="tel:0478250790"
-                  className="bg-white hover:bg-slate-50 text-[#1e2e4f] font-bold text-xs uppercase tracking-wider px-6 py-4 rounded-full transition-all shadow-sm"
+                  onClick={() => trackCallConversion()}
+                  className="bg-white hover:bg-slate-50 text-[#1e2e4f] font-bold text-xs uppercase tracking-wider px-6 py-4 rounded-full transition-all shadow-sm flex items-center gap-2"
                 >
-                  0478 250 790
+                  <i className="fa-solid fa-phone text-[#f19e1f]"></i>
+                  <span>0478 250 790</span>
                 </a>
               </div>
             </div>
@@ -647,6 +849,7 @@ export const Services: React.FC = () => {
                 <div className="flex flex-wrap items-center gap-3 shrink-0">
                   <a
                     href="tel:0478250790"
+                    onClick={() => trackCallConversion()}
                     className="bg-[#f19e1f] hover:bg-[#d88713] text-[#1e2e4f] font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-full transition-all shadow-md flex items-center gap-2"
                   >
                     <i className="fa-solid fa-phone"></i>

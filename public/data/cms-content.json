@@ -873,8 +873,12 @@
     },
     "tracking": {
       "ga4Id": "G-VTEV53E3T3",
+      "googleAdsId": "AW-18404411620",
+      "googleAdsCallConversionLabel": "",
+      "googleAdsLeadConversionLabel": "",
+      "phoneConversionNumber": "0478 250 790",
       "elfsightEnabled": true
     }
   },
-  "exportedAt": "2026-09-29T10:32:23.737Z"
+  "exportedAt": "2026-10-03T07:43:43.643Z"
 }

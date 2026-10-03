@@ -15,7 +15,8 @@ import {
   PlusCircle,
   UploadCloud,
   Search,
-  ExternalLink
+  ExternalLink,
+  PhoneCall
 } from 'lucide-react';
 import type { AdminSection } from '../components/AdminLayout';
 
@@ -71,6 +72,14 @@ export const Dashboard: React.FC<{ onNavigate: (section: AdminSection) => void }
   const { metrics, recentActivity } = data;
 
   const statCards = [
+    {
+      title: 'Enquiries & Callbacks',
+      count: metrics.enquiries?.total ?? 0,
+      sub: `${metrics.enquiries?.new ?? 0} new awaiting call`,
+      icon: PhoneCall,
+      section: 'enquiries' as AdminSection,
+      color: 'bg-amber-50 text-amber-700 border-amber-300'
+    },
     {
       title: 'Public Services',
       count: metrics.services.total,

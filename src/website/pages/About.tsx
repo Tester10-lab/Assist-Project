@@ -3,6 +3,7 @@ import { TEAM_MEMBERS, STATS } from '../data';
 import { useWebsite } from '../WebsiteContext';
 import { motion } from 'framer-motion';
 import { asset } from '../utils/asset';
+import { trackCallConversion } from '../utils/tracking';
 
 export const About: React.FC = () => {
   const { navigateTo } = useWebsite();
@@ -216,6 +217,7 @@ export const About: React.FC = () => {
             </a>
             <a
               href="tel:0478250790"
+              onClick={() => trackCallConversion()}
               className="bg-[#f19e1f] hover:bg-[#d88713] text-white font-bold text-sm px-7 py-3.5 rounded-full shadow transition-all flex items-center gap-2"
             >
               <i className="fa-solid fa-phone text-xs"></i>

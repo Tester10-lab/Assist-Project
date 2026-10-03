@@ -31,13 +31,35 @@
     <!-- Preload critical heading font for faster LCP -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Sora:wght@100;200;300;400;500;600;700;800&display=swap" />
 
-    <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) for GA4 and Google Ads Destination -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VTEV53E3T3"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
+
+      // 1. Primary Google Analytics 4 (Tracks standard page_view)
       gtag('config', 'G-VTEV53E3T3');
+
+      // 2. Google Ads Destination (AW-18404411620) configured alongside GA4
+      // send_page_view: false avoids duplicate page views while activating
+      // remarketing signals, conversion linking, and Google Forwarding Number swapping.
+      gtag('config', 'AW-18404411620', {
+        'phone_conversion_number': '0478 250 790',
+        'send_page_view': false
+      });
+
+      // Website-Call Tracking helper: dynamically reconfigures phone swapping if updated via CMS
+      window.__initGoogleAds = function(adsId, callConversionLabel, phoneNumber) {
+        var targetAdsId = adsId || 'AW-18404411620';
+        var targetPhone = phoneNumber || '0478 250 790';
+        if (callConversionLabel) {
+          var sendTo = callConversionLabel.indexOf('/') > -1 ? callConversionLabel : (targetAdsId + '/' + callConversionLabel);
+          gtag('config', sendTo, { 'phone_conversion_number': targetPhone, 'send_page_view': false });
+        } else {
+          gtag('config', targetAdsId, { 'phone_conversion_number': targetPhone, 'send_page_view': false });
+        }
+      };
     </script>
 
     <!-- Elfsight Google Reviews Platform -->

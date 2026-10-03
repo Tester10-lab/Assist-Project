@@ -54,8 +54,10 @@ interface WebsiteContextType {
   isMobileMenuOpen: boolean;
   setMobileMenuOpen: (open: boolean) => void;
   isQuoteModalOpen: boolean;
+  modalMode: 'callback' | 'quote';
   initialServiceForQuote?: string;
-  openQuoteModal: (serviceOrEvent?: string | React.MouseEvent<any> | any) => void;
+  openQuoteModal: (serviceOrEvent?: string | React.MouseEvent<any> | any, mode?: 'callback' | 'quote') => void;
+  openCallbackModal: (service?: string) => void;
   closeQuoteModal: () => void;
   lightboxData: LightboxData | null;
   openLightbox: (data: LightboxData) => void;
@@ -70,6 +72,7 @@ export const WebsiteProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [currentServiceSlug, setCurrentServiceSlug] = useState<CoreServiceSlug | null>(initial.serviceSlug);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState<'callback' | 'quote'>('quote');
   const [initialServiceForQuote, setInitialServiceForQuote] = useState<string | undefined>(undefined);
   const [lightboxData, setLightboxData] = useState<LightboxData | null>(null);
 
@@ -107,14 +110,20 @@ export const WebsiteProvider: React.FC<{ children: React.ReactNode }> = ({ child
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  const openQuoteModal = (serviceOrEvent?: string | React.MouseEvent<any> | any) => {
+  const openQuoteModal = (serviceOrEvent?: string | React.MouseEvent<any> | any, mode: 'callback' | 'quote' = 'quote') => {
     if (typeof serviceOrEvent === 'string') {
       setInitialServiceForQuote(serviceOrEvent);
     } else {
       setInitialServiceForQuote(undefined);
     }
+    setModalMode(mode);
     setIsQuoteModalOpen(true);
   };
+
+  const openCallbackModal = (service?: string) => {
+    openQuoteModal(service, 'callback');
+  };
+
   const closeQuoteModal = () => {
     setIsQuoteModalOpen(false);
     setInitialServiceForQuote(undefined);
@@ -140,8 +149,10 @@ export const WebsiteProvider: React.FC<{ children: React.ReactNode }> = ({ child
       isMobileMenuOpen,
       setMobileMenuOpen,
       isQuoteModalOpen,
+      modalMode,
       initialServiceForQuote,
       openQuoteModal,
+      openCallbackModal,
       closeQuoteModal,
       lightboxData,
       openLightbox,
