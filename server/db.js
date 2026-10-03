@@ -10,9 +10,13 @@ const DATA_DIR = path.join(__dirname, 'data');
 const DB_FILE = path.join(DATA_DIR, 'db.json');
 const SETUP_FILE = path.join(DATA_DIR, 'initial-admin-setup.txt');
 
-// Ensure data directory exists
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
+// Ensure data directory exists (handled safely for serverless environments)
+try {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
+} catch (e) {
+  console.warn('[DB] Data directory notice:', e?.message || e);
 }
 
 // ── Secure Password Hashing Utilities (Server-side Only) ──
@@ -747,18 +751,29 @@ class Database {
   }
 
   init() {
-    if (fs.existsSync(DB_FILE)) {
+    // Check /tmp fallback first for serverless environments
+    const tmpFile = path.join('/tmp', 'db.json');
+    if (fs.existsSync(tmpFile)) {
       try {
-        const raw = fs.readFileSync(DB_FILE, 'utf-8');
+        const raw = fs.readFileSync(tmpFile, 'utf-8');
         this.data = JSON.parse(raw);
-      } catch (err) {
-        console.error('[DB] Error parsing existing db.json, re-initializing seed data:', err);
+      } catch {}
+    }
+
+    if (!this.data) {
+      if (fs.existsSync(DB_FILE)) {
+        try {
+          const raw = fs.readFileSync(DB_FILE, 'utf-8');
+          this.data = JSON.parse(raw);
+        } catch (err) {
+          console.error('[DB] Error parsing existing db.json, re-initializing seed data:', err);
+          this.data = getInitialSeedData();
+          this.save();
+        }
+      } else {
         this.data = getInitialSeedData();
         this.save();
       }
-    } else {
-      this.data = getInitialSeedData();
-      this.save();
     }
 
     if (!Array.isArray(this.data.enquiries)) {
@@ -774,23 +789,48 @@ class Database {
       fs.writeFileSync(tempPath, JSON.stringify(this.data, null, 2), 'utf-8');
       fs.renameSync(tempPath, DB_FILE);
     } catch (err) {
-      console.error('[DB] Atomic write error:', err);
+      // Fallback write to /tmp on serverless or read-only filesystem
+      try {
+        const tmpPath = path.join('/tmp', 'db.json');
+        fs.writeFileSync(tmpPath, JSON.stringify(this.data, null, 2), 'utf-8');
+      } catch (tmpErr) {
+        console.warn('[DB] Save notice (memory active):', err.message);
+      }
     }
   }
 
   ensureAdminUser() {
-    const adminExists = this.data.users.some(u => u.role === 'admin');
-    if (!adminExists) {
-      const adminEmail = process.env.INITIAL_ADMIN_EMAIL || 'admin@assistroofing.com.au';
-      let adminPassword = process.env.INITIAL_ADMIN_PASSWORD;
-      let generated = false;
+    const adminEmail = (process.env.INITIAL_ADMIN_EMAIL || 'admin@assistroofing.com.au').trim().toLowerCase();
+    const adminUser = this.data.users.find(u => u.email.toLowerCase() === adminEmail && u.role === 'admin');
 
-      if (!adminPassword) {
-        // Generate secure 16-character random one-time setup password
-        adminPassword = crypto.randomBytes(10).toString('base64url');
-        generated = true;
+    // If an INITIAL_ADMIN_PASSWORD environment variable is specified, ensure it is set
+    if (process.env.INITIAL_ADMIN_PASSWORD) {
+      const { hash, salt } = hashPassword(process.env.INITIAL_ADMIN_PASSWORD);
+      if (adminUser) {
+        adminUser.passwordHash = hash;
+        adminUser.passwordSalt = salt;
+        adminUser.mustChangePassword = false;
+        adminUser.updatedAt = new Date().toISOString();
+      } else {
+        this.data.users.push({
+          id: crypto.randomUUID(),
+          email: adminEmail,
+          name: 'Administrator',
+          role: 'admin',
+          passwordHash: hash,
+          passwordSalt: salt,
+          mustChangePassword: false,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        });
       }
+      this.save();
+      return;
+    }
 
+    if (!adminUser) {
+      // Generate secure 16-character random one-time setup password
+      const adminPassword = crypto.randomBytes(10).toString('base64url');
       const { hash, salt } = hashPassword(adminPassword);
       const adminId = crypto.randomUUID();
 
@@ -801,15 +841,16 @@ class Database {
         role: 'admin',
         passwordHash: hash,
         passwordSalt: salt,
-        mustChangePassword: generated,
+        mustChangePassword: true,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
       });
 
       this.save();
 
-      // Write setup credentials to local-only secure file
-      const setupNotice = `==========================================================
+      // Write setup credentials to local-only secure file if writable
+      try {
+        const setupNotice = `==========================================================
 ASSIST ROOFING CMS — INITIAL ADMINISTRATOR CREDENTIALS
 Generated: ${new Date().toISOString()}
 
@@ -821,12 +862,13 @@ Note: This file is local-only and excluded from version control.
 Please log in at /admin/login and immediately change this password.
 ==========================================================
 `;
-      fs.writeFileSync(SETUP_FILE, setupNotice, 'utf-8');
+        fs.writeFileSync(SETUP_FILE, setupNotice, 'utf-8');
+      } catch {}
+
       console.log(`\n==========================================================`);
       console.log(`[CMS SECURITY] Initial Admin Account Initialized:`);
       console.log(`Email:    ${adminEmail}`);
       console.log(`Password: ${adminPassword}`);
-      console.log(`(Saved locally to: ${SETUP_FILE})`);
       console.log(`==========================================================\n`);
     }
   }
