@@ -108,13 +108,6 @@ export function trackCallConversion(url?: string): void {
         page_location: window.location.href,
         send_to: ga4Id
       });
-
-      gtag('event', 'generate_lead', {
-        event_category: 'lead',
-        event_label: 'Phone Call Intent',
-        method: 'phone',
-        send_to: ga4Id
-      });
     } catch (err) {
       console.warn('[GA4 Call Event Warning]:', err);
     }
@@ -184,7 +177,9 @@ export function trackLeadConversion(enquiryId: string, type: 'callback' | 'quote
       transaction_id: enquiryId,
       value: 1.0,
       currency: 'AUD',
-      send_to: ga4Id
+      send_to: ga4Id,
+      method: 'form',
+      form_name: type
     });
   } catch (err) {
     console.warn('[GA4 Lead Event Warning]:', err);
