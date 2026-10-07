@@ -169,17 +169,22 @@ export function trackLeadConversion(enquiryId: string, type: 'callback' | 'quote
 
   // 2. Fire GA4 Lead Event (Preserving GA4)
   const ga4Id = config.ga4Id || 'G-VTEV53E3T3';
+  const formNameMap: Record<string, string> = {
+    callback: 'callback_form',
+    quote: 'quote_modal_form',
+    contact: 'contact_page_form'
+  };
+
   try {
     gtag('event', 'generate_lead', {
       event_category: 'enquiry',
-      event_label: type === 'callback' ? 'Fast Callback Request' : 'Inspection Quote Request',
+      method: 'form',
+      form_name: formNameMap[type] || `${type}_form`,
       service_type: service || 'Roofing',
       transaction_id: enquiryId,
       value: 1.0,
       currency: 'AUD',
-      send_to: ga4Id,
-      method: 'form',
-      form_name: type
+      send_to: ga4Id
     });
   } catch (err) {
     console.warn('[GA4 Lead Event Warning]:', err);

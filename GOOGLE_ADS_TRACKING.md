@@ -69,17 +69,17 @@ The configuration updates immediately in [`server/data/db.json`](file:///c:/User
 
 ### A. Website Phone Calls (`trackCallConversion`)
 When a visitor taps or clicks any phone link across the site:
-1. **GA4 Event**: Fired directly to `G-VTEV53E3T3`:
+1. **GA4 Event**: Fired directly to `G-VTEV53E3T3` (Call intent only, no `generate_lead`):
    - `gtag('event', 'contact_call', { send_to: 'G-VTEV53E3T3', phone_number: '0478 250 790', ... })`
-   - `gtag('event', 'generate_lead', { send_to: 'G-VTEV53E3T3', method: 'phone', ... })`
 2. **Google Ads Call Conversion**:
    - **If Call Conversion Label is provided**: Fires `gtag('event', 'conversion', { send_to: 'AW-18404411620/' + callLabel })`.
    - **If Call Conversion Label is NOT yet provided**: Fails safely without firing an incomplete conversion hit, while preserving GA4 tracking.
 
 ### B. Successful Enquiries & Callbacks (`trackLeadConversion`)
 When a visitor submits an enquiry or 15-minute callback request:
-1. The form submits to `POST /api/leads`.
-2. **Only after server acceptance** (`{ success: true, id: "..." }`), conversions are triggered:
-   - **GA4 Event**: `gtag('event', 'generate_lead', { send_to: 'G-VTEV53E3T3', transaction_id: enquiryId, value: 1.0, currency: 'AUD' })`.
+1. The form submits to `POST /api/public/enquiry`.
+2. **Only after server acceptance** (`{ success: true, accepted: true, id: "..." }`), conversions are triggered:
+   - **GA4 Event**: `gtag('event', 'generate_lead', { send_to: 'G-VTEV53E3T3', method: 'form', form_name: 'quote_modal_form' | 'callback_form' | 'contact_page_form', transaction_id: enquiryId, value: 1.0, currency: 'AUD' })`.
    - **Google Ads Lead Conversion**: If the Lead Conversion Label is provided, fires `gtag('event', 'conversion', { send_to: 'AW-18404411620/' + leadLabel, transaction_id: enquiryId, value: 1.0, currency: 'AUD' })`.
-3. If the Lead Conversion Label is not yet configured, the system logs the GA4 lead event and waits for the label to be supplied in CMS settings.
+3. No user PII (names, emails, phones, or messages) is sent to Google Analytics.
+4. If validation fails or the server returns an error, no conversion event is fired.
