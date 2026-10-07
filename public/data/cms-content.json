@@ -668,7 +668,7 @@
       "content": "We take pride in every ridge cap, Colorbond sheet, and structural rafter we touch.",
       "seoTitle": "About Assist Roofing | Licensed Melbourne Roofing Contractors",
       "metaDescription": "Learn about Assist Roofing & Home Solution. Boxy & Peter provide honest, licensed roofing across Melbourne.",
-      "canonical": "https://assistroofing.com.au/#about",
+      "canonical": "https://assistroofing.com.au/about",
       "ogImage": "https://assistroofing.com.au/roofora-assets/images/portfolio-img2.jpg",
       "noIndex": false,
       "updatedAt": "2026-09-23T08:33:16.367Z"
@@ -684,7 +684,7 @@
       "content": "24 specialized services backed by our Clean Jobsite Promise and 10-Year Workmanship Warranty.",
       "seoTitle": "All Roofing Services Melbourne | Repairs, Restoration & Re-Roofing | Assist Roofing",
       "metaDescription": "Explore our full range of 24 roofing services across Melbourne: leak fixes, re-roofing, gutters, and painting.",
-      "canonical": "https://assistroofing.com.au/#services",
+      "canonical": "https://assistroofing.com.au/services",
       "ogImage": "https://assistroofing.com.au/roofora-assets/images/portfolio-img4.jpg",
       "noIndex": false,
       "updatedAt": "2026-09-23T08:33:16.367Z"
@@ -700,7 +700,7 @@
       "content": "High-resolution photo portfolio of completed projects across Toorak, Brighton, Hawthorn, and Kew.",
       "seoTitle": "Roofing Project Gallery Melbourne | Before & After Photos | Assist Roofing",
       "metaDescription": "Browse real roofing projects completed by Assist Roofing in Melbourne. Terracotta and Colorbond examples.",
-      "canonical": "https://assistroofing.com.au/#gallery",
+      "canonical": "https://assistroofing.com.au/projects",
       "ogImage": "https://assistroofing.com.au/roofora-assets/images/portfolio-img1.jpg",
       "noIndex": false,
       "updatedAt": "2026-09-23T08:33:16.367Z"
@@ -716,7 +716,7 @@
       "content": "Real reviews from residential homeowners and commercial property managers.",
       "seoTitle": "Customer Reviews & Testimonials | Assist Roofing Melbourne",
       "metaDescription": "Read 520+ verified 5-star reviews from Melbourne homeowners about Assist Roofing services.",
-      "canonical": "https://assistroofing.com.au/#testimonials",
+      "canonical": "https://assistroofing.com.au/testimonials",
       "ogImage": "https://assistroofing.com.au/roofora-assets/images/portfolio-img5.jpg",
       "noIndex": false,
       "updatedAt": "2026-09-23T08:33:16.367Z"
@@ -732,7 +732,7 @@
       "content": "Headquartered at 139 Boundary Road, North Melbourne VIC 3051.",
       "seoTitle": "Contact Assist Roofing Melbourne | Book Free Roof Inspection",
       "metaDescription": "Contact Assist Roofing in North Melbourne. Call 0478 250 790 for free drone inspection and quote.",
-      "canonical": "https://assistroofing.com.au/#contact",
+      "canonical": "https://assistroofing.com.au/contact",
       "ogImage": "https://assistroofing.com.au/roofora-assets/images/portfolio-img1.jpg",
       "noIndex": false,
       "updatedAt": "2026-09-23T08:33:16.367Z"
@@ -880,5 +880,5 @@
       "elfsightEnabled": true
     }
   },
-  "exportedAt": "2026-10-03T09:53:21.357Z"
+  "exportedAt": "2026-10-07T18:19:32.821Z"
 }

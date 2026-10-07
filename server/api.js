@@ -24,9 +24,10 @@ try {
   console.warn('[Server] Uploads directory notice:', e?.message || e);
 }
 
-// Normalize incoming request path so both /api/auth/login and /auth/login route properly
+// Normalize incoming request path so both /api/auth/login and /auth/login route properly for API serverless
+const KNOWN_API_PREFIXES = ['/auth', '/public', '/pages', '/services', '/blog', '/locations', '/media', '/leads', '/quotes', '/seo', '/settings', '/export', '/activity', '/users'];
 app.use((req, res, next) => {
-  if (!req.url.startsWith('/api') && !req.url.startsWith('/uploads')) {
+  if (KNOWN_API_PREFIXES.some(prefix => req.url === prefix || req.url.startsWith(prefix + '/') || req.url.startsWith(prefix + '?'))) {
     req.url = '/api' + req.url;
   }
   next();
