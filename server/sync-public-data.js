@@ -167,6 +167,16 @@ const CANONICAL_ROUTES = [
   }
 ];
 
+function escapeXml(unsafe) {
+  if (!unsafe) return '';
+  return String(unsafe)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
 // Generate Clean Sitemap (No hash fragments, strictly canonical indexable URLs with image sitemap extension)
 const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -175,11 +185,11 @@ ${CANONICAL_ROUTES.map(route => {
   const loc = route.path ? `${BASE_URL}/${route.path}` : `${BASE_URL}/`;
   const imageXml = route.image ? `
     <image:image>
-      <image:loc>${route.image.loc}</image:loc>
-      <image:title>${route.image.title}</image:title>
+      <image:loc>${escapeXml(route.image.loc)}</image:loc>
+      <image:title>${escapeXml(route.image.title)}</image:title>
     </image:image>` : '';
   return `  <url>
-    <loc>${loc}</loc>
+    <loc>${escapeXml(loc)}</loc>
     <lastmod>${TODAY}</lastmod>
     <changefreq>${route.changefreq}</changefreq>
     <priority>${route.priority}</priority>${imageXml}
