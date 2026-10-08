@@ -59,7 +59,8 @@ export const AdminLogin: React.FC = () => {
             <img
               src="/logo.png"
               alt="Assist Roofing & Home Solution"
-              className="h-16 w-auto object-contain"
+              className="h-14 w-auto object-contain mx-auto"
+              style={{ maxHeight: '56px', maxWidth: '220px', width: 'auto', height: 'auto' }}
             />
           </a>
           <h1 className="text-2xl font-bold tracking-tight text-zinc-950 font-['Oswald',sans-serif] uppercase">

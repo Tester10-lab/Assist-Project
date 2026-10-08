@@ -160,11 +160,12 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
         <div>
           {/* Logo / Brand Header */}
           <div className="p-4 border-b border-white/10 flex items-center gap-3">
-            <div className="bg-white p-1.5 rounded-xl shadow-sm flex items-center justify-center shrink-0">
+            <div className="bg-white p-1 rounded-lg shadow-sm flex items-center justify-center shrink-0 w-9 h-9 overflow-hidden">
               <img
                 src="/logo.png"
                 alt="Assist Roofing Logo"
-                className="h-8 w-auto object-contain"
+                className="w-full h-full object-contain max-h-[28px] max-w-[28px]"
+                style={{ maxHeight: '28px', maxWidth: '28px', width: 'auto', height: 'auto' }}
               />
             </div>
             <div className="overflow-hidden">
