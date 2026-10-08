@@ -159,14 +159,20 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({
       >
         <div>
           {/* Logo / Brand Header */}
-          <div className="p-5 border-b border-white/10 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#f19e1f] flex items-center justify-center text-slate-950 shadow-md font-extrabold">
-              <Wrench className="w-5 h-5 text-[#1e2e4f]" />
+          <div className="p-4 border-b border-white/10 flex items-center gap-3">
+            <div className="bg-white p-1.5 rounded-xl shadow-sm flex items-center justify-center shrink-0">
+              <img
+                src="/logo.png"
+                alt="Assist Roofing Logo"
+                className="h-8 w-auto object-contain"
+              />
             </div>
-            <div>
-              <h2 className="font-black text-sm tracking-wide text-white uppercase">Assist Roofing</h2>
-              <span className="text-[10px] tracking-widest text-[#f19e1f] font-bold uppercase bg-white/10 px-2 py-0.5 rounded-full inline-block mt-0.5">
-                Production CMS
+            <div className="overflow-hidden">
+              <h2 className="font-bold text-xs tracking-tight text-white uppercase truncate font-['Oswald',sans-serif]">
+                Assist Roofing
+              </h2>
+              <span className="text-[10px] tracking-wider text-zinc-300 font-semibold uppercase bg-white/10 px-2 py-0.5 rounded-full inline-block mt-0.5">
+                Staff CMS
               </span>
             </div>
           </div>
