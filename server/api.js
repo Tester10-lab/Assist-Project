@@ -33,18 +33,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// Multer Storage Configuration with strict validation
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, UPLOADS_DIR);
-  },
-  filename: (req, file, cb) => {
-    const safeExt = path.extname(file.originalname).toLowerCase();
-    const cleanBase = path.basename(file.originalname, safeExt).replace(/[^a-zA-Z0-9_-]/g, '-').slice(0, 30);
-    const unique = `${Date.now()}-${crypto.randomBytes(4).toString('hex')}`;
-    cb(null, `${cleanBase}-${unique}${safeExt}`);
-  }
-});
+// Multer Storage Configuration with memory storage (Safe across serverless & persistent environments)
+const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
   const allowedMimes = ['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml', 'image/gif'];
@@ -58,7 +48,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 5 * 1024 * 1024 } // 5MB limit
+  limits: { fileSize: 8 * 1024 * 1024 } // 8MB limit
 });
 
 // ── Server-Side Auth Middleware ──
@@ -695,27 +685,144 @@ app.get('/api/admin/media', requireAuth, (req, res) => {
   res.json(db.data.media);
 });
 
+function applyMediaPlacement(target, url) {
+  if (!target || !url) return '';
+
+  if (target === 'home_hero') {
+    const p = db.data.pages.find(page => page.id === 'home');
+    if (p) p.heroImage = url;
+    return 'Homepage Hero Banner';
+  }
+  if (target === 'about_hero') {
+    const p = db.data.pages.find(page => page.id === 'about');
+    if (p) p.heroImage = url;
+    return 'About Page Hero Banner';
+  }
+  if (target === 'about_og') {
+    const p = db.data.pages.find(page => page.id === 'about');
+    if (p) p.ogImage = url;
+    return 'About Us Featured Image';
+  }
+  if (target === 'services_hero') {
+    const p = db.data.pages.find(page => page.id === 'services');
+    if (p) p.heroImage = url;
+    return 'Services Overview Banner';
+  }
+  if (target.startsWith('service_')) {
+    const slug = target.replace('service_', '');
+    const s = db.data.services.find(svc => svc.id === slug || svc.slug === slug);
+    if (s) {
+      s.heroImage = url;
+      return `${s.title} Service Hero`;
+    }
+  }
+  if (target === 'gallery_hero') {
+    const p = db.data.pages.find(page => page.id === 'gallery');
+    if (p) p.heroImage = url;
+    return 'Projects & Gallery Banner';
+  }
+  if (target === 'branding_logo') {
+    if (!db.data.settings.branding) db.data.settings.branding = {};
+    db.data.settings.branding.logoUrl = url;
+    return 'Website Main Header Logo';
+  }
+  if (target === 'seo_og') {
+    if (!db.data.seo) db.data.seo = {};
+    db.data.seo.defaultOgImage = url;
+    return 'Global Social Share (OpenGraph) Image';
+  }
+  return '';
+}
+
 app.post('/api/admin/media/upload', requireAuth, upload.single('file'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: 'No file uploaded or file rejected by validator.' });
+  try {
+    let mediaUrl = req.body?.url;
+    let filename = req.body?.filename || 'custom-upload.jpg';
+    let size = 0;
+    let mimeType = 'image/jpeg';
+
+    if (req.file) {
+      const safeExt = path.extname(req.file.originalname).toLowerCase() || '.jpg';
+      const cleanBase = path.basename(req.file.originalname, safeExt).replace(/[^a-zA-Z0-9_-]/g, '-').slice(0, 30);
+      filename = `${cleanBase}-${Date.now()}${safeExt}`;
+      size = req.file.size;
+      mimeType = req.file.mimetype;
+
+      // Attempt to save to local uploads dir if writable (VPS / local dev)
+      let savedLocally = false;
+      try {
+        if (!fs.existsSync(UPLOADS_DIR)) {
+          fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+        }
+        const filePath = path.join(UPLOADS_DIR, filename);
+        fs.writeFileSync(filePath, req.file.buffer);
+        mediaUrl = `/uploads/${filename}`;
+        savedLocally = true;
+      } catch {
+        // Read-only filesystem (Vercel Serverless) -> Deliver resilient Base64 Data URI
+        savedLocally = false;
+      }
+
+      if (!savedLocally) {
+        mediaUrl = `data:${mimeType};base64,${req.file.buffer.toString('base64')}`;
+      }
+    } else if (!mediaUrl) {
+      return res.status(400).json({ error: 'Please select an image file or enter an image URL.' });
+    }
+
+    const mediaItem = {
+      id: crypto.randomUUID(),
+      filename: filename,
+      url: mediaUrl,
+      altText: req.body.altText || filename,
+      caption: req.body.caption || '',
+      mimeType: mimeType,
+      size: size,
+      dimensions: 'Asset',
+      createdAt: new Date().toISOString()
+    };
+
+    db.data.media.unshift(mediaItem);
+
+    // If placement target was chosen
+    const target = req.body.targetLocation;
+    let targetLabel = '';
+    if (target) {
+      targetLabel = applyMediaPlacement(target, mediaUrl);
+    }
+
+    db.logActivity(
+      req.user.name,
+      'Uploaded Media Asset',
+      'Media',
+      `File: "${filename}" ${targetLabel ? `(Placed in: ${targetLabel})` : ''}`
+    );
+    db.save();
+
+    res.status(201).json({
+      ...mediaItem,
+      placementMessage: targetLabel ? `Image assigned to ${targetLabel}` : undefined
+    });
+  } catch (err) {
+    console.error('[Media Upload Error]:', err);
+    res.status(500).json({ error: err?.message || 'Failed to process media upload.' });
+  }
+});
+
+app.post('/api/admin/media/assign', requireAuth, (req, res) => {
+  const { mediaUrl, target } = req.body || {};
+  if (!mediaUrl || !target) {
+    return res.status(400).json({ error: 'Media URL and target location are required.' });
   }
 
-  const mediaItem = {
-    id: crypto.randomUUID(),
-    filename: req.file.filename,
-    url: `/uploads/${req.file.filename}`,
-    altText: req.body.altText || req.file.originalname,
-    caption: req.body.caption || '',
-    mimeType: req.file.mimetype,
-    size: req.file.size,
-    dimensions: 'Uploaded Asset',
-    createdAt: new Date().toISOString()
-  };
+  const label = applyMediaPlacement(target, mediaUrl);
+  if (!label) {
+    return res.status(400).json({ error: 'Invalid placement target specified.' });
+  }
 
-  db.data.media.unshift(mediaItem);
-  db.logActivity(req.user.name, 'Uploaded Media', 'Media', `File: "${mediaItem.filename}" (${Math.round(mediaItem.size / 1024)} KB)`);
+  db.logActivity(req.user.name, 'Assigned Media Asset', 'Media', `Assigned to ${label}`);
   db.save();
-  res.status(201).json(mediaItem);
+  res.json({ success: true, message: `Successfully assigned image to ${label}!` });
 });
 
 app.put('/api/admin/media/:id', requireAuth, (req, res) => {
@@ -739,7 +846,7 @@ app.delete('/api/admin/media/:id', requireAuth, (req, res) => {
   }
 
   // If file exists in public/uploads, delete it
-  if (item.url.startsWith('/uploads/')) {
+  if (item.url && item.url.startsWith('/uploads/')) {
     const filePath = path.join(UPLOADS_DIR, item.filename);
     if (fs.existsSync(filePath)) {
       try { fs.unlinkSync(filePath); } catch {}

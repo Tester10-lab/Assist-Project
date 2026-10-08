@@ -178,16 +178,23 @@ export const adminApi = {
   getMedia: () =>
     request<MediaItem[]>('/admin/media'),
 
-  uploadMedia: (file: File, altText?: string, caption?: string) => {
+  uploadMedia: (file: File, altText?: string, caption?: string, targetLocation?: string) => {
     const formData = new FormData();
     formData.append('file', file);
     if (altText) formData.append('altText', altText);
     if (caption) formData.append('caption', caption);
-    return request<MediaItem>('/admin/media/upload', {
+    if (targetLocation) formData.append('targetLocation', targetLocation);
+    return request<MediaItem & { placementMessage?: string }>('/admin/media/upload', {
       method: 'POST',
       body: formData
     });
   },
+
+  assignMedia: (mediaUrl: string, target: string) =>
+    request<{ success: boolean; message: string }>('/admin/media/assign', {
+      method: 'POST',
+      body: JSON.stringify({ mediaUrl, target })
+    }),
 
   updateMedia: (id: string, data: Partial<MediaItem>) =>
     request<MediaItem>(`/admin/media/${id}`, {
