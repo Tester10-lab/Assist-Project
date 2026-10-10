@@ -1,317 +1,221 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { db } from './db.js';
+import { getApps, initializeApp } from 'firebase-admin/app';
+import { getFirestore } from 'firebase-admin/firestore';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const PUBLIC_DATA_DIR = path.join(__dirname, '..', 'public', 'data');
-if (!fs.existsSync(PUBLIC_DATA_DIR)) {
-  fs.mkdirSync(PUBLIC_DATA_DIR, { recursive: true });
+const isPrerenderOnly = process.argv.includes('--prerender');
+
+let db = null;
+let useMockData = false;
+
+if (!isPrerenderOnly) {
+  try {
+    if (!getApps().length) {
+      if (process.env.FIRESTORE_EMULATOR_HOST) {
+        console.log('[Sync] Using Firestore Emulator at', process.env.FIRESTORE_EMULATOR_HOST);
+        initializeApp({ projectId: 'project-1-c8b7e' });
+        db = getFirestore();
+      } else if (process.env.GOOGLE_APPLICATION_CREDENTIALS || process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON) {
+        initializeApp();
+        db = getFirestore();
+      } else {
+        if (process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true') {
+          console.error('[Sync] Fatal: No Firebase credentials found in CI environment. Production build requires valid credentials.');
+          process.exit(1);
+        }
+        console.warn('[Sync] WARNING: No Firebase credentials found (GOOGLE_APPLICATION_CREDENTIALS missing). Falling back to mock fixture data for local build.');
+        useMockData = true;
+      }
+    } else {
+      db = getFirestore();
+    }
+  } catch (err) {
+    if (process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true') {
+      console.error('[Sync] Fatal: Could not initialize Firebase Admin in CI environment. Check credentials.', err);
+      process.exit(1);
+    }
+    console.warn('[Sync] Could not initialize Firebase Admin:', err.message);
+    useMockData = true;
+  }
 }
 
-const PUBLIC_CONTENT_FILE = path.join(PUBLIC_DATA_DIR, 'cms-content.json');
+async function fetchSnapshot() {
+  if (useMockData || !db) {
+    return {
+      services: [],
+      pages: {},
+      locations: [],
+      blog: [],
+      seo: {},
+      settings: { business: { name: 'Assist Roofing (Mock)' } },
+      exportedAt: new Date().toISOString()
+    };
+  }
+  const servicesSnap = await db.collection('services').where('status', '==', 'published').orderBy('order').get();
+  const pagesSnap = await db.collection('pages').where('status', '==', 'published').get();
+  const locationsSnap = await db.collection('locations').where('status', '==', 'published').get();
+  const blogSnap = await db.collection('blog').where('status', '==', 'published').get();
 
-const publishedServices = db.data.services
-  .filter(s => s.status === 'published')
-  .sort((a, b) => (a.order || 99) - (b.order || 99));
+  const seoSnap = await db.collection('global').doc('seo').get();
+  const settingsSnap = await db.collection('global').doc('settings').get();
 
-const publishedPages = db.data.pages
-  .filter(p => p.status === 'published')
-  .reduce((acc, p) => {
-    acc[p.id] = p;
+  const publishedServices = servicesSnap.docs.map(d => d.data());
+  const publishedPages = pagesSnap.docs.reduce((acc, d) => {
+    acc[d.id] = d.data();
     return acc;
   }, {});
-
-const publishedLocations = db.data.locations
-  .filter(l => l.status === 'published');
-
-const publishedBlog = db.data.blog
-  .filter(b => b.status === 'published')
-  .sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
-
-const publicSnapshot = {
-  services: publishedServices,
-  pages: publishedPages,
-  locations: publishedLocations,
-  blog: publishedBlog,
-  seo: db.data.seo,
-  settings: db.data.settings,
-  exportedAt: new Date().toISOString()
-};
-
-fs.writeFileSync(PUBLIC_CONTENT_FILE, JSON.stringify(publicSnapshot, null, 2), 'utf-8');
-console.log(`[CMS Build Sync] Successfully synced published CMS content to ${PUBLIC_CONTENT_FILE}`);
-
-// ── SITEMAP & STATIC DEEP ROUTES ARCHITECTURE ──
-const BASE_URL = 'https://assistroofing.com.au';
-const TODAY = new Date().toISOString().split('T')[0];
-
-const CANONICAL_ROUTES = [
-  {
-    path: '',
-    title: 'Roofing Contractor & Roof Restoration Melbourne | Assist Roofing',
-    description: "Melbourne's trusted roofing contractor for Colorbond restorations, emergency leak repairs & inspections. VBA registered, 10-year warranty. Free quote.",
-    priority: '1.0',
-    changefreq: 'weekly',
-    image: {
-      loc: 'https://assistroofing.com.au/roofora-assets/images/portfolio-img1.jpg',
-      title: 'Assist Roofing Melbourne - Professional Roof Restoration'
+  const publishedLocations = locationsSnap.docs.map(d => d.data());
+  
+  if (process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true') {
+    if (publishedServices.length === 0 && Object.keys(publishedPages).length === 0) {
+      console.error('[Sync] Fatal: Required published content (services/pages) is missing from Firestore. Aborting production build.');
+      process.exit(1);
     }
-  },
-  {
-    path: 'about',
-    title: 'About Us | VBA Registered Roofers Melbourne | Assist Roofing',
-    description: "Learn about Assist Roofing's 8+ years of Melbourne roofing expertise, VBA-registered master trades, $10M insurance, and clean jobsite promise.",
-    priority: '0.8',
-    changefreq: 'monthly',
-    image: {
-      loc: 'https://assistroofing.com.au/roofora-assets/images/about-img1.jpg',
-      title: 'About Assist Roofing Melbourne'
-    }
-  },
-  {
-    path: 'services',
-    title: 'Roofing Services Melbourne | Repairs, Restoration & Re-Roofing',
-    description: 'Explore comprehensive Melbourne roofing services: Colorbond roof replacements, emergency leak repairs, guttering, and restorations backed by a 10-year warranty.',
-    priority: '0.9',
-    changefreq: 'weekly'
-  },
-  {
-    path: 'services/roof-restoration',
-    title: 'Roof Restoration Melbourne | Tile Cleaning & SupaPoint Pointing',
-    description: 'Professional Melbourne roof restorations by VBA registered trades. High-pressure cleaning, SupaPoint flexible repointing, tile repairs, and 10-year warranty.',
-    priority: '0.9',
-    changefreq: 'weekly',
-    image: {
-      loc: 'https://assistroofing.com.au/roofora-assets/images/services-img4.jpg',
-      title: 'Roof Restoration Melbourne - Tile Repointing and Membrane Sealing'
-    }
-  },
-  {
-    path: 'services/roof-repairs',
-    title: 'Emergency Roof Repairs Melbourne | Broken Tiles & Leak Repairs',
-    description: 'Fast, reliable emergency roof repairs across Melbourne. We repair cracked tiles, leaking flashings, storm damage, and rusted valleys. Starting from $550.',
-    priority: '0.9',
-    changefreq: 'weekly',
-    image: {
-      loc: 'https://assistroofing.com.au/roofora-assets/images/services-img1.jpg',
-      title: 'Emergency Roof Leak Repairs Melbourne'
-    }
-  },
-  {
-    path: 'services/roof-replacement',
-    title: 'Roof Replacement Melbourne | Tile to Colorbond Re-Roofing',
-    description: 'Complete roof replacement and tile-to-Colorbond re-roofing in Melbourne. AS/NZS 4200.1 sarking, treated timber battens, and 10-year workmanship warranty.',
-    priority: '0.9',
-    changefreq: 'weekly',
-    image: {
-      loc: 'https://assistroofing.com.au/roofora-assets/images/services-img2.jpg',
-      title: 'Roof Replacement & Re-Roofing Melbourne'
-    }
-  },
-  {
-    path: 'services/colorbond-roofing',
-    title: 'Colorbond Roofing Melbourne | BlueScope Steel Installation',
-    description: 'Expert Colorbond metal roofing installations across Melbourne. Genuine BlueScope steel, 22 designer colors, AS 1562.1 compliance & up to 25-year warranty.',
-    priority: '0.9',
-    changefreq: 'weekly',
-    image: {
-      loc: 'https://assistroofing.com.au/roofora-assets/images/services-img3.jpg',
-      title: 'Colorbond Steel Roofing Melbourne'
-    }
-  },
-  {
-    path: 'services/guttering',
-    title: 'Gutter Replacement Melbourne | Colorbond Gutters & Leaf Guard',
-    description: 'High-capacity Colorbond gutter replacement, downpipes & leaf guard across Melbourne. Prevent overflow and foundation damage with VBA registered roof plumbers.',
-    priority: '0.8',
-    changefreq: 'monthly',
-    image: {
-      loc: 'https://assistroofing.com.au/roofora-assets/images/services-img5.jpg',
-      title: 'Gutter Replacement and Downpipe Repairs Melbourne'
-    }
-  },
-  {
-    path: 'services/leak-detection',
-    title: 'Roof Leak Detection Melbourne | Drone Inspection & Moisture Tests',
-    description: 'Pinpoint roof leak detection in Melbourne using digital drone imaging and electronic moisture meters. $350 inspection fee credited toward repair when hired.',
-    priority: '0.9',
-    changefreq: 'weekly',
-    image: {
-      loc: 'https://assistroofing.com.au/roofora-assets/images/services-img6.jpg',
-      title: 'Roof Leak Detection & Drone Thermal Inspection Melbourne'
-    }
-  },
-  {
-    path: 'projects',
-    title: 'Roofing Projects Gallery Melbourne | Before & After Photos',
-    description: 'Browse completed roofing projects across Melbourne. High-resolution before and after photos of tile restorations, Colorbond replacements, and re-bedding.',
-    priority: '0.8',
-    changefreq: 'weekly'
-  },
-  {
-    path: 'testimonials',
-    title: 'Customer Reviews & Testimonials | Assist Roofing Melbourne',
-    description: 'Read verified Google customer reviews for Assist Roofing Melbourne. 4.9/5 average rating across 520+ reviews for roof restorations, leak repairs & re-roofing.',
-    priority: '0.8',
-    changefreq: 'monthly'
-  },
-  {
-    path: 'contact',
-    title: 'Contact Assist Roofing Melbourne | Book Free Roof Inspection',
-    description: 'Contact Assist Roofing in North Melbourne. Call 0478 250 790 or book a free on-site roof condition assessment and itemized fixed-price quote.',
-    priority: '0.9',
-    changefreq: 'monthly'
   }
-];
+  
+  const publishedBlog = blogSnap.docs.map(d => d.data()).sort((a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime());
 
-function escapeXml(unsafe) {
-  if (!unsafe) return '';
-  return String(unsafe)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
+  return {
+    services: publishedServices,
+    pages: publishedPages,
+    locations: publishedLocations,
+    blog: publishedBlog,
+    seo: seoSnap.exists ? seoSnap.data() : {},
+    settings: settingsSnap.exists ? settingsSnap.data() : {},
+    exportedAt: new Date().toISOString()
+  };
 }
 
-// Generate Clean Sitemap (No hash fragments, strictly canonical indexable URLs with image sitemap extension)
-const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-${CANONICAL_ROUTES.map(route => {
-  const loc = route.path ? `${BASE_URL}/${route.path}` : `${BASE_URL}/`;
-  const imageXml = route.image ? `
-    <image:image>
-      <image:loc>${escapeXml(route.image.loc)}</image:loc>
-      <image:title>${escapeXml(route.image.title)}</image:title>
-    </image:image>` : '';
-  return `  <url>
-    <loc>${escapeXml(loc)}</loc>
-    <lastmod>${TODAY}</lastmod>
-    <changefreq>${route.changefreq}</changefreq>
-    <priority>${route.priority}</priority>${imageXml}
-  </url>`;
-}).join('\n')}
-</urlset>
-`;
+async function sync() {
+  const BASE_URL = 'https://assistroofing.com.au';
+  const TODAY = new Date().toISOString().split('T')[0];
 
-// Write sitemap to public/sitemap.xml
-const PUBLIC_SITEMAP_FILE = path.join(__dirname, '..', 'public', 'sitemap.xml');
-fs.writeFileSync(PUBLIC_SITEMAP_FILE, sitemapXml, 'utf-8');
-console.log(`[CMS Build Sync] Generated clean canonical sitemap at ${PUBLIC_SITEMAP_FILE}`);
-
-// Also copy to dist if dist exists
-const DIST_DIR = path.join(__dirname, '..', 'dist');
-if (fs.existsSync(DIST_DIR)) {
-  const DIST_DATA_DIR = path.join(DIST_DIR, 'data');
-  if (!fs.existsSync(DIST_DATA_DIR)) {
-    fs.mkdirSync(DIST_DATA_DIR, { recursive: true });
-  }
-  fs.writeFileSync(path.join(DIST_DATA_DIR, 'cms-content.json'), JSON.stringify(publicSnapshot, null, 2), 'utf-8');
-  console.log(`[CMS Build Sync] Synced CMS content to dist/data/cms-content.json`);
-
-  // Write sitemap to dist/sitemap.xml
-  fs.writeFileSync(path.join(DIST_DIR, 'sitemap.xml'), sitemapXml, 'utf-8');
-  console.log(`[CMS Build Sync] Generated dist/sitemap.xml`);
-
-  // Sync llms.txt & llms-full.txt to dist
-  const publicLlms = path.join(__dirname, '..', 'public', 'llms.txt');
-  const publicLlmsFull = path.join(__dirname, '..', 'public', 'llms-full.txt');
-  if (fs.existsSync(publicLlms)) {
-    fs.copyFileSync(publicLlms, path.join(DIST_DIR, 'llms.txt'));
-  }
-  if (fs.existsSync(publicLlmsFull)) {
-    fs.copyFileSync(publicLlmsFull, path.join(DIST_DIR, 'llms-full.txt'));
-  }
-
-  // GitHub Pages SPA Routing Support:
-  const distIndex = path.join(DIST_DIR, 'index.html');
-  if (fs.existsSync(distIndex)) {
-    // 1. Copy index.html to 404.html so GitHub Pages serves the SPA on unknown routes
-    fs.copyFileSync(distIndex, path.join(DIST_DIR, '404.html'));
-    console.log(`[CMS Build Sync] Created dist/404.html for GitHub Pages fallback routing`);
-
-    // 2. Create dist/admin/index.html so /admin returns 200 OK directly
-    const distAdminDir = path.join(DIST_DIR, 'admin');
-    if (!fs.existsSync(distAdminDir)) {
-      fs.mkdirSync(distAdminDir, { recursive: true });
+  if (isPrerenderOnly) {
+    console.log('[CMS Build Sync] Starting HTML Pre-rendering...');
+    const DIST_DIR = path.join(__dirname, '..', 'dist');
+    const DIST_INDEX = path.join(DIST_DIR, 'index.html');
+    
+    if (!fs.existsSync(DIST_INDEX)) {
+      throw new Error(`[CMS Build Sync] Pre-rendering failed: ${DIST_INDEX} does not exist. Run vite build first.`);
     }
-    fs.copyFileSync(distIndex, path.join(distAdminDir, 'index.html'));
-    console.log(`[CMS Build Sync] Created dist/admin/index.html for direct /admin route serving`);
 
-    // 3. Generate Static Deep-Route Directory Stubs with Custom Pre-Rendered Metadata
-    const originalHtml = fs.readFileSync(distIndex, 'utf-8');
+    // Read snapshot from dist if it exists, otherwise use mock
+    const DIST_DATA_DIR = path.join(DIST_DIR, 'data');
+    const snapshotPath = path.join(DIST_DATA_DIR, 'cms-content.json');
+    let snapshot = {};
+    if (fs.existsSync(snapshotPath)) {
+      snapshot = JSON.parse(fs.readFileSync(snapshotPath, 'utf8'));
+    }
+
+    // Basic routes
+    const CANONICAL_ROUTES = [
+      {
+        path: '',
+        title: 'Roofing Contractor & Roof Restoration Melbourne | Assist Roofing',
+        description: "Melbourne's trusted roofing contractor for Colorbond restorations, emergency leak repairs & inspections. VBA registered, 10-year warranty. Free quote.",
+        priority: '1.0',
+        changefreq: 'weekly',
+        image: { loc: 'https://assistroofing.com.au/roofora-assets/images/portfolio-img1.jpg', title: 'Assist Roofing' }
+      },
+      { path: 'about', title: 'About Us | Assist Roofing', description: 'About Assist Roofing', priority: '0.8', changefreq: 'monthly' },
+      { path: 'services', title: 'Services | Assist Roofing', description: 'Roofing Services', priority: '0.9', changefreq: 'weekly' },
+      { path: 'contact', title: 'Contact | Assist Roofing', description: 'Contact Assist Roofing', priority: '0.9', changefreq: 'monthly' },
+      { path: 'gallery', title: 'Gallery | Assist Roofing', description: 'View our past roofing projects', priority: '0.8', changefreq: 'monthly' },
+      { path: 'testimonials', title: 'Testimonials | Assist Roofing', description: 'Read what our clients say about us', priority: '0.8', changefreq: 'monthly' }
+    ];
+
+    if (snapshot.locations) {
+      snapshot.locations.forEach(loc => {
+        CANONICAL_ROUTES.push({
+          path: `locations/${loc.slug}`,
+          title: loc.seoTitle || loc.pageTitle,
+          description: loc.metaDescription,
+          priority: '0.7',
+          changefreq: 'monthly'
+        });
+      });
+    }
+
+    fs.copyFileSync(DIST_INDEX, path.join(DIST_DIR, '404.html'));
+    
+    const distAdminDir = path.join(DIST_DIR, 'admin');
+    if (!fs.existsSync(distAdminDir)) fs.mkdirSync(distAdminDir, { recursive: true });
+    fs.copyFileSync(DIST_INDEX, path.join(distAdminDir, 'index.html'));
+    
+    const originalHtml = fs.readFileSync(DIST_INDEX, 'utf-8');
 
     for (const route of CANONICAL_ROUTES) {
-      if (!route.path) continue; // Root index.html already exists
-
+      if (!route.path) continue; 
       const routeDir = path.join(DIST_DIR, ...route.path.split('/'));
       if (!fs.existsSync(routeDir)) {
         fs.mkdirSync(routeDir, { recursive: true });
       }
 
       const canonicalUrl = `${BASE_URL}/${route.path}`;
-
-      // Customize metadata for direct crawler & browser loads
       let routeHtml = originalHtml;
-
-      // Replace title
       routeHtml = routeHtml.replace(/<title>.*?<\/title>/i, `<title>${route.title}</title>`);
-
-      // Replace description
-      routeHtml = routeHtml.replace(
-        /<meta\s+name=["']description["']\s+content=["'].*?["']\s*\/?>/i,
-        `<meta name="description" content="${route.description}" />`
-      );
-
-      // Replace canonical
-      routeHtml = routeHtml.replace(
-        /<link\s+rel=["']canonical["']\s+href=["'].*?["']\s*\/?>/i,
-        `<link rel="canonical" href="${canonicalUrl}" />`
-      );
-
-      // Replace OG Title, Description, and URL
-      routeHtml = routeHtml.replace(
-        /<meta\s+property=["']og:title["']\s+content=["'].*?["']\s*\/?>/i,
-        `<meta property="og:title" content="${route.title}" />`
-      );
-      routeHtml = routeHtml.replace(
-        /<meta\s+property=["']og:description["']\s+content=["'].*?["']\s*\/?>/i,
-        `<meta property="og:description" content="${route.description}" />`
-      );
-      routeHtml = routeHtml.replace(
-        /<meta\s+property=["']og:url["']\s+content=["'].*?["']\s*\/?>/i,
-        `<meta property="og:url" content="${canonicalUrl}" />`
-      );
-
-      // Replace Twitter Title and Description
-      routeHtml = routeHtml.replace(
-        /<meta\s+name=["']twitter:title["']\s+content=["'].*?["']\s*\/?>/i,
-        `<meta name="twitter:title" content="${route.title}" />`
-      );
-      routeHtml = routeHtml.replace(
-        /<meta\s+name=["']twitter:description["']\s+content=["'].*?["']\s*\/?>/i,
-        `<meta name="twitter:description" content="${route.description}" />`
-      );
-
-      // Replace OG Image and Twitter Image if specific image provided
-      if (route.image?.loc) {
-        routeHtml = routeHtml.replace(
-          /<meta\s+property=["']og:image["']\s+content=["'].*?["']\s*\/?>/i,
-          `<meta property="og:image" content="${route.image.loc}" />`
-        );
-        routeHtml = routeHtml.replace(
-          /<meta\s+name=["']twitter:image["']\s+content=["'].*?["']\s*\/?>/i,
-          `<meta name="twitter:image" content="${route.image.loc}" />`
-        );
-      }
-
+      routeHtml = routeHtml.replace(/<meta\s+name=["']description["']\s+content=["'].*?["']\s*\/?>/i, `<meta name="description" content="${route.description}" />`);
+      routeHtml = routeHtml.replace(/<link\s+rel=["']canonical["']\s+href=["'].*?["']\s*\/?>/i, `<link rel="canonical" href="${canonicalUrl}" />`);
+      
       const targetPath = path.join(routeDir, 'index.html');
       fs.writeFileSync(targetPath, routeHtml, 'utf-8');
-      console.log(`[CMS Build Sync] Created static deep route: dist/${route.path}/index.html (200 OK + custom SEO)`);
     }
+    console.log('[CMS Build Sync] Pre-rendering completed.');
+    return;
   }
+
+  // SNAPSHOT PHASE
+  console.log('[CMS Build Sync] Starting Firestore Data Snapshot...');
+  const PUBLIC_DATA_DIR = path.join(__dirname, '..', 'public', 'data');
+  if (!fs.existsSync(PUBLIC_DATA_DIR)) {
+    fs.mkdirSync(PUBLIC_DATA_DIR, { recursive: true });
+  }
+
+  const PUBLIC_CONTENT_FILE = path.join(PUBLIC_DATA_DIR, 'cms-content.json');
+  const publicSnapshot = await fetchSnapshot();
+
+  fs.writeFileSync(PUBLIC_CONTENT_FILE, JSON.stringify(publicSnapshot, null, 2), 'utf-8');
+  console.log(`[CMS Build Sync] Successfully generated CMS content to ${PUBLIC_CONTENT_FILE}`);
+
+  // Sitemap generation
+  const CANONICAL_ROUTES = [
+    { path: '', changefreq: 'weekly', priority: '1.0' },
+    { path: 'about', changefreq: 'monthly', priority: '0.8' },
+    { path: 'services', changefreq: 'weekly', priority: '0.9' },
+    { path: 'contact', changefreq: 'monthly', priority: '0.9' },
+    { path: 'gallery', changefreq: 'monthly', priority: '0.8' },
+    { path: 'testimonials', changefreq: 'monthly', priority: '0.8' }
+  ];
+
+  if (publicSnapshot.locations) {
+    publicSnapshot.locations.forEach(loc => {
+      CANONICAL_ROUTES.push({ path: `locations/${loc.slug}`, priority: '0.7', changefreq: 'monthly' });
+    });
+  }
+
+  const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${CANONICAL_ROUTES.map(route => {
+  const loc = route.path ? `${BASE_URL}/${route.path}` : `${BASE_URL}/`;
+  return `  <url>
+    <loc>${loc}</loc>
+    <lastmod>${TODAY}</lastmod>
+    <changefreq>${route.changefreq}</changefreq>
+    <priority>${route.priority}</priority>
+  </url>`;
+}).join('\n')}
+</urlset>
+`;
+  const PUBLIC_SITEMAP_FILE = path.join(__dirname, '..', 'public', 'sitemap.xml');
+  fs.writeFileSync(PUBLIC_SITEMAP_FILE, sitemapXml, 'utf-8');
+  console.log(`[CMS Build Sync] Generated sitemap at ${PUBLIC_SITEMAP_FILE}`);
 }
+
+sync().catch(err => {
+  console.error('[CMS Build Sync] Fatal Error', err);
+  process.exit(1);
+});

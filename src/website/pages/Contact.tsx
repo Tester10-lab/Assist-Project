@@ -5,6 +5,7 @@ import { useCmsContent } from '../useCmsContent';
 import { asset } from '../utils/asset';
 import { ALL_SERVICES_OFFERED } from '../data';
 import { trackLeadConversion, trackCallConversion } from '../utils/tracking';
+import { submitEnquiry } from '../utils/submitEnquiry';
 
 export const Contact: React.FC = () => {
   const { navigateTo } = useWebsite();
@@ -68,31 +69,25 @@ export const Contact: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/public/enquiry', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: `${formData.firstName} ${formData.lastName}`.trim(),
-          phone: formData.phone.trim(),
-          email: formData.email.trim(),
-          address: formData.address.trim(),
-          service: formData.service,
-          message: formData.message.trim(),
-          preferredTime: 'Within 2 hours',
-          type: 'quote',
-        })
+      const data = await submitEnquiry({
+        name: `${formData.firstName} ${formData.lastName}`.trim(),
+        phone: formData.phone.trim(),
+        email: formData.email.trim(),
+        address: formData.address.trim(),
+        service: formData.service,
+        message: formData.message.trim(),
+        preferredTime: 'Within 2 hours',
+        type: 'quote',
       });
 
-      const data = await response.json().catch(() => ({}));
-
       // STRICT ACCEPTANCE CHECK
-      if (!response.ok || !data.accepted) {
+      if (!data.accepted) {
         setErrorMsg(data.error || 'Unable to store your enquiry. Please call Peter directly on 0478 250 790.');
         setIsSubmitting(false);
         return; // HALT
       }
 
-      setAcceptedEnquiry({ id: data.id, message: data.message });
+      setAcceptedEnquiry({ id: data.id || 'ENQ-STORED', message: data.message || 'Success' });
       setSubmitted(true);
       setIsSubmitting(false);
 
@@ -114,7 +109,7 @@ export const Contact: React.FC = () => {
       }
 
       // Trigger Google Ads & GA4 Lead Conversion
-      trackLeadConversion(data.id, 'contact', formData.service);
+      trackLeadConversion(data.id || 'ENQ-STORED', 'contact', formData.service);
 
       // Confetti celebration
       try {

@@ -1,0 +1,54 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isAdmin() {
+      return request.auth != null && (
+        ('admin' in request.auth.token && request.auth.token.admin == true) || 
+        ('email' in request.auth.token && request.auth.token.email == 'admin@assistroofing.com.au')
+      );
+    }
+
+    match /pages/{document} {
+      allow read: if resource.data.status == 'published' || isAdmin();
+      allow write: if isAdmin();
+    }
+    match /services/{document} {
+      allow read: if resource.data.status == 'published' || isAdmin();
+      allow write: if isAdmin();
+    }
+    match /locations/{document} {
+      allow read: if resource.data.status == 'published' || isAdmin();
+      allow write: if isAdmin();
+    }
+    match /blog/{document} {
+      allow read: if resource.data.status == 'published' || isAdmin();
+      allow write: if isAdmin();
+    }
+    match /media/{document} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // SEO and Settings are stored as global/seo and global/settings
+    match /global/{document} {
+      allow read: if isAdmin();
+      allow write: if isAdmin();
+    }
+
+    match /enquiries/{document} {
+      allow create: if request.resource.data.keys().hasOnly(['name', 'phone', 'email', 'address', 'service', 'preferredTime', 'urgency', 'message', 'type', 'status', 'createdAt'])
+                    && request.resource.data.status == 'new'
+                    && request.resource.data.name is string
+                    && request.resource.data.email is string
+                    && request.resource.data.message is string
+                    && request.resource.data.message.size() < 2000;
+      allow read, update, delete: if isAdmin();
+    }
+    match /activity/{document} {
+      allow read, write: if isAdmin();
+    }
+
+    // Deny all other paths by default (no wildcard catch-all)
+  }
+}

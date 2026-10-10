@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../../firebase';
+import { adminApi } from '../utils/api';
 import type { User } from '../types/cms';
-import { adminApi, getAuthToken, setAuthToken } from '../utils/api';
 
 interface AdminAuthContextType {
   user: User | null;
@@ -19,69 +21,54 @@ const AdminAuthContext = createContext<AdminAuthContextType | undefined>(undefin
 
 export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [token, setToken] = useState<string | null>(getAuthToken());
+  const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const verifySession = async () => {
-      const storedToken = getAuthToken();
-      if (!storedToken) {
-        setIsLoading(false);
-        return;
-      }
-
-      try {
-        const { user } = await adminApi.getMe();
-        setUser(user);
-        setToken(storedToken);
-      } catch (err: any) {
-        console.warn('[Admin Auth] Session invalid or expired:', err.message);
-        setAuthToken(null);
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        const idTokenResult = await firebaseUser.getIdTokenResult();
+        setToken(idTokenResult.token);
+        
+        const isUserAdmin = idTokenResult.claims.admin === true || firebaseUser.email === 'admin@assistroofing.com.au';
+        
+        setUser({
+          id: firebaseUser.uid,
+          email: firebaseUser.email || '',
+          name: firebaseUser.displayName || firebaseUser.email || 'Admin User',
+          role: isUserAdmin ? 'admin' : 'editor',
+          mustChangePassword: false
+        });
+      } else {
         setUser(null);
         setToken(null);
-      } finally {
-        setIsLoading(false);
       }
-    };
+      setIsLoading(false);
+    });
 
-    verifySession();
-
-    const handleAuthExpired = () => {
-      setUser(null);
-      setToken(null);
-      setError('Your session has expired. Please sign in again.');
-    };
-
-    window.addEventListener('admin-auth-expired', handleAuthExpired);
-    return () => window.removeEventListener('admin-auth-expired', handleAuthExpired);
+    return () => unsubscribe();
   }, []);
 
   const login = async (email: string, password: string) => {
     setError(null);
     setIsLoading(true);
     try {
-      const res = await adminApi.login(email, password);
-      setAuthToken(res.token);
-      setToken(res.token);
-      setUser(res.user);
+      await adminApi.login(email, password);
     } catch (err: any) {
       setError(err.message || 'Login failed. Please verify your credentials.');
-      throw err;
-    } finally {
       setIsLoading(false);
+      throw err;
     }
+    // Auth state listener handles the rest
   };
 
   const logout = async () => {
     try {
-      if (token) {
-        await adminApi.logout().catch(() => {});
-      }
+      await adminApi.logout();
     } finally {
-      setAuthToken(null);
-      setToken(null);
       setUser(null);
+      setToken(null);
     }
   };
 

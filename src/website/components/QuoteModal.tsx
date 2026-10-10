@@ -5,6 +5,7 @@ import { useCmsContent } from '../useCmsContent';
 import { asset } from '../utils/asset';
 import { ALL_SERVICES_OFFERED } from '../data';
 import { trackLeadConversion, trackCallConversion } from '../utils/tracking';
+import { submitEnquiry } from '../utils/submitEnquiry';
 
 const DEFAULT_INSPECTION_SERVICE = 'Free Roof & Drone Inspection (Full Property Assessment)';
 
@@ -136,26 +137,20 @@ export const QuoteModal: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/api/public/enquiry', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: form.name.trim(),
-          phone: form.phone.trim(),
-          email: form.email.trim(),
-          address: form.address.trim(),
-          service: form.service,
-          preferredTime: form.urgency,
-          urgency: form.urgency,
-          message: form.message.trim(),
-          type: activeTab,
-        })
+      const data = await submitEnquiry({
+        name: form.name.trim(),
+        phone: form.phone.trim(),
+        email: form.email.trim(),
+        address: form.address.trim(),
+        service: form.service,
+        preferredTime: form.urgency,
+        urgency: form.urgency,
+        message: form.message.trim(),
+        type: activeTab,
       });
 
-      const data = await response.json().catch(() => ({}));
-
       // Acceptance validation: STRICT CHECK - Only proceed if server explicitly accepted
-      if (!response.ok || !data.accepted) {
+      if (!data.accepted) {
         setErrorMsg(data.error || 'Unable to store your callback request. Please call Peter directly on 0478 250 790.');
         setIsSubmitting(false);
         return; // HALT: No success event fired!
@@ -191,7 +186,7 @@ export const QuoteModal: React.FC = () => {
       }
 
       // 2. Google Ads & GA4 lead conversion tracking
-      trackLeadConversion(data.id, activeTab, form.service);
+      trackLeadConversion(data.id || 'ENQ-STORED', activeTab, form.service);
 
       // 3. Visual celebration confetti
       try {
