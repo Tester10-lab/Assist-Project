@@ -641,22 +641,6 @@
     }
   ],
   "pages": {
-    "home": {
-      "id": "home",
-      "slug": "",
-      "title": "Home",
-      "status": "published",
-      "heroHeading": "Roofing Contractor & Roof Restoration Melbourne",
-      "heroDescription": "Certified roofing experts specializing in Colorbond restorations, emergency leak repairs, and AS 4349.1 structural inspections with a 10-year warranty.",
-      "heroImage": "/roofora-assets/images/banner-bg-img.jpg",
-      "content": "Assist Roofing & Home Solution is Melbourne’s premier residential and commercial roofing contractor.",
-      "seoTitle": "Roofing Contractor & Roof Restoration Melbourne | Assist Roofing",
-      "metaDescription": "Melbourne's trusted roofing contractor & restoration experts. Colorbond restorations, emergency leak repairs, and AS 4349.1 inspections with 10-yr warranty.",
-      "canonical": "https://assistroofing.com.au/",
-      "ogImage": "https://assistroofing.com.au/roofora-assets/images/portfolio-img1.jpg",
-      "noIndex": false,
-      "updatedAt": "2026-09-23T08:33:16.355Z"
-    },
     "about": {
       "id": "about",
       "slug": "about",
@@ -673,19 +657,19 @@
       "noIndex": false,
       "updatedAt": "2026-09-23T08:33:16.367Z"
     },
-    "services": {
-      "id": "services",
-      "slug": "services",
-      "title": "Services",
+    "contact": {
+      "id": "contact",
+      "slug": "contact",
+      "title": "Contact Us",
       "status": "published",
-      "heroHeading": "Comprehensive Melbourne Roofing Services",
-      "heroDescription": "From emergency leak patching and ridge repointing to complete Colorbond re-roofing.",
+      "heroHeading": "Get in Touch for a Free Melbourne Roof Inspection",
+      "heroDescription": "Call 0478 250 790 or submit an inspection request online. Same-day emergency response available.",
       "heroImage": "/roofora-assets/images/sub-banner-bg-img.jpg",
-      "content": "24 specialized services backed by our Clean Jobsite Promise and 10-Year Workmanship Warranty.",
-      "seoTitle": "All Roofing Services Melbourne | Repairs, Restoration & Re-Roofing | Assist Roofing",
-      "metaDescription": "Explore our full range of 24 roofing services across Melbourne: leak fixes, re-roofing, gutters, and painting.",
-      "canonical": "https://assistroofing.com.au/services",
-      "ogImage": "https://assistroofing.com.au/roofora-assets/images/portfolio-img4.jpg",
+      "content": "Headquartered at 139 Boundary Road, North Melbourne VIC 3051.",
+      "seoTitle": "Contact Assist Roofing Melbourne | Book Free Roof Inspection",
+      "metaDescription": "Contact Assist Roofing in North Melbourne. Call 0478 250 790 for free drone inspection and quote.",
+      "canonical": "https://assistroofing.com.au/contact",
+      "ogImage": "https://assistroofing.com.au/roofora-assets/images/portfolio-img1.jpg",
       "noIndex": false,
       "updatedAt": "2026-09-23T08:33:16.367Z"
     },
@@ -705,6 +689,38 @@
       "noIndex": false,
       "updatedAt": "2026-09-23T08:33:16.367Z"
     },
+    "home": {
+      "id": "home",
+      "slug": "",
+      "title": "Home",
+      "status": "published",
+      "heroHeading": "Roofing Contractor & Roof Restoration Melbourne",
+      "heroDescription": "Certified roofing experts specializing in Colorbond restorations, emergency leak repairs, and AS 4349.1 structural inspections with a 10-year warranty.",
+      "heroImage": "/roofora-assets/images/banner-bg-img.jpg",
+      "content": "Assist Roofing & Home Solution is Melbourne’s premier residential and commercial roofing contractor.",
+      "seoTitle": "Roofing Contractor & Roof Restoration Melbourne | Assist Roofing",
+      "metaDescription": "Melbourne's trusted roofing contractor & restoration experts. Colorbond restorations, emergency leak repairs, and AS 4349.1 inspections with 10-yr warranty.",
+      "canonical": "https://assistroofing.com.au/",
+      "ogImage": "https://assistroofing.com.au/roofora-assets/images/portfolio-img1.jpg",
+      "noIndex": false,
+      "updatedAt": "2026-09-23T08:33:16.355Z"
+    },
+    "services": {
+      "id": "services",
+      "slug": "services",
+      "title": "Services",
+      "status": "published",
+      "heroHeading": "Comprehensive Melbourne Roofing Services",
+      "heroDescription": "From emergency leak patching and ridge repointing to complete Colorbond re-roofing.",
+      "heroImage": "/roofora-assets/images/sub-banner-bg-img.jpg",
+      "content": "24 specialized services backed by our Clean Jobsite Promise and 10-Year Workmanship Warranty.",
+      "seoTitle": "All Roofing Services Melbourne | Repairs, Restoration & Re-Roofing | Assist Roofing",
+      "metaDescription": "Explore our full range of 24 roofing services across Melbourne: leak fixes, re-roofing, gutters, and painting.",
+      "canonical": "https://assistroofing.com.au/services",
+      "ogImage": "https://assistroofing.com.au/roofora-assets/images/portfolio-img4.jpg",
+      "noIndex": false,
+      "updatedAt": "2026-09-23T08:33:16.367Z"
+    },
     "testimonials": {
       "id": "testimonials",
       "slug": "testimonials",
@@ -720,25 +736,39 @@
       "ogImage": "https://assistroofing.com.au/roofora-assets/images/portfolio-img5.jpg",
       "noIndex": false,
       "updatedAt": "2026-09-23T08:33:16.367Z"
-    },
-    "contact": {
-      "id": "contact",
-      "slug": "contact",
-      "title": "Contact Us",
-      "status": "published",
-      "heroHeading": "Get in Touch for a Free Melbourne Roof Inspection",
-      "heroDescription": "Call 0478 250 790 or submit an inspection request online. Same-day emergency response available.",
-      "heroImage": "/roofora-assets/images/sub-banner-bg-img.jpg",
-      "content": "Headquartered at 139 Boundary Road, North Melbourne VIC 3051.",
-      "seoTitle": "Contact Assist Roofing Melbourne | Book Free Roof Inspection",
-      "metaDescription": "Contact Assist Roofing in North Melbourne. Call 0478 250 790 for free drone inspection and quote.",
-      "canonical": "https://assistroofing.com.au/contact",
-      "ogImage": "https://assistroofing.com.au/roofora-assets/images/portfolio-img1.jpg",
-      "noIndex": false,
-      "updatedAt": "2026-09-23T08:33:16.367Z"
     }
   },
   "locations": [
+    {
+      "id": "brighton",
+      "name": "Brighton",
+      "slug": "brighton",
+      "pageTitle": "Premium Roofing Contractor Brighton VIC 3186 | Assist Roofing",
+      "intro": "Marine-grade coastal Colorbond roofing and heritage restoration in Brighton.",
+      "localContent": "Brighton coastal properties require specialized Colorbond Ultra steel and corrosion-resistant fasteners.",
+      "services": [
+        "Colorbond Re-Roofing",
+        "Coastal Flashing Upgrades",
+        "Architectural Standing Seam"
+      ],
+      "images": [
+        "/roofora-assets/images/portfolio-img9.jpg"
+      ],
+      "faqs": [
+        {
+          "q": "Do you use coastal-grade materials in Brighton?",
+          "a": "Yes, we specify Colorbond Ultra and marine stainless steel fasteners for homes within 2km of Port Phillip Bay."
+        }
+      ],
+      "seoTitle": "Roofing Services Brighton VIC 3186 | Coastal Roofing Specialists",
+      "metaDescription": "Coastal roofing experts in Brighton VIC. High salinity protection and luxury roof restorations.",
+      "postalCode": "3186",
+      "coordinates": {
+        "lat": -37.9062,
+        "lng": 144.9918
+      },
+      "status": "published"
+    },
     {
       "id": "north-melbourne",
       "name": "North Melbourne",
@@ -767,36 +797,6 @@
       "coordinates": {
         "lat": -37.7963,
         "lng": 144.9392
-      },
-      "status": "published"
-    },
-    {
-      "id": "brighton",
-      "name": "Brighton",
-      "slug": "brighton",
-      "pageTitle": "Premium Roofing Contractor Brighton VIC 3186 | Assist Roofing",
-      "intro": "Marine-grade coastal Colorbond roofing and heritage restoration in Brighton.",
-      "localContent": "Brighton coastal properties require specialized Colorbond Ultra steel and corrosion-resistant fasteners.",
-      "services": [
-        "Colorbond Re-Roofing",
-        "Coastal Flashing Upgrades",
-        "Architectural Standing Seam"
-      ],
-      "images": [
-        "/roofora-assets/images/portfolio-img9.jpg"
-      ],
-      "faqs": [
-        {
-          "q": "Do you use coastal-grade materials in Brighton?",
-          "a": "Yes, we specify Colorbond Ultra and marine stainless steel fasteners for homes within 2km of Port Phillip Bay."
-        }
-      ],
-      "seoTitle": "Roofing Services Brighton VIC 3186 | Coastal Roofing Specialists",
-      "metaDescription": "Coastal roofing experts in Brighton VIC. High salinity protection and luxury roof restorations.",
-      "postalCode": "3186",
-      "coordinates": {
-        "lat": -37.9062,
-        "lng": 144.9918
       },
       "status": "published"
     },
@@ -880,5 +880,5 @@
       "elfsightEnabled": true
     }
   },
-  "exportedAt": "2026-10-08T02:57:24.468Z"
+  "exportedAt": "2026-10-11T01:36:35.079Z"
 }

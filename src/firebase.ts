@@ -21,7 +21,7 @@ const db = getFirestore(app);
 const auth = getAuth(app);
 const storage = getStorage(app);
 
-if (import.meta.env.DEV || import.meta.env.VITE_USE_FIREBASE_EMULATOR === 'true') {
+if (import.meta.env.VITE_USE_FIREBASE_EMULATOR === 'true') {
   console.log('[Firebase] Using local emulators');
   connectFirestoreEmulator(db, '127.0.0.1', 8080);
   connectAuthEmulator(auth, 'http://127.0.0.1:9099');
