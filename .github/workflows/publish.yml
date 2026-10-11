@@ -27,7 +27,10 @@ jobs:
       - name: Build and Pre-render
         env:
           GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
-        run: npm run build
+        run: |
+          node server/sync-public-data.js
+          npx vite build
+          node server/sync-public-data.js --prerender
         
       - name: Validate Output
         run: |
