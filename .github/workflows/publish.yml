@@ -27,10 +27,7 @@ jobs:
       - name: Build and Pre-render
         env:
           GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
-        run: |
-          echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > service-account.json
-          export GOOGLE_APPLICATION_CREDENTIALS=service-account.json
-          npm run build
+        run: npm run build
         
       - name: Validate Output
         run: |
