@@ -1,10 +1,10 @@
 /**
  * Centralized Google Ads & Analytics Conversion Tracking Helper
  * Supports:
- * 1. Google Ads Tag (AW-XXXXXXXXX)
+ * 1. Google Ads Tag (AW-18404411620)
  * 2. Website-Call Tracking (Google forwarding number dynamic replacement)
- * 3. Click-to-call mobile conversions
- * 4. Callback / Quote form lead conversions
+ * 3. Click-to-call mobile intent events (contact_call)
+ * 4. Callback / Quote form lead conversions (generate_lead)
  */
 
 export interface TrackingConfig {
@@ -15,7 +15,13 @@ export interface TrackingConfig {
   phoneConversionNumber?: string;
 }
 
-// Read current tracking settings from window.__CMS_SETTINGS or environment
+export interface PhoneNumberState {
+  display: string;
+  tel: string;
+  isForwarding: boolean;
+}
+
+// Read current tracking settings from window.__CMS_CONTENT__ or environment
 export function getActiveTrackingConfig(): TrackingConfig {
   if (typeof window === 'undefined') {
     return {};
@@ -26,17 +32,92 @@ export function getActiveTrackingConfig(): TrackingConfig {
   return {
     ga4Id: cmsSettings.ga4Id || import.meta.env.VITE_GA4_ID || 'G-VTEV53E3T3',
     googleAdsId: cmsSettings.googleAdsId || import.meta.env.VITE_GOOGLE_ADS_ID || 'AW-18404411620',
-    googleAdsCallConversionLabel: cmsSettings.googleAdsCallConversionLabel || import.meta.env.VITE_GOOGLE_ADS_CALL_CONVERSION || '',
+    googleAdsCallConversionLabel: cmsSettings.googleAdsCallConversionLabel || import.meta.env.VITE_GOOGLE_ADS_CALL_CONVERSION || '2y2sCPWtrJodEOSR9MdE',
     googleAdsLeadConversionLabel: cmsSettings.googleAdsLeadConversionLabel || import.meta.env.VITE_GOOGLE_ADS_LEAD_CONVERSION || '',
     phoneConversionNumber: cmsSettings.phoneConversionNumber || '0478 250 790',
   };
+}
+
+export function getForwardingPhoneNumber(): PhoneNumberState {
+  if (typeof window !== 'undefined' && (window as any).__activePhoneNumber) {
+    return (window as any).__activePhoneNumber;
+  }
+  return {
+    display: '0478 250 790',
+    tel: '0478250790',
+    isForwarding: false
+  };
+}
+
+export function subscribeForwardingPhoneNumber(callback: (state: PhoneNumberState) => void): () => void {
+  if (typeof window === 'undefined') return () => {};
+
+  if (typeof (window as any).__subscribePhoneNumber === 'function') {
+    return (window as any).__subscribePhoneNumber(callback);
+  }
+
+  const handler = (e: any) => {
+    if (e.detail) callback(e.detail);
+  };
+  window.addEventListener('assist:phone_replaced', handler);
+  callback(getForwardingPhoneNumber());
+  return () => window.removeEventListener('assist:phone_replaced', handler);
+}
+
+/**
+ * Scan DOM and ensure all telephone links and phone numbers reflect the Google forwarding number
+ */
+export function syncDOMPhoneNumbers(targetDisplay?: string, targetTel?: string) {
+  if (typeof document === 'undefined') return;
+
+  const current = getForwardingPhoneNumber();
+  const display = targetDisplay || current.display;
+  const telDigits = targetTel || current.tel;
+
+  // 1. Update all telephone links in the DOM
+  const telLinks = document.querySelectorAll<HTMLAnchorElement>('a[href^="tel:"]');
+  telLinks.forEach(link => {
+    const href = link.getAttribute('href') || '';
+    if (
+      href.includes('0478250790') ||
+      href.includes('0478 250 790') ||
+      href.includes('61478250790') ||
+      href.includes('99999999') ||
+      ((window as any).__lastReplacedTel && href.includes((window as any).__lastReplacedTel))
+    ) {
+      link.setAttribute('href', `tel:${telDigits}`);
+    }
+  });
+
+  // 2. Update visible text in specific phone containers and text nodes
+  const selectors = 'span, a, p, div, strong, h1, h2, h3, h4';
+  const candidates = document.querySelectorAll<HTMLElement>(selectors);
+  candidates.forEach(el => {
+    if (['SCRIPT', 'STYLE', 'INPUT', 'TEXTAREA'].includes(el.tagName)) return;
+    
+    // Only target leaf elements or simple icon+text nodes
+    if (el.children.length === 0 || (el.children.length === 1 && el.firstElementChild?.tagName === 'I')) {
+      const text = el.textContent || '';
+      if (text.includes('0478 250 790')) {
+        el.textContent = text.replace(/0478\s*250\s*790/g, display);
+      } else if ((window as any).__lastReplacedDisplay && (window as any).__lastReplacedDisplay !== display && text.includes((window as any).__lastReplacedDisplay)) {
+        el.textContent = text.split((window as any).__lastReplacedDisplay).join(display);
+      }
+    }
+  });
+
+  (window as any).__lastReplacedDisplay = display;
+  (window as any).__lastReplacedTel = telDigits;
+}
+
+if (typeof window !== 'undefined') {
+  (window as any).__syncDOMPhoneNumbers = syncDOMPhoneNumbers;
 }
 
 let lastInitializedTrackingKey = '';
 
 /**
  * Initialize Google Ads Tag & Website Call Tracking alongside GA4
- * Ensures send_page_view: false is set on Ads to prevent duplicate page view hits.
  */
 export function initGoogleAdsTracking(customConfig?: Partial<TrackingConfig>) {
   if (typeof window === 'undefined') return;
@@ -47,40 +128,51 @@ export function initGoogleAdsTracking(customConfig?: Partial<TrackingConfig>) {
   if (typeof gtag !== 'function') return;
 
   const adsId = config.googleAdsId || 'AW-18404411620';
-  const callLabel = config.googleAdsCallConversionLabel || '';
+  const callLabel = config.googleAdsCallConversionLabel || '2y2sCPWtrJodEOSR9MdE';
   const phoneTarget = config.phoneConversionNumber || '0478 250 790';
   const trackingKey = `${adsId}|${callLabel}|${phoneTarget}`;
 
-  // Only reconfigure if settings have actually changed to prevent duplicate executions on route changes
-  if (lastInitializedTrackingKey === trackingKey) {
-    return;
-  }
-  lastInitializedTrackingKey = trackingKey;
+  if (lastInitializedTrackingKey !== trackingKey) {
+    lastInitializedTrackingKey = trackingKey;
 
-  if (adsId) {
-    if (callLabel) {
-      const sendTo = callLabel.includes('/') ? callLabel : `${adsId}/${callLabel}`;
-      gtag('config', sendTo, {
-        phone_conversion_number: phoneTarget,
-        send_page_view: false
-      });
-    } else {
-      gtag('config', adsId, {
-        phone_conversion_number: phoneTarget,
-        send_page_view: false
-      });
+    if (adsId) {
+      if (callLabel) {
+        const sendTo = callLabel.includes('/') ? callLabel : `${adsId}/${callLabel}`;
+        gtag('config', sendTo, {
+          phone_conversion_number: phoneTarget,
+          phone_conversion_callback: (window as any).__handleGoogleForwardingNumber
+        });
+      } else {
+        gtag('config', adsId, {
+          phone_conversion_number: phoneTarget,
+          phone_conversion_callback: (window as any).__handleGoogleForwardingNumber
+        });
+      }
     }
   }
+
+  // If Google Tag's _googWcmGet is already available, trigger immediate forwarding number resolution
+  if (typeof (window as any)._googWcmGet === 'function') {
+    (window as any)._googWcmGet(function(targetNumber: string, mobileNumber: string) {
+      if (targetNumber && typeof (window as any).__handleGoogleForwardingNumber === 'function') {
+        (window as any).__handleGoogleForwardingNumber(targetNumber, mobileNumber || targetNumber.replace(/\s+/g, ''));
+      }
+    }, phoneTarget);
+  }
+
+  syncDOMPhoneNumbers();
 }
 
 /**
  * Track Click-to-Call Conversions (Mobile tap on phone buttons / tel: links)
+ * Emits GA4 contact_call event. Does NOT send fake forwarding-call conversions.
  */
 export function trackCallConversion(url?: string): void {
   if (typeof window === 'undefined') return;
 
   const config = getActiveTrackingConfig();
   const gtag = (window as any).gtag;
+  const currentPhone = getForwardingPhoneNumber().display;
 
   // 1. Dispatch custom DOM event for audit/listeners
   try {
@@ -88,7 +180,7 @@ export function trackCallConversion(url?: string): void {
       new CustomEvent('assist:call_clicked', {
         detail: {
           timestamp: new Date().toISOString(),
-          phone: config.phoneConversionNumber || '0478 250 790',
+          phone: currentPhone,
           path: window.location.pathname
         }
       })
@@ -97,39 +189,19 @@ export function trackCallConversion(url?: string): void {
     console.warn('[Tracking Event Error]:', err);
   }
 
-  // 2. Fire Google Analytics 4 Call & Lead Events (Preserving GA4)
+  // 2. Fire Google Analytics 4 Call Intent Event (contact_call)
   if (typeof gtag === 'function') {
     const ga4Id = config.ga4Id || 'G-VTEV53E3T3';
     try {
       gtag('event', 'contact_call', {
         event_category: 'engagement',
         event_label: 'Phone Call Click',
-        phone_number: config.phoneConversionNumber || '0478 250 790',
+        phone_number: currentPhone,
         page_location: window.location.href,
         send_to: ga4Id
       });
     } catch (err) {
       console.warn('[GA4 Call Event Warning]:', err);
-    }
-
-    // 3. Fire Google Ads Call Conversion Action ONLY if separate conversion label is supplied
-    // Destination ID AW-18404411620 alone does not track specific call leads without its conversion label
-    if (config.googleAdsId && config.googleAdsCallConversionLabel) {
-      const sendTo = config.googleAdsCallConversionLabel.includes('/')
-        ? config.googleAdsCallConversionLabel
-        : `${config.googleAdsId}/${config.googleAdsCallConversionLabel}`;
-
-      try {
-        gtag('event', 'conversion', {
-          send_to: sendTo,
-          event_callback: () => {
-            if (url) window.location.href = url;
-          }
-        });
-        return;
-      } catch (err) {
-        console.warn('[Google Ads Conversion Warning]:', err);
-      }
     }
   }
 
@@ -140,6 +212,7 @@ export function trackCallConversion(url?: string): void {
 
 /**
  * Track Lead Form Conversions (Enquiry or Callback accepted by server)
+ * Fires generate_lead once, strictly after backend confirmation.
  */
 export function trackLeadConversion(enquiryId: string, type: 'callback' | 'quote' | 'contact', service?: string): void {
   if (typeof window === 'undefined') return;
@@ -190,3 +263,4 @@ export function trackLeadConversion(enquiryId: string, type: 'callback' | 'quote
     console.warn('[GA4 Lead Event Warning]:', err);
   }
 }
+

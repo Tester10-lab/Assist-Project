@@ -16,7 +16,7 @@ const BASE_URL = 'https://assistroofing.com.au';
 
 const SeoSync: React.FC = () => {
   const { currentPage, currentServiceSlug } = useWebsite();
-  const { pages, seo, settings } = useCmsContent();
+  const { pages, seo, settings, services: cmsServices } = useCmsContent();
 
   useEffect(() => {
     let title = 'Roofing Contractor & Roof Restoration Melbourne | Assist Roofing';
@@ -27,10 +27,11 @@ const SeoSync: React.FC = () => {
     // 1. Service Deep-Route Metadata
     if (currentPage === 'services' && currentServiceSlug && CORE_SERVICES_DATA[currentServiceSlug]) {
       const s = CORE_SERVICES_DATA[currentServiceSlug];
-      title = s.metaTitle;
-      description = s.metaDescription;
+      const cmsMatch = cmsServices?.find(srv => srv.slug === currentServiceSlug || srv.id === currentServiceSlug);
+      title = cmsMatch?.seoTitle || s.metaTitle;
+      description = cmsMatch?.metaDescription || s.metaDescription;
       canonical = `${BASE_URL}${s.canonicalPath}`;
-      ogImage = `${BASE_URL}${s.heroImage}`;
+      ogImage = `${BASE_URL}${cmsMatch?.image || s.heroImage}`;
     } else {
       // General Core Routes
       const pageData = pages?.[currentPage];

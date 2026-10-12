@@ -9,7 +9,17 @@ import { asset } from '../utils/asset';
 import { trackCallConversion } from '../utils/tracking';
 
 export const Navbar: React.FC = () => {
-  const { currentPage, currentServiceSlug, navigateTo, isMobileMenuOpen, setMobileMenuOpen, openQuoteModal, openCallbackModal } = useWebsite();
+  const {
+    currentPage,
+    currentServiceSlug,
+    navigateTo,
+    isMobileMenuOpen,
+    setMobileMenuOpen,
+    openQuoteModal,
+    openCallbackModal,
+    displayPhone,
+    telHref
+  } = useWebsite();
   const { settings } = useCmsContent();
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
@@ -20,41 +30,69 @@ export const Navbar: React.FC = () => {
     setActiveDropdown(null);
   };
 
-  const phone = settings?.business?.phone || '0478250790';
-  const displayPhone = phone.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
   const logoUrl = settings?.branding?.logoUrl || asset('/roofora-assets/images/logo.png');
+
+  const isRoofRepairs = currentServiceSlug === 'roof-repairs';
 
   return (
     <div className="w-100 float-left font-['Sora',sans-serif]">
       {/* ── Promotional Topbar ── */}
       <div className="promotional-topbar">
         <div className="promotional-topbar-icon">
-          <i className="fa-solid fa-wand-magic-sparkles topbar-icon"></i>
-          <p>Clean Jobsite Promise & 10-Yr Workmanship Guarantee • {displayPhone}</p>
+          <i className="fa-solid fa-screwdriver-wrench topbar-icon"></i>
+          {isRoofRepairs ? (
+            <p>Melbourne roof repairs and leak detection | Call <a href={telHref} onClick={() => trackCallConversion()} className="text-white text-decoration-none font-bold hover:text-[#f19e1f] transition-colors">{displayPhone}</a></p>
+          ) : (
+            <p>Clean Jobsite Promise & 10-Yr Workmanship Guarantee • {displayPhone}</p>
+          )}
         </div>
         <div className="d-flex align-items-center gap-2">
-          <a
-            className="buy_now text-decoration-none cursor-pointer d-none d-md-inline-flex"
-            style={{ backgroundColor: 'rgba(255, 255, 255, 0.15)', color: '#ffffff' }}
-            onClick={() => openCallbackModal()}
-          >
-            <i className="fa-solid fa-phone-volume me-1.5" style={{ color: '#f19e1f' }}></i>
-            <span className="label">15-Min Callback</span>
-          </a>
-          <a
-            className="buy_now text-decoration-none cursor-pointer"
-            onClick={openQuoteModal}
-          >
-            <span className="label">Get a Free Quote</span>
-            <i className="fa-solid fa-arrow-right"></i>
-          </a>
+          {isRoofRepairs ? (
+            <>
+              <a
+                className="buy_now text-decoration-none cursor-pointer d-none d-md-inline-flex"
+                style={{ backgroundColor: 'rgba(255, 255, 255, 0.15)', color: '#ffffff' }}
+                onClick={() => openCallbackModal('Roof Repairs')}
+              >
+                <i className="fa-solid fa-phone-volume me-1.5" style={{ color: '#f19e1f' }}></i>
+                <span className="label">Request a Callback</span>
+              </a>
+              <a
+                href={telHref}
+                onClick={() => trackCallConversion()}
+                className="buy_now text-decoration-none cursor-pointer"
+                style={{ backgroundColor: '#d92228', color: '#ffffff' }}
+              >
+                <i className="fa-solid fa-phone me-1.5"></i>
+                <span className="label">Call {displayPhone}</span>
+              </a>
+            </>
+          ) : (
+            <>
+              <a
+                className="buy_now text-decoration-none cursor-pointer d-none d-md-inline-flex"
+                style={{ backgroundColor: 'rgba(255, 255, 255, 0.15)', color: '#ffffff' }}
+                onClick={() => openCallbackModal()}
+              >
+                <i className="fa-solid fa-phone-volume me-1.5" style={{ color: '#f19e1f' }}></i>
+                <span className="label">Request a Callback</span>
+              </a>
+              <a
+                className="buy_now text-decoration-none cursor-pointer"
+                onClick={openQuoteModal}
+              >
+                <span className="label">Get a Free Quote</span>
+                <i className="fa-solid fa-arrow-right"></i>
+              </a>
+            </>
+          )}
         </div>
       </div>
 
       {/* ── Main Header & Pill Navigation ── */}
       <div className="padding-rl float-left w-100">
         <div className="wrapper1605">
-          <header className="w-100 float-left header-con position-relative main-box" role="banner">
+          <header className="w-100 float-left header-con position-relative main-box" style={{ zIndex: 1050 }} role="banner">
             <nav className="navbar navbar-expand-lg navbar-light d-flex align-items-center justify-content-between" role="navigation" aria-label="Main Navigation">
 
               {/* Brand Logo */}
@@ -109,7 +147,7 @@ export const Navbar: React.FC = () => {
                     </a>
                   </li>
 
-                  {/* Services with Dropdown Popup */}
+                    {/* Services with Dropdown Popup */}
                   <li
                     className="nav-item dropdown position-relative"
                     onMouseEnter={() => setActiveDropdown('services')}
@@ -123,52 +161,69 @@ export const Navbar: React.FC = () => {
                       Services
                     </a>
                     {activeDropdown === 'services' && (
-                      <div className="dropdown-menu show position-absolute wow animated fadeIn fast">
+                      <div 
+                        className="dropdown-menu show position-absolute shadow-xl rounded-2xl border border-slate-100"
+                        style={{
+                          backgroundColor: '#ffffff',
+                          minWidth: '295px',
+                          padding: '8px 6px',
+                          zIndex: 1060,
+                          boxShadow: '0 12px 35px rgba(0, 0, 0, 0.15)',
+                          marginTop: '8px'
+                        }}
+                      >
                         <a
                           href="/services"
-                          className="dropdown-item cursor-pointer"
+                          className="dropdown-item cursor-pointer text-sm font-medium py-2 px-3 rounded-xl transition-colors hover:bg-slate-50 hover:text-[#f19e1f] text-nowrap"
+                          style={{ color: '#1e2e4f' }}
                           onClick={(e) => handleNav(e, 'services')}
                         >
                           All Roofing Services
                         </a>
                         <a
                           href="/services/roof-restoration"
-                          className="dropdown-item cursor-pointer"
+                          className="dropdown-item cursor-pointer text-sm font-medium py-2 px-3 rounded-xl transition-colors hover:bg-slate-50 hover:text-[#f19e1f] text-nowrap"
+                          style={{ color: '#1e2e4f' }}
                           onClick={(e) => handleNav(e, 'services', 'roof-restoration')}
                         >
                           Roof Restoration
                         </a>
                         <a
                           href="/services/roof-repairs"
-                          className="dropdown-item cursor-pointer"
+                          className="dropdown-item cursor-pointer text-sm font-medium py-2 px-3 rounded-xl transition-colors hover:bg-slate-50 hover:text-[#f19e1f] text-nowrap"
+                          style={{ color: '#1e2e4f' }}
                           onClick={(e) => handleNav(e, 'services', 'roof-repairs')}
                         >
                           Roof Repairs & Leak Fix
                         </a>
                         <a
                           href="/services/roof-replacement"
-                          className="dropdown-item cursor-pointer"
+                          className="dropdown-item cursor-pointer text-sm font-medium py-2 px-3 rounded-xl transition-colors hover:bg-slate-50 hover:text-[#f19e1f] text-nowrap"
+                          style={{ color: '#1e2e4f' }}
                           onClick={(e) => handleNav(e, 'services', 'roof-replacement')}
                         >
                           Roof Replacement & Re-Roofing
                         </a>
                         <a
                           href="/services/colorbond-roofing"
-                          className="dropdown-item cursor-pointer"
+                          className="dropdown-item cursor-pointer text-sm font-medium py-2 px-3 rounded-xl transition-colors hover:bg-slate-50 hover:text-[#f19e1f] text-nowrap"
+                          style={{ color: '#1e2e4f' }}
                           onClick={(e) => handleNav(e, 'services', 'colorbond-roofing')}
                         >
                           Colorbond Metal Roofing
                         </a>
                         <a
                           href="/services/guttering"
-                          className="dropdown-item cursor-pointer"
+                          className="dropdown-item cursor-pointer text-sm font-medium py-2 px-3 rounded-xl transition-colors hover:bg-slate-50 hover:text-[#f19e1f] text-nowrap"
+                          style={{ color: '#1e2e4f' }}
                           onClick={(e) => handleNav(e, 'services', 'guttering')}
                         >
                           Guttering & Downpipes
                         </a>
                         <a
                           href="/services/leak-detection"
-                          className="dropdown-item cursor-pointer"
+                          className="dropdown-item cursor-pointer text-sm font-medium py-2 px-3 rounded-xl transition-colors hover:bg-slate-50 hover:text-[#f19e1f] text-nowrap"
+                          style={{ color: '#1e2e4f' }}
                           onClick={(e) => handleNav(e, 'services', 'leak-detection')}
                         >
                           Drone Leak Detection
@@ -191,24 +246,37 @@ export const Navbar: React.FC = () => {
                       Projects
                     </a>
                     {activeDropdown === 'projects' && (
-                      <div className="dropdown-menu show position-absolute wow animated fadeIn fast">
+                      <div 
+                        className="dropdown-menu show position-absolute shadow-xl rounded-2xl border border-slate-100"
+                        style={{
+                          backgroundColor: '#ffffff',
+                          minWidth: '260px',
+                          padding: '8px 6px',
+                          zIndex: 1060,
+                          boxShadow: '0 12px 35px rgba(0, 0, 0, 0.15)',
+                          marginTop: '8px'
+                        }}
+                      >
                         <a
                           href="/projects"
-                          className="dropdown-item cursor-pointer"
+                          className="dropdown-item cursor-pointer text-sm font-medium py-2 px-3 rounded-xl transition-colors hover:bg-slate-50 hover:text-[#f19e1f] text-nowrap"
+                          style={{ color: '#1e2e4f' }}
                           onClick={(e) => handleNav(e, 'gallery')}
                         >
                           Completed Projects
                         </a>
                         <a
                           href="/projects"
-                          className="dropdown-item cursor-pointer"
+                          className="dropdown-item cursor-pointer text-sm font-medium py-2 px-3 rounded-xl transition-colors hover:bg-slate-50 hover:text-[#f19e1f] text-nowrap"
+                          style={{ color: '#1e2e4f' }}
                           onClick={(e) => handleNav(e, 'gallery')}
                         >
                           Colorbond Metal Gallery
                         </a>
                         <a
                           href="/projects"
-                          className="dropdown-item cursor-pointer"
+                          className="dropdown-item cursor-pointer text-sm font-medium py-2 px-3 rounded-xl transition-colors hover:bg-slate-50 hover:text-[#f19e1f] text-nowrap"
+                          style={{ color: '#1e2e4f' }}
                           onClick={(e) => handleNav(e, 'gallery')}
                         >
                           Tile Restoration Gallery
@@ -248,7 +316,7 @@ export const Navbar: React.FC = () => {
                     <i className="fa-solid fa-calendar-check mr-2"></i> Book Free Inspection
                   </button>
                   <a
-                    href={`tel:${phone.replace(/\s+/g, '')}`}
+                    href={telHref}
                     onClick={() => trackCallConversion()}
                     className="btn w-100 py-2.5 rounded-pill font-weight-700 text-white mb-2 text-decoration-none"
                     style={{ backgroundColor: '#1e2e4f' }}
@@ -263,16 +331,16 @@ export const Navbar: React.FC = () => {
                 <ul className="list-unstyled mb-0 d-flex align-items-center">
                   <li className="d-inline-block">
                     <a
-                      onClick={() => openQuoteModal('Free Roof & Drone Inspection (Full Property Assessment)')}
+                      onClick={() => isRoofRepairs ? openCallbackModal('Roof Repairs') : openQuoteModal('Free Roof & Drone Inspection (Full Property Assessment)')}
                       className="contact-btn d-inline-block cursor-pointer text-decoration-none"
                     >
-                      Book Inspection <figure><img src={asset('/roofora-assets/images/arrow.png')} alt="arrow" /></figure>
+                      {isRoofRepairs ? 'Request a Callback' : 'Book Inspection'} <figure><img src={asset('/roofora-assets/images/arrow.png')} alt="arrow" /></figure>
                     </a>
                   </li>
                   <li className="d-flex align-items-center position-relative">
                     <div>
                       <a
-                        href={`tel:${phone.replace(/\s+/g, '')}`}
+                        href={telHref}
                         onClick={() => trackCallConversion()}
                         className="text-decoration-none cell-no cursor-pointer"
                       >
@@ -295,7 +363,7 @@ export const Navbar: React.FC = () => {
 };
 
 export const Footer: React.FC = () => {
-  const { navigateTo } = useWebsite();
+  const { navigateTo, displayPhone, telHref } = useWebsite();
   const { settings } = useCmsContent();
 
   const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, page: 'home' | 'about' | 'services' | 'gallery' | 'testimonials' | 'contact', slug?: any) => {
@@ -308,8 +376,6 @@ export const Footer: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const phone = settings?.business?.phone || '0478250790';
-  const displayPhone = phone.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
   const email = settings?.business?.email || 'info@assistroofing.com.au';
   const address = settings?.business?.address || '139 Boundary Road, North Melbourne VIC 3051';
   const footerLogo = settings?.branding?.footerLogoUrl || asset('/roofora-assets/images/footer-logo.png');
@@ -359,7 +425,7 @@ export const Footer: React.FC = () => {
                   24/7 Rapid Response & Quotes
                 </div>
                 <a
-                  href={`tel:${phone.replace(/\s+/g, '')}`}
+                  href={telHref}
                   onClick={() => trackCallConversion()}
                   className="text-decoration-none font-weight-700 d-inline-flex align-items-center gap-2 mb-1 transition-colors hover:text-[#f19e1f]"
                   style={{ fontSize: 'clamp(22px, 2.2vw, 30px)', color: '#ffffff' }}
@@ -533,16 +599,66 @@ export const WhatsAppFloatingButton: React.FC = () => {
 };
 
 export const MobileCROStickyBar: React.FC = () => {
+  const { currentServiceSlug, openQuoteModal, openCallbackModal, displayPhone, telHref } = useWebsite();
   const { settings } = useCmsContent();
-  const { openQuoteModal, openCallbackModal } = useWebsite();
-  const phone = settings?.business?.phone || '0478 250 790';
   const rawWaPhone = settings?.business?.whatsapp || '0478936120';
   const cleanPhone = rawWaPhone.replace(/[^0-9]/g, '');
   const waNumber = cleanPhone.startsWith('61')
     ? cleanPhone
     : (cleanPhone.startsWith('0') ? `61${cleanPhone.slice(1)}` : `61${cleanPhone}`);
-  const defaultMsg = encodeURIComponent("Hello Assist Roofing! I need a fast quote / roof inspection.");
+  const defaultMsg = encodeURIComponent("Hello Assist Roofing! I need help with my roof.");
   const waUrl = `https://wa.me/${waNumber}?text=${defaultMsg}`;
+
+  const isRoofRepairs = currentServiceSlug === 'roof-repairs';
+
+  if (isRoofRepairs) {
+    return (
+      <div
+        className="position-fixed d-flex d-md-none align-items-center justify-content-between w-100"
+        style={{
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1040,
+          backgroundColor: '#1e2e4f',
+          borderTop: '1px solid rgba(255, 255, 255, 0.15)',
+          padding: '8px 12px',
+          boxShadow: '0 -4px 16px rgba(0,0,0,0.25)',
+          gap: '8px'
+        }}
+      >
+        <a
+          href={telHref}
+          onClick={() => trackCallConversion()}
+          className="btn d-flex align-items-center justify-content-center text-white text-decoration-none px-3 py-2.5 rounded-pill font-weight-700 shadow-sm"
+          style={{ backgroundColor: '#d92228', flex: 1.1, fontSize: '13px' }}
+        >
+          <i className="fa-solid fa-phone me-1.5 text-xs"></i>
+          <span>Call {displayPhone}</span>
+        </a>
+
+        <button
+          onClick={() => openCallbackModal('Roof Repairs')}
+          className="btn d-flex align-items-center justify-content-center border-0 text-[#1e2e4f] font-weight-700 px-3 py-2.5 rounded-pill shadow-sm cursor-pointer"
+          style={{ backgroundColor: '#f19e1f', flex: 1, fontSize: '13px' }}
+        >
+          <i className="fa-solid fa-phone-volume me-1.5 text-xs"></i>
+          <span>Callback</span>
+        </button>
+
+        <a
+          href={waUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="d-flex align-items-center justify-content-center text-white text-decoration-none rounded-circle shrink-0"
+          style={{ backgroundColor: '#25D366', width: '38px', height: '38px', fontSize: '18px' }}
+          aria-label="WhatsApp"
+        >
+          <i className="fa-brands fa-whatsapp"></i>
+        </a>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -559,7 +675,7 @@ export const MobileCROStickyBar: React.FC = () => {
       }}
     >
       <a
-        href={`tel:${phone.replace(/\s+/g, '')}`}
+        href={telHref}
         onClick={() => trackCallConversion()}
         className="d-flex flex-column align-items-center justify-content-center text-white text-decoration-none px-2 py-1"
         style={{ fontSize: '11px', fontWeight: 600, flex: 1 }}

@@ -10,7 +10,7 @@ import type { CoreServiceSlug } from '../types';
 import { trackCallConversion } from '../utils/tracking';
 
 export const Home: React.FC = () => {
-  const { navigateTo, openQuoteModal, openLightbox } = useWebsite();
+  const { navigateTo, openQuoteModal, openLightbox, displayPhone, telHref } = useWebsite();
   const { services: cmsServices, pages } = useCmsContent();
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
 
@@ -95,11 +95,11 @@ export const Home: React.FC = () => {
                       </button>
 
                       <a
-                        href="tel:0478250790"
+                        href={telHref}
                         onClick={() => trackCallConversion()}
                         className="font-weight-bold elementary_btn d-inline-block text-decoration-none"
                       >
-                        Call: 0478 250 790 <span><img src={asset('/roofora-assets/images/arrow.png')} alt="arrow" className="img-fluid d-inline-block" /></span>
+                        Call: {displayPhone} <span><img src={asset('/roofora-assets/images/arrow.png')} alt="arrow" className="img-fluid d-inline-block" /></span>
                       </a>
                     </div>
 
@@ -909,7 +909,7 @@ export const Home: React.FC = () => {
               </button>
 
               <a
-                href="tel:0478250790"
+                href={telHref}
                 onClick={() => trackCallConversion()}
                 className="text-decoration-none"
                 style={{
@@ -939,7 +939,7 @@ export const Home: React.FC = () => {
                 }}
               >
                 <i className="fa-solid fa-phone text-[#f19e1f]"></i>
-                <span>Direct Call: 0478 250 790</span>
+                <span>Direct Call: {displayPhone}</span>
               </a>
             </div>
 

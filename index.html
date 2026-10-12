@@ -32,34 +32,58 @@
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Sora:wght@100;200;300;400;500;600;700;800&display=swap" />
 
     <!-- Google tag (gtag.js) for GA4 and Google Ads Destination -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VTEV53E3T3"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18404411620"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      // 1. Primary Google Analytics 4 (Tracks standard page_view)
-      gtag('config', 'G-VTEV53E3T3');
-
-      // 2. Google Ads Destination (AW-18404411620) configured alongside GA4
-      // send_page_view: false avoids duplicate page views while activating
-      // remarketing signals, conversion linking, and Google Forwarding Number swapping.
-      gtag('config', 'AW-18404411620', {
-        'phone_conversion_number': '0478 250 790',
-        'send_page_view': false
-      });
-
-      // Website-Call Tracking helper: dynamically reconfigures phone swapping if updated via CMS
-      window.__initGoogleAds = function(adsId, callConversionLabel, phoneNumber) {
-        var targetAdsId = adsId || 'AW-18404411620';
-        var targetPhone = phoneNumber || '0478 250 790';
-        if (callConversionLabel) {
-          var sendTo = callConversionLabel.indexOf('/') > -1 ? callConversionLabel : (targetAdsId + '/' + callConversionLabel);
-          gtag('config', sendTo, { 'phone_conversion_number': targetPhone, 'send_page_view': false });
-        } else {
-          gtag('config', targetAdsId, { 'phone_conversion_number': targetPhone, 'send_page_view': false });
+      // Pre-initialize call forwarding state
+      window.__activePhoneNumber = {
+        display: '0478 250 790',
+        tel: '0478250790',
+        isForwarding: false
+      };
+      window.__phoneSubscribers = [];
+      window.__subscribePhoneNumber = function(cb) {
+        window.__phoneSubscribers.push(cb);
+        cb(window.__activePhoneNumber);
+        return function() {
+          window.__phoneSubscribers = window.__phoneSubscribers.filter(function(s) { return s !== cb; });
+        };
+      };
+      window.__handleGoogleForwardingNumber = function(formatted_number, mobile_number) {
+        if (!formatted_number) return;
+        var rawDigits = (mobile_number || formatted_number).replace(/[^0-9+]/g, '');
+        window.__activePhoneNumber = {
+          display: formatted_number,
+          tel: rawDigits,
+          isForwarding: true
+        };
+        for (var i = 0; i < window.__phoneSubscribers.length; i++) {
+          try { window.__phoneSubscribers[i](window.__activePhoneNumber); } catch (e) {}
+        }
+        try {
+          window.dispatchEvent(new CustomEvent('assist:phone_replaced', { detail: window.__activePhoneNumber }));
+        } catch (e) {}
+        if (typeof window.__syncDOMPhoneNumbers === 'function') {
+          window.__syncDOMPhoneNumbers(formatted_number, rawDigits);
         }
       };
+
+      // 1. Primary Google Analytics 4 (G-VTEV53E3T3)
+      gtag('config', 'G-VTEV53E3T3');
+
+      // 2. Google Ads Destination (AW-18404411620)
+      gtag('config', 'AW-18404411620');
+
+      // 3. Website-call snippet: Call (0478 250 790)
+      gtag('config', 'AW-18404411620/2y2sCPWtrJodEOSR9MdE', {
+        'phone_conversion_number': '0478 250 790',
+        'phone_conversion_callback': function(formatted_number, mobile_number) {
+          window.__handleGoogleForwardingNumber(formatted_number, mobile_number);
+        }
+      });
     </script>
 
     <!-- Elfsight Google Reviews Platform -->
@@ -74,6 +98,7 @@
     <meta name="theme-color" content="#1e2e4f" />
     <meta name="format-detection" content="telephone=yes" />
     <!-- Primary SEO Meta -->
+    <title>Roofing Contractor &amp; Roof Restoration Melbourne | Assist Roofing</title>
     <link rel="canonical" href="https://assistroofing.com.au/" />
     <meta name="description" content="Melbourne's licensed roofing contractor for Colorbond restorations, emergency leak repairs &amp; inspections. VBA registered, 10-year warranty. Free quote." />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />

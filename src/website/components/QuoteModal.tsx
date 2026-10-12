@@ -19,7 +19,7 @@ interface AcceptedEnquiry {
 }
 
 export const QuoteModal: React.FC = () => {
-  const { isQuoteModalOpen, closeQuoteModal, initialServiceForQuote, modalMode } = useWebsite();
+  const { isQuoteModalOpen, closeQuoteModal, initialServiceForQuote, modalMode, displayPhone, telHref } = useWebsite();
   const { services: cmsServices, settings } = useCmsContent();
   const allServices = cmsServices && cmsServices.length > 0 ? cmsServices : ALL_SERVICES_OFFERED;
 
@@ -29,9 +29,10 @@ export const QuoteModal: React.FC = () => {
     name: '',
     phone: '',
     email: '',
-    service: DEFAULT_INSPECTION_SERVICE,
+    service: 'Roof Repairs',
+    suburb: '',
     address: '',
-    urgency: 'ASAP / Next 15 mins',
+    urgency: 'Standard Enquiry Hours',
     message: '',
   });
 
@@ -83,10 +84,10 @@ export const QuoteModal: React.FC = () => {
       if (initialServiceForQuote) {
         setForm((prev) => ({ ...prev, service: initialServiceForQuote }));
       } else {
-        setForm((prev) => ({ ...prev, service: prev.service || DEFAULT_INSPECTION_SERVICE }));
+        setForm((prev) => ({ ...prev, service: modalMode === 'callback' ? 'Roof Repairs' : DEFAULT_INSPECTION_SERVICE }));
       }
     }
-  }, [initialServiceForQuote, isQuoteModalOpen]);
+  }, [initialServiceForQuote, isQuoteModalOpen, modalMode]);
 
   if (!isQuoteModalOpen) return null;
 
@@ -134,6 +135,11 @@ export const QuoteModal: React.FC = () => {
       return;
     }
 
+    if (activeTab === 'callback' && !form.suburb.trim()) {
+      setErrorMsg('Please enter your suburb so we can confirm coverage.');
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -141,9 +147,9 @@ export const QuoteModal: React.FC = () => {
         name: form.name.trim(),
         phone: form.phone.trim(),
         email: form.email.trim(),
-        address: form.address.trim(),
-        service: form.service,
-        preferredTime: form.urgency,
+        address: activeTab === 'callback' ? form.suburb.trim() : form.address.trim(),
+        service: form.service || 'Roof Repairs',
+        preferredTime: activeTab === 'callback' ? 'Callback Requested' : form.urgency,
         urgency: form.urgency,
         message: form.message.trim(),
         type: activeTab,
@@ -151,7 +157,7 @@ export const QuoteModal: React.FC = () => {
 
       // Acceptance validation: STRICT CHECK - Only proceed if server explicitly accepted
       if (!data.accepted) {
-        setErrorMsg(data.error || 'Unable to store your callback request. Please call Peter directly on 0478 250 790.');
+        setErrorMsg(data.error || `Unable to store your callback request. Please call Peter directly on ${displayPhone}.`);
         setIsSubmitting(false);
         return; // HALT: No success event fired!
       }
@@ -161,22 +167,21 @@ export const QuoteModal: React.FC = () => {
         id: data.id || 'ENQ-STORED',
         name: form.name.trim(),
         phone: form.phone.trim(),
-        service: form.service,
-        preferredTime: form.urgency,
+        service: form.service || 'Roof Repairs',
+        preferredTime: activeTab === 'callback' ? 'Earliest Available' : form.urgency,
         createdAt: new Date().toISOString()
       });
       setSubmitted(true);
       setIsSubmitting(false);
 
-      // 1. Dispatch custom browser DOM event for analytics/tracking integration
+      // 1. Dispatch custom browser DOM event for analytics/tracking (no PII in payload)
       try {
         window.dispatchEvent(
           new CustomEvent('assist:enquiry_accepted', {
             detail: {
               id: data.id,
               type: activeTab,
-              service: form.service,
-              phone: form.phone,
+              service: form.service || 'Roof Repairs',
               timestamp: new Date().toISOString(),
             }
           })
@@ -185,8 +190,8 @@ export const QuoteModal: React.FC = () => {
         console.warn('[Event Dispatch Warning]:', evtErr);
       }
 
-      // 2. Google Ads & GA4 lead conversion tracking
-      trackLeadConversion(data.id || 'ENQ-STORED', activeTab, form.service);
+      // 2. Google Ads & GA4 lead conversion tracking (fires once after backend confirms success)
+      trackLeadConversion(data.id || 'ENQ-STORED', activeTab, form.service || 'Roof Repairs');
 
       // 3. Visual celebration confetti
       try {
@@ -202,7 +207,7 @@ export const QuoteModal: React.FC = () => {
 
     } catch (err: any) {
       console.error('[Callback Submission Error]:', err);
-      setErrorMsg('Connection error while delivering your request. Please call Peter directly on 0478 250 790.');
+      setErrorMsg(`Connection error while delivering your request. Please call Peter directly on ${displayPhone}.`);
       setIsSubmitting(false);
     }
   };
@@ -252,17 +257,17 @@ export const QuoteModal: React.FC = () => {
           </button>
 
           <span className="special-text text-accent d-block mb-1 text-size-12 font-weight-700 uppercase tracking-wider">
-            <i className="fa-solid fa-bolt me-1"></i> Melbourne Wide • Rapid Response
+            <i className="fa-solid fa-location-dot me-1"></i> Melbourne Service Areas • Assist Roofing
           </span>
 
-          <h3 id="enquiry-modal-title" className="text-white text-size-24 text-md-size-26 font-weight-700 mb-1">
-            {activeTab === 'callback' ? 'Request a Fast Callback' : 'Book Roof Inspection & Quote'}
+          <h3 id="enquiry-modal-title" className="text-white text-size-22 text-md-size-26 font-weight-700 mb-1">
+            {activeTab === 'callback' ? 'Request a Roof Repair Callback' : 'Book Roof Inspection & Quote'}
           </h3>
 
           <p className="text-white text-size-13 mb-0 opacity-85">
             {activeTab === 'callback'
-              ? 'Leave your phone number below. Peter from Assist Roofing will call you back within 15 minutes.'
-              : 'Complete your property details for an on-site 21-point roof and drone inspection.'}
+              ? 'Leave your details and tell us where you need help. Our team will contact you to discuss your roofing issue.'
+              : 'Complete your property details for a comprehensive on-site roof condition inspection.'}
           </p>
 
           {/* Tab Selector */}
@@ -278,7 +283,7 @@ export const QuoteModal: React.FC = () => {
                 }`}
               >
                 <i className="fa-solid fa-phone-volume me-1.5"></i>
-                ⚡ 15-Min Callback
+                Request a Callback
               </button>
 
               <button
@@ -291,7 +296,7 @@ export const QuoteModal: React.FC = () => {
                 }`}
               >
                 <i className="fa-solid fa-clipboard-list me-1.5"></i>
-                📋 Detailed Quote
+                Detailed Quote
               </button>
             </div>
           )}
@@ -300,7 +305,7 @@ export const QuoteModal: React.FC = () => {
         {/* Scrollable Modal Content */}
         <div className="p-4 p-md-5 overflow-auto flex-grow-1">
           {submitted && acceptedData ? (
-            /* ── SUCCESS EVENT CONFIRMATION SCREEN (Rendered ONLY after server acceptance) ── */
+            /* ── SUCCESS EVENT CONFIRMATION SCREEN ── */
             <div className="text-center py-2">
               <div 
                 className="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3 shadow"
@@ -310,19 +315,23 @@ export const QuoteModal: React.FC = () => {
               </div>
 
               <div className="badge bg-success-subtle text-success px-3 py-1 rounded-pill font-weight-700 text-size-12 mb-2">
-                ✓ Enquiry Successfully Stored & Dispatched
+                ✓ Callback Request Sent
               </div>
 
-              <h3 className="text-size-24 font-weight-700 text-[#1e2e4f] mb-1">
-                {activeTab === 'callback' ? 'Callback Scheduled!' : 'Inspection Request Accepted!'}
+              <h3 className="text-size-22 font-weight-700 text-[#1e2e4f] mb-2">
+                {activeTab === 'callback' ? 'Thanks. Your callback request has been sent to Assist Roofing.' : 'Inspection Request Accepted!'}
               </h3>
 
               <div className="d-inline-block bg-slate-100 px-3 py-1 rounded-lg text-size-12 font-monospace font-weight-700 text-slate-700 mb-3 border border-slate-200">
                 Reference ID: {acceptedData.id}
               </div>
 
-              <p className="text-size-14 text-[#616a7e] mb-4">
-                Thank you, <strong>{acceptedData.name}</strong>! Peter Bayamis has received your alert. We will call you on <strong>{acceptedData.phone}</strong> ({acceptedData.preferredTime}).
+              <p className="text-size-14 text-[#4a5568] mb-4">
+                {activeTab === 'callback' ? (
+                  <>For an active leak, you can also call <strong>{displayPhone}</strong> to check availability.</>
+                ) : (
+                  <>Thank you, <strong>{acceptedData.name}</strong>. Peter Bayamis has received your inspection request.</>
+                )}
               </p>
 
               {/* Summary Card */}
@@ -331,21 +340,20 @@ export const QuoteModal: React.FC = () => {
                   Confirmed Details:
                 </div>
                 <div className="mb-1"><strong>Service:</strong> {acceptedData.service}</div>
-                <div className="mb-1"><strong>Call Window:</strong> {acceptedData.preferredTime}</div>
                 <div className="mb-1"><strong>Phone Number:</strong> {acceptedData.phone}</div>
-                {form.address && <div><strong>Property / Suburb:</strong> {form.address}</div>}
+                {(form.suburb || form.address) && <div><strong>Location:</strong> {form.suburb || form.address}</div>}
               </div>
 
               {/* Direct Instant Call Option */}
               <div className="d-flex flex-column flex-sm-row gap-2 mb-3">
                 <a
-                  href={`tel:${directPhone}`}
+                  href={telHref}
                   onClick={() => trackCallConversion()}
                   className="btn flex-grow-1 py-2.5 rounded-pill font-weight-700 text-white d-flex align-items-center justify-content-center text-decoration-none shadow-sm"
                   style={{ backgroundColor: '#1e2e4f', fontSize: '14px' }}
                 >
                   <i className="fa-solid fa-phone me-2 text-warning"></i>
-                  Call Peter Now: {displayDirectPhone}
+                  Call About an Active Leak: {displayPhone}
                 </a>
 
                 <a
@@ -378,179 +386,267 @@ export const QuoteModal: React.FC = () => {
                 </div>
               )}
 
-              <div className="row">
-                <div className="col-md-6 mb-3">
-                  <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
-                    Your Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. David Miller"
-                    value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    className="form-control br-20 py-2 px-3 text-size-14"
-                    style={{ height: '48px', border: '1px solid #cfd8e8' }}
-                  />
-                </div>
+              {/* Short Callback Form Flow */}
+              {activeTab === 'callback' ? (
+                <>
+                  <div className="row">
+                    <div className="col-md-6 mb-3">
+                      <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
+                        Your Name *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. David Miller"
+                        value={form.name}
+                        onChange={(e) => setForm({ ...form, name: e.target.value })}
+                        className="form-control br-20 py-2 px-3 text-size-14"
+                        style={{ height: '48px', border: '1px solid #cfd8e8' }}
+                      />
+                    </div>
 
-                <div className="col-md-6 mb-3">
-                  <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
-                    Phone Number (Australian) *
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    placeholder="e.g. 0478 250 790"
-                    value={form.phone}
-                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                    className="form-control br-20 py-2 px-3 text-size-14"
-                    style={{ height: '48px', border: '1px solid #cfd8e8' }}
-                  />
-                </div>
-              </div>
+                    <div className="col-md-6 mb-3">
+                      <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
+                        Phone Number *
+                      </label>
+                      <input
+                        type="tel"
+                        required
+                        placeholder="e.g. 0478 250 790"
+                        value={form.phone}
+                        onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                        className="form-control br-20 py-2 px-3 text-size-14"
+                        style={{ height: '48px', border: '1px solid #cfd8e8' }}
+                      />
+                    </div>
+                  </div>
 
-              <div className="row">
-                <div className="col-md-6 mb-3">
-                  <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
-                    Service Required *
-                  </label>
-                  <select
-                    value={form.service}
-                    onChange={(e) => setForm({ ...form, service: e.target.value })}
-                    className="form-control br-20 py-2 px-3 text-size-14"
-                    style={{ height: '48px', border: '1px solid #cfd8e8' }}
-                  >
-                    <optgroup label="⭐ Inspection & Leak Detection">
-                      <option value="Free Roof & Drone Inspection (Full Property Assessment)">Free Roof & Drone Inspection</option>
-                      <option value="Emergency Roof Leak Repair">Emergency Roof Leak Repair</option>
-                      <option value="Roof Leak Detection & Diagnostic Survey">Roof Leak Detection & Diagnostic Survey</option>
-                      <option value="Storm & Wind Damage Assessment">Storm & Wind Damage Assessment</option>
-                    </optgroup>
-                    <optgroup label="Restoration & Repairs">
-                      {allServices.filter(s => s.category === 'repairs' || s.category === 'restoration').map(s => (
-                        <option key={s.id} value={s.name}>{s.name}</option>
-                      ))}
-                    </optgroup>
-                    <optgroup label="Replacement & Gutters">
-                      {allServices.filter(s => s.category === 'replacement' || s.category === 'gutters').map(s => (
-                        <option key={s.id} value={s.name}>{s.name}</option>
-                      ))}
-                    </optgroup>
-                    <option value="Other / Bespoke Roofing Request">Other / Bespoke Roofing Request</option>
-                  </select>
-                </div>
-
-                <div className="col-md-6 mb-3">
-                  <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
-                    {activeTab === 'callback' ? 'When Should We Call?' : 'Preferred Inspection Window'}
-                  </label>
-                  <select
-                    value={form.urgency}
-                    onChange={(e) => setForm({ ...form, urgency: e.target.value })}
-                    className="form-control br-20 py-2 px-3 text-size-14"
-                    style={{ height: '48px', border: '1px solid #cfd8e8' }}
-                  >
-                    <option value="ASAP / Next 15 mins">⚡ ASAP / Next 15 mins (Priority)</option>
-                    <option value="Morning (9:00am - 12:00pm)">Morning (9:00am - 12:00pm)</option>
-                    <option value="Afternoon (12:00pm - 5:00pm)">Afternoon (12:00pm - 5:00pm)</option>
-                    <option value="Evening (5:00pm - 7:00pm)">Evening (5:00pm - 7:00pm)</option>
-                    <option value="Urgent Active Leak (Today)">Urgent Active Leak (Today)</option>
-                    <option value="Weekend Appointment">Weekend Appointment</option>
-                  </select>
-                </div>
-              </div>
-
-              {activeTab === 'quote' && (
-                <div className="row">
-                  <div className="col-md-12 mb-3">
+                  <div className="mb-3">
                     <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
-                      Email Address (Optional)
+                      Suburb *
                     </label>
                     <input
-                      type="email"
-                      placeholder="david@example.com"
-                      value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                      type="text"
+                      required
+                      placeholder="e.g. Dandenong, Clayton, Berwick, Glen Waverley"
+                      value={form.suburb}
+                      onChange={(e) => setForm({ ...form, suburb: e.target.value })}
                       className="form-control br-20 py-2 px-3 text-size-14"
                       style={{ height: '48px', border: '1px solid #cfd8e8' }}
                     />
                   </div>
-                </div>
+
+                  <div className="mb-3">
+                    <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
+                      What is happening with your roof? (Optional)
+                    </label>
+                    <textarea
+                      rows={3}
+                      placeholder="Tell us what is happening (e.g. water entering ceiling, broken tiles, flashing damage, valley leak)..."
+                      value={form.message}
+                      onChange={(e) => setForm({ ...form, message: e.target.value })}
+                      className="form-control br-20 py-2 px-3 text-size-14"
+                      style={{ border: '1px solid #cfd8e8', resize: 'none' }}
+                    />
+                  </div>
+
+                  <div className="text-size-11 text-[#64748b] mb-3">
+                    Your details are kept confidential and used solely to respond to your roofing repair enquiry.
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn w-100 py-3 rounded-pill text-white font-weight-700 text-size-16 border-0 shadow-md d-flex align-items-center justify-content-center cursor-pointer transition-all"
+                    style={{
+                      backgroundColor: '#f19e1f',
+                      color: '#1e2e4f',
+                      boxShadow: '0 4px 14px rgba(241, 158, 31, 0.35)',
+                      opacity: isSubmitting ? 0.75 : 1,
+                      cursor: isSubmitting ? 'not-allowed' : 'pointer'
+                    }}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <i className="fa-solid fa-circle-notch fa-spin me-2" style={{ color: '#1e2e4f' }}></i>
+                        <span style={{ color: '#1e2e4f' }}>Sending Request...</span>
+                      </>
+                    ) : (
+                      <>
+                        <i className="fa-solid fa-phone-volume me-2" style={{ color: '#1e2e4f' }}></i>
+                        <span style={{ color: '#1e2e4f' }}>Request My Callback</span>
+                        <span className="ms-2">
+                          <img
+                            src={asset('/roofora-assets/images/arrow.png')}
+                            alt="arrow"
+                            className="img-fluid d-inline-block"
+                            style={{ width: '12px' }}
+                          />
+                        </span>
+                      </>
+                    )}
+                  </button>
+                </>
+              ) : (
+                /* Detailed Quote Form Flow */
+                <>
+                  <div className="row">
+                    <div className="col-md-6 mb-3">
+                      <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
+                        Your Name *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. David Miller"
+                        value={form.name}
+                        onChange={(e) => setForm({ ...form, name: e.target.value })}
+                        className="form-control br-20 py-2 px-3 text-size-14"
+                        style={{ height: '48px', border: '1px solid #cfd8e8' }}
+                      />
+                    </div>
+
+                    <div className="col-md-6 mb-3">
+                      <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
+                        Phone Number (Australian) *
+                      </label>
+                      <input
+                        type="tel"
+                        required
+                        placeholder="e.g. 0478 250 790"
+                        value={form.phone}
+                        onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                        className="form-control br-20 py-2 px-3 text-size-14"
+                        style={{ height: '48px', border: '1px solid #cfd8e8' }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="col-md-6 mb-3">
+                      <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
+                        Service Required *
+                      </label>
+                      <select
+                        value={form.service}
+                        onChange={(e) => setForm({ ...form, service: e.target.value })}
+                        className="form-control br-20 py-2 px-3 text-size-14"
+                        style={{ height: '48px', border: '1px solid #cfd8e8' }}
+                      >
+                        <option value="Roof Repairs">Roof Repairs & Leak Fix</option>
+                        <option value="Roof Restoration">Roof Restoration</option>
+                        <option value="Roof Replacement">Roof Replacement & Re-Roofing</option>
+                        <option value="Colorbond Metal Roofing">Colorbond Metal Roofing</option>
+                        <option value="Gutter Replacement">Gutter Replacement</option>
+                        <option value="Roof Leak Detection">Roof Leak Detection</option>
+                        <option value="Other / General Roofing">Other / General Roofing</option>
+                      </select>
+                    </div>
+
+                    <div className="col-md-6 mb-3">
+                      <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
+                        Preferred Inspection Window
+                      </label>
+                      <select
+                        value={form.urgency}
+                        onChange={(e) => setForm({ ...form, urgency: e.target.value })}
+                        className="form-control br-20 py-2 px-3 text-size-14"
+                        style={{ height: '48px', border: '1px solid #cfd8e8' }}
+                      >
+                        <option value="Morning (9:00am - 12:00pm)">Morning (9:00am - 12:00pm)</option>
+                        <option value="Afternoon (12:00pm - 5:00pm)">Afternoon (12:00pm - 5:00pm)</option>
+                        <option value="Urgent Active Leak (Today)">Urgent Active Leak (Today)</option>
+                        <option value="Weekend Appointment">Weekend Appointment</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="col-md-12 mb-3">
+                      <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
+                        Email Address (Optional)
+                      </label>
+                      <input
+                        type="email"
+                        placeholder="david@example.com"
+                        value={form.email}
+                        onChange={(e) => setForm({ ...form, email: e.target.value })}
+                        className="form-control br-20 py-2 px-3 text-size-14"
+                        style={{ height: '48px', border: '1px solid #cfd8e8' }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="mb-3">
+                    <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
+                      Property Suburb or Address *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. 14 High St, Kew or Balwyn VIC 3103"
+                      value={form.address}
+                      onChange={(e) => setForm({ ...form, address: e.target.value })}
+                      className="form-control br-20 py-2 px-3 text-size-14"
+                      style={{ height: '48px', border: '1px solid #cfd8e8' }}
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
+                      Notes / Problem Details (Optional)
+                    </label>
+                    <textarea
+                      rows={2}
+                      placeholder="Tell us about the roof material (Tile/Colorbond), age, leak location, or access notes..."
+                      value={form.message}
+                      onChange={(e) => setForm({ ...form, message: e.target.value })}
+                      className="form-control br-20 py-2 px-3 text-size-14"
+                      style={{ border: '1px solid #cfd8e8', resize: 'none' }}
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn w-100 py-3 rounded-pill text-white font-weight-700 text-size-16 border-0 shadow-md d-flex align-items-center justify-content-center cursor-pointer transition-all"
+                    style={{
+                      backgroundColor: '#f19e1f',
+                      color: '#1e2e4f',
+                      boxShadow: '0 4px 14px rgba(241, 158, 31, 0.35)',
+                      opacity: isSubmitting ? 0.75 : 1,
+                      cursor: isSubmitting ? 'not-allowed' : 'pointer'
+                    }}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <i className="fa-solid fa-circle-notch fa-spin me-2" style={{ color: '#1e2e4f' }}></i>
+                        <span style={{ color: '#1e2e4f' }}>Submitting Request...</span>
+                      </>
+                    ) : (
+                      <>
+                        <i className="fa-solid fa-clipboard-check me-2" style={{ color: '#1e2e4f' }}></i>
+                        <span style={{ color: '#1e2e4f' }}>Submit Inspection Request</span>
+                        <span className="ms-2">
+                          <img
+                            src={asset('/roofora-assets/images/arrow.png')}
+                            alt="arrow"
+                            className="img-fluid d-inline-block"
+                            style={{ width: '12px' }}
+                          />
+                        </span>
+                      </>
+                    )}
+                  </button>
+                </>
               )}
 
-              <div className="mb-3">
-                <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
-                  Property Suburb or Address {activeTab === 'quote' ? '*' : '(Optional)'}
-                </label>
-                <input
-                  type="text"
-                  required={activeTab === 'quote'}
-                  placeholder="e.g. 14 High St, Kew or Balwyn VIC 3103"
-                  value={form.address}
-                  onChange={(e) => setForm({ ...form, address: e.target.value })}
-                  className="form-control br-20 py-2 px-3 text-size-14"
-                  style={{ height: '48px', border: '1px solid #cfd8e8' }}
-                />
-              </div>
-
-              <div className="mb-4">
-                <label className="text-size-12 font-weight-700 text-uppercase text-[#616a7e] mb-1 d-block">
-                  Notes / Problem Details (Optional)
-                </label>
-                <textarea
-                  rows={2}
-                  placeholder="Tell us about the roof material (Tile/Colorbond), age, leak location, or access notes..."
-                  value={form.message}
-                  onChange={(e) => setForm({ ...form, message: e.target.value })}
-                  className="form-control br-20 py-2 px-3 text-size-14"
-                  style={{ border: '1px solid #cfd8e8', resize: 'none' }}
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="btn w-100 py-3 rounded-pill text-white font-weight-700 text-size-16 border-0 shadow-md d-flex align-items-center justify-content-center cursor-pointer transition-all"
-                style={{
-                  backgroundColor: '#f19e1f',
-                  color: '#1e2e4f',
-                  boxShadow: '0 4px 14px rgba(241, 158, 31, 0.35)',
-                  opacity: isSubmitting ? 0.75 : 1,
-                  cursor: isSubmitting ? 'not-allowed' : 'pointer'
-                }}
-              >
-                {isSubmitting ? (
-                  <>
-                    <i className="fa-solid fa-circle-notch fa-spin me-2" style={{ color: '#1e2e4f' }}></i>
-                    <span style={{ color: '#1e2e4f' }}>Delivering to Peter...</span>
-                  </>
-                ) : (
-                  <>
-                    <i className={`fa-solid ${activeTab === 'callback' ? 'fa-phone-volume' : 'fa-clipboard-check'} me-2`} style={{ color: '#1e2e4f' }}></i>
-                    <span style={{ color: '#1e2e4f' }}>
-                      {activeTab === 'callback' ? 'Request Immediate Callback' : 'Submit Inspection Request'}
-                    </span>
-                    <span className="ms-2">
-                      <img
-                        src={asset('/roofora-assets/images/arrow.png')}
-                        alt="arrow"
-                        className="img-fluid d-inline-block"
-                        style={{ width: '12px' }}
-                      />
-                    </span>
-                  </>
-                )}
-              </button>
-
               <div className="d-flex flex-wrap align-items-center justify-content-center gap-2 mt-3 text-size-12 text-[#616a7e]">
-                <span><i className="fa-solid fa-award text-[#f19e1f] me-1"></i> 10-Yr Warranty</span>
-                <span>•</span>
                 <span><i className="fa-solid fa-certificate text-primary me-1"></i> VBA Registered</span>
                 <span>•</span>
                 <span><i className="fa-solid fa-shield-halved text-success me-1"></i> $10M Insured</span>
                 <span>•</span>
-                <span><i className="fa-solid fa-bolt text-warning me-1"></i> 15-Min Response</span>
+                <span><i className="fa-solid fa-map-pin text-[#f19e1f] me-1"></i> Melbourne Service Areas</span>
               </div>
             </form>
           )}

@@ -1,86 +1,70 @@
-import http from 'http';
-import app from '../server/index.js';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const TEST_PORT = 5055;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const DIST_DIR = path.resolve(__dirname, '..', 'dist');
 
 const ROUTES_TO_TEST = [
-  { path: '/', expectedText: 'Assist Roofing', type: 'text/html' },
-  { path: '/about', expectedText: 'About Us', type: 'text/html' },
-  { path: '/services', expectedText: 'Roofing Services', type: 'text/html' },
-  { path: '/services/roof-restoration', expectedText: 'Roof Restoration', type: 'text/html' },
-  { path: '/services/roof-repairs', expectedText: 'Roof Repairs', type: 'text/html' },
-  { path: '/services/roof-replacement', expectedText: 'Roof Replacement', type: 'text/html' },
-  { path: '/services/colorbond-roofing', expectedText: 'Colorbond', type: 'text/html' },
-  { path: '/services/guttering', expectedText: 'Gutter', type: 'text/html' },
-  { path: '/services/leak-detection', expectedText: 'Leak Detection', type: 'text/html' },
-  { path: '/projects', expectedText: 'Projects', type: 'text/html' },
-  { path: '/testimonials', expectedText: 'Reviews', type: 'text/html' },
-  { path: '/contact', expectedText: 'Contact', type: 'text/html' },
-  { path: '/admin', expectedText: '<html', type: 'text/html' },
-  { path: '/data/cms-content.json', expectedText: 'services', type: 'application/json' },
-  { path: '/sitemap.xml', expectedText: '<urlset', type: 'application/xml' },
-  { path: '/robots.txt', expectedText: 'User-agent:', type: 'text/plain' },
-  { path: '/llms.txt', expectedText: 'Assist Roofing', type: 'text/plain' },
-  { path: '/api/public/content', expectedText: 'services', type: 'application/json' }
+  { path: '/', filePath: 'index.html', expectedText: 'Assist Roofing' },
+  { path: '/about', filePath: 'about/index.html', expectedText: 'About' },
+  { path: '/services', filePath: 'services/index.html', expectedText: 'Roofing Services' },
+  { path: '/services/roof-restoration', filePath: 'services/roof-restoration/index.html', expectedText: 'Roof Restoration' },
+  { path: '/services/roof-repairs', filePath: 'services/roof-repairs/index.html', expectedText: 'Roof Repairs' },
+  { path: '/services/roof-replacement', filePath: 'services/roof-replacement/index.html', expectedText: 'Roof Replacement' },
+  { path: '/services/colorbond-roofing', filePath: 'services/colorbond-roofing/index.html', expectedText: 'Colorbond' },
+  { path: '/services/guttering', filePath: 'services/guttering/index.html', expectedText: 'Gutter' },
+  { path: '/services/leak-detection', filePath: 'services/leak-detection/index.html', expectedText: 'Leak Detection' },
+  { path: '/testimonials', filePath: 'testimonials/index.html', expectedText: 'Reviews' },
+  { path: '/contact', filePath: 'contact/index.html', expectedText: 'Contact' },
+  { path: '/admin', filePath: 'admin/index.html', expectedText: 'Assist Roofing' },
+  { path: '/data/cms-content.json', filePath: 'data/cms-content.json', expectedText: 'services' },
+  { path: '/sitemap.xml', filePath: 'sitemap.xml', expectedText: '<urlset' },
+  { path: '/robots.txt', filePath: 'robots.txt', expectedText: 'User-agent:' },
+  { path: '/llms.txt', filePath: 'llms.txt', expectedText: 'Assist Roofing' }
 ];
-
-function fetchRoute(port, routePath) {
-  return new Promise((resolve, reject) => {
-    const req = http.get(`http://localhost:${port}${routePath}`, (res) => {
-      let data = '';
-      res.on('data', chunk => { data += chunk; });
-      res.on('end', () => {
-        resolve({
-          status: res.statusCode,
-          headers: res.headers,
-          body: data
-        });
-      });
-    });
-    req.on('error', reject);
-    req.setTimeout(5000, () => {
-      req.destroy();
-      reject(new Error(`Timeout fetching ${routePath}`));
-    });
-  });
-}
 
 async function runVerification() {
   console.log('======================================================');
-  console.log('🧪 VERIFYING CPANEL PRODUCTION EXPRESS ROUTES & HEADERS');
+  console.log('🧪 VERIFYING PRODUCTION PRE-RENDERED ROUTES & ASSETS');
   console.log('======================================================\n');
 
-  // Start test server on TEST_PORT
-  const server = app.listen(TEST_PORT);
-
-  await new Promise(resolve => server.once('listening', resolve));
-  console.log(`Test server running on port ${TEST_PORT}\n`);
+  if (!fs.existsSync(DIST_DIR)) {
+    console.error('❌ Build directory dist/ not found. Run `npm run build` first.');
+    process.exit(1);
+  }
 
   let allPassed = true;
   const results = [];
 
   for (const item of ROUTES_TO_TEST) {
+    const fullPath = path.join(DIST_DIR, ...item.filePath.split('/'));
     try {
-      const res = await fetchRoute(TEST_PORT, item.path);
-      const passedStatus = res.status === 200;
-      const passedContent = res.body.toLowerCase().includes(item.expectedText.toLowerCase());
+      if (!fs.existsSync(fullPath)) {
+        allPassed = false;
+        console.error(`  ❌ [MISSING] ${item.path} -> File not found: ${item.filePath}`);
+        results.push({ path: item.path, passed: false, error: 'File not found' });
+        continue;
+      }
 
-      if (passedStatus && passedContent) {
-        console.log(`  ✅ [200 OK] ${item.path} (Length: ${res.body.length}b)`);
-        results.push({ path: item.path, status: res.status, passed: true });
+      const content = fs.readFileSync(fullPath, 'utf-8');
+      const passedContent = content.toLowerCase().includes(item.expectedText.toLowerCase());
+
+      if (passedContent) {
+        console.log(`  ✅ [PASS] ${item.path} (${item.filePath}, ${content.length}b)`);
+        results.push({ path: item.path, passed: true });
       } else {
         allPassed = false;
-        console.error(`  ❌ [FAIL] ${item.path} - Status: ${res.status}, Matched: ${passedContent}`);
-        results.push({ path: item.path, status: res.status, passed: false });
+        console.error(`  ❌ [FAIL] ${item.path} - Expected content "${item.expectedText}" not found in ${item.filePath}`);
+        results.push({ path: item.path, passed: false });
       }
     } catch (err) {
       allPassed = false;
       console.error(`  ❌ [ERROR] ${item.path}:`, err.message);
-      results.push({ path: item.path, status: 0, passed: false, error: err.message });
+      results.push({ path: item.path, passed: false, error: err.message });
     }
   }
-
-  server.close();
 
   console.log('\n======================================================');
   if (allPassed) {
@@ -88,7 +72,7 @@ async function runVerification() {
     console.log('======================================================\n');
     process.exit(0);
   } else {
-    console.error(`⚠️ SOME ROUTES FAILED VERIFICATION.`);
+    console.error('⚠️ SOME ROUTES FAILED VERIFICATION.');
     console.log('======================================================\n');
     process.exit(1);
   }

@@ -165,6 +165,76 @@ async function sync() {
       { path: 'testimonials', title: 'Testimonials | Assist Roofing', description: 'Read what our clients say about us', priority: '0.8', changefreq: 'monthly' }
     ];
 
+    const CORE_SERVICES = [
+      {
+        slug: 'roof-repairs',
+        title: 'Roof Leak and Emergency Repairs Melbourne | Assist Roofing',
+        description: 'Need roof leak or emergency repairs in Melbourne? Call Assist Roofing on 0478 250 790 or request a callback to discuss your roof repair.',
+        priority: '0.9',
+        changefreq: 'weekly'
+      },
+      {
+        slug: 'roof-restoration',
+        title: 'Roof Restoration Melbourne | Tile Cleaning & SupaPoint Pointing | Assist Roofing',
+        description: 'Professional Melbourne roof restorations by VBA registered trades. High-pressure cleaning, SupaPoint flexible repointing, tile repairs, and 10-year warranty.',
+        priority: '0.9',
+        changefreq: 'weekly'
+      },
+      {
+        slug: 'roof-replacement',
+        title: 'Roof Replacement Melbourne | Colorbond Re-Roofing | Assist Roofing',
+        description: 'Complete roof replacement and tile-to-Colorbond re-roofing in Melbourne. AS/NZS 4200.1 sarking, treated timber battens, and 10-year workmanship warranty.',
+        priority: '0.9',
+        changefreq: 'weekly'
+      },
+      {
+        slug: 'leak-detection',
+        title: 'Roof Leak Detection Melbourne | Drone & Thermal Tracing | Assist Roofing',
+        description: 'Non-invasive Melbourne roof leak detection by VBA registered trades. High-resolution drone capture, electronic moisture scanning, and pin-point fault tracing.',
+        priority: '0.9',
+        changefreq: 'weekly'
+      },
+      {
+        slug: 'colorbond-roofing',
+        title: 'Colorbond Roofing Melbourne | BlueScope Steel Installation | Assist Roofing',
+        description: 'Expert Colorbond metal roofing installations across Melbourne. Genuine BlueScope steel, 22 designer colors, AS 1562.1 compliance & up to 25-year warranty.',
+        priority: '0.9',
+        changefreq: 'weekly'
+      },
+      {
+        slug: 'guttering',
+        title: 'Gutter Replacement Melbourne | Colorbond Gutters & Leaf Guard | Assist Roofing',
+        description: 'High-capacity Colorbond gutter replacement, downpipes & leaf guard across Melbourne. Prevent overflow and foundation damage with VBA registered roof plumbers.',
+        priority: '0.9',
+        changefreq: 'weekly'
+      },
+      {
+        slug: 'fascia-gutter-services',
+        title: 'Fascia & Gutter Replacement Melbourne | Assist Roofing',
+        description: 'VBA registered fascia cover, Colorbond gutter replacement, and downpipe repairs across Melbourne with 10-year warranty.',
+        priority: '0.8',
+        changefreq: 'monthly'
+      },
+      {
+        slug: 'commercial-roofing',
+        title: 'Commercial Roofing Contractors Melbourne | Assist Roofing',
+        description: 'Commercial roof repair, Colorbond re-roofing, scheduled maintenance, and make-safe works across Greater Melbourne.',
+        priority: '0.8',
+        changefreq: 'monthly'
+      }
+    ];
+
+    CORE_SERVICES.forEach(svc => {
+      const cmsItem = snapshot.services?.find(s => s.slug === svc.slug || s.id === svc.slug);
+      CANONICAL_ROUTES.push({
+        path: `services/${svc.slug}`,
+        title: cmsItem?.seoTitle || svc.title,
+        description: cmsItem?.metaDescription || svc.description,
+        priority: svc.priority,
+        changefreq: svc.changefreq
+      });
+    });
+
     if (snapshot.locations) {
       snapshot.locations.forEach(loc => {
         CANONICAL_ROUTES.push({
@@ -197,6 +267,11 @@ async function sync() {
       routeHtml = routeHtml.replace(/<title>.*?<\/title>/i, `<title>${route.title}</title>`);
       routeHtml = routeHtml.replace(/<meta\s+name=["']description["']\s+content=["'].*?["']\s*\/?>/i, `<meta name="description" content="${route.description}" />`);
       routeHtml = routeHtml.replace(/<link\s+rel=["']canonical["']\s+href=["'].*?["']\s*\/?>/i, `<link rel="canonical" href="${canonicalUrl}" />`);
+      routeHtml = routeHtml.replace(/<meta\s+property=["']og:title["']\s+content=["'].*?["']\s*\/?>/i, `<meta property="og:title" content="${route.title}" />`);
+      routeHtml = routeHtml.replace(/<meta\s+property=["']og:description["']\s+content=["'].*?["']\s*\/?>/i, `<meta property="og:description" content="${route.description}" />`);
+      routeHtml = routeHtml.replace(/<meta\s+property=["']og:url["']\s+content=["'].*?["']\s*\/?>/i, `<meta property="og:url" content="${canonicalUrl}" />`);
+      routeHtml = routeHtml.replace(/<meta\s+name=["']twitter:title["']\s+content=["'].*?["']\s*\/?>/i, `<meta name="twitter:title" content="${route.title}" />`);
+      routeHtml = routeHtml.replace(/<meta\s+name=["']twitter:description["']\s+content=["'].*?["']\s*\/?>/i, `<meta name="twitter:description" content="${route.description}" />`);
       
       const targetPath = path.join(routeDir, 'index.html');
       fs.writeFileSync(targetPath, routeHtml, 'utf-8');
@@ -227,6 +302,17 @@ async function sync() {
     { path: 'gallery', changefreq: 'monthly', priority: '0.8' },
     { path: 'testimonials', changefreq: 'monthly', priority: '0.8' }
   ];
+
+  [
+    'roof-repairs',
+    'roof-restoration',
+    'roof-replacement',
+    'leak-detection',
+    'fascia-gutter-services',
+    'commercial-roofing'
+  ].forEach(slug => {
+    CANONICAL_ROUTES.push({ path: `services/${slug}`, priority: '0.9', changefreq: 'weekly' });
+  });
 
   if (publicSnapshot.locations) {
     publicSnapshot.locations.forEach(loc => {

@@ -4,12 +4,12 @@ import { useWebsite } from '../WebsiteContext';
 import { useCmsContent } from '../useCmsContent';
 import { motion } from 'framer-motion';
 import { asset } from '../utils/asset';
-import { CORE_SERVICES_DATA } from '../servicesData';
+import { CORE_SERVICES_DATA, type ServiceDetail } from '../servicesData';
 import type { CoreServiceSlug } from '../types';
 import { trackCallConversion } from '../utils/tracking';
 
 export const Services: React.FC = () => {
-  const { currentServiceSlug, navigateTo, openQuoteModal, openCallbackModal } = useWebsite();
+  const { currentServiceSlug, navigateTo, openQuoteModal, openCallbackModal, displayPhone, telHref } = useWebsite();
   const { services: cmsServices, pages } = useCmsContent();
   const [activeCategory, setActiveCategory] = useState<'all' | 'repairs' | 'replacement' | 'restoration' | 'gutters'>('all');
 
@@ -55,11 +55,52 @@ export const Services: React.FC = () => {
 
   // If a valid core service slug is active, render dedicated deep-dive service view
   if (currentServiceSlug && CORE_SERVICES_DATA[currentServiceSlug]) {
-    const service = CORE_SERVICES_DATA[currentServiceSlug];
+    const staticService = CORE_SERVICES_DATA[currentServiceSlug];
+    const cmsMatch = cmsServices?.find(
+      (s: any) => s.id === currentServiceSlug || s.slug === currentServiceSlug
+    );
+
+    const service: ServiceDetail = {
+      ...staticService,
+      name: (cmsMatch?.name as string) || staticService.name,
+      heroHeading: (cmsMatch?.heroHeading as string) || staticService.heroHeading,
+      shortDesc: (cmsMatch?.shortDescription as string) || staticService.shortDesc,
+      aeoSummary: (cmsMatch?.fullDescription as string) || staticService.aeoSummary,
+      features: (cmsMatch?.features && cmsMatch.features.length > 0) ? (cmsMatch.features as string[]) : staticService.features,
+      faqs: (cmsMatch?.faqs && cmsMatch.faqs.length > 0) ? (cmsMatch.faqs as { q: string; a: string }[]) : staticService.faqs,
+    };
+
     const relatedProjects = GALLERY_PROJECTS.filter(p =>
       p.category.toLowerCase().includes(service.matchingGalleryCategory.toLowerCase()) ||
       service.matchingGalleryCategory.toLowerCase().includes(p.category.toLowerCase())
     ).slice(0, 3);
+
+    const roofRepairProjects = [
+      {
+        id: 'repair-proj-1',
+        title: 'Precision Flashing & Valley Waterproofing',
+        location: 'Brighton, VIC',
+        issue: 'Corroded valley tray and storm water tracking behind brick flashings.',
+        work: 'Installed new Colorbond valley irons with storm baffles and waterproof lead apron flashings.',
+        imageUrl: '/roofora-assets/images/portfolio-img9.jpg',
+      },
+      {
+        id: 'repair-proj-2',
+        title: 'High-Pitch Capping Bedding & Pointing',
+        location: 'Kew, VIC',
+        issue: 'Cracked, loosened mortar bedding allowing wind-driven rain penetration.',
+        work: 'Mechanical re-bedding with fresh mortar foundation and flexible SupaPoint pointing.',
+        imageUrl: '/roofora-assets/images/portfolio-img10.jpg',
+      },
+      {
+        id: 'repair-proj-3',
+        title: 'Tile Replacement & Leak Remediation',
+        location: 'Glen Waverley, VIC',
+        issue: 'Displaced, cracked concrete roof tiles leaking onto ceiling plaster.',
+        work: 'Replaced damaged tiles with matching profiles, cleared water channels, and inspected sarking.',
+        imageUrl: '/roofora-assets/images/portfolio-img6.jpg',
+      },
+    ];
 
     const otherServices = (Object.keys(CORE_SERVICES_DATA) as CoreServiceSlug[])
       .filter(s => s !== currentServiceSlug)
@@ -107,12 +148,9 @@ export const Services: React.FC = () => {
 
             <div className="max-w-3xl">
               {service.slug === 'roof-repairs' ? (
-                <div className="inline-flex items-center gap-2.5 bg-red-600/90 text-white px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-4 shadow-md backdrop-blur-sm">
-                  <span className="relative flex h-2.5 w-2.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
-                  </span>
-                  <span>24/7 Melbourne Emergency Dispatch • 1–2 Hr Response</span>
+                <div className="inline-flex items-center gap-2 bg-[#f19e1f]/20 border border-[#f19e1f]/40 text-[#f19e1f] px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
+                  <i className="fa-solid fa-location-dot text-xs"></i>
+                  <span>Assist Roofing | Melbourne service areas</span>
                 </div>
               ) : (
                 <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#f19e1f] mb-3 block">
@@ -127,29 +165,27 @@ export const Services: React.FC = () => {
               </p>
 
               {service.slug === 'roof-repairs' ? (
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
-                  <a
-                    href="tel:0478250790"
-                    onClick={() => trackCallConversion()}
-                    className="bg-[#d92228] hover:bg-[#b91c1c] text-white font-black text-sm uppercase tracking-wider px-8 py-4 rounded-full transition-all shadow-xl flex items-center justify-center gap-3 text-center border-2 border-red-400/40 active:scale-95"
-                  >
-                    <i className="fa-solid fa-phone-volume text-base animate-pulse"></i>
-                    <span>Emergency Call: 0478 250 790</span>
-                  </a>
-                  <button
-                    onClick={() => openQuoteModal(service.name)}
-                    className="bg-[#f19e1f] hover:bg-[#d88713] text-[#1e2e4f] font-bold text-xs uppercase tracking-wider px-8 py-4 rounded-full transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <span>Book Urgent Assessment</span>
-                    <i className="fa-solid fa-arrow-right text-xs"></i>
-                  </button>
-                  <button
-                    onClick={() => openCallbackModal('Emergency Roof Repairs')}
-                    className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider px-6 py-4 rounded-full transition-all border border-white/20 flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <i className="fa-regular fa-clock text-[#f19e1f]"></i>
-                    <span>Fast Callback</span>
-                  </button>
+                <div>
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+                    <a
+                      href={telHref}
+                      onClick={() => trackCallConversion()}
+                      className="bg-[#d92228] hover:bg-[#b91c1c] text-white font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-full transition-all shadow-xl flex items-center justify-center gap-3 text-center active:scale-95"
+                    >
+                      <i className="fa-solid fa-phone text-base"></i>
+                      <span>Call {displayPhone}</span>
+                    </a>
+                    <button
+                      onClick={() => openCallbackModal('Roof Repairs')}
+                      className="bg-[#f19e1f] hover:bg-[#d88713] text-[#1e2e4f] font-bold text-xs uppercase tracking-wider px-8 py-4 rounded-full transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <i className="fa-regular fa-clock text-[#1e2e4f]"></i>
+                      <span>Request a Callback</span>
+                    </button>
+                  </div>
+                  <p className="text-xs text-[#b7c1d5] mt-3 font-medium">
+                    Have an active leak? Call to check the earliest available attendance.
+                  </p>
                 </div>
               ) : (
                 <div className="flex flex-wrap items-center gap-4">
@@ -161,12 +197,12 @@ export const Services: React.FC = () => {
                     <i className="fa-solid fa-arrow-right text-xs"></i>
                   </button>
                   <a
-                    href="tel:0478250790"
+                    href={telHref}
                     onClick={() => trackCallConversion()}
                     className="bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider px-6 py-4 rounded-full transition-all border border-white/20 flex items-center gap-2"
                   >
                     <i className="fa-solid fa-phone text-[#f19e1f]"></i>
-                    <span>Call 0478 250 790</span>
+                    <span>Call {displayPhone}</span>
                   </a>
                 </div>
               )}
@@ -177,386 +213,567 @@ export const Services: React.FC = () => {
         {/* ── Key Trust Badges ── */}
         <div className="bg-[#f4f8ff] border-b border-[#e6ebf6] py-4">
           <div className="max-w-[1320px] mx-auto px-4 sm:px-8">
-            <div className="flex flex-wrap items-center justify-between gap-4 text-xs font-semibold text-[#1e2e4f]">
-              <span className="flex items-center gap-2">
-                <i className="fa-solid fa-certificate text-[#f19e1f]"></i>
-                VBA Registered Trades
-              </span>
-              <span className="flex items-center gap-2">
-                <i className="fa-solid fa-shield text-[#f19e1f]"></i>
-                $10M Public Liability Insured
-              </span>
-              <span className="flex items-center gap-2">
-                <i className="fa-solid fa-award text-[#f19e1f]"></i>
-                10-Year Workmanship Warranty
-              </span>
-              <span className="flex items-center gap-2">
-                <i className="fa-solid fa-star text-[#f19e1f]"></i>
-                4.9/5 Rating (520+ Reviews)
-              </span>
-            </div>
+            {service.slug === 'roof-repairs' ? (
+              <div className="flex flex-wrap items-center justify-between gap-4 text-xs font-semibold text-[#1e2e4f]">
+                <span className="flex items-center gap-2">
+                  <i className="fa-solid fa-certificate text-[#f19e1f]"></i>
+                  VBA Registered Trades
+                </span>
+                <span className="flex items-center gap-2">
+                  <i className="fa-solid fa-shield text-[#f19e1f]"></i>
+                  $10M Public Liability Insured
+                </span>
+                <span className="flex items-center gap-2">
+                  <i className="fa-solid fa-location-dot text-[#f19e1f]"></i>
+                  Melbourne Service Areas
+                </span>
+                <span className="flex items-center gap-2">
+                  <i className="fa-solid fa-file-invoice text-[#f19e1f]"></i>
+                  Itemized Repair Quotes
+                </span>
+              </div>
+            ) : (
+              <div className="flex flex-wrap items-center justify-between gap-4 text-xs font-semibold text-[#1e2e4f]">
+                <span className="flex items-center gap-2">
+                  <i className="fa-solid fa-certificate text-[#f19e1f]"></i>
+                  VBA Registered Trades
+                </span>
+                <span className="flex items-center gap-2">
+                  <i className="fa-solid fa-shield text-[#f19e1f]"></i>
+                  $10M Public Liability Insured
+                </span>
+                <span className="flex items-center gap-2">
+                  <i className="fa-solid fa-award text-[#f19e1f]"></i>
+                  10-Year Workmanship Warranty
+                </span>
+                <span className="flex items-center gap-2">
+                  <i className="fa-solid fa-star text-[#f19e1f]"></i>
+                  4.9/5 Rating (520+ Reviews)
+                </span>
+              </div>
+            )}
           </div>
         </div>
 
-        {/* ── 24/7 Melbourne Emergency Dispatch Ribbon (Roof Repairs Only) ── */}
-        {service.slug === 'roof-repairs' && (
-          <section className="bg-gradient-to-r from-red-700 via-[#d92228] to-red-800 text-white py-6 shadow-md border-y border-red-800">
-            <div className="max-w-[1320px] mx-auto px-4 sm:px-8">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-5">
-                <div className="flex items-center gap-4 text-center md:text-left">
-                  <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center shrink-0 text-xl border border-white/20">
-                    <i className="fa-solid fa-truck-fast text-[#f19e1f]"></i>
-                  </div>
-                  <div>
-                    <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-1">
-                      <span className="bg-white text-red-700 text-[10px] font-black uppercase px-2 py-0.5 rounded-full tracking-wider shadow-sm">
-                        24/7 Melbourne Emergency Dispatch
-                      </span>
-                      <span className="text-xs text-white/90 font-semibold">
-                        • 1–2 Hr Urgent Make-Safe Tarping
-                      </span>
-                    </div>
-                    <p className="text-sm font-bold text-white leading-snug">
-                      Active roof leak, storm damage, or ceiling collapse hazard? Direct line to Master Roofer Peter Bayamis.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap items-center justify-center gap-3 w-full md:w-auto">
-                  <a
-                    href="tel:0478250790"
-                    onClick={() => trackCallConversion()}
-                    className="w-full sm:w-auto bg-white hover:bg-slate-100 text-red-700 font-black text-sm uppercase tracking-wider px-7 py-3.5 rounded-full transition-all shadow-xl flex items-center justify-center gap-2 active:scale-95"
-                  >
-                    <i className="fa-solid fa-phone-volume text-red-600 animate-pulse text-base"></i>
-                    <span>Tap to Call: 0478 250 790</span>
-                  </a>
-                  <button
-                    onClick={() => openCallbackModal('Emergency Roof Repairs')}
-                    className="w-full sm:w-auto bg-[#1e2e4f] hover:bg-[#152138] text-white font-bold text-xs uppercase tracking-wider px-5 py-3.5 rounded-full transition-all border border-white/20 flex items-center justify-center gap-2 cursor-pointer shadow-md"
-                  >
-                    <i className="fa-regular fa-clock text-[#f19e1f]"></i>
-                    <span>Request Fast Callback</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* ── AEO Answer Definition Block & Scope Inclusions ── */}
+        {/* ── Main Service Content & Sidebar ── */}
         <section className="py-16 bg-white">
           <div className="max-w-[1320px] mx-auto px-4 sm:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
 
-              {/* Left Column: AEO Definition & Features */}
+              {/* Left Column: Offer, Features, Process, Projects & FAQs */}
               <div className="lg:col-span-8">
-                {/* AEO Concise Definition (Optimized for AI Overviews & Search Snippets) */}
-                <div className="bg-[#f4f8ff] border-l-4 border-[#f19e1f] rounded-r-2xl p-6 sm:p-8 mb-10 shadow-sm">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#f19e1f] block mb-2">
-                    Service Overview & Compliance
-                  </span>
-                  <p className="text-base sm:text-lg text-[#1e2e4f] leading-relaxed font-normal">
-                    {service.aeoSummary}
-                  </p>
-                </div>
-
-                {/* Emergency Services Details Grid (Roof Repairs Only) */}
-                {service.slug === 'roof-repairs' && (
-                  <div className="mb-10 bg-[#fef2f2] border-2 border-red-200 rounded-3xl p-6 sm:p-8 shadow-sm">
-                    <div className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-red-700 mb-2">
-                      <i className="fa-solid fa-triangle-exclamation"></i>
-                      <span>24/7 Melbourne Emergency Service Protocol</span>
-                    </div>
-                    <h2 className="text-2xl sm:text-3xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-4">
-                      Rapid Make-Safe Storm Protocol & Insurance Claim Support
-                    </h2>
-                    <p className="text-sm text-[#4a5568] leading-relaxed mb-6 font-normal">
-                      Severe Melbourne weather, heavy downpours, fallen eucalyptus branches, or rusted valley gutters require fast professional intervention. Delaying leak repairs risks catastrophic plaster collapse, soaked roof insulation, and dangerous electrical short-circuits. Assist Roofing provides 24-hour rapid make-safe services across all Melbourne suburbs.
-                    </p>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                      <div className="bg-white rounded-2xl p-4 border border-red-100 shadow-sm">
-                        <div className="flex items-center gap-2.5 text-[#1e2e4f] font-bold text-sm mb-1.5">
-                          <i className="fa-solid fa-shield-halved text-[#d92228]"></i>
-                          <span>1–2 Hour Make-Safe Tarping</span>
-                        </div>
-                        <p className="text-xs text-[#616a7e] leading-relaxed">
-                          Industrial storm tarps battens-secured to roofing rafters to immediately halt active leaks and protect ceiling plaster, timber joists, and flooring.
-                        </p>
-                      </div>
-
-                      <div className="bg-white rounded-2xl p-4 border border-red-100 shadow-sm">
-                        <div className="flex items-center gap-2.5 text-[#1e2e4f] font-bold text-sm mb-1.5">
-                          <i className="fa-solid fa-user-check text-[#d92228]"></i>
-                          <span>Direct Master Roofer Line</span>
-                        </div>
-                        <p className="text-xs text-[#616a7e] leading-relaxed">
-                          Speak directly with Peter Bayamis (VBA Registered Trades, $10M public liability). No outsourced call centres or unvetted contractors.
-                        </p>
-                      </div>
-
-                      <div className="bg-white rounded-2xl p-4 border border-red-100 shadow-sm">
-                        <div className="flex items-center gap-2.5 text-[#1e2e4f] font-bold text-sm mb-1.5">
-                          <i className="fa-solid fa-file-invoice text-[#d92228]"></i>
-                          <span>Insurance Causation Reports</span>
-                        </div>
-                        <p className="text-xs text-[#616a7e] leading-relaxed">
-                          Full digital causation assessments, moisture logs, and high-res drone imagery accepted by RACV, NRMA, Allianz, QBE, Youi, CGU, and AAMI.
-                        </p>
-                      </div>
-
-                      <div className="bg-white rounded-2xl p-4 border border-red-100 shadow-sm">
-                        <div className="flex items-center gap-2.5 text-[#1e2e4f] font-bold text-sm mb-1.5">
-                          <i className="fa-solid fa-boxes-stacked text-[#d92228]"></i>
-                          <span>Emergency Tile & Valley Stock</span>
-                        </div>
-                        <p className="text-xs text-[#616a7e] leading-relaxed">
-                          Mobile service vans carry matching Monier, Boral, Wunderlich tiles, Colorbond valley irons, and flexible pointing compound for fast permanent repairs.
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Prominent In-Content Mobile Call Button */}
-                    <div className="bg-white rounded-2xl p-4 sm:p-5 border border-red-200 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
-                      <div className="text-center sm:text-left">
-                        <span className="text-xs font-black text-red-700 uppercase tracking-wide block">
-                          Water entering your ceiling right now?
-                        </span>
-                        <span className="text-sm font-bold text-[#1e2e4f]">
-                          Direct Emergency Dispatch: 0478 250 790 (Peter Bayamis)
-                        </span>
-                      </div>
-                      <a
-                        href="tel:0478250790"
-                        onClick={() => trackCallConversion()}
-                        className="w-full sm:w-auto bg-[#d92228] hover:bg-[#b91c1c] text-white font-extrabold text-xs uppercase tracking-wider px-6 py-3.5 rounded-full transition-all shadow-md flex items-center justify-center gap-2 shrink-0 active:scale-95"
+                {service.slug === 'roof-repairs' ? (
+                  <>
+                    {/* ── Help With Your Roof Leak or Repair (Clear Service Offer) ── */}
+                    <div className="bg-[#f4f8ff] border-l-4 border-[#f19e1f] rounded-r-2xl p-6 sm:p-8 mb-10 shadow-sm">
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#f19e1f] block mb-2">
+                        Service Overview
+                      </span>
+                      <h2 className="text-2xl sm:text-3xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-3">
+                        Help With Your Roof Leak or Repair
+                      </h2>
+                      <p className="text-base text-[#1e2e4f] leading-relaxed font-normal mb-6">
+                        Assist Roofing helps homeowners identify roof leaks and repair damaged roofing across our Melbourne service areas. Whether you have water entering your ceiling, broken tiles or damaged flashing, tell us what is happening so we can discuss the next step.
+                      </p>
+                      <button
+                        onClick={() => openCallbackModal('Roof Repairs')}
+                        className="bg-[#1e2e4f] hover:bg-[#f19e1f] hover:text-[#1e2e4f] text-white font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-full transition-all inline-flex items-center gap-2 cursor-pointer shadow-sm"
                       >
-                        <i className="fa-solid fa-phone text-xs"></i>
-                        <span>Call 0478 250 790 Now</span>
+                        <span>Discuss Your Roof Repair</span>
+                        <i className="fa-solid fa-arrow-right text-xs"></i>
+                      </button>
+                    </div>
+
+                    {/* ── Services Section: Roof Repairs We Can Help With ── */}
+                    <div className="mb-10">
+                      <h2 className="text-2xl sm:text-3xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-6">
+                        Roof Repairs We Can Help With
+                      </h2>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {service.features.map((feature: string, idx: number) => {
+                          const parts = feature.split(':');
+                          const title = parts[0];
+                          const desc = parts.slice(1).join(':').trim();
+                          return (
+                            <div
+                              key={idx}
+                              className="bg-white rounded-xl p-5 border border-[#e6ebf6] flex items-start gap-3 shadow-sm hover:border-[#f19e1f] transition-colors"
+                            >
+                              <div className="w-7 h-7 rounded-full bg-[#f19e1f]/15 text-[#f19e1f] flex items-center justify-center shrink-0 mt-0.5">
+                                <i className="fa-solid fa-check text-xs"></i>
+                              </div>
+                              <div>
+                                <h3 className="text-sm font-bold text-[#1e2e4f] leading-snug">
+                                  {title}
+                                </h3>
+                                {desc && (
+                                  <p className="text-xs text-[#616a7e] mt-1 leading-relaxed">
+                                    {desc}
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* ── Process Section: How to Arrange Your Roof Repair ── */}
+                    <div className="mb-10">
+                      <h2 className="text-2xl sm:text-3xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-6">
+                        How to Arrange Your Roof Repair
+                      </h2>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="bg-[#f8faff] rounded-2xl p-5 border border-[#e6ebf6] flex flex-col justify-between">
+                          <div>
+                            <div className="w-9 h-9 rounded-xl bg-[#1e2e4f] text-[#f19e1f] font-bold flex items-center justify-center text-sm mb-3">
+                              1
+                            </div>
+                            <h3 className="text-sm font-bold text-[#1e2e4f] uppercase tracking-wide mb-2">
+                              Tell us about the problem
+                            </h3>
+                            <p className="text-xs text-[#616a7e] leading-relaxed">
+                              Call or request a callback with your suburb and a brief description of your roofing issue.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="bg-[#f8faff] rounded-2xl p-5 border border-[#e6ebf6] flex flex-col justify-between">
+                          <div>
+                            <div className="w-9 h-9 rounded-xl bg-[#1e2e4f] text-[#f19e1f] font-bold flex items-center justify-center text-sm mb-3">
+                              2
+                            </div>
+                            <h3 className="text-sm font-bold text-[#1e2e4f] uppercase tracking-wide mb-2">
+                              Discuss an assessment
+                            </h3>
+                            <p className="text-xs text-[#616a7e] leading-relaxed">
+                              Our team will discuss availability and whether an on-site assessment is needed.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="bg-[#f8faff] rounded-2xl p-5 border border-[#e6ebf6] flex flex-col justify-between">
+                          <div>
+                            <div className="w-9 h-9 rounded-xl bg-[#1e2e4f] text-[#f19e1f] font-bold flex items-center justify-center text-sm mb-3">
+                              3
+                            </div>
+                            <h3 className="text-sm font-bold text-[#1e2e4f] uppercase tracking-wide mb-2">
+                              Review the repair quote
+                            </h3>
+                            <p className="text-xs text-[#616a7e] leading-relaxed">
+                              Discuss the proposed work, price and arrangements before deciding to proceed.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* ── Active Leak Prompt ── */}
+                    <div className="mb-10 bg-[#fef2f2] border-2 border-red-200 rounded-2xl p-6 sm:p-7 shadow-sm">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+                        <div>
+                          <span className="text-xs font-black text-red-700 uppercase tracking-wide block mb-1">
+                            Urgent Attention
+                          </span>
+                          <h3 className="text-xl sm:text-2xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-2">
+                            Water Coming Through Your Ceiling?
+                          </h3>
+                          <p className="text-xs sm:text-sm text-[#4a5568] leading-relaxed max-w-xl">
+                            Call {displayPhone} to discuss your location and the earliest available attendance. Roof access and temporary protection depend on site conditions and safe working conditions.
+                          </p>
+                        </div>
+                        <a
+                          href={telHref}
+                          onClick={() => trackCallConversion()}
+                          className="bg-[#d92228] hover:bg-[#b91c1c] text-white font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-full transition-all shadow-md flex items-center justify-center gap-2 shrink-0 active:scale-95 text-center w-full sm:w-auto"
+                        >
+                          <i className="fa-solid fa-phone text-xs"></i>
+                          <span>Call About an Active Leak</span>
+                        </a>
+                      </div>
+                    </div>
+
+                    {/* ── Pricing Section ── */}
+                    <div className="bg-[#1e2e4f] text-white rounded-2xl p-6 sm:p-7 mb-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+                      <div>
+                        <span className="text-xs uppercase font-bold text-[#f19e1f] tracking-wider block mb-1">
+                          Pricing & Assessment
+                        </span>
+                        <h3 className="text-lg font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-white mb-2">
+                          Request a Quote for Your Roof Repair
+                        </h3>
+                        <p className="text-xs sm:text-sm text-[#b7c1d5] font-light max-w-xl">
+                          Repair costs depend on the damage, roof access and work required. Tell us about the issue so we can discuss the assessment and quote process.
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => openCallbackModal('Roof Repairs')}
+                        className="bg-[#f19e1f] hover:bg-[#d88713] text-[#1e2e4f] font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-full transition-all shrink-0 cursor-pointer w-full sm:w-auto text-center"
+                      >
+                        Request a Callback
+                      </button>
+                    </div>
+
+                    {/* ── Recent Roof Repair Work (Moved above FAQs!) ── */}
+                    <div className="mb-10">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-6 gap-3">
+                        <div>
+                          <span className="text-xs font-bold uppercase tracking-wider text-[#f19e1f] block mb-1">
+                            Genuine Project Evidence
+                          </span>
+                          <h2 className="text-2xl sm:text-3xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f]">
+                            Recent Roof Repair Work
+                          </h2>
+                          <p className="text-xs sm:text-sm text-[#616a7e] mt-1">
+                            See examples of our roofing work across Melbourne.
+                          </p>
+                        </div>
+                        <a
+                          href="/projects"
+                          onClick={(e) => handleNav(e, 'gallery')}
+                          className="text-xs font-bold uppercase tracking-wider text-[#1e2e4f] hover:text-[#f19e1f] flex items-center gap-1 transition-colors shrink-0"
+                        >
+                          <span>View Our Roofing Projects</span>
+                          <i className="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        {roofRepairProjects.map((proj) => (
+                          <div key={proj.id} className="bg-white rounded-2xl overflow-hidden shadow-sm border border-[#e6ebf6] flex flex-col group">
+                            <div className="h-44 overflow-hidden relative">
+                              <img
+                                src={asset(proj.imageUrl)}
+                                alt={proj.title}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                              />
+                              <span className="absolute top-3 right-3 bg-[#1e2e4f]/80 backdrop-blur-sm text-white text-[11px] font-semibold px-2.5 py-1 rounded-full">
+                                {proj.location}
+                              </span>
+                            </div>
+                            <div className="p-4 flex-1 flex flex-col justify-between">
+                              <div>
+                                <h3 className="text-sm font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-1.5">
+                                  {proj.title}
+                                </h3>
+                                <p className="text-[11px] font-semibold text-[#1e2e4f]/80 mb-1">
+                                  <span className="text-[#f19e1f]">Issue:</span> {proj.issue}
+                                </p>
+                                <p className="text-[11px] text-[#616a7e] leading-relaxed">
+                                  <span className="font-semibold text-[#1e2e4f]/80">Work:</span> {proj.work}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* ── Frequently Asked Questions ── */}
+                    <div className="mt-12">
+                      <h2 className="text-2xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-6">
+                        Frequently Asked Questions About Roof Repairs
+                      </h2>
+                      <div className="space-y-4">
+                        {service.faqs.map((faq: { q: string; a: string }, idx: number) => (
+                          <div key={idx} className="bg-[#f8faff] rounded-2xl p-6 border border-[#e6ebf6]">
+                            <h3 className="text-base font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-2">
+                              {faq.q}
+                            </h3>
+                            <p className="text-sm text-[#616a7e] leading-relaxed font-light">
+                              {faq.a}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {/* Standard Service View for other services */}
+                    <div className="bg-[#f4f8ff] border-l-4 border-[#f19e1f] rounded-r-2xl p-6 sm:p-8 mb-10 shadow-sm">
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#f19e1f] block mb-2">
+                        Service Overview & Compliance
+                      </span>
+                      <p className="text-base sm:text-lg text-[#1e2e4f] leading-relaxed font-normal">
+                        {service.aeoSummary}
+                      </p>
+                    </div>
+
+                    <h2 className="text-2xl sm:text-3xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-6">
+                      What Is Included In Our {service.name}
+                    </h2>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+                      {service.features.map((feature: string, idx: number) => (
+                        <div
+                          key={idx}
+                          className="bg-white rounded-xl p-4 border border-[#e6ebf6] flex items-start gap-3 shadow-sm hover:border-[#f19e1f] transition-colors"
+                        >
+                          <div className="w-6 h-6 rounded-full bg-[#f19e1f]/15 text-[#f19e1f] flex items-center justify-center shrink-0 mt-0.5">
+                            <i className="fa-solid fa-check text-xs"></i>
+                          </div>
+                          <span className="text-sm font-medium text-[#1e2e4f] leading-snug">
+                            {feature}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* When Does Your Roof Need [Service] */}
+                    <div className="mb-10">
+                      <h2 className="text-2xl sm:text-3xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-6">
+                        {service.whenNeededTitle}
+                      </h2>
+                      <div className="space-y-3">
+                        {service.whenNeededSigns.map((sign, idx) => (
+                          <div
+                            key={idx}
+                            className="bg-[#f8faff] rounded-xl p-4 border border-[#e6ebf6] flex items-start gap-3"
+                          >
+                            <div className="w-5 h-5 rounded-full bg-[#1e2e4f]/10 text-[#1e2e4f] flex items-center justify-center shrink-0 mt-0.5">
+                              <i className="fa-solid fa-triangle-exclamation text-xs text-[#f19e1f]"></i>
+                            </div>
+                            <span className="text-sm text-[#1e2e4f] leading-snug font-normal">
+                              {sign}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Transparent Pricing Note */}
+                    <div className="bg-[#1e2e4f] text-white rounded-2xl p-6 mb-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                      <div>
+                        <span className="text-xs uppercase font-bold text-[#f19e1f] tracking-wider block mb-1">
+                          Transparent Pricing Guarantee
+                        </span>
+                        <p className="text-sm text-[#b7c1d5] font-light">
+                          {service.pricingText}. No hidden callout charges or surprise invoices.
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => openQuoteModal(service.name)}
+                        className="bg-[#f19e1f] hover:bg-[#d88713] text-[#1e2e4f] font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-full transition-all shrink-0 cursor-pointer"
+                      >
+                        Get Free Quote
+                      </button>
+                    </div>
+
+                    {/* Related Service Contextual Anchor */}
+                    <div className="bg-[#f4f8ff] border border-[#d6e2f5] rounded-2xl p-6 mb-10">
+                      <span className="text-xs uppercase font-bold text-[#f19e1f] tracking-wider block mb-1">
+                        Related Service Assessment
+                      </span>
+                      <h3 className="text-lg font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-2">
+                        Considering {service.relatedPillarName}?
+                      </h3>
+                      <p className="text-sm text-[#616a7e] leading-relaxed font-light mb-4">
+                        {service.relatedPillarBlurb}
+                      </p>
+                      <a
+                        href={service.relatedPillarSlug}
+                        onClick={(e) => handleNav(e, 'services', service.relatedPillarSlug.replace('/services/', '') as CoreServiceSlug)}
+                        className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#1e2e4f] hover:text-[#f19e1f] transition-colors"
+                      >
+                        <span>Explore {service.relatedPillarName}</span>
+                        <i className="fa-solid fa-arrow-right text-xs"></i>
                       </a>
                     </div>
-                  </div>
-                )}
 
-                <h2 className="text-2xl sm:text-3xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-6">
-                  What Is Included In Our {service.name}
-                </h2>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-                  {service.features.map((feature, idx) => (
-                    <div
-                      key={idx}
-                      className="bg-white rounded-xl p-4 border border-[#e6ebf6] flex items-start gap-3 shadow-sm hover:border-[#f19e1f] transition-colors"
-                    >
-                      <div className="w-6 h-6 rounded-full bg-[#f19e1f]/15 text-[#f19e1f] flex items-center justify-center shrink-0 mt-0.5">
-                        <i className="fa-solid fa-check text-xs"></i>
+                    {/* Visible FAQs matching FAQPage Schema */}
+                    <div className="mt-12">
+                      <h2 className="text-2xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-6">
+                        Frequently Asked Questions About {service.name}
+                      </h2>
+                      <div className="space-y-4">
+                        {service.faqs.map((faq: { q: string; a: string }, idx: number) => (
+                          <div key={idx} className="bg-[#f8faff] rounded-2xl p-6 border border-[#e6ebf6]">
+                            <h3 className="text-base font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-2">
+                              {faq.q}
+                            </h3>
+                            <p className="text-sm text-[#616a7e] leading-relaxed font-light">
+                              {faq.a}
+                            </p>
+                          </div>
+                        ))}
                       </div>
-                      <span className="text-sm font-medium text-[#1e2e4f] leading-snug">
-                        {feature}
-                      </span>
                     </div>
-                  ))}
-                </div>
-
-                {/* When Does Your Roof Need [Service] */}
-                <div className="mb-10">
-                  <h2 className="text-2xl sm:text-3xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-6">
-                    {service.whenNeededTitle}
-                  </h2>
-                  <div className="space-y-3">
-                    {service.whenNeededSigns.map((sign, idx) => (
-                      <div
-                        key={idx}
-                        className="bg-[#f8faff] rounded-xl p-4 border border-[#e6ebf6] flex items-start gap-3"
-                      >
-                        <div className="w-5 h-5 rounded-full bg-[#1e2e4f]/10 text-[#1e2e4f] flex items-center justify-center shrink-0 mt-0.5">
-                          <i className="fa-solid fa-triangle-exclamation text-xs text-[#f19e1f]"></i>
-                        </div>
-                        <span className="text-sm text-[#1e2e4f] leading-snug font-normal">
-                          {sign}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Transparent Pricing Note */}
-                <div className="bg-[#1e2e4f] text-white rounded-2xl p-6 mb-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                  <div>
-                    <span className="text-xs uppercase font-bold text-[#f19e1f] tracking-wider block mb-1">
-                      Transparent Pricing Guarantee
-                    </span>
-                    <p className="text-sm text-[#b7c1d5] font-light">
-                      {service.pricingText}. No hidden callout charges or surprise invoices.
-                    </p>
-                  </div>
-                  <button
-                    onClick={() => openQuoteModal(service.name)}
-                    className="bg-[#f19e1f] hover:bg-[#d88713] text-[#1e2e4f] font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-full transition-all shrink-0 cursor-pointer"
-                  >
-                    Get Free Quote
-                  </button>
-                </div>
-
-                {/* Related Service Contextual Anchor */}
-                <div className="bg-[#f4f8ff] border border-[#d6e2f5] rounded-2xl p-6 mb-10">
-                  <span className="text-xs uppercase font-bold text-[#f19e1f] tracking-wider block mb-1">
-                    Related Service Assessment
-                  </span>
-                  <h3 className="text-lg font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-2">
-                    Considering {service.relatedPillarName}?
-                  </h3>
-                  <p className="text-sm text-[#616a7e] leading-relaxed font-light mb-4">
-                    {service.relatedPillarBlurb}
-                  </p>
-                  <a
-                    href={service.relatedPillarSlug}
-                    onClick={(e) => handleNav(e, 'services', service.relatedPillarSlug.replace('/services/', '') as CoreServiceSlug)}
-                    className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#1e2e4f] hover:text-[#f19e1f] transition-colors"
-                  >
-                    <span>Explore {service.relatedPillarName}</span>
-                    <i className="fa-solid fa-arrow-right text-xs"></i>
-                  </a>
-                </div>
-
-                {/* Visible FAQs matching FAQPage Schema */}
-                <div className="mt-12">
-                  <h2 className="text-2xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-6">
-                    Frequently Asked Questions About {service.name}
-                  </h2>
-                  <div className="space-y-4">
-                    {service.faqs.map((faq, idx) => (
-                      <div key={idx} className="bg-[#f8faff] rounded-2xl p-6 border border-[#e6ebf6]">
-                        <h3 className="text-base font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-2">
-                          {faq.q}
-                        </h3>
-                        <p className="text-sm text-[#616a7e] leading-relaxed font-light">
-                          {faq.a}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                  </>
+                )}
               </div>
 
               {/* Right Column: Quick Contact & Other Core Services */}
               <div className="lg:col-span-4 space-y-6">
-                {/* Emergency Contact Card (Roof Repairs) or Standard Free Quote Card */}
                 {service.slug === 'roof-repairs' ? (
-                  <div className="bg-gradient-to-b from-[#fff5f5] to-[#fef2f2] rounded-3xl p-6 sm:p-8 border-2 border-red-300 shadow-md">
-                    <div className="inline-flex items-center gap-2 bg-red-100 text-red-700 text-[11px] font-black uppercase px-3 py-1 rounded-full mb-3">
-                      <span className="w-2 h-2 rounded-full bg-red-600 animate-ping"></span>
-                      24/7 Melbourne Emergency Unit
-                    </div>
-                    <h3 className="text-xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-2">
-                      Urgent Roof Leak?
-                    </h3>
-                    <p className="text-xs text-[#616a7e] mb-4 font-normal leading-relaxed">
-                      Active ceiling drip, broken ridge caps, or storm displacement? Direct call to Peter for priority 1–2 hour make-safe dispatch.
-                    </p>
-                    <a
-                      href="tel:0478250790"
-                      onClick={() => trackCallConversion()}
-                      className="w-full bg-[#d92228] hover:bg-[#b91c1c] text-white font-black text-xs uppercase tracking-wider py-4 px-4 rounded-xl transition-all shadow-md mb-3 flex items-center justify-center gap-2 text-center active:scale-95"
-                    >
-                      <i className="fa-solid fa-phone-volume text-sm animate-pulse"></i>
-                      <span>Emergency Call: 0478 250 790</span>
-                    </a>
-                    <button
-                      onClick={() => openCallbackModal('Urgent Roof Repairs')}
-                      className="w-full bg-[#1e2e4f] hover:bg-[#152138] text-white font-bold text-xs uppercase tracking-wider py-3.5 px-4 rounded-xl transition-all shadow-sm mb-3 flex items-center justify-center gap-2 text-center cursor-pointer"
-                    >
-                      <i className="fa-regular fa-clock text-[#f19e1f]"></i>
-                      <span>Request Fast Callback</span>
-                    </button>
-                    <button
-                      onClick={() => openQuoteModal(service.name)}
-                      className="w-full bg-white hover:bg-slate-50 border border-red-200 text-[#1e2e4f] font-bold text-xs uppercase tracking-wider py-2.5 px-4 rounded-xl transition-all text-center cursor-pointer"
-                    >
-                      Book Standard Inspection
-                    </button>
-                  </div>
-                ) : (
-                  <div className="bg-[#f4f8ff] rounded-3xl p-6 sm:p-8 border border-[#d6e2f5] shadow-sm">
-                    <h3 className="text-xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-2">
-                      Request an Inspection
-                    </h3>
-                    <p className="text-xs text-[#616a7e] mb-6 font-light">
-                      Have Peter or Boxy conduct a comprehensive condition inspection of your Melbourne roof.
-                    </p>
-                    <button
-                      onClick={() => openQuoteModal(service.name)}
-                      className="w-full bg-[#1e2e4f] hover:bg-[#f19e1f] text-white font-bold text-xs uppercase tracking-wider py-3.5 px-4 rounded-xl transition-all shadow-md mb-3 cursor-pointer text-center block"
-                    >
-                      Request Free Assessment
-                    </button>
-                    <a
-                      href="tel:0478250790"
-                      onClick={() => trackCallConversion()}
-                      className="w-full bg-white hover:bg-[#f8faff] border border-[#cbd5e1] text-[#1e2e4f] font-bold text-xs uppercase tracking-wider py-3 px-4 rounded-xl transition-all flex items-center justify-center gap-2 text-center"
-                    >
-                      <i className="fa-solid fa-phone text-[#f19e1f]"></i>
-                      <span>0478 250 790</span>
-                    </a>
-                  </div>
-                )}
-
-                {/* Other Core Services Links */}
-                <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#e6ebf6] shadow-sm">
-                  <h4 className="text-base font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-4">
-                    Other Roofing Services
-                  </h4>
-                  <ul className="space-y-2">
-                    {otherServices.map((other) => (
-                      <li key={other.slug}>
-                        <a
-                          href={other.canonicalPath}
-                          onClick={(e) => handleNav(e, 'services', other.slug)}
-                          className="flex items-center justify-between p-3 rounded-xl hover:bg-[#f4f8ff] text-sm text-[#1e2e4f] hover:text-[#f19e1f] font-medium transition-colors border border-transparent hover:border-[#e6ebf6]"
-                        >
-                          <span>{other.name}</span>
-                          <i className="fa-solid fa-arrow-right text-xs text-[#b7c1d5]"></i>
-                        </a>
-                      </li>
-                    ))}
-                    <li>
-                      <a
-                        href="/services"
-                        onClick={(e) => handleNav(e, 'services')}
-                        className="flex items-center justify-between p-3 rounded-xl bg-[#f8faff] text-xs uppercase tracking-wider font-bold text-[#1e2e4f] hover:text-[#f19e1f] transition-colors mt-2"
+                  <>
+                    {/* Callback & Call Card */}
+                    <div className="bg-[#f4f8ff] rounded-3xl p-6 sm:p-8 border border-[#d6e2f5] shadow-sm">
+                      <h3 className="text-xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-2">
+                        Request a Roof Repair Callback
+                      </h3>
+                      <p className="text-xs text-[#616a7e] mb-6 font-light leading-relaxed">
+                        Leave your details and tell us where you need help. Our team will contact you to discuss your roofing issue.
+                      </p>
+                      <button
+                        onClick={() => openCallbackModal('Roof Repairs')}
+                        className="w-full bg-[#f19e1f] hover:bg-[#d88713] text-[#1e2e4f] font-bold text-xs uppercase tracking-wider py-3.5 px-4 rounded-xl transition-all shadow-md mb-3 cursor-pointer text-center block"
                       >
-                        <span>View All 24 Services</span>
-                        <i className="fa-solid fa-chevron-right text-xs text-[#f19e1f]"></i>
+                        Request a Callback
+                      </button>
+                      <a
+                        href={telHref}
+                        onClick={() => trackCallConversion()}
+                        className="w-full bg-white hover:bg-[#f8faff] border border-[#cbd5e1] text-[#1e2e4f] font-bold text-xs uppercase tracking-wider py-3 px-4 rounded-xl transition-all flex items-center justify-center gap-2 text-center"
+                      >
+                        <i className="fa-solid fa-phone text-[#d92228]"></i>
+                        <span>Call {displayPhone}</span>
                       </a>
-                    </li>
-                  </ul>
-                </div>
+                    </div>
 
-                {/* Service Areas */}
-                <div className="bg-[#1e2e4f] text-white rounded-3xl p-6 sm:p-8">
-                  <h4 className="text-base font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-white mb-2">
-                    Melbourne Coverage
-                  </h4>
-                  <p className="text-xs text-[#b7c1d5] mb-4 font-light">
-                    Providing {service.name} across inner and outer Melbourne:
-                  </p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {SERVICE_AREAS.slice(0, 10).map((area, idx) => (
-                      <span key={idx} className="bg-white/10 text-[11px] px-2.5 py-1 rounded-full text-white/90">
-                        {area}
-                      </span>
-                    ))}
-                  </div>
-                </div>
+                    {/* Featured Service Areas */}
+                    <div className="bg-[#1e2e4f] text-white rounded-3xl p-6 sm:p-8">
+                      <h4 className="text-base font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-white mb-2">
+                        Roof Repairs Across Our Melbourne Service Areas
+                      </h4>
+                      <p className="text-xs text-[#b7c1d5] mb-4 font-light leading-relaxed">
+                        We service selected Melbourne suburbs. Tell us your suburb when you call so we can confirm coverage and availability:
+                      </p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {[
+                          'Dandenong',
+                          'Springvale',
+                          'Clayton',
+                          'Glen Waverley',
+                          'Rowville',
+                          'Berwick',
+                          'Narre Warren',
+                          'Pakenham',
+                        ].map((suburb, idx) => (
+                          <span
+                            key={idx}
+                            className="bg-white/10 text-[11px] px-2.5 py-1 rounded-full text-white/90 font-medium"
+                          >
+                            {suburb}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Related Services (Small section near bottom) */}
+                    <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#e6ebf6] shadow-sm">
+                      <h4 className="text-base font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-3">
+                        Related Services
+                      </h4>
+                      <p className="text-xs text-[#616a7e] mb-4 font-light">
+                        Looking for specialized tracing or full roof renewal?
+                      </p>
+                      <ul className="space-y-2">
+                        <li>
+                          <a
+                            href="/services/leak-detection"
+                            onClick={(e) => handleNav(e, 'services', 'leak-detection')}
+                            className="flex items-center justify-between p-3 rounded-xl hover:bg-[#f4f8ff] text-xs text-[#1e2e4f] hover:text-[#f19e1f] font-semibold transition-colors border border-[#e6ebf6]"
+                          >
+                            <span>Roof Leak Detection</span>
+                            <i className="fa-solid fa-arrow-right text-[10px] text-[#b7c1d5]"></i>
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="/services/roof-restoration"
+                            onClick={(e) => handleNav(e, 'services', 'roof-restoration')}
+                            className="flex items-center justify-between p-3 rounded-xl hover:bg-[#f4f8ff] text-xs text-[#1e2e4f] hover:text-[#f19e1f] font-semibold transition-colors border border-[#e6ebf6]"
+                          >
+                            <span>Roof Restoration</span>
+                            <i className="fa-solid fa-arrow-right text-[10px] text-[#b7c1d5]"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="bg-[#f4f8ff] rounded-3xl p-6 sm:p-8 border border-[#d6e2f5] shadow-sm">
+                      <h3 className="text-xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-2">
+                        Request an Inspection
+                      </h3>
+                      <p className="text-xs text-[#616a7e] mb-6 font-light">
+                        Have Peter or Boxy conduct a comprehensive condition inspection of your Melbourne roof.
+                      </p>
+                      <button
+                        onClick={() => openQuoteModal(service.name)}
+                        className="w-full bg-[#1e2e4f] hover:bg-[#f19e1f] text-white font-bold text-xs uppercase tracking-wider py-3.5 px-4 rounded-xl transition-all shadow-md mb-3 cursor-pointer text-center block"
+                      >
+                        Request Free Assessment
+                      </button>
+                      <a
+                        href={telHref}
+                        onClick={() => trackCallConversion()}
+                        className="w-full bg-white hover:bg-[#f8faff] border border-[#cbd5e1] text-[#1e2e4f] font-bold text-xs uppercase tracking-wider py-3 px-4 rounded-xl transition-all flex items-center justify-center gap-2 text-center"
+                      >
+                        <i className="fa-solid fa-phone text-[#f19e1f]"></i>
+                        <span>{displayPhone}</span>
+                      </a>
+                    </div>
+
+                    {/* Other Core Services Links */}
+                    <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#e6ebf6] shadow-sm">
+                      <h4 className="text-base font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-4">
+                        Other Roofing Services
+                      </h4>
+                      <ul className="space-y-2">
+                        {otherServices.map((other) => (
+                          <li key={other.slug}>
+                            <a
+                              href={other.canonicalPath}
+                              onClick={(e) => handleNav(e, 'services', other.slug)}
+                              className="flex items-center justify-between p-3 rounded-xl hover:bg-[#f4f8ff] text-sm text-[#1e2e4f] hover:text-[#f19e1f] font-medium transition-colors border border-transparent hover:border-[#e6ebf6]"
+                            >
+                              <span>{other.name}</span>
+                              <i className="fa-solid fa-arrow-right text-xs text-[#b7c1d5]"></i>
+                            </a>
+                          </li>
+                        ))}
+                        <li>
+                          <a
+                            href="/services"
+                            onClick={(e) => handleNav(e, 'services')}
+                            className="flex items-center justify-between p-3 rounded-xl bg-[#f8faff] text-xs uppercase tracking-wider font-bold text-[#1e2e4f] hover:text-[#f19e1f] transition-colors mt-2"
+                          >
+                            <span>View All 24 Services</span>
+                            <i className="fa-solid fa-chevron-right text-xs text-[#f19e1f]"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+
+                    {/* Service Areas */}
+                    <div className="bg-[#1e2e4f] text-white rounded-3xl p-6 sm:p-8">
+                      <h4 className="text-base font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-white mb-2">
+                        Melbourne Coverage
+                      </h4>
+                      <p className="text-xs text-[#b7c1d5] mb-4 font-light">
+                        Providing {service.name} across inner and outer Melbourne:
+                      </p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {SERVICE_AREAS.slice(0, 10).map((area, idx) => (
+                          <span key={idx} className="bg-white/10 text-[11px] px-2.5 py-1 rounded-full text-white/90">
+                            {area}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
 
             </div>
           </div>
         </section>
 
-        {/* ── Related Recent Projects ── */}
-        {relatedProjects.length > 0 && (
+        {/* ── Related Recent Projects (For other services) ── */}
+        {service.slug !== 'roof-repairs' && relatedProjects.length > 0 && (
           <section className="py-16 bg-[#f4f8ff] border-t border-[#e6ebf6]">
             <div className="max-w-[1320px] mx-auto px-4 sm:px-8">
               <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-10 gap-4">
@@ -607,36 +824,69 @@ export const Services: React.FC = () => {
         )}
 
         {/* ── Bottom Call To Action ── */}
-        <section className="py-16 bg-white">
-          <div className="max-w-[1320px] mx-auto px-4 sm:px-8">
-            <div className="bg-[#f19e1f] p-8 sm:p-12 rounded-3xl text-[#1e2e4f] flex flex-col md:flex-row justify-between items-center gap-6 shadow-md">
-              <div>
-                <h2 className="text-3xl sm:text-4xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-2">
-                  Ready To Discuss Your {service.name}?
-                </h2>
-                <p className="text-sm font-semibold text-[#1e2e4f]/90 max-w-xl">
-                  Get in touch with Peter & Boxy today for genuine advice, transparent fixed pricing, and certified workmanship.
-                </p>
-              </div>
-              <div className="flex flex-wrap items-center gap-3 shrink-0">
-                <button
-                  onClick={() => openQuoteModal(service.name)}
-                  className="bg-[#1e2e4f] hover:bg-[#152138] text-white font-bold text-xs uppercase tracking-wider px-8 py-4 rounded-full shadow-lg transition-all cursor-pointer"
-                >
-                  Book Free Assessment
-                </button>
-                <a
-                  href="tel:0478250790"
-                  onClick={() => trackCallConversion()}
-                  className="bg-white hover:bg-slate-50 text-[#1e2e4f] font-bold text-xs uppercase tracking-wider px-6 py-4 rounded-full transition-all shadow-sm flex items-center gap-2"
-                >
-                  <i className="fa-solid fa-phone text-[#f19e1f]"></i>
-                  <span>0478 250 790</span>
-                </a>
+        {service.slug === 'roof-repairs' ? (
+          <section className="py-16 bg-white">
+            <div className="max-w-[1320px] mx-auto px-4 sm:px-8">
+              <div className="bg-[#f19e1f] p-8 sm:p-12 rounded-3xl text-[#1e2e4f] flex flex-col md:flex-row justify-between items-center gap-6 shadow-md">
+                <div>
+                  <h2 className="text-3xl sm:text-4xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-2">
+                    Let’s Discuss Your Roof Repair
+                  </h2>
+                  <p className="text-sm font-semibold text-[#1e2e4f]/90 max-w-xl">
+                    Tell us your suburb and what is happening with your roof. Call Assist Roofing or leave your details for the team to contact you.
+                  </p>
+                </div>
+                <div className="flex flex-wrap items-center gap-3 shrink-0">
+                  <a
+                    href={telHref}
+                    onClick={() => trackCallConversion()}
+                    className="bg-[#1e2e4f] hover:bg-[#152138] text-white font-bold text-xs uppercase tracking-wider px-8 py-4 rounded-full shadow-lg transition-all flex items-center gap-2"
+                  >
+                    <i className="fa-solid fa-phone text-[#f19e1f]"></i>
+                    <span>Call {displayPhone}</span>
+                  </a>
+                  <button
+                    onClick={() => openCallbackModal('Roof Repairs')}
+                    className="bg-white hover:bg-slate-50 text-[#1e2e4f] font-bold text-xs uppercase tracking-wider px-6 py-4 rounded-full transition-all shadow-sm cursor-pointer"
+                  >
+                    Request a Callback
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        ) : (
+          <section className="py-16 bg-white">
+            <div className="max-w-[1320px] mx-auto px-4 sm:px-8">
+              <div className="bg-[#f19e1f] p-8 sm:p-12 rounded-3xl text-[#1e2e4f] flex flex-col md:flex-row justify-between items-center gap-6 shadow-md">
+                <div>
+                  <h2 className="text-3xl sm:text-4xl font-bold font-['Oswald',sans-serif] uppercase tracking-tight text-[#1e2e4f] mb-2">
+                    Ready To Discuss Your {service.name}?
+                  </h2>
+                  <p className="text-sm font-semibold text-[#1e2e4f]/90 max-w-xl">
+                    Get in touch with Peter & Boxy today for genuine advice, transparent fixed pricing, and certified workmanship.
+                  </p>
+                </div>
+                <div className="flex flex-wrap items-center gap-3 shrink-0">
+                  <button
+                    onClick={() => openQuoteModal(service.name)}
+                    className="bg-[#1e2e4f] hover:bg-[#152138] text-white font-bold text-xs uppercase tracking-wider px-8 py-4 rounded-full shadow-lg transition-all cursor-pointer"
+                  >
+                    Book Free Assessment
+                  </button>
+                  <a
+                    href={telHref}
+                    onClick={() => trackCallConversion()}
+                    className="bg-white hover:bg-slate-50 text-[#1e2e4f] font-bold text-xs uppercase tracking-wider px-6 py-4 rounded-full transition-all shadow-sm flex items-center gap-2"
+                  >
+                    <i className="fa-solid fa-phone text-[#f19e1f]"></i>
+                    <span>{displayPhone}</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
       </div>
     );
   }
@@ -848,12 +1098,12 @@ export const Services: React.FC = () => {
 
                 <div className="flex flex-wrap items-center gap-3 shrink-0">
                   <a
-                    href="tel:0478250790"
+                    href={telHref}
                     onClick={() => trackCallConversion()}
                     className="bg-[#f19e1f] hover:bg-[#d88713] text-[#1e2e4f] font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-full transition-all shadow-md flex items-center gap-2"
                   >
                     <i className="fa-solid fa-phone"></i>
-                    <span>Call 0478 250 790</span>
+                    <span>Call {displayPhone}</span>
                   </a>
                   <button
                     onClick={() => openQuoteModal('Custom Roofing Request')}

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && node server/sync-public-data.js && vite build && node server/sync-public-data.js --prerender",
-    "start": "node server/index.js",
+    "start": "vite preview",
     "lint": "oxlint src tools",
     "preview": "vite preview",
     "seo": "node tools/assist-seo.mjs report",

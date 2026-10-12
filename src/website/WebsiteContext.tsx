@@ -1,5 +1,11 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import type { PageId, CoreServiceSlug } from './types';
+import {
+  getForwardingPhoneNumber,
+  subscribeForwardingPhoneNumber,
+  syncDOMPhoneNumbers,
+  type PhoneNumberState
+} from './utils/tracking';
 
 interface LightboxData {
   src: string;
@@ -62,6 +68,9 @@ interface WebsiteContextType {
   lightboxData: LightboxData | null;
   openLightbox: (data: LightboxData) => void;
   closeLightbox: () => void;
+  displayPhone: string;
+  telHref: string;
+  isForwardingNumber: boolean;
 }
 
 const WebsiteContext = createContext<WebsiteContextType | undefined>(undefined);
@@ -75,6 +84,15 @@ export const WebsiteProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [modalMode, setModalMode] = useState<'callback' | 'quote'>('quote');
   const [initialServiceForQuote, setInitialServiceForQuote] = useState<string | undefined>(undefined);
   const [lightboxData, setLightboxData] = useState<LightboxData | null>(null);
+  const [phoneState, setPhoneState] = useState<PhoneNumberState>(() => getForwardingPhoneNumber());
+
+  useEffect(() => {
+    const unsubscribe = subscribeForwardingPhoneNumber((newState) => {
+      setPhoneState(newState);
+      syncDOMPhoneNumbers(newState.display, newState.tel);
+    });
+    return unsubscribe;
+  }, []);
 
   const navigateTo = useCallback((page: PageId, serviceSlug?: CoreServiceSlug | null) => {
     setCurrentPage(page);
@@ -87,6 +105,17 @@ export const WebsiteProvider: React.FC<{ children: React.ReactNode }> = ({ child
         window.history.pushState(null, '', targetPath);
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Run syncDOMPhoneNumbers across next tick and layout render to catch newly mounted elements
+      requestAnimationFrame(() => {
+        syncDOMPhoneNumbers();
+      });
+      setTimeout(() => {
+        syncDOMPhoneNumbers();
+      }, 50);
+      setTimeout(() => {
+        syncDOMPhoneNumbers();
+      }, 300);
     }
   }, []);
 
@@ -104,6 +133,9 @@ export const WebsiteProvider: React.FC<{ children: React.ReactNode }> = ({ child
       setCurrentPage(parsed.page);
       setCurrentServiceSlug(parsed.serviceSlug);
       setMobileMenuOpen(false);
+      requestAnimationFrame(() => {
+        syncDOMPhoneNumbers();
+      });
     };
 
     window.addEventListener('popstate', handlePopState);
@@ -132,10 +164,13 @@ export const WebsiteProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const openLightbox = (data: LightboxData) => setLightboxData(data);
   const closeLightbox = () => setLightboxData(null);
 
-  // Initialize WOW.js on page changes
+  // Initialize WOW.js and sync phone DOM on page changes
   useEffect(() => {
-    if (typeof window !== 'undefined' && (window as any).WOW) {
-      new (window as any).WOW().init();
+    if (typeof window !== 'undefined') {
+      if ((window as any).WOW) {
+        new (window as any).WOW().init();
+      }
+      syncDOMPhoneNumbers();
     }
   }, [currentPage, currentServiceSlug]);
 
@@ -156,7 +191,10 @@ export const WebsiteProvider: React.FC<{ children: React.ReactNode }> = ({ child
       closeQuoteModal,
       lightboxData,
       openLightbox,
-      closeLightbox
+      closeLightbox,
+      displayPhone: phoneState.display,
+      telHref: `tel:${phoneState.tel}`,
+      isForwardingNumber: phoneState.isForwarding
     }}>
       {children}
     </WebsiteContext.Provider>

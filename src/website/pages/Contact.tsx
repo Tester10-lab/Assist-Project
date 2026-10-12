@@ -8,12 +8,10 @@ import { trackLeadConversion, trackCallConversion } from '../utils/tracking';
 import { submitEnquiry } from '../utils/submitEnquiry';
 
 export const Contact: React.FC = () => {
-  const { navigateTo } = useWebsite();
+  const { navigateTo, displayPhone, telHref } = useWebsite();
   const { services: cmsServices, pages, settings } = useCmsContent();
 
   const allServices = cmsServices && cmsServices.length > 0 ? cmsServices : ALL_SERVICES_OFFERED;
-  const phone = settings?.business?.phone || '0478250790';
-  const displayPhone = phone.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
   const email = settings?.business?.email || 'info@assistroofing.com.au';
   const address = settings?.business?.address || '139 Boundary Road, North Melbourne VIC 3051';
   const hoursWeekday = settings?.business?.hoursWeekday || 'Mon - Fri: 7:00am - 6:00pm';
@@ -166,7 +164,7 @@ export const Contact: React.FC = () => {
               <div>
                 <span className="text-xs text-[#616a7e] font-bold uppercase tracking-wider block mb-1">Direct / Peter Bayamis</span>
                 <a
-                  href={`tel:${phone.replace(/\s+/g, '')}`}
+                  href={telHref}
                   onClick={() => trackCallConversion()}
                   className="text-base font-bold text-[#1e2e4f] hover:text-[#f19e1f] transition-colors block"
                 >
@@ -255,7 +253,7 @@ export const Contact: React.FC = () => {
 
                   <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-md mx-auto mb-4">
                     <a
-                      href={`tel:${phone.replace(/\s+/g, '')}`}
+                      href={telHref}
                       onClick={() => trackCallConversion()}
                       className="inline-flex items-center justify-center gap-2 bg-[#1e2e4f] hover:bg-[#152038] text-white px-6 py-3 rounded-full text-xs font-bold shadow-md transition-all text-decoration-none"
                     >
@@ -432,12 +430,12 @@ export const Contact: React.FC = () => {
                 </p>
 
                 <a
-                  href="tel:0478250790"
+                  href={telHref}
                   onClick={() => trackCallConversion()}
                   className="w-full bg-[#f19e1f] hover:bg-[#d88713] text-white py-3.5 rounded-full font-bold text-sm uppercase tracking-wider text-center flex items-center justify-center gap-2 shadow mb-4"
                 >
                   <i className="fa-solid fa-phone"></i>
-                  <span>Call 0478 250 790</span>
+                  <span>Call {displayPhone}</span>
                 </a>
 
                 {/* Social Channels */}

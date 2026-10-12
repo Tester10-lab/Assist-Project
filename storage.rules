@@ -1,0 +1,29 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    function isAdmin() {
+      return request.auth != null && (
+        ('admin' in request.auth.token && request.auth.token.admin == true) || 
+        ('email' in request.auth.token && request.auth.token.email == 'admin@assistroofing.com.au' && request.auth.token.email_verified == true)
+      );
+    }
+
+    // Media assets uploaded through CMS
+    match /uploads/{allPaths=**} {
+      // Allow public read for published site assets
+      allow read: if true;
+      
+      // Allow create/update/delete only for authenticated, verified admin
+      // Restrict uploads to images with maximum 25MB size
+      allow write: if isAdmin()
+                   && request.resource.size < 25 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*');
+    }
+
+    // Deny all other root access by default
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

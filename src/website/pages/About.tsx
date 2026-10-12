@@ -6,7 +6,7 @@ import { asset } from '../utils/asset';
 import { trackCallConversion } from '../utils/tracking';
 
 export const About: React.FC = () => {
-  const { navigateTo } = useWebsite();
+  const { navigateTo, displayPhone, telHref } = useWebsite();
 
   return (
     <div className="w-full bg-white text-[#1e2e4f] font-['Sora',sans-serif]">
@@ -216,12 +216,12 @@ export const About: React.FC = () => {
               Contact Us
             </a>
             <a
-              href="tel:0478250790"
+              href={telHref}
               onClick={() => trackCallConversion()}
               className="bg-[#f19e1f] hover:bg-[#d88713] text-white font-bold text-sm px-7 py-3.5 rounded-full shadow transition-all flex items-center gap-2"
             >
               <i className="fa-solid fa-phone text-xs"></i>
-              <span>0478 250 790</span>
+              <span>{displayPhone}</span>
             </a>
           </div>
         </div>
