@@ -46,14 +46,7 @@ service cloud.firestore {
                     && request.resource.data.email.size() > 0
                     && request.resource.data.email.size() < 150
                     && request.resource.data.message is string
-                    && request.resource.data.message.size() < 2000
-                    && (!('phone' in request.resource.data) || (request.resource.data.phone is string && request.resource.data.phone.size() < 40))
-                    && (!('address' in request.resource.data) || (request.resource.data.address is string && request.resource.data.address.size() < 250))
-                    && (!('service' in request.resource.data) || (request.resource.data.service is string && request.resource.data.service.size() < 100))
-                    && (!('preferredTime' in request.resource.data) || (request.resource.data.preferredTime is string && request.resource.data.preferredTime.size() < 100))
-                    && (!('urgency' in request.resource.data) || (request.resource.data.urgency is string && request.resource.data.urgency.size() < 50))
-                    && (!('type' in request.resource.data) || (request.resource.data.type is string && request.resource.data.type.size() < 50))
-                    && (!('createdAt' in request.resource.data) || (request.resource.data.createdAt is string && request.resource.data.createdAt.size() < 50));
+                    && request.resource.data.message.size() < 2000;
       allow read, update, delete: if isAdmin();
     }
     match /activity/{document} {
