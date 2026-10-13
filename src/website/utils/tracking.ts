@@ -89,22 +89,37 @@ export function syncDOMPhoneNumbers(targetDisplay?: string, targetTel?: string) 
     }
   });
 
-  // 2. Update visible text in specific phone containers and text nodes
-  const selectors = 'span, a, p, div, strong, h1, h2, h3, h4';
-  const candidates = document.querySelectorAll<HTMLElement>(selectors);
-  candidates.forEach(el => {
-    if (['SCRIPT', 'STYLE', 'INPUT', 'TEXTAREA'].includes(el.tagName)) return;
-    
-    // Only target leaf elements or simple icon+text nodes
-    if (el.children.length === 0 || (el.children.length === 1 && el.firstElementChild?.tagName === 'I')) {
-      const text = el.textContent || '';
-      if (text.includes('0478 250 790')) {
-        el.textContent = text.replace(/0478\s*250\s*790/g, display);
-      } else if ((window as any).__lastReplacedDisplay && (window as any).__lastReplacedDisplay !== display && text.includes((window as any).__lastReplacedDisplay)) {
-        el.textContent = text.split((window as any).__lastReplacedDisplay).join(display);
+  // 2. Safely update text nodes in place using TreeWalker (preserves React virtual DOM Text node references)
+  if (document.body) {
+    const walker = document.createTreeWalker(
+      document.body,
+      NodeFilter.SHOW_TEXT,
+      {
+        acceptNode(node) {
+          if (!node.parentElement) return NodeFilter.FILTER_REJECT;
+          const tag = node.parentElement.tagName;
+          if (['SCRIPT', 'STYLE', 'INPUT', 'TEXTAREA'].includes(tag)) {
+            return NodeFilter.FILTER_REJECT;
+          }
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      }
+    );
+
+    let textNode: Node | null;
+    while ((textNode = walker.nextNode())) {
+      const val = textNode.nodeValue || '';
+      if (val.includes('0478 250 790')) {
+        textNode.nodeValue = val.replace(/0478\s*250\s*790/g, display);
+      } else if (
+        (window as any).__lastReplacedDisplay &&
+        (window as any).__lastReplacedDisplay !== display &&
+        val.includes((window as any).__lastReplacedDisplay)
+      ) {
+        textNode.nodeValue = val.split((window as any).__lastReplacedDisplay).join(display);
       }
     }
-  });
+  }
 
   (window as any).__lastReplacedDisplay = display;
   (window as any).__lastReplacedTel = telDigits;

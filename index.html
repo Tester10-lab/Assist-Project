@@ -76,12 +76,16 @@
 
       // 2. Google Ads Destination (AW-18404411620)
       gtag('config', 'AW-18404411620');
+    </script>
 
-      // 3. Website-call snippet: Call (0478 250 790)
+    <!-- Google Ads Phone Snippet: Calls to phone number on website (0478 250 790) -->
+    <script>
       gtag('config', 'AW-18404411620/2y2sCPWtrJodEOSR9MdE', {
         'phone_conversion_number': '0478 250 790',
         'phone_conversion_callback': function(formatted_number, mobile_number) {
-          window.__handleGoogleForwardingNumber(formatted_number, mobile_number);
+          if (typeof window.__handleGoogleForwardingNumber === 'function') {
+            window.__handleGoogleForwardingNumber(formatted_number, mobile_number);
+          }
         }
       });
     </script>
