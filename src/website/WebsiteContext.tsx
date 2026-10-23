@@ -207,3 +207,40 @@ export const useWebsite = () => {
   return context;
 };
 
+export interface AppLocation {
+  pathname: string;
+  search: string;
+  hash: string;
+}
+
+export const useLocation = (): AppLocation => {
+  const [location, setLocation] = useState<AppLocation>(() => ({
+    pathname: typeof window !== 'undefined' ? window.location.pathname : '/',
+    search: typeof window !== 'undefined' ? window.location.search : '',
+    hash: typeof window !== 'undefined' ? window.location.hash : ''
+  }));
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const handleLocationChange = () => {
+      setLocation({
+        pathname: window.location.pathname,
+        search: window.location.search,
+        hash: window.location.hash
+      });
+      syncDOMPhoneNumbers();
+    };
+
+    window.addEventListener('popstate', handleLocationChange);
+    window.addEventListener('hashchange', handleLocationChange);
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+      window.removeEventListener('hashchange', handleLocationChange);
+    };
+  }, []);
+
+  return location;
+};
+
+

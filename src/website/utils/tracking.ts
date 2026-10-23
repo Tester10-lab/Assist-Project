@@ -151,14 +151,17 @@ export function initGoogleAdsTracking(customConfig?: Partial<TrackingConfig>) {
     lastInitializedTrackingKey = trackingKey;
 
     if (adsId) {
-      if (callLabel) {
-        const sendTo = callLabel.includes('/') ? callLabel : `${adsId}/${callLabel}`;
+      const sendTo = callLabel ? (callLabel.includes('/') ? callLabel : `${adsId}/${callLabel}`) : adsId;
+      
+      // Do not push duplicate phone config if already registered in dataLayer (e.g. from index.html)
+      const dataLayer = (window as any).dataLayer;
+      const isAlreadyConfigured = Array.isArray(dataLayer) && dataLayer.some((item: any) => {
+        const arr = Array.from(item || []);
+        return arr[0] === 'config' && (arr[1] === sendTo || (typeof arr[2] === 'object' && (arr[2] as any)?.phone_conversion_number === phoneTarget));
+      });
+
+      if (!isAlreadyConfigured) {
         gtag('config', sendTo, {
-          phone_conversion_number: phoneTarget,
-          phone_conversion_callback: (window as any).__handleGoogleForwardingNumber
-        });
-      } else {
-        gtag('config', adsId, {
           phone_conversion_number: phoneTarget,
           phone_conversion_callback: (window as any).__handleGoogleForwardingNumber
         });
