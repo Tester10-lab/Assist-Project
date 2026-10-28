@@ -72,55 +72,26 @@
       "slug": "roof-repairs",
       "category": "repairs",
       "categoryLabel": "Repairs & Leaks",
-      "heroHeading": "Roof Leak & Emergency Repairs Melbourne",
-      "shortDescription": "Leaking roof, broken tiles or damaged flashing? Speak to Assist Roofing about your roofing issue. Tell us your suburb and request a roof repair quote.",
-      "fullDescription": "Assist Roofing helps homeowners identify roof leaks and repair damaged roofing across our Melbourne service areas. Whether you have water entering your ceiling, broken tiles or damaged flashing, tell us what is happening so we can discuss the next step.",
-      "image": "/roofora-assets/images/services-img1.jpg",
+      "image": "/roofora-assets/images/services-img2.jpg",
       "icon": "fa-solid fa-screwdriver-wrench",
-      "badge": "VBA Registered",
       "features": [
-        "Roof leaks: Investigating water entry and discussing suitable repairs.",
-        "Broken or slipped tiles: Repairing damaged areas of tiled roofs.",
-        "Flashing and valleys: Repairing roofing details that can allow water to enter.",
-        "Metal roof damage: Assessing damaged sheets and repair requirements.",
-        "Ridge capping: Checking damaged bedding and pointing.",
-        "Storm damage: Assessing damaged roofing and discussing available temporary protection or repairs."
+        "Broken Tile Replacement",
+        "Valley Iron Renewal",
+        "Rafter Straightening",
+        "Safety Rail Equipped"
       ],
       "benefits": [
-        "VBA Registered & Fully Insured",
-        "Prompt Melbourne Service Area Attendance",
-        "Clear, itemized repair quotes"
+        "Extends roof longevity",
+        "Prevents costly structural rot"
       ],
-      "faqs": [
-        {
-          "q": "Can you help with an active roof leak?",
-          "a": "Call 0478 250 790 and tell us your suburb and what is happening. Our team will discuss availability and the next step. Attendance and roof access depend on weather and safe working conditions."
-        },
-        {
-          "q": "Do you repair both tiled and metal roofs?",
-          "a": "We assess roof leaks and repair issues affecting tiled and metal roofs. Tell us your roof type and the problem so we can confirm whether we can help."
-        },
-        {
-          "q": "How much will my roof repair cost?",
-          "a": "The price depends on the damage, access and work required. Contact us to discuss an assessment and repair quote. Any inspection or callout fee will be confirmed during booking."
-        },
-        {
-          "q": "Can I request a callback instead of calling?",
-          "a": "Yes. Leave your name, phone number, suburb and a brief description of the issue using our callback form. Our team will contact you during our confirmed enquiry hours."
-        },
-        {
-          "q": "Can repairs be carried out during rain?",
-          "a": "This depends on the weather, roof access and whether the work can be carried out safely. Our team will discuss available options after assessing the situation."
-        },
-        {
-          "q": "Do you help with insurance related roof damage?",
-          "a": "Contact us to discuss what assessment or documentation we can provide for your roofing issue. Your insurer decides what is covered and which documents it requires."
-        }
-      ],
-      "seoTitle": "Roof Leak and Emergency Repairs Melbourne | Assist Roofing",
-      "metaDescription": "Need roof leak or emergency repairs in Melbourne? Call Assist Roofing on 0478 250 790 or request a callback to discuss your roof repair.",
+      "faqs": [],
+      "seoTitle": "Roof Repairs Melbourne | Certified Roofing Trades | Assist Roofing",
+      "metaDescription": "Professional roof repairs across Melbourne. Fast fixes for cracked tiles, leaking valleys, and storm damage.",
       "status": "published",
-      "order": 3
+      "order": 3,
+      "badge": "Roof & Leak Repairs",
+      "shortDescription": "Roof leak repairs, broken tiles and damaged flashing across our Melbourne service areas.",
+      "fullDescription": "Assist Roofing provides roof repairs and leak detection across our Melbourne service areas. We repair broken tiles, damaged roofing sheets, valleys and flashing. Call 0478 250 790 or submit an enquiry with your suburb and roofing issue to discuss the repair and request a quote."
     },
     {
       "id": "new-roof-installation",
@@ -909,5 +880,5 @@
       "elfsightEnabled": true
     }
   },
-  "exportedAt": "2026-10-11T01:51:32.406Z"
+  "exportedAt": "2026-10-23T03:25:13.484Z"
 }

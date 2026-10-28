@@ -129,6 +129,30 @@ if (typeof window !== 'undefined') {
   (window as any).__syncDOMPhoneNumbers = syncDOMPhoneNumbers;
 }
 
+let forwardingObserver: MutationObserver | null = null;
+export function ensureForwardingObserver() {
+  if (typeof document === 'undefined' || typeof MutationObserver === 'undefined') return;
+  if (forwardingObserver) return;
+
+  let debounceTimer: any = null;
+  forwardingObserver = new MutationObserver(() => {
+    if (getForwardingPhoneNumber().isForwarding) {
+      if (debounceTimer) clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        syncDOMPhoneNumbers();
+      }, 50);
+    }
+  });
+
+  if (document.body) {
+    forwardingObserver.observe(document.body, { childList: true, subtree: true });
+  }
+}
+
+if (typeof window !== 'undefined') {
+  (window as any).__ensureForwardingObserver = ensureForwardingObserver;
+}
+
 let lastInitializedTrackingKey = '';
 
 /**
@@ -145,24 +169,26 @@ export function initGoogleAdsTracking(customConfig?: Partial<TrackingConfig>) {
   const adsId = config.googleAdsId || 'AW-18404411620';
   const callLabel = config.googleAdsCallConversionLabel || '2y2sCPWtrJodEOSR9MdE';
   const phoneTarget = config.phoneConversionNumber || '0478 250 790';
+  const fullCallId = callLabel ? (callLabel.includes('/') ? callLabel : `${adsId}/${callLabel}`) : adsId;
   const trackingKey = `${adsId}|${callLabel}|${phoneTarget}`;
 
   if (lastInitializedTrackingKey !== trackingKey) {
     lastInitializedTrackingKey = trackingKey;
 
     if (adsId) {
-      const sendTo = callLabel ? (callLabel.includes('/') ? callLabel : `${adsId}/${callLabel}`) : adsId;
+      const sendTo = fullCallId;
       
       // Do not push duplicate phone config if already registered in dataLayer (e.g. from index.html)
       const dataLayer = (window as any).dataLayer;
       const isAlreadyConfigured = Array.isArray(dataLayer) && dataLayer.some((item: any) => {
         const arr = Array.from(item || []);
-        return arr[0] === 'config' && (arr[1] === sendTo || (typeof arr[2] === 'object' && (arr[2] as any)?.phone_conversion_number === phoneTarget));
+        return arr[0] === 'config' && arr[1] === sendTo && typeof arr[2] === 'object' && (arr[2] as any)?.phone_conversion_number === phoneTarget;
       });
 
       if (!isAlreadyConfigured) {
         gtag('config', sendTo, {
           phone_conversion_number: phoneTarget,
+          phone_conversion_ids: [fullCallId],
           phone_conversion_callback: (window as any).__handleGoogleForwardingNumber
         });
       }
@@ -178,6 +204,7 @@ export function initGoogleAdsTracking(customConfig?: Partial<TrackingConfig>) {
     }, phoneTarget);
   }
 
+  ensureForwardingObserver();
   syncDOMPhoneNumbers();
 }
 

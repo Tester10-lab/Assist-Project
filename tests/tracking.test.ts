@@ -179,6 +179,7 @@ describe('Google Ads Phone Conversion & Tracking Suite', () => {
     // Initial head script in index.html
     (globalThis as any).gtag('config', 'AW-18404411620/2y2sCPWtrJodEOSR9MdE', {
       phone_conversion_number: '0478 250 790',
+      phone_conversion_ids: ['AW-18404411620/2y2sCPWtrJodEOSR9MdE'],
       phone_conversion_callback: (globalThis as any).__handleGoogleForwardingNumber
     });
 

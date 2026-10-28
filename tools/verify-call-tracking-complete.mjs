@@ -3,8 +3,8 @@ import http from 'http';
 
 const CHROME_PATH = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
 const PORT = 9230;
-const BASE_URL = 'http://127.0.0.1:5190';
-const TEST_URL = `${BASE_URL}/services/roof-repairs/`;
+const BASE_URL = process.argv[2] || process.env.TEST_BASE_URL || 'https://project-1-c8b7e.web.app';
+const TEST_URL = `${BASE_URL}/services/roof-repairs/#google-wcc-debug`;
 
 async function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -124,7 +124,16 @@ async function run() {
 
     console.log(`[Step 1] Loading URL: ${TEST_URL}`);
     await cdp.send('Page.navigate', { url: TEST_URL });
-    await sleep(2500); // Allow React to hydrate and scripts to execute
+    
+    // Wait for React to mount and tracking helpers to initialize
+    let waited = 0;
+    while (waited < 12000) {
+      const ready = await cdp.eval(`Boolean(document.querySelector('#root')?.children?.length > 0 && typeof window.__syncDOMPhoneNumbers === 'function')`);
+      if (ready) break;
+      await sleep(300);
+      waited += 300;
+    }
+    console.log(`[Hydration Ready] Waited ${waited}ms for React and tracking helpers`);
 
     // 1. Verify Deployment & Execution of exact Google Ads Snippet
     console.log('\n--- 1. GOOGLE ADS CALL SNIPPET EXECUTION AUDIT ---');
@@ -162,6 +171,7 @@ async function run() {
         dataLayerConfigs,
         hasCallConfig: Boolean(callConfig),
         callConfigDetails: callConfig,
+        hasPhoneConversionIds: Boolean(callConfig?.params?.phone_conversion_ids?.includes('AW-18404411620/2y2sCPWtrJodEOSR9MdE')),
         hasBaseAdsConfig: Boolean(baseAdsConfig),
         hasGa4Config: Boolean(ga4Config),
         hasForwardingHandler: typeof window.__handleGoogleForwardingNumber === 'function',
@@ -228,30 +238,39 @@ async function run() {
     // 4. Client-Side SPA Navigation Test
     console.log('\n--- 4. CLIENT-SIDE NAVIGATION (SPA) FORWARDING PERSISTENCE ---');
     
-    // Navigate via React WebsiteContext state or history popstate
-    console.log('Navigating to Roof Restoration (/services/roof-restoration)...');
+    // Navigate to Roof Replacement (/services/roof-replacement/)
+    console.log('Navigating to Roof Replacement (/services/roof-replacement)...');
     await cdp.eval(`(() => {
-      window.history.pushState(null, '', '/services/roof-restoration');
+      window.history.pushState(null, '', '/services/roof-replacement');
       window.dispatchEvent(new PopStateEvent('popstate'));
     })()`);
-    await sleep(400);
+    await sleep(600);
 
     const nav1Report = await cdp.eval(`(() => {
       const telLinks = Array.from(document.querySelectorAll('a[href^="tel:"]')).map(a => ({
         href: a.getAttribute('href'),
-        text: a.textContent.trim()
+        text: a.textContent.trim(),
+        classes: a.className,
+        parent: a.parentElement ? a.parentElement.tagName : null
       }));
       const nonReplaced = telLinks.filter(l => !l.href.includes('0399998888'));
+      
+      const headerBtn = document.querySelector('header a[href^="tel:"]');
+      const footerBtn = document.querySelector('footer a[href^="tel:"]');
+      const stickyMobileBtn = document.querySelector('.mobile-call-sticky a[href^="tel:"], .mobile-call-btn, a[href^="tel:"].fixed, .call-btn-mobile');
+
       return {
         currentPath: window.location.pathname,
         pageTitle: document.title,
         totalTelLinks: telLinks.length,
         allLinksPreserved: nonReplaced.length === 0,
-        bodySnippet: document.body.innerHTML.substring(0, 400),
-        sampleLinks: telLinks.slice(0, 3)
+        nonReplacedCount: nonReplaced.length,
+        headerCallLink: headerBtn ? { href: headerBtn.getAttribute('href'), text: headerBtn.textContent.trim() } : 'Not isolated in header tag',
+        footerCallLink: footerBtn ? { href: footerBtn.getAttribute('href'), text: footerBtn.textContent.trim() } : 'Not isolated in footer tag',
+        sampleLinks: telLinks
       };
     })()`);
-    console.log('Nav 1 (Roof Restoration) Report:', JSON.stringify(nav1Report, null, 2));
+    console.log('Nav 1 (Roof Replacement) Report:', JSON.stringify(nav1Report, null, 2));
 
     console.log('\nNavigating to About Us (/about)...');
     await cdp.eval(`(() => {
