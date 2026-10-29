@@ -171,7 +171,6 @@ async function run() {
         dataLayerConfigs,
         hasCallConfig: Boolean(callConfig),
         callConfigDetails: callConfig,
-        hasPhoneConversionIds: Boolean(callConfig?.params?.phone_conversion_ids?.includes('AW-18404411620/2y2sCPWtrJodEOSR9MdE')),
         hasBaseAdsConfig: Boolean(baseAdsConfig),
         hasGa4Config: Boolean(ga4Config),
         hasForwardingHandler: typeof window.__handleGoogleForwardingNumber === 'function',

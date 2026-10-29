@@ -188,7 +188,6 @@ export function initGoogleAdsTracking(customConfig?: Partial<TrackingConfig>) {
       if (!isAlreadyConfigured) {
         gtag('config', sendTo, {
           phone_conversion_number: phoneTarget,
-          phone_conversion_ids: [fullCallId],
           phone_conversion_callback: (window as any).__handleGoogleForwardingNumber
         });
       }
